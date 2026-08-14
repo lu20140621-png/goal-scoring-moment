@@ -31,7 +31,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans
 .lessonWrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 0 200px;min-height:570px}
 .grid8{display:grid;grid-template-columns:repeat(4,96px);gap:10px}
 .slot{width:96px;height:132px;border-radius:14px;border:3px solid #fff;background:#f5f9ff;box-shadow:0 6px 14px rgba(18,58,115,.22);color:var(--navy);font-weight:1000;font-size:12px;padding:8px;text-align:center;display:grid;place-items:center;cursor:default;position:relative}
-.slot.hidden{background:linear-gradient(180deg,#1c4c8f,#113869);color:#fff}
+.slot.hidden{background:#12396a url('images/card-back.webp') center/cover no-repeat;color:transparent;text-shadow:none;overflow:hidden}
 .slot.good{outline:5px solid var(--gold);cursor:pointer;transform:translateY(-2px)}
 .slot.selected{outline:5px solid #1b64b4;transform:translateY(-6px)}
 .slot.smalltxt{font-size:11px;line-height:1.15}
@@ -65,7 +65,6 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans
     <a class="btn" href="index.html">Modes</a>
   </div>
 </div>
-
 <div class="board">
   <div class="centerCircle"></div>
   <div class="hud">
@@ -74,315 +73,53 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans
     <div class="line3" id="courseTitle">Set Up Your Grid</div>
     <div class="progress" id="progress"></div>
   </div>
-
   <div class="lessonWrap">
     <div class="grid8" id="grid"></div>
     <div class="pairInfo" id="pairInfo"></div>
     <div class="sideNote" id="message">Ready.</div>
   </div>
-
   <div class="arrow" id="arrow"><div class="bubble" id="arrowText">TAP HERE</div><div class="arr">↓</div></div>
-
-  <div class="actionBar">
-    <div class="what">What To Do</div>
-    <div class="row">
-      <button class="btn green" id="primaryBtn">Start</button>
-      <button class="btn" id="secondaryBtn" style="display:none"></button>
-    </div>
-  </div>
+  <div class="actionBar"><div class="what">What To Do</div><div class="row"><button class="btn green" id="primaryBtn">Start</button><button class="btn" id="secondaryBtn" style="display:none"></button></div></div>
 </div>
-
-<div class="modal show" id="introModal">
-  <div class="box">
-    <div class="eyebrow">Math Challenge Mode • Game Night</div>
-    <h2>HOW TO PLAY</h2>
-    <div class="rules">
-      <div><span class="num">1</span>Build a <b>2 × 4</b> grid with <b>8 face-down cards</b>.</div>
-      <div><span class="num">2</span>Before play begins, reveal <b>any 2 cards</b> in your grid.</div>
-      <div><span class="num">3</span>On each turn, choose <b>ONE</b>: draw from the <b>Draw Pile</b> or take the top card from the <b>Discard Pile</b>.</div>
-      <div><span class="num">4</span>Replace cards to build better scoring combinations.</div>
-      <div><span class="num">5</span><b>Only vertical pairs score.</b> Horizontal and diagonal pairs do <b>not</b> score.</div>
-      <div><span class="num">6</span>If <b>all 4 cards match</b> in a 2 × 2 block, score both columns first, then add a <b>+5 bonus</b>.</div>
-      <div><span class="num">7</span>An <b>unmatched YELLOW CARD</b> scores <b>-3</b>. Other unmatched single cards score <b>0</b>.</div>
-      <div><span class="num">8</span>The game ends after <b>9 rounds</b>, or after <b>Final Turn</b>. Highest total score wins.</div>
-    </div>
-    <button class="btn green" id="startTutorialBtn" style="margin-top:14px">START TUTORIAL</button>
-  </div>
-</div>
-
+<div class="modal show" id="introModal"><div class="box"><div class="eyebrow">Math Challenge Mode • Game Night</div><h2>HOW TO PLAY</h2><div class="rules"><div><span class="num">1</span>Build a <b>2 × 4</b> grid with <b>8 face-down cards</b>.</div><div><span class="num">2</span>Before play begins, reveal <b>any 2 cards</b> in your grid.</div><div><span class="num">3</span>On each turn, choose <b>ONE</b>: draw from the <b>Draw Pile</b> or take the top card from the <b>Discard Pile</b>.</div><div><span class="num">4</span>Replace cards to build better scoring combinations.</div><div><span class="num">5</span><b>Only vertical pairs score.</b> Horizontal and diagonal pairs do <b>not</b> score.</div><div><span class="num">6</span>If <b>all 4 cards match</b> in a 2 × 2 block, score both columns first, then add a <b>+5 bonus</b>.</div><div><span class="num">7</span>An <b>unmatched YELLOW CARD</b> scores <b>-3</b>. Other unmatched single cards score <b>0</b>.</div><div><span class="num">8</span>The game ends after <b>9 rounds</b>, or after <b>Final Turn</b>. Highest total score wins.</div></div><button class="btn green" id="startTutorialBtn" style="margin-top:14px">START TUTORIAL</button></div></div>
 <div class="modal" id="lessonModal"><div class="box"><div class="eyebrow" id="lessonEyebrow"></div><h2 id="lessonModalTitle"></h2><p id="lessonModalText"></p><button class="btn green" id="lessonModalClose">GOT IT</button></div></div>
 <div class="modal" id="completeModal"><div class="box"><div class="eyebrow">Course Complete</div><h2>CORRECT!</h2><p id="completeText"></p><button class="btn green" id="nextCourseBtn">NEXT COURSE</button></div></div>
 <div class="modal" id="finishModal"><div class="box"><div class="eyebrow">Tutorial Complete</div><h2>You’re Ready To Play!</h2><p>Choose any course to practice again, or go back to the mode selection page.</p><div class="choices" id="finishChoices"></div><a class="btn red" href="index.html" style="display:block;margin-top:12px">I'VE GOT IT — BACK TO MODES</a></div></div>
 <div class="modal" id="coursesModal"><div class="box"><div class="eyebrow">Math Challenge Mode</div><h2>Courses</h2><div class="choices" id="courseChoices"></div><button class="btn" id="coursesCloseBtn" style="margin-top:12px">CLOSE</button></div></div>
 <div class="modal" id="guideModal"><div class="box"><div class="eyebrow">Quick Reference</div><h2>Scoring Guide</h2><p><span class="noteRed">Important:</span> <b>Only vertical pairs score.</b> Horizontal pairs and diagonal pairs do <b>not</b> score.</p><table class="guideTable"><tr><th>Combination</th><th>Score</th></tr><tr><td>DEFENSE + DEFENSE</td><td>2</td></tr><tr><td>TACKLE + TACKLE</td><td>3</td></tr><tr><td>DRIBBLE PAST + DRIBBLE PAST</td><td>4</td></tr><tr><td>SHOOT + SHOOT</td><td>5</td></tr><tr><td>PLAYER + PLAYER</td><td>7</td></tr><tr><td>GOALKEEPER + GOALKEEPER</td><td>12</td></tr><tr><td>PLAYER + TACKLE</td><td>4</td></tr><tr><td>PLAYER + DRIBBLE PAST</td><td>5</td></tr><tr><td>PLAYER + SHOOT</td><td>6</td></tr><tr><td>SOCCER + TACKLE</td><td>6</td></tr><tr><td>SOCCER + DRIBBLE PAST</td><td>7</td></tr><tr><td>SOCCER + SHOOT</td><td>8</td></tr><tr><td>SOCCER + PLAYER</td><td>10</td></tr><tr><td>GOALKEEPER + DEFENSE</td><td>10</td></tr><tr><td>4 matching cards bonus</td><td>Score both columns + 5 bonus</td></tr><tr><td>Unmatched YELLOW CARD</td><td>-3</td></tr><tr><td>Other unmatched single</td><td>0</td></tr></table><button class="btn green" id="guideCloseBtn" style="margin-top:12px">CLOSE</button></div></div>
-
 <script>
-const lessons = [
-  {title:'Set Up Your Grid', text:'Place 8 cards face-down in a 2 × 4 grid. This is your starting layout.', label:'SET UP THE 2 × 4 GRID'},
-  {title:'Reveal 2 Starting Cards', text:'Before the first turn begins, reveal any 2 cards in your grid.', label:'REVEAL 2 STARTING CARDS'},
-  {title:'Draw Card or Take Discard', text:'At the start of your turn, choose ONE: draw the top card from the Draw Pile, or take the top card from the Discard Pile.', label:'DRAW OR TAKE DISCARD'},
-  {title:'Replace A Card', text:'Use the card you took to replace one card in your grid.', label:'REPLACE A CARD'},
-  {title:'Vertical Pairs Score', text:'Only vertical pairs score. Horizontal pairs and diagonal pairs do not score.', label:'ONLY VERTICAL PAIRS SCORE'},
-  {title:'4 Matching Cards Bonus', text:'If both vertical pairs are the same card, score both columns first, then add a +5 bonus.', label:'4 MATCHING CARDS BONUS'},
-  {title:'Yellow Card Single = -3', text:'An unmatched YELLOW CARD is the only single card that scores -3. Other unmatched single cards score 0.', label:'UNMATCHED YELLOW = -3'},
-  {title:'End Game / Final Turn', text:'The game ends after 9 rounds, or when a player reveals all cards. Then every other player gets one final turn.', label:'END GAME / FINAL TURN'}
-];
-
-const $ = id => document.getElementById(id);
-let current = 0;
-let phase = 0;
-let slots = [];
-let selected = [];
-let chosenCard = '';
-
-function makeCard(name, hidden=false){ return {name, hidden}; }
-function setMessage(text){ $('message').textContent = text; }
-function setPrimary(text, show=true){ $('primaryBtn').textContent = text; $('primaryBtn').style.display = show ? 'inline-block' : 'none'; $('primaryBtn').disabled = false; }
-function setSecondary(text, show=false){ $('secondaryBtn').textContent = text; $('secondaryBtn').style.display = show ? 'inline-block' : 'none'; $('secondaryBtn').disabled = false; }
-function updateHeader(){
-  $('courseCount').textContent = `TUTORIAL ${current+1} OF 8`;
-  $('courseTitle').textContent = lessons[current].title;
-  $('progress').innerHTML = lessons.map((_,i)=>`<div class="p ${i===current?'on':''}"></div>`).join('');
-}
-function clearArrow(){ $('arrow').classList.remove('show'); $('arrow').style.left=''; $('arrow').style.top=''; $('arrow').style.bottom=''; }
-function showArrowTo(el,text){
-  const board = document.querySelector('.board').getBoundingClientRect();
-  const rect = el.getBoundingClientRect();
-  $('arrowText').textContent = text;
-  const arrow = $('arrow');
-  arrow.classList.add('show');
-  arrow.style.left = `${rect.left - board.left + rect.width/2}px`;
-  arrow.style.top = `${rect.top - board.top - 76}px`;
-}
-function clearSelectable(){
-  selected = [];
-  document.querySelectorAll('.slot').forEach(el=>{ el.classList.remove('good','selected'); el.onclick = null; });
-}
-function setGrid(arr){ slots = arr; renderGrid(); }
-function renderGrid(){
-  const grid = $('grid');
-  grid.innerHTML = '';
-  slots.forEach((card, idx)=>{
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'slot' + (card.hidden ? ' hidden' : '');
-    btn.dataset.idx = idx;
-    btn.innerHTML = card.hidden ? 'CARD BACK' : `<div class="scoreTag"></div><div>${card.name}</div>`;
-    grid.appendChild(btn);
-  });
-}
-function enableSlots(indices, arrowText){
-  clearSelectable();
-  indices.forEach(i=>{
-    const el = document.querySelector(`.slot[data-idx="${i}"]`);
-    if(!el) return;
-    el.classList.add('good');
-    el.onclick = ()=>slotClick(i);
-  });
-  if(indices.length){
-    const first = document.querySelector(`.slot[data-idx="${indices[0]}"]`);
-    if(first) showArrowTo(first, arrowText);
-  }
-}
-function showPairInfo(items){
-  const wrap = $('pairInfo');
-  if(!items || !items.length){ wrap.classList.remove('show'); wrap.innerHTML = ''; return; }
-  wrap.innerHTML = items.map(t=>`<div class="mini">${t}</div>`).join('');
-  wrap.classList.add('show');
-}
-function showCourseModal(){
-  $('lessonEyebrow').textContent = `TUTORIAL ${current+1} OF 8`;
-  $('lessonModalTitle').textContent = lessons[current].title;
-  $('lessonModalText').textContent = lessons[current].text;
-  $('lessonModal').classList.add('show');
-}
-function completeCourse(text){ $('completeText').textContent = text; $('nextCourseBtn').textContent = current===lessons.length-1 ? 'FINISH' : 'NEXT COURSE'; $('completeModal').classList.add('show'); }
-function buildCourseButtons(containerId, closeModalId){
-  const container = $(containerId); container.innerHTML = '';
-  lessons.forEach((l, i)=>{
-    const btn = document.createElement('button'); btn.type='button'; btn.className='choice'; btn.textContent = `Course ${i+1}: ${l.title}`;
-    btn.onclick = ()=>{ if(closeModalId) $(closeModalId).classList.remove('show'); $('finishModal').classList.remove('show'); current=i; showCourseModal(); };
-    container.appendChild(btn);
-  });
-}
-function showFinish(){ buildCourseButtons('finishChoices', null); $('finishModal').classList.add('show'); }
-
-function resetBoardForLesson(){
-  updateHeader(); clearArrow(); clearSelectable(); showPairInfo([]); phase = 0; chosenCard = '';
-  switch(current){
-    case 0:
-      setGrid(Array.from({length:8}, ()=>makeCard('CARD BACK', true)));
-      setMessage('First, build your 2 × 4 grid with 8 face-down cards.');
-      setPrimary('BUILD THE GRID'); setSecondary('', false);
-      break;
-    case 1:
-      setGrid([makeCard('PLAYER'), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true)]);
-      setMessage('You already revealed 1 starting card. Reveal 1 more starting card.');
-      setPrimary('REVEAL THE 2ND CARD'); setSecondary('', false);
-      break;
-    case 2:
-      setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
-      setMessage('At the start of your turn, choose where to take your card from.');
-      setPrimary('DRAW FROM DRAW PILE'); setSecondary('TAKE FROM DISCARD PILE', true);
-      break;
-    case 3:
-      setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
-      setMessage('You took a card. Now replace one card in your grid with it.');
-      setPrimary('USE TAKEN CARD'); setSecondary('', false);
-      break;
-    case 4:
-      setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('DEFENSE'),makeCard('PLAYER'),makeCard('PLAYER')]);
-      setMessage('Only vertical pairs score. Look for the scoring pairs.');
-      setPrimary('SHOW THE SCORING PAIRS'); setSecondary('', false);
-      break;
-    case 5:
-      setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('DEFENSE')]);
-      setMessage('This 2 × 2 block has 4 matching SHOOT cards. Learn how the bonus works.');
-      setPrimary('SHOW THE BONUS'); setSecondary('', false);
-      break;
-    case 6:
-      setGrid([makeCard('YELLOW CARD'),makeCard('SOCCER'),makeCard('PLAYER'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('DEFENSE'),makeCard('DRIBBLE PAST')]);
-      setMessage('An unmatched YELLOW CARD is special.');
-      setPrimary('SHOW YELLOW CARD SCORE'); setSecondary('', false);
-      break;
-    case 7:
-      setGrid([makeCard('PLAYER'),makeCard('PLAYER'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
-      setMessage('When one player reveals all cards, the game enters Final Turn.');
-      setPrimary('TRIGGER FINAL TURN'); setSecondary('', false);
-      break;
-  }
-}
-
-function slotClick(idx){
-  const el = document.querySelector(`.slot[data-idx="${idx}"]`);
-  if(!el) return;
-  if(current===1 && phase===1){
-    slots[idx] = makeCard('DEFENSE'); renderGrid(); clearSelectable(); clearArrow();
-    setMessage('Now exactly 2 starting cards are face-up.'); setPrimary('COMPLETE COURSE'); phase = 2; return;
-  }
-  if(current===3 && phase===1){
-    slots[idx] = makeCard(chosenCard); renderGrid(); clearSelectable(); clearArrow();
-    setMessage(`${chosenCard} replaced that card in your grid.`); setPrimary('COMPLETE COURSE'); phase = 2; return;
-  }
-}
-
-$('startTutorialBtn').onclick = ()=>{ $('introModal').classList.remove('show'); current = 0; showCourseModal(); };
-$('lessonModalClose').onclick = ()=>{ $('lessonModal').classList.remove('show'); resetBoardForLesson(); };
-$('nextCourseBtn').onclick = ()=>{ $('completeModal').classList.remove('show'); if(current===lessons.length-1){ showFinish(); } else { current++; showCourseModal(); } };
-$('coursesBtn').onclick = ()=>{ buildCourseButtons('courseChoices','coursesModal'); $('coursesModal').classList.add('show'); };
-$('coursesCloseBtn').onclick = ()=> $('coursesModal').classList.remove('show');
-$('guideBtn').onclick = ()=> $('guideModal').classList.add('show');
-$('guideCloseBtn').onclick = ()=> $('guideModal').classList.remove('show');
-
-$('primaryBtn').onclick = ()=>{
-  switch(current){
-    case 0:
-      if(phase===0){
-        phase = 1;
-        setMessage('Great. The 2 × 4 grid is ready.');
-        completeCourse('You learned how to set up the 2 × 4 grid with 8 face-down cards.');
-      }
-      break;
-    case 1:
-      if(phase===0){
-        phase = 1;
-        setMessage('Tap one face-down card to reveal it.');
-        enableSlots([1,2,3,4,5,6,7],'TAP A FACE-DOWN CARD');
-        $('primaryBtn').style.display = 'none';
-      } else if(phase===2){
-        completeCourse('Before the first turn begins, reveal any 2 cards in your grid.');
-      }
-      break;
-    case 2:
-      if(phase===0){
-        phase = 1; chosenCard = 'DRIBBLE PAST';
-        setMessage('You drew DRIBBLE PAST from the Draw Pile. That is one valid start-of-turn choice.');
-        completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.');
-      }
-      break;
-    case 3:
-      if(phase===0){
-        phase = 1; chosenCard = 'TACKLE';
-        setMessage('You took TACKLE. Tap one face-down card in your grid to replace it.');
-        enableSlots([2,3,4,5,6,7],'TAP A CARD TO REPLACE');
-        $('primaryBtn').style.display='none';
-      } else if(phase===2){
-        completeCourse('After drawing or taking a card, replace one card in your grid with it.');
-      }
-      break;
-    case 4:
-      if(phase===0){
-        phase = 1;
-        renderGrid();
-        [0,4,2,6].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag'));
-        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = 'TOP';
-        document.querySelector(`.slot[data-idx="4"] .scoreTag`).textContent = '+5';
-        document.querySelector(`.slot[data-idx="2"] .scoreTag`).textContent = 'TOP';
-        document.querySelector(`.slot[data-idx="6"] .scoreTag`).textContent = '+7';
-        showPairInfo(['Column 1: SHOOT + SHOOT = 5', 'Column 3: PLAYER + PLAYER = 7', 'Horizontal pairs = 0', 'Diagonal pairs = 0']);
-        setMessage('Only vertical pairs score. The horizontal SHOOT-SHOOT at the top does NOT score. The diagonal cards do NOT score.');
-        setPrimary('COMPLETE COURSE');
-      } else if(phase===1){
-        completeCourse('Only vertical pairs score. Horizontal and diagonal pairs do not score.');
-      }
-      break;
-    case 5:
-      if(phase===0){
-        phase = 1;
-        showPairInfo(['Left column: SHOOT + SHOOT = 5', 'Right column: SHOOT + SHOOT = 5', '4 matching cards bonus = +5', 'Total = 15']);
-        setMessage('All 4 cards match. Score both vertical columns first, then add the +5 bonus. 5 + 5 + 5 = 15.');
-        renderGrid();
-        [0,1,4,5].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag','good'));
-        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = 'LEFT +5';
-        document.querySelector(`.slot[data-idx="1"] .scoreTag`).textContent = 'RIGHT +5';
-        document.querySelector(`.slot[data-idx="4"] .scoreTag`).textContent = 'ALL 4';
-        document.querySelector(`.slot[data-idx="5"] .scoreTag`).textContent = 'BONUS +5';
-        setPrimary('COMPLETE COURSE');
-      } else if(phase===1){
-        completeCourse('4 matching cards score both vertical columns first, then add a +5 bonus. Example: 5 + 5 + 5 = 15.');
-      }
-      break;
-    case 6:
-      if(phase===0){
-        phase = 1;
-        renderGrid();
-        document.querySelector(`.slot[data-idx="0"]`).classList.add('good','showTag');
-        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = '-3';
-        showPairInfo(['Unmatched YELLOW CARD = -3', 'Other unmatched singles = 0']);
-        setMessage('This YELLOW CARD is unmatched, so it scores -3. Other single unmatched cards score 0.');
-        setPrimary('COMPLETE COURSE');
-      } else if(phase===1){
-        completeCourse('An unmatched YELLOW CARD scores -3. Other unmatched single cards score 0.');
-      }
-      break;
-    case 7:
-      if(phase===0){
-        phase = 1;
-        setMessage('A player revealed every card. That triggers Final Turn.');
-        setPrimary('TAKE FINAL TURN');
-      } else if(phase===1){
-        phase = 2;
-        slots[2]=makeCard('SOCCER'); slots[3]=makeCard('SHOOT'); slots[4]=makeCard('DEFENSE'); slots[5]=makeCard('PLAYER'); slots[6]=makeCard('YELLOW CARD'); slots[7]=makeCard('DRIBBLE PAST');
-        renderGrid();
-        setMessage('Every other player gets one more turn, then all cards are revealed and the game ends. Highest total score wins.');
-        setPrimary('COMPLETE COURSE');
-      } else if(phase===2){
-        completeCourse('The game ends after 9 rounds, or after Final Turn. When one player reveals all cards, every other player gets one last turn.');
-      }
-      break;
-  }
-};
-
-$('secondaryBtn').onclick = ()=>{
-  if(current===2 && phase===0){
-    phase = 1; chosenCard = 'DEFENSE';
-    setMessage('You took DEFENSE from the Discard Pile. That is also a valid start-of-turn choice.');
-    completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.');
-  }
-};
-
-updateHeader();
-setGrid(Array.from({length:8}, ()=>makeCard('CARD BACK', true)));
+const lessons=[
+{title:'Set Up Your Grid',text:'Place 8 cards face-down in a 2 × 4 grid. This is your starting layout.',label:'SET UP THE 2 × 4 GRID'},
+{title:'Reveal 2 Starting Cards',text:'Before the first turn begins, reveal any 2 cards in your grid.',label:'REVEAL 2 STARTING CARDS'},
+{title:'Draw Card or Take Discard',text:'At the start of your turn, choose ONE: draw the top card from the Draw Pile, or take the top card from the Discard Pile.',label:'DRAW OR TAKE DISCARD'},
+{title:'Replace A Card',text:'Use the card you took to replace one card in your grid.',label:'REPLACE A CARD'},
+{title:'Vertical Pairs Score',text:'Only vertical pairs score. Horizontal pairs and diagonal pairs do not score.',label:'ONLY VERTICAL PAIRS SCORE'},
+{title:'4 Matching Cards Bonus',text:'If both vertical pairs are the same card, score both columns first, then add a +5 bonus.',label:'4 MATCHING CARDS BONUS'},
+{title:'Yellow Card Single = -3',text:'An unmatched YELLOW CARD is the only single card that scores -3. Other unmatched single cards score 0.',label:'UNMATCHED YELLOW = -3'},
+{title:'End Game / Final Turn',text:'The game ends after 9 rounds, or when a player reveals all cards. Then every other player gets one final turn.',label:'END GAME / FINAL TURN'}];
+const $=id=>document.getElementById(id);let current=0,phase=0,slots=[],selected=[],chosenCard='';
+function makeCard(name,hidden=false){return{name,hidden}}
+function setMessage(text){$('message').textContent=text}
+function setPrimary(text,show=true){$('primaryBtn').textContent=text;$('primaryBtn').style.display=show?'inline-block':'none';$('primaryBtn').disabled=false}
+function setSecondary(text,show=false){$('secondaryBtn').textContent=text;$('secondaryBtn').style.display=show?'inline-block':'none';$('secondaryBtn').disabled=false}
+function updateHeader(){$('courseCount').textContent=`TUTORIAL ${current+1} OF 8`;$('courseTitle').textContent=lessons[current].title;$('progress').innerHTML=lessons.map((_,i)=>`<div class="p ${i===current?'on':''}"></div>`).join('')}
+function clearArrow(){$('arrow').classList.remove('show');$('arrow').style.left='';$('arrow').style.top='';$('arrow').style.bottom=''}
+function showArrowTo(el,text){const board=document.querySelector('.board').getBoundingClientRect(),rect=el.getBoundingClientRect(),arrow=$('arrow');$('arrowText').textContent=text;arrow.classList.add('show');arrow.style.left=`${rect.left-board.left+rect.width/2}px`;arrow.style.top=`${rect.top-board.top-76}px`}
+function clearSelectable(){selected=[];document.querySelectorAll('.slot').forEach(el=>{el.classList.remove('good','selected');el.onclick=null})}
+function setGrid(arr){slots=arr;renderGrid()}
+function renderGrid(){const grid=$('grid');grid.innerHTML='';slots.forEach((card,idx)=>{const btn=document.createElement('button');btn.type='button';btn.className='slot'+(card.hidden?' hidden':'');btn.dataset.idx=idx;btn.innerHTML=card.hidden?'<span aria-hidden="true"></span>':`<div class="scoreTag"></div><div>${card.name}</div>`;grid.appendChild(btn)})}
+function enableSlots(indices,arrowText){clearSelectable();indices.forEach(i=>{const el=document.querySelector(`.slot[data-idx="${i}"]`);if(!el)return;el.classList.add('good');el.onclick=()=>slotClick(i)});if(indices.length){const first=document.querySelector(`.slot[data-idx="${indices[0]}"]`);if(first)showArrowTo(first,arrowText)}}
+function showPairInfo(items){const wrap=$('pairInfo');if(!items||!items.length){wrap.classList.remove('show');wrap.innerHTML='';return}wrap.innerHTML=items.map(t=>`<div class="mini">${t}</div>`).join('');wrap.classList.add('show')}
+function showCourseModal(){$('lessonEyebrow').textContent=`TUTORIAL ${current+1} OF 8`;$('lessonModalTitle').textContent=lessons[current].title;$('lessonModalText').textContent=lessons[current].text;$('lessonModal').classList.add('show')}
+function completeCourse(text){$('completeText').textContent=text;$('nextCourseBtn').textContent=current===lessons.length-1?'FINISH':'NEXT COURSE';$('completeModal').classList.add('show')}
+function buildCourseButtons(containerId,closeModalId){const container=$(containerId);container.innerHTML='';lessons.forEach((l,i)=>{const btn=document.createElement('button');btn.type='button';btn.className='choice';btn.textContent=`Course ${i+1}: ${l.title}`;btn.onclick=()=>{if(closeModalId)$(closeModalId).classList.remove('show');$('finishModal').classList.remove('show');current=i;showCourseModal()};container.appendChild(btn)})}
+function showFinish(){buildCourseButtons('finishChoices',null);$('finishModal').classList.add('show')}
+function resetBoardForLesson(){updateHeader();clearArrow();clearSelectable();showPairInfo([]);phase=0;chosenCard='';switch(current){case 0:setGrid(Array.from({length:8},()=>makeCard('CARD BACK',true)));setMessage('First, build your 2 × 4 grid with 8 face-down cards.');setPrimary('BUILD THE GRID');setSecondary('',false);break;case 1:setGrid([makeCard('PLAYER'),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true)]);setMessage('You already revealed 1 starting card. Reveal 1 more starting card.');setPrimary('REVEAL THE 2ND CARD');setSecondary('',false);break;case 2:setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true)]);setMessage('At the start of your turn, choose where to take your card from.');setPrimary('DRAW FROM DRAW PILE');setSecondary('TAKE FROM DISCARD PILE',true);break;case 3:setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true)]);setMessage('You took a card. Now replace one card in your grid with it.');setPrimary('USE TAKEN CARD');setSecondary('',false);break;case 4:setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('DEFENSE'),makeCard('PLAYER'),makeCard('PLAYER')]);setMessage('Only vertical pairs score. Look for the scoring pairs.');setPrimary('SHOW THE SCORING PAIRS');setSecondary('',false);break;case 5:setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('DEFENSE')]);setMessage('This 2 × 2 block has 4 matching SHOOT cards. Learn how the bonus works.');setPrimary('SHOW THE BONUS');setSecondary('',false);break;case 6:setGrid([makeCard('YELLOW CARD'),makeCard('SOCCER'),makeCard('PLAYER'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('DEFENSE'),makeCard('DRIBBLE PAST')]);setMessage('An unmatched YELLOW CARD is special.');setPrimary('SHOW YELLOW CARD SCORE');setSecondary('',false);break;case 7:setGrid([makeCard('PLAYER'),makeCard('PLAYER'),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true),makeCard('CARD BACK',true)]);setMessage('When one player reveals all cards, the game enters Final Turn.');setPrimary('TRIGGER FINAL TURN');setSecondary('',false);break}}
+function slotClick(idx){const el=document.querySelector(`.slot[data-idx="${idx}"]`);if(!el)return;if(current===1&&phase===1){slots[idx]=makeCard('DEFENSE');renderGrid();clearSelectable();clearArrow();setMessage('Now exactly 2 starting cards are face-up.');setPrimary('COMPLETE COURSE');phase=2;return}if(current===3&&phase===1){slots[idx]=makeCard(chosenCard);renderGrid();clearSelectable();clearArrow();setMessage(`${chosenCard} replaced that card in your grid.`);setPrimary('COMPLETE COURSE');phase=2;return}}
+$('startTutorialBtn').onclick=()=>{$('introModal').classList.remove('show');current=0;showCourseModal()};$('lessonModalClose').onclick=()=>{$('lessonModal').classList.remove('show');resetBoardForLesson()};$('nextCourseBtn').onclick=()=>{$('completeModal').classList.remove('show');if(current===lessons.length-1){showFinish()}else{current++;showCourseModal()}};$('coursesBtn').onclick=()=>{buildCourseButtons('courseChoices','coursesModal');$('coursesModal').classList.add('show')};$('coursesCloseBtn').onclick=()=>$('coursesModal').classList.remove('show');$('guideBtn').onclick=()=>$('guideModal').classList.add('show');$('guideCloseBtn').onclick=()=>$('guideModal').classList.remove('show');
+$('primaryBtn').onclick=()=>{switch(current){case 0:if(phase===0){phase=1;setMessage('Great. The 2 × 4 grid is ready.');completeCourse('You learned how to set up the 2 × 4 grid with 8 face-down cards.')}break;case 1:if(phase===0){phase=1;setMessage('Tap one face-down card to reveal it.');enableSlots([1,2,3,4,5,6,7],'TAP A FACE-DOWN CARD');$('primaryBtn').style.display='none'}else if(phase===2){completeCourse('Before the first turn begins, reveal any 2 cards in your grid.')}break;case 2:if(phase===0){phase=1;chosenCard='DRIBBLE PAST';setMessage('You drew DRIBBLE PAST from the Draw Pile. That is one valid start-of-turn choice.');completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.')}break;case 3:if(phase===0){phase=1;chosenCard='TACKLE';setMessage('You took TACKLE. Tap one face-down card in your grid to replace it.');enableSlots([2,3,4,5,6,7],'TAP A CARD TO REPLACE');$('primaryBtn').style.display='none'}else if(phase===2){completeCourse('After drawing or taking a card, replace one card in your grid with it.')}break;case 4:if(phase===0){phase=1;renderGrid();[0,4,2,6].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag'));document.querySelector('.slot[data-idx="0"] .scoreTag').textContent='TOP';document.querySelector('.slot[data-idx="4"] .scoreTag').textContent='+5';document.querySelector('.slot[data-idx="2"] .scoreTag').textContent='TOP';document.querySelector('.slot[data-idx="6"] .scoreTag').textContent='+7';showPairInfo(['Column 1: SHOOT + SHOOT = 5','Column 3: PLAYER + PLAYER = 7','Horizontal pairs = 0','Diagonal pairs = 0']);setMessage('Only vertical pairs score. The horizontal SHOOT-SHOOT at the top does NOT score. The diagonal cards do NOT score.');setPrimary('COMPLETE COURSE')}else if(phase===1){completeCourse('Only vertical pairs score. Horizontal and diagonal pairs do not score.')}break;case 5:if(phase===0){phase=1;showPairInfo(['Left column: SHOOT + SHOOT = 5','Right column: SHOOT + SHOOT = 5','4 matching cards bonus = +5','Total = 15']);setMessage('All 4 cards match. Score both vertical columns first, then add the +5 bonus. 5 + 5 + 5 = 15.');renderGrid();[0,1,4,5].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag','good'));document.querySelector('.slot[data-idx="0"] .scoreTag').textContent='LEFT +5';document.querySelector('.slot[data-idx="1"] .scoreTag').textContent='RIGHT +5';document.querySelector('.slot[data-idx="4"] .scoreTag').textContent='ALL 4';document.querySelector('.slot[data-idx="5"] .scoreTag').textContent='BONUS +5';setPrimary('COMPLETE COURSE')}else if(phase===1){completeCourse('4 matching cards score both vertical columns first, then add a +5 bonus. Example: 5 + 5 + 5 = 15.')}break;case 6:if(phase===0){phase=1;renderGrid();document.querySelector('.slot[data-idx="0"]').classList.add('good','showTag');document.querySelector('.slot[data-idx="0"] .scoreTag').textContent='-3';showPairInfo(['Unmatched YELLOW CARD = -3','Other unmatched singles = 0']);setMessage('This YELLOW CARD is unmatched, so it scores -3. Other single unmatched cards score 0.');setPrimary('COMPLETE COURSE')}else if(phase===1){completeCourse('An unmatched YELLOW CARD scores -3. Other unmatched single cards score 0.')}break;case 7:if(phase===0){phase=1;setMessage('A player revealed every card. That triggers Final Turn.');setPrimary('TAKE FINAL TURN')}else if(phase===1){phase=2;slots[2]=makeCard('SOCCER');slots[3]=makeCard('SHOOT');slots[4]=makeCard('DEFENSE');slots[5]=makeCard('PLAYER');slots[6]=makeCard('YELLOW CARD');slots[7]=makeCard('DRIBBLE PAST');renderGrid();setMessage('Every other player gets one more turn, then all cards are revealed and the game ends. Highest total score wins.');setPrimary('COMPLETE COURSE')}else if(phase===2){completeCourse('The game ends after 9 rounds, or after Final Turn. When one player reveals all cards, every other player gets one last turn.')}break}};
+$('secondaryBtn').onclick=()=>{if(current===2&&phase===0){phase=1;chosenCard='DEFENSE';setMessage('You took DEFENSE from the Discard Pile. That is also a valid start-of-turn choice.');completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.')}};
+updateHeader();setGrid(Array.from({length:8},()=>makeCard('CARD BACK',true)));
 </script>
 </body>
 </html>
