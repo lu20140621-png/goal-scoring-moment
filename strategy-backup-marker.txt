@@ -1,0 +1,1 @@
+Strategy Mode is preserved from the original deployed index.html blob.
