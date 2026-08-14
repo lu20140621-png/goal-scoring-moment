@@ -1,1 +1,388 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Goal-Scoring Moment — Math Challenge Tutorial</title><style>:root{--n:#123a73;--b:#245ca6;--r:#e43f4f;--g:#159154;--y:#f6cf58;--i:#10233d}*{box-sizing:border-box}body{margin:0;background:linear-gradient(#d9ecff,#fff);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--i)}.top{position:sticky;top:0;z-index:50;background:var(--n);border-bottom:5px solid var(--r);box-shadow:0 3px #fff,0 6px var(--y);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;color:#fff}.brand{font-weight:950;font-size:18px}.brand span{color:#ffe36b}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.btn{border:0;border-radius:12px;padding:10px 12px;background:var(--b);color:#fff;font-weight:900;text-decoration:none;box-shadow:0 3px #173f78;cursor:pointer}.green{background:var(--g)}.red{background:var(--r)}.board{position:relative;min-height:900px;margin:10px 8px;border:5px solid #fff;border-radius:24px;overflow:hidden;background:repeating-linear-gradient(90deg,#32ad66 0 54px,#289956 54px 108px);box-shadow:0 8px 24px #173d682b,0 0 0 2px #167846}.board:before{content:"";position:absolute;inset:18px;border:3px solid #ffffffdd;pointer-events:none}.board:after{content:"";position:absolute;top:18px;bottom:18px;left:50%;border-left:3px solid #ffffffdd;pointer-events:none}.circle{position:absolute;width:190px;height:190px;border:3px solid #ffffffdd;border-radius:50%;left:50%;top:43%;transform:translate(-50%,-50%);pointer-events:none}.hud{position:absolute;left:12px;right:12px;top:20px;z-index:4;background:#fffdf7f2;border:3px solid #1b64b4;border-radius:18px;padding:10px;text-align:center}.hud h2{margin:0;color:var(--n);font-size:20px}.lessonLine{font-size:17px;font-weight:950;color:#c92838}.sub{font-size:12px;font-weight:800;color:#51657c}.progress{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:8px}.step{height:6px;background:#b8cbe0;border-radius:8px}.step.on{background:var(--r)}.tableWrap{position:absolute;left:12px;right:12px;top:145px;bottom:205px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:3}.grid8{display:grid;grid-template-columns:repeat(4,72px);gap:8px}.slot{width:72px;height:100px;border-radius:12px;border:3px solid #fff;background:#f5f9ff;color:var(--n);display:grid;place-items:center;text-align:center;padding:6px;font-size:10px;font-weight:950;box-shadow:0 5px 12px #1234;cursor:default}.slot.down{background:url('images/card-back.webp') center/cover no-repeat;color:transparent}.slot.good{outline:5px solid #ffe36b;cursor:pointer}.slot.selected{outline:5px solid #1b64b4;transform:translateY(-4px)}.msg{width:min(480px,94%);background:#fffdf7f3;border:3px solid var(--y);border-radius:16px;padding:10px;text-align:center;font-size:12px;font-weight:800;color:#314a64}.actionBar{position:absolute;left:12px;right:12px;bottom:20px;z-index:8;background:#fffdf7f3;border:3px solid #1b64b4;border-radius:17px;padding:11px}.what{font-size:11px;font-weight:950;color:#c92838;margin-bottom:7px}.row{display:flex;gap:8px;flex-wrap:wrap}.row .btn{flex:1;min-width:130px}.arrow{position:absolute;left:50%;bottom:155px;transform:translateX(-50%);z-index:20;display:none;text-align:center;pointer-events:none}.arrow.show{display:block}.arrow .txt{background:#fff;border:3px solid var(--r);color:#c92838;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:950}.arrow .arr{font-size:38px;color:#fff;text-shadow:0 3px 8px var(--n)}.modal{position:fixed;inset:0;background:#123a7370;display:none;align-items:center;justify-content:center;padding:12px;z-index:100}.modal.show{display:flex}.box{width:min(650px,100%);max-height:90vh;overflow:auto;background:linear-gradient(#fffef9,#edf6ff);border:4px solid #1b64b4;border-top-color:var(--r);border-radius:20px;padding:18px;text-align:center}.eyebrow{font-size:18px;letter-spacing:.08em;color:#c92838;font-weight:950}.box h2{margin:7px 0 10px;color:var(--n);font-size:27px}.box p{font-size:14px;color:#40566e;line-height:1.55;font-weight:650}.rules{text-align:left;background:#f8fbff;border:2px solid #b8d2ee;border-radius:14px;padding:12px}.rules div{margin:9px 0;font-size:13px;font-weight:700}.num{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:var(--r);color:#fff;margin-right:7px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{border:2px solid #1b64b4;border-radius:13px;background:#f5f9ff;color:var(--n);padding:11px;font-weight:900;cursor:pointer}.guideTable{width:100%;border-collapse:collapse;font-size:13px}.guideTable th,.guideTable td{padding:8px;border-bottom:1px solid #c9d8e7;text-align:left}.ruleNote{margin:10px 0;padding:12px;border-radius:13px;background:#fff7e6;border:2px solid #f1bf42;color:#5d4514;font-size:13px;font-weight:900;text-align:left}.winner{font-size:28px;font-weight:950;color:#c92838}@media(min-width:701px){.board{max-width:1000px;min-height:780px;margin:14px auto}.hud{left:50%;right:auto;width:520px;transform:translateX(-50%)}.grid8{grid-template-columns:repeat(4,92px)}.slot{width:92px;height:125px;font-size:12px}.actionBar{left:50%;right:auto;width:620px;transform:translateX(-50%)}}</style></head><body><div class="top"><div class="brand">GOAL-SCORING <span>MOMENT</span></div><div class="actions"><button class="btn" id="courses">Courses</button><button class="btn" id="guideBtn">Scoring Guide</button><a class="btn" href="index.html">Modes</a></div></div><div class="board"><div class="circle"></div><div class="hud"><h2>MATH CHALLENGE MODE</h2><div class="lessonLine" id="lessonLine"></div><div class="sub" id="lessonTitle"></div><div class="progress" id="progress"></div></div><div class="tableWrap"><div class="grid8" id="grid"></div><div class="msg" id="msg">Ready.</div></div><div class="arrow" id="arrow"><div class="txt" id="arrowText">TAP HERE</div><div class="arr">↓</div></div><div class="actionBar"><div class="what">WHAT TO DO</div><div class="row"><button class="btn green" id="primary">START</button><button class="btn" id="secondary" style="display:none"></button></div></div></div><div class="modal show" id="intro"><div class="box"><div class="eyebrow">MATH CHALLENGE MODE • GAME NIGHT</div><h2>HOW TO PLAY</h2><div class="rules"><div><span class="num">1</span>Build a 2 × 4 grid with 8 face-down cards.</div><div><span class="num">2</span>Before play begins, reveal any 2 cards in your grid.</div><div><span class="num">3</span>On each turn, choose ONE: draw from the Draw Pile or take the top card from the Discard Pile.</div><div><span class="num">4</span><b>Scoring pairs must be vertical:</b> one card directly above the other in the same column.</div><div><span class="num">5</span>Horizontal pairs and both diagonal directions do not score.</div><div><span class="num">6</span>Unmatched single cards score 0; an unmatched YELLOW CARD scores -3.</div><div><span class="num">7</span>The game ends after 9 rounds, or after Final Turn. Highest score wins.</div></div><button class="btn green" id="start">START TUTORIAL</button></div></div><div class="modal" id="lessonModal"><div class="box"><div class="eyebrow" id="modalNo"></div><h2 id="modalTitle"></h2><p id="modalText"></p><button class="btn green" id="modalClose">GOT IT</button></div></div><div class="modal" id="complete"><div class="box"><div class="eyebrow">COURSE COMPLETE • NICE PLAY!</div><h2>CORRECT!</h2><p id="completeText"></p><button class="btn green" id="next">NEXT COURSE</button></div></div><div class="modal" id="courseMenu"><div class="box"><div class="eyebrow">MATH CHALLENGE MODE</div><h2>Courses</h2><div class="choices" id="courseGrid"></div><button class="btn" id="courseClose" style="margin-top:12px">CLOSE</button></div></div><div class="modal" id="scoreGuide"><div class="box"><div class="eyebrow">QUICK REFERENCE</div><h2>Scoring Guide</h2><div class="ruleNote">POSITION RULE: A combination scores only when the two cards are vertical in the same column — one directly above the other. Left/right pairs do not score. Top-left to bottom-right diagonals do not score. Bottom-left to top-right diagonals do not score.</div><table class="guideTable"><tr><th>Vertical Combination</th><th>Score</th></tr><tr><td>DEFENSE + DEFENSE</td><td>2</td></tr><tr><td>TACKLE + TACKLE</td><td>3</td></tr><tr><td>DRIBBLE PAST + DRIBBLE PAST</td><td>4</td></tr><tr><td>SHOOT + SHOOT</td><td>5</td></tr><tr><td>PLAYER + PLAYER</td><td>7</td></tr><tr><td>GOALKEEPER + GOALKEEPER</td><td>12</td></tr><tr><td>PLAYER + TACKLE</td><td>4</td></tr><tr><td>PLAYER + DRIBBLE PAST</td><td>5</td></tr><tr><td>PLAYER + SHOOT</td><td>6</td></tr><tr><td>SOCCER + TACKLE</td><td>6</td></tr><tr><td>SOCCER + DRIBBLE PAST</td><td>7</td></tr><tr><td>SOCCER + SHOOT</td><td>8</td></tr><tr><td>SOCCER + PLAYER</td><td>10</td></tr><tr><td>GOALKEEPER + DEFENSE</td><td>10</td></tr><tr><td>Unmatched YELLOW CARD</td><td>-3</td></tr><tr><td>Other unmatched single</td><td>0</td></tr></table><button class="btn green" id="guideClose">CLOSE</button></div></div><div class="modal" id="finish"><div class="box"><div class="eyebrow">TUTORIAL COMPLETE</div><div class="winner">YOU'RE READY TO PLAY!</div><p>Choose any course to practice again, or return to Modes.</p><div class="choices" id="finishCourses"></div><a class="btn red" href="index.html" style="display:block;margin-top:12px">I'VE GOT IT — BACK TO MODES</a></div></div><script>const $=id=>document.getElementById(id);const LES=[['SET UP YOUR GRID','Place 8 cards face-down in a 2 × 4 grid. Before the first turn begins, choose any 2 cards and reveal them face-up.'],['DRAW OR TAKE DISCARD','At the start of every turn, choose ONE source: draw the top card from the Draw Pile, or take the top face-up card from the Discard Pile.'],['HOW SCORING WORKS','Only vertical pairs score: the top card and the card directly below it in the same column. Horizontal and diagonal pairs never score. Unmatched singles score 0, except an unmatched YELLOW CARD scores -3.'],['TWO-CARD COMBOS','Practice finding valid vertical scoring pairs.'],['BIGGER & SPECIAL COMBOS','Special mixed-card combinations also score only when the two cards are vertical in the same column.'],['SCORE THE BOARD','Score the board column by column. Do not score horizontal or diagonal matches.'],['ENDING THE GAME','The game ends after 9 rounds, or when a player reveals every card and Final Turn finishes.'],['HOW TO WIN','Calculate final totals from valid vertical combinations only. Highest score wins.']];let L=0,phase=0,slots=[],picked=[],sourceChoice='';const down=()=>({n:'HIDDEN',u:false}),up=n=>({n:n,u:true});function header(){$('lessonLine').textContent=`TUTORIAL ${L+1} OF 8`;$('lessonTitle').textContent=LES[L][0];$('progress').innerHTML=LES.map((x,i)=>`<div class="step ${i===L?'on':''}"></div>`).join('')}function render(){const g=$('grid');g.innerHTML='';slots.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.className='slot '+(s.u?'':'down');b.dataset.i=i;b.disabled=true;b.textContent=s.u?s.n:'CARD BACK';g.appendChild(b)})}function setSlots(a){slots=a;render()}function msg(t){$('msg').textContent=t}function action(t){$('primary').textContent=t}function clearHighlight(){picked=[];document.querySelectorAll('.slot').forEach(e=>{e.disabled=true;e.classList.remove('good','selected');e.onclick=null});$('arrow').classList.remove('show')}function highlight(ids,t){document.querySelectorAll('.slot').forEach((e,i)=>{const ok=ids.includes(i);e.disabled=!ok;e.classList.toggle('good',ok);e.onclick=ok?()=>slotClick(i):null});$('arrowText').textContent=t;$('arrow').classList.add('show')}function selectPair(i,ids,onDone,firstText){if(!ids.includes(i)||picked.includes(i))return;picked.push(i);const el=document.querySelector(`.slot[data-i="${i}"]`);if(el)el.classList.add('selected');if(picked.length===1){msg(firstText);$('arrowText').textContent='NOW TAP THE SECOND CARD';return}onDone()}function showLesson(){phase=0;sourceChoice='';clearHighlight();header();$('modalNo').textContent=`TUTORIAL ${L+1} OF 8`;$('modalTitle').textContent=LES[L][0];$('modalText').textContent=LES[L][1];$('lessonModal').classList.add('show')}function setup(){clearHighlight();phase=0;sourceChoice='';$('secondary').style.display='none';$('primary').style.display='block';$('primary').disabled=false;header();if(L===0){setSlots(Array.from({length:8},down));msg('First arrange 8 face-down cards in a 2 × 4 grid. Now choose any 2 cards to reveal.');action('REVEAL 2 STARTING CARDS');highlight([0,1,2,3,4,5,6,7],'TAP ANY 2 CARDS')}if(L===1){setSlots([up('PLAYER'),down(),down(),up('DEFENSE'),down(),down(),down(),down()]);msg('Your two starting cards are already face-up. Choose where to take your turn card from.');action('DRAW FROM DRAW PILE');$('secondary').style.display='block';$('secondary').textContent='TAKE FROM DISCARD PILE'}if(L===2){setSlots([up('PLAYER'),up('SHOOT'),up('YELLOW CARD'),up('TACKLE'),up('PLAYER'),up('DEFENSE'),up('DRIBBLE PAST'),up('SHOOT')]);msg('Look by columns only. PLAYER directly above PLAYER is a valid vertical pair. Cards side-by-side or diagonal do not score.');action('SHOW VALID VERTICAL PAIR')}if(L===3){setSlots([up('PLAYER'),up('DEFENSE'),down(),down(),up('PLAYER'),up('DEFENSE'),down(),down()]);msg('Select the vertical PLAYER pair in column 1.');action('SELECT THE PAIR');highlight([0,4],'TAP TOP + BOTTOM PLAYER')}if(L===4){setSlots([up('SOCCER'),up('GOALKEEPER'),up('TACKLE'),up('DRIBBLE PAST'),up('PLAYER'),up('DEFENSE'),down(),down()]);msg('Select SOCCER + PLAYER vertically in column 1.');action('SELECT THE PAIR');highlight([0,4],'TAP TOP + BOTTOM')}if(L===5){setSlots([up('PLAYER'),up('SOCCER'),up('YELLOW CARD'),up('TACKLE'),up('PLAYER'),up('SHOOT'),up('DEFENSE'),up('DRIBBLE PAST')]);msg('Score column by column. First find the vertical PLAYER + PLAYER pair.');action('SELECT THE PAIR');highlight([0,4],'TAP VERTICAL PLAYER PAIR')}if(L===6){setSlots([up('PLAYER'),up('SHOOT'),up('DEFENSE'),up('TACKLE'),up('DRIBBLE PAST'),up('PLAYER'),up('SOCCER'),down()]);msg('Another player just revealed every card.');action('TRIGGER FINAL TURN')}if(L===7){setSlots([up('PLAYER'),up('SOCCER'),up('YELLOW CARD'),up('DEFENSE'),up('PLAYER'),up('SHOOT'),up('TACKLE'),up('DRIBBLE PAST')]);msg('Valid vertical pairs: PLAYER + PLAYER = 7 and SOCCER + SHOOT = 8. Unmatched YELLOW = -3.');action('CALCULATE YOUR SCORE')}}function slotClick(i){if(L===0){if(slots[i].u)return;slots[i]=up(picked.length===0?'PLAYER':'DEFENSE');picked.push(i);render();if(picked.length===1){highlight([0,1,2,3,4,5,6,7].filter(x=>!slots[x].u),'TAP 1 MORE CARD');msg('Good. Reveal one more starting card.')}else{clearHighlight();phase=1;msg('Setup complete: 8 cards in a 2 × 4 grid, with exactly 2 cards face-up.');$('primary').style.display='block';action('COMPLETE COURSE')}return}if(L===1&&phase===1){slots[i]=up(sourceChoice==='draw'?'SHOOT':'TACKLE');render();clearHighlight();phase=2;msg((sourceChoice==='draw'?'Draw Pile':'Discard Pile')+' card used to replace that position.');$('primary').style.display='block';$('secondary').style.display='none';action('COMPLETE COURSE');return}if(L===3&&phase===0){selectPair(i,[0,4],()=>{clearHighlight();phase=1;msg('PLAYER + PLAYER = 7. Now select the vertical DEFENSE pair in column 2.');highlight([1,5],'TAP TOP + BOTTOM DEFENSE')},'First PLAYER selected. Now tap the PLAYER directly below/above it.');return}if(L===3&&phase===1){selectPair(i,[1,5],()=>{clearHighlight();phase=2;msg('DEFENSE + DEFENSE = 2. Only vertical pairs counted.');$('primary').style.display='block';action('COMPLETE COURSE')},'First DEFENSE selected. Now tap the DEFENSE directly below/above it.');return}if(L===4&&phase===0){selectPair(i,[0,4],()=>{clearHighlight();phase=1;msg('SOCCER + PLAYER = 10. Now select GOALKEEPER + DEFENSE vertically in column 2.');highlight([1,5],'TAP TOP + BOTTOM')},'First card selected. Tap the card directly below/above it.');return}if(L===4&&phase===1){selectPair(i,[1,5],()=>{clearHighlight();phase=2;msg('GOALKEEPER + DEFENSE = 10. Both examples are vertical.');$('primary').style.display='block';action('COMPLETE COURSE')},'First card selected. Tap the card directly below/above it.');return}if(L===5&&phase===0){selectPair(i,[0,4],()=>{clearHighlight();phase=1;msg('PLAYER + PLAYER = +7. Next score SOCCER + SHOOT vertically in column 2.');highlight([1,5],'TAP VERTICAL SOCCER + SHOOT')},'First PLAYER selected. Tap the PLAYER in the same column.');return}if(L===5&&phase===1){selectPair(i,[1,5],()=>{clearHighlight();phase=2;msg('SOCCER + SHOOT = +8. Now tap the unmatched YELLOW CARD.');highlight([2],'TAP YELLOW CARD')},'First card selected. Tap the card in the same column.');return}if(L===5&&phase===2&&i===2){clearHighlight();phase=3;msg('Unmatched YELLOW = -3. Horizontal and diagonal matches are ignored. Total = 7 + 8 - 3 = 12.');$('primary').style.display='block';action('COMPLETE COURSE')}}function completeCourse(t){clearHighlight();$('completeText').textContent=t;$('next').textContent=L===7?'FINISH':'NEXT COURSE';$('complete').classList.add('show')}function buildCourseButtons(targetId,closeId){const target=$(targetId);target.innerHTML='';LES.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='choice';b.textContent=`Course ${i+1}: ${x[0]}`;b.onclick=()=>{if(closeId)$(closeId).classList.remove('show');$('finish').classList.remove('show');L=i;showLesson()};target.appendChild(b)})}function finishAll(){clearHighlight();buildCourseButtons('finishCourses',null);$('finish').classList.add('show')}$('start').onclick=()=>{$('intro').classList.remove('show');L=0;showLesson()};$('modalClose').onclick=()=>{$('lessonModal').classList.remove('show');setup()};$('primary').onclick=()=>{if(L===0){if(phase===1)completeCourse('Correct. Before the game starts, build a 2 × 4 grid and reveal exactly 2 cards.');return}if(L===1){if(phase===0){sourceChoice='draw';phase=1;msg('You chose the Draw Pile and drew SHOOT. Choose one grid position to replace.');$('primary').style.display='none';$('secondary').style.display='none';highlight([0,1,2,3,4,5,6,7],'TAP A GRID POSITION')}else if(phase===2)completeCourse('Correct. Each turn starts by choosing ONE: draw from the Draw Pile or take the top Discard card.');return}if(L===2){if(phase===0){phase=1;msg('Correct scoring direction: top + bottom in the same column. Horizontal left/right and both diagonal directions are worth 0.');action('COMPLETE COURSE')}else completeCourse('Only vertical combinations score. Horizontal pairs and diagonals never score. Unmatched singles = 0; unmatched YELLOW = -3.');return}if(L===3&&phase===2){completeCourse('Correct. PLAYER + PLAYER = 7 and DEFENSE + DEFENSE = 2 only because each pair is vertical in the same column.');return}if(L===4&&phase===2){completeCourse('Special combinations also require vertical placement in the same column.');return}if(L===5&&phase===3){completeCourse('Score the board column by column. Ignore every horizontal and diagonal match.');return}if(L===6){if(phase===0){phase=1;msg('FINAL TURN begins. Every other player gets one final draw.');action('TAKE YOUR FINAL DRAW')}else if(phase===1){phase=2;slots[7]=up('DEFENSE');render();msg('Final card handled. Now reveal all remaining cards.');action('REVEAL ALL & END')}else completeCourse('Game ends after 9 rounds or after Final Turn.');return}if(L===7){if(phase===0){phase=1;msg('Vertical scoring: 7 + 8 - 3 = 12 points. Horizontal and diagonal matches are ignored.');$('secondary').style.display='block';$('secondary').textContent='SHOW OPPONENT';action('FINISH TUTORIAL')}else finishAll()}};$('secondary').onclick=()=>{if(L===1&&phase===0){sourceChoice='discard';phase=1;msg('You chose the top Discard card: TACKLE. Choose one grid position to replace.');$('primary').style.display='none';$('secondary').style.display='none';highlight([0,1,2,3,4,5,6,7],'TAP A GRID POSITION');return}if(L===7&&phase===1){msg('Opponent: 10. YOU: 12. Higher score wins — YOU WIN!');$('secondary').style.display='none'}};$('next').onclick=()=>{$('complete').classList.remove('show');if(L===7){finishAll();return}L++;showLesson()};$('courses').onclick=()=>{buildCourseButtons('courseGrid','courseMenu');$('courseMenu').classList.add('show')};$('courseClose').onclick=()=>$('courseMenu').classList.remove('show');$('guideBtn').onclick=()=>$('scoreGuide').classList.add('show');$('guideClose').onclick=()=>$('scoreGuide').classList.remove('show');header();setSlots(Array.from({length:8},down));</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Goal-Scoring Moment — Math Challenge Mode</title>
+<style>
+:root{
+  --navy:#133c76;--blue:#2a63b1;--red:#e3424f;--green:#18a35f;--green2:#2f8f53;
+  --gold:#ffd76a;--cream:#fffdf7;--ink:#1a2a40;--soft:#edf6ff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#d7ecff 0%,#ffffff 38%,#dff4e7 100%)}
+.top{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;background:var(--navy);color:#fff;border-bottom:4px solid var(--red);box-shadow:0 3px 0 #fff,0 6px 0 var(--gold)}
+.brand{font-weight:1000;letter-spacing:.02em;font-size:18px}.brand span{color:var(--gold)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.btn{border:0;border-radius:14px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #173f78;text-decoration:none;display:inline-block}
+.btn.green{background:var(--green);box-shadow:0 4px 0 #0e7140}.btn.red{background:var(--red);box-shadow:0 4px 0 #a52935}.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+.board{position:relative;max-width:1020px;min-height:780px;margin:16px auto;padding:0 12px 18px;border:4px solid #ffffff;border-radius:28px;overflow:hidden;box-shadow:0 12px 30px rgba(19,60,118,.16),inset 0 0 0 2px #1c7f4e;background:
+ radial-gradient(circle at center, rgba(255,255,255,.18) 0 90px, transparent 90px),
+ linear-gradient(90deg, rgba(255,255,255,.18) 0 4px, transparent 4px) 50% 0/4px 100% no-repeat,
+ linear-gradient(180deg, transparent 0 35%, rgba(255,255,255,.18) 35% 36%, transparent 36% 100%),
+ repeating-linear-gradient(90deg,#39aa63 0 64px,#309356 64px 128px);
+}
+.board:before{content:"";position:absolute;inset:22px;border:3px solid rgba(255,255,255,.8);border-radius:24px;pointer-events:none}
+.board:after{content:"";position:absolute;left:50%;top:155px;bottom:22px;border-left:3px solid rgba(255,255,255,.65);pointer-events:none}
+.centerCircle{position:absolute;width:180px;height:180px;border:3px solid rgba(255,255,255,.65);border-radius:50%;left:50%;top:360px;transform:translateX(-50%);pointer-events:none}
+.hud{position:relative;z-index:2;max-width:650px;margin:18px auto 0;background:rgba(255,253,247,.96);border:3px solid #1b64b4;border-radius:22px;padding:14px 18px;text-align:center;box-shadow:0 8px 18px rgba(17,50,92,.12)}
+.hud .line1{font-size:15px;font-weight:1000;letter-spacing:.08em;color:#c92838;text-transform:uppercase}.hud .line2{margin-top:4px;font-size:28px;font-weight:1000;color:var(--navy)}.hud .line3{margin-top:4px;font-size:15px;font-weight:800;color:#53708c}
+.progress{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-top:10px}.p{height:8px;border-radius:999px;background:#bfd0e3}.p.on{background:var(--red)}
+.lessonWrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 0 200px;min-height:570px}
+.grid8{display:grid;grid-template-columns:repeat(4,96px);gap:10px}
+.slot{width:96px;height:132px;border-radius:14px;border:3px solid #fff;background:#f5f9ff;box-shadow:0 6px 14px rgba(18,58,115,.22);color:var(--navy);font-weight:1000;font-size:12px;padding:8px;text-align:center;display:grid;place-items:center;cursor:default;position:relative}
+.slot.hidden{background:linear-gradient(180deg,#1c4c8f,#113869);color:#fff}
+.slot.good{outline:5px solid var(--gold);cursor:pointer;transform:translateY(-2px)}
+.slot.selected{outline:5px solid #1b64b4;transform:translateY(-6px)}
+.slot.smalltxt{font-size:11px;line-height:1.15}
+.scoreTag{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#fff;color:#c92838;border:2px solid #c92838;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:1000;display:none;white-space:nowrap}
+.slot.showTag .scoreTag{display:block}
+.sideNote{width:min(760px,94%);background:rgba(255,253,247,.95);border:3px solid var(--gold);border-radius:18px;padding:12px 14px;text-align:center;font-size:14px;font-weight:800;color:#34506c;box-shadow:0 8px 20px rgba(17,50,92,.08)}
+.actionBar{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;width:min(760px,calc(100% - 28px));background:rgba(255,253,247,.96);border:3px solid #1b64b4;border-radius:18px;padding:12px 12px 14px;box-shadow:0 8px 18px rgba(17,50,92,.12)}
+.what{font-size:12px;font-weight:1000;color:#c92838;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}.row{display:flex;gap:8px;flex-wrap:wrap}.row .btn{flex:1;min-width:150px}
+.arrow{position:absolute;display:none;z-index:10;pointer-events:none;align-items:center;flex-direction:column;gap:4px}.arrow.show{display:flex}.arrow .bubble{background:#fff;border:3px solid var(--red);border-radius:999px;color:#c92838;padding:7px 11px;font-size:11px;font-weight:1000;white-space:nowrap}.arrow .arr{font-size:44px;color:#fff;text-shadow:0 4px 8px rgba(19,60,118,.8)}
+.pairInfo{display:none;gap:20px;justify-content:center;flex-wrap:wrap;width:min(760px,96%)}.pairInfo.show{display:flex}.pairInfo .mini{background:rgba(255,253,247,.96);border:2px solid #b7d2ea;border-radius:14px;padding:10px 12px;font-weight:900;color:#234f85}
+.modal{position:fixed;inset:0;background:rgba(19,60,118,.52);display:none;align-items:center;justify-content:center;padding:14px;z-index:100}.modal.show{display:flex}
+.box{width:min(760px,100%);max-height:90vh;overflow:auto;background:linear-gradient(180deg,#fffef9,#edf6ff);border:4px solid #2a63b1;border-top-color:var(--red);border-radius:24px;padding:20px;text-align:center;box-shadow:0 18px 40px rgba(19,60,118,.28)}
+.eyebrow{font-size:20px;letter-spacing:.08em;color:#c92838;font-weight:1000;text-transform:uppercase}.box h2{margin:8px 0 10px;color:var(--navy);font-size:36px}.box p{font-size:16px;line-height:1.58;color:#425971;font-weight:700}
+.rules{text-align:left;background:#f8fbff;border:2px solid #bad4ec;border-radius:18px;padding:14px}.rules div{margin:10px 0;font-size:16px;font-weight:800;color:#203550}.num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;font-size:16px;font-weight:1000;margin-right:10px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{border:2px solid #1b64b4;border-radius:14px;background:#f5f9ff;color:var(--navy);padding:14px 12px;font-weight:900;cursor:pointer}
+.guideTable{width:100%;border-collapse:collapse;font-size:14px}.guideTable th,.guideTable td{padding:9px;border-bottom:1px solid #cbd9e6;text-align:left}.noteRed{color:#c92838;font-weight:1000}
+@media (max-width:700px){
+  .top{padding:10px}.brand{font-size:15px}.hud{margin-top:12px;padding:12px}.hud .line2{font-size:22px}.hud .line1,.hud .line3{font-size:14px}
+  .board{margin:8px;min-height:860px}.board:after{top:185px}.centerCircle{top:410px}
+  .grid8{grid-template-columns:repeat(4,72px);gap:8px}.slot{width:72px;height:100px;font-size:10px}.lessonWrap{padding-bottom:220px;min-height:620px}
+  .actionBar{width:calc(100% - 20px)}.choices{grid-template-columns:1fr}.box h2{font-size:30px}.eyebrow{font-size:17px}.rules div{font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">GOAL-SCORING <span>MOMENT</span></div>
+  <div class="actions">
+    <button class="btn" id="coursesBtn">Courses</button>
+    <button class="btn" id="guideBtn">Scoring Guide</button>
+    <a class="btn" href="index.html">Modes</a>
+  </div>
+</div>
+
+<div class="board">
+  <div class="centerCircle"></div>
+  <div class="hud">
+    <div class="line1" id="courseCount">TUTORIAL 1 OF 8</div>
+    <div class="line2">MATH CHALLENGE MODE</div>
+    <div class="line3" id="courseTitle">Set Up Your Grid</div>
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div class="lessonWrap">
+    <div class="grid8" id="grid"></div>
+    <div class="pairInfo" id="pairInfo"></div>
+    <div class="sideNote" id="message">Ready.</div>
+  </div>
+
+  <div class="arrow" id="arrow"><div class="bubble" id="arrowText">TAP HERE</div><div class="arr">↓</div></div>
+
+  <div class="actionBar">
+    <div class="what">What To Do</div>
+    <div class="row">
+      <button class="btn green" id="primaryBtn">Start</button>
+      <button class="btn" id="secondaryBtn" style="display:none"></button>
+    </div>
+  </div>
+</div>
+
+<div class="modal show" id="introModal">
+  <div class="box">
+    <div class="eyebrow">Math Challenge Mode • Game Night</div>
+    <h2>HOW TO PLAY</h2>
+    <div class="rules">
+      <div><span class="num">1</span>Build a <b>2 × 4</b> grid with <b>8 face-down cards</b>.</div>
+      <div><span class="num">2</span>Before play begins, reveal <b>any 2 cards</b> in your grid.</div>
+      <div><span class="num">3</span>On each turn, choose <b>ONE</b>: draw from the <b>Draw Pile</b> or take the top card from the <b>Discard Pile</b>.</div>
+      <div><span class="num">4</span>Replace cards to build better scoring combinations.</div>
+      <div><span class="num">5</span><b>Only vertical pairs score.</b> Horizontal and diagonal pairs do <b>not</b> score.</div>
+      <div><span class="num">6</span>If <b>all 4 cards match</b> in a 2 × 2 block, score both columns first, then add a <b>+5 bonus</b>.</div>
+      <div><span class="num">7</span>An <b>unmatched YELLOW CARD</b> scores <b>-3</b>. Other unmatched single cards score <b>0</b>.</div>
+      <div><span class="num">8</span>The game ends after <b>9 rounds</b>, or after <b>Final Turn</b>. Highest total score wins.</div>
+    </div>
+    <button class="btn green" id="startTutorialBtn" style="margin-top:14px">START TUTORIAL</button>
+  </div>
+</div>
+
+<div class="modal" id="lessonModal"><div class="box"><div class="eyebrow" id="lessonEyebrow"></div><h2 id="lessonModalTitle"></h2><p id="lessonModalText"></p><button class="btn green" id="lessonModalClose">GOT IT</button></div></div>
+<div class="modal" id="completeModal"><div class="box"><div class="eyebrow">Course Complete</div><h2>CORRECT!</h2><p id="completeText"></p><button class="btn green" id="nextCourseBtn">NEXT COURSE</button></div></div>
+<div class="modal" id="finishModal"><div class="box"><div class="eyebrow">Tutorial Complete</div><h2>You’re Ready To Play!</h2><p>Choose any course to practice again, or go back to the mode selection page.</p><div class="choices" id="finishChoices"></div><a class="btn red" href="index.html" style="display:block;margin-top:12px">I'VE GOT IT — BACK TO MODES</a></div></div>
+<div class="modal" id="coursesModal"><div class="box"><div class="eyebrow">Math Challenge Mode</div><h2>Courses</h2><div class="choices" id="courseChoices"></div><button class="btn" id="coursesCloseBtn" style="margin-top:12px">CLOSE</button></div></div>
+<div class="modal" id="guideModal"><div class="box"><div class="eyebrow">Quick Reference</div><h2>Scoring Guide</h2><p><span class="noteRed">Important:</span> <b>Only vertical pairs score.</b> Horizontal pairs and diagonal pairs do <b>not</b> score.</p><table class="guideTable"><tr><th>Combination</th><th>Score</th></tr><tr><td>DEFENSE + DEFENSE</td><td>2</td></tr><tr><td>TACKLE + TACKLE</td><td>3</td></tr><tr><td>DRIBBLE PAST + DRIBBLE PAST</td><td>4</td></tr><tr><td>SHOOT + SHOOT</td><td>5</td></tr><tr><td>PLAYER + PLAYER</td><td>7</td></tr><tr><td>GOALKEEPER + GOALKEEPER</td><td>12</td></tr><tr><td>PLAYER + TACKLE</td><td>4</td></tr><tr><td>PLAYER + DRIBBLE PAST</td><td>5</td></tr><tr><td>PLAYER + SHOOT</td><td>6</td></tr><tr><td>SOCCER + TACKLE</td><td>6</td></tr><tr><td>SOCCER + DRIBBLE PAST</td><td>7</td></tr><tr><td>SOCCER + SHOOT</td><td>8</td></tr><tr><td>SOCCER + PLAYER</td><td>10</td></tr><tr><td>GOALKEEPER + DEFENSE</td><td>10</td></tr><tr><td>4 matching cards bonus</td><td>Score both columns + 5 bonus</td></tr><tr><td>Unmatched YELLOW CARD</td><td>-3</td></tr><tr><td>Other unmatched single</td><td>0</td></tr></table><button class="btn green" id="guideCloseBtn" style="margin-top:12px">CLOSE</button></div></div>
+
+<script>
+const lessons = [
+  {title:'Set Up Your Grid', text:'Place 8 cards face-down in a 2 × 4 grid. This is your starting layout.', label:'SET UP THE 2 × 4 GRID'},
+  {title:'Reveal 2 Starting Cards', text:'Before the first turn begins, reveal any 2 cards in your grid.', label:'REVEAL 2 STARTING CARDS'},
+  {title:'Draw Card or Take Discard', text:'At the start of your turn, choose ONE: draw the top card from the Draw Pile, or take the top card from the Discard Pile.', label:'DRAW OR TAKE DISCARD'},
+  {title:'Replace A Card', text:'Use the card you took to replace one card in your grid.', label:'REPLACE A CARD'},
+  {title:'Vertical Pairs Score', text:'Only vertical pairs score. Horizontal pairs and diagonal pairs do not score.', label:'ONLY VERTICAL PAIRS SCORE'},
+  {title:'4 Matching Cards Bonus', text:'If both vertical pairs are the same card, score both columns first, then add a +5 bonus.', label:'4 MATCHING CARDS BONUS'},
+  {title:'Yellow Card Single = -3', text:'An unmatched YELLOW CARD is the only single card that scores -3. Other unmatched single cards score 0.', label:'UNMATCHED YELLOW = -3'},
+  {title:'End Game / Final Turn', text:'The game ends after 9 rounds, or when a player reveals all cards. Then every other player gets one final turn.', label:'END GAME / FINAL TURN'}
+];
+
+const $ = id => document.getElementById(id);
+let current = 0;
+let phase = 0;
+let slots = [];
+let selected = [];
+let chosenCard = '';
+
+function makeCard(name, hidden=false){ return {name, hidden}; }
+function setMessage(text){ $('message').textContent = text; }
+function setPrimary(text, show=true){ $('primaryBtn').textContent = text; $('primaryBtn').style.display = show ? 'inline-block' : 'none'; $('primaryBtn').disabled = false; }
+function setSecondary(text, show=false){ $('secondaryBtn').textContent = text; $('secondaryBtn').style.display = show ? 'inline-block' : 'none'; $('secondaryBtn').disabled = false; }
+function updateHeader(){
+  $('courseCount').textContent = `TUTORIAL ${current+1} OF 8`;
+  $('courseTitle').textContent = lessons[current].title;
+  $('progress').innerHTML = lessons.map((_,i)=>`<div class="p ${i===current?'on':''}"></div>`).join('');
+}
+function clearArrow(){ $('arrow').classList.remove('show'); $('arrow').style.left=''; $('arrow').style.top=''; $('arrow').style.bottom=''; }
+function showArrowTo(el,text){
+  const board = document.querySelector('.board').getBoundingClientRect();
+  const rect = el.getBoundingClientRect();
+  $('arrowText').textContent = text;
+  const arrow = $('arrow');
+  arrow.classList.add('show');
+  arrow.style.left = `${rect.left - board.left + rect.width/2}px`;
+  arrow.style.top = `${rect.top - board.top - 76}px`;
+}
+function clearSelectable(){
+  selected = [];
+  document.querySelectorAll('.slot').forEach(el=>{ el.classList.remove('good','selected'); el.onclick = null; });
+}
+function setGrid(arr){ slots = arr; renderGrid(); }
+function renderGrid(){
+  const grid = $('grid');
+  grid.innerHTML = '';
+  slots.forEach((card, idx)=>{
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'slot' + (card.hidden ? ' hidden' : '');
+    btn.dataset.idx = idx;
+    btn.innerHTML = card.hidden ? 'CARD BACK' : `<div class="scoreTag"></div><div>${card.name}</div>`;
+    grid.appendChild(btn);
+  });
+}
+function enableSlots(indices, arrowText){
+  clearSelectable();
+  indices.forEach(i=>{
+    const el = document.querySelector(`.slot[data-idx="${i}"]`);
+    if(!el) return;
+    el.classList.add('good');
+    el.onclick = ()=>slotClick(i);
+  });
+  if(indices.length){
+    const first = document.querySelector(`.slot[data-idx="${indices[0]}"]`);
+    if(first) showArrowTo(first, arrowText);
+  }
+}
+function showPairInfo(items){
+  const wrap = $('pairInfo');
+  if(!items || !items.length){ wrap.classList.remove('show'); wrap.innerHTML = ''; return; }
+  wrap.innerHTML = items.map(t=>`<div class="mini">${t}</div>`).join('');
+  wrap.classList.add('show');
+}
+function showCourseModal(){
+  $('lessonEyebrow').textContent = `TUTORIAL ${current+1} OF 8`;
+  $('lessonModalTitle').textContent = lessons[current].title;
+  $('lessonModalText').textContent = lessons[current].text;
+  $('lessonModal').classList.add('show');
+}
+function completeCourse(text){ $('completeText').textContent = text; $('nextCourseBtn').textContent = current===lessons.length-1 ? 'FINISH' : 'NEXT COURSE'; $('completeModal').classList.add('show'); }
+function buildCourseButtons(containerId, closeModalId){
+  const container = $(containerId); container.innerHTML = '';
+  lessons.forEach((l, i)=>{
+    const btn = document.createElement('button'); btn.type='button'; btn.className='choice'; btn.textContent = `Course ${i+1}: ${l.title}`;
+    btn.onclick = ()=>{ if(closeModalId) $(closeModalId).classList.remove('show'); $('finishModal').classList.remove('show'); current=i; showCourseModal(); };
+    container.appendChild(btn);
+  });
+}
+function showFinish(){ buildCourseButtons('finishChoices', null); $('finishModal').classList.add('show'); }
+
+function resetBoardForLesson(){
+  updateHeader(); clearArrow(); clearSelectable(); showPairInfo([]); phase = 0; chosenCard = '';
+  switch(current){
+    case 0:
+      setGrid(Array.from({length:8}, ()=>makeCard('CARD BACK', true)));
+      setMessage('First, build your 2 × 4 grid with 8 face-down cards.');
+      setPrimary('BUILD THE GRID'); setSecondary('', false);
+      break;
+    case 1:
+      setGrid([makeCard('PLAYER'), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true), makeCard('CARD BACK', true)]);
+      setMessage('You already revealed 1 starting card. Reveal 1 more starting card.');
+      setPrimary('REVEAL THE 2ND CARD'); setSecondary('', false);
+      break;
+    case 2:
+      setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
+      setMessage('At the start of your turn, choose where to take your card from.');
+      setPrimary('DRAW FROM DRAW PILE'); setSecondary('TAKE FROM DISCARD PILE', true);
+      break;
+    case 3:
+      setGrid([makeCard('PLAYER'),makeCard('SHOOT'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
+      setMessage('You took a card. Now replace one card in your grid with it.');
+      setPrimary('USE TAKEN CARD'); setSecondary('', false);
+      break;
+    case 4:
+      setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('DEFENSE'),makeCard('PLAYER'),makeCard('PLAYER')]);
+      setMessage('Only vertical pairs score. Look for the scoring pairs.');
+      setPrimary('SHOW THE SCORING PAIRS'); setSecondary('', false);
+      break;
+    case 5:
+      setGrid([makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('SHOOT'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('DEFENSE')]);
+      setMessage('This 2 × 2 block has 4 matching SHOOT cards. Learn how the bonus works.');
+      setPrimary('SHOW THE BONUS'); setSecondary('', false);
+      break;
+    case 6:
+      setGrid([makeCard('YELLOW CARD'),makeCard('SOCCER'),makeCard('PLAYER'),makeCard('SHOOT'),makeCard('PLAYER'),makeCard('TACKLE'),makeCard('DEFENSE'),makeCard('DRIBBLE PAST')]);
+      setMessage('An unmatched YELLOW CARD is special.');
+      setPrimary('SHOW YELLOW CARD SCORE'); setSecondary('', false);
+      break;
+    case 7:
+      setGrid([makeCard('PLAYER'),makeCard('PLAYER'),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true),makeCard('CARD BACK', true)]);
+      setMessage('When one player reveals all cards, the game enters Final Turn.');
+      setPrimary('TRIGGER FINAL TURN'); setSecondary('', false);
+      break;
+  }
+}
+
+function slotClick(idx){
+  const el = document.querySelector(`.slot[data-idx="${idx}"]`);
+  if(!el) return;
+  if(current===1 && phase===1){
+    slots[idx] = makeCard('DEFENSE'); renderGrid(); clearSelectable(); clearArrow();
+    setMessage('Now exactly 2 starting cards are face-up.'); setPrimary('COMPLETE COURSE'); phase = 2; return;
+  }
+  if(current===3 && phase===1){
+    slots[idx] = makeCard(chosenCard); renderGrid(); clearSelectable(); clearArrow();
+    setMessage(`${chosenCard} replaced that card in your grid.`); setPrimary('COMPLETE COURSE'); phase = 2; return;
+  }
+}
+
+$('startTutorialBtn').onclick = ()=>{ $('introModal').classList.remove('show'); current = 0; showCourseModal(); };
+$('lessonModalClose').onclick = ()=>{ $('lessonModal').classList.remove('show'); resetBoardForLesson(); };
+$('nextCourseBtn').onclick = ()=>{ $('completeModal').classList.remove('show'); if(current===lessons.length-1){ showFinish(); } else { current++; showCourseModal(); } };
+$('coursesBtn').onclick = ()=>{ buildCourseButtons('courseChoices','coursesModal'); $('coursesModal').classList.add('show'); };
+$('coursesCloseBtn').onclick = ()=> $('coursesModal').classList.remove('show');
+$('guideBtn').onclick = ()=> $('guideModal').classList.add('show');
+$('guideCloseBtn').onclick = ()=> $('guideModal').classList.remove('show');
+
+$('primaryBtn').onclick = ()=>{
+  switch(current){
+    case 0:
+      if(phase===0){
+        phase = 1;
+        setMessage('Great. The 2 × 4 grid is ready.');
+        completeCourse('You learned how to set up the 2 × 4 grid with 8 face-down cards.');
+      }
+      break;
+    case 1:
+      if(phase===0){
+        phase = 1;
+        setMessage('Tap one face-down card to reveal it.');
+        enableSlots([1,2,3,4,5,6,7],'TAP A FACE-DOWN CARD');
+        $('primaryBtn').style.display = 'none';
+      } else if(phase===2){
+        completeCourse('Before the first turn begins, reveal any 2 cards in your grid.');
+      }
+      break;
+    case 2:
+      if(phase===0){
+        phase = 1; chosenCard = 'DRIBBLE PAST';
+        setMessage('You drew DRIBBLE PAST from the Draw Pile. That is one valid start-of-turn choice.');
+        completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.');
+      }
+      break;
+    case 3:
+      if(phase===0){
+        phase = 1; chosenCard = 'TACKLE';
+        setMessage('You took TACKLE. Tap one face-down card in your grid to replace it.');
+        enableSlots([2,3,4,5,6,7],'TAP A CARD TO REPLACE');
+        $('primaryBtn').style.display='none';
+      } else if(phase===2){
+        completeCourse('After drawing or taking a card, replace one card in your grid with it.');
+      }
+      break;
+    case 4:
+      if(phase===0){
+        phase = 1;
+        renderGrid();
+        [0,4,2,6].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag'));
+        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = 'TOP';
+        document.querySelector(`.slot[data-idx="4"] .scoreTag`).textContent = '+5';
+        document.querySelector(`.slot[data-idx="2"] .scoreTag`).textContent = 'TOP';
+        document.querySelector(`.slot[data-idx="6"] .scoreTag`).textContent = '+7';
+        showPairInfo(['Column 1: SHOOT + SHOOT = 5', 'Column 3: PLAYER + PLAYER = 7', 'Horizontal pairs = 0', 'Diagonal pairs = 0']);
+        setMessage('Only vertical pairs score. The horizontal SHOOT-SHOOT at the top does NOT score. The diagonal cards do NOT score.');
+        setPrimary('COMPLETE COURSE');
+      } else if(phase===1){
+        completeCourse('Only vertical pairs score. Horizontal and diagonal pairs do not score.');
+      }
+      break;
+    case 5:
+      if(phase===0){
+        phase = 1;
+        showPairInfo(['Left column: SHOOT + SHOOT = 5', 'Right column: SHOOT + SHOOT = 5', '4 matching cards bonus = +5', 'Total = 15']);
+        setMessage('All 4 cards match. Score both vertical columns first, then add the +5 bonus. 5 + 5 + 5 = 15.');
+        renderGrid();
+        [0,1,4,5].forEach(i=>document.querySelector(`.slot[data-idx="${i}"]`).classList.add('showTag','good'));
+        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = 'LEFT +5';
+        document.querySelector(`.slot[data-idx="1"] .scoreTag`).textContent = 'RIGHT +5';
+        document.querySelector(`.slot[data-idx="4"] .scoreTag`).textContent = 'ALL 4';
+        document.querySelector(`.slot[data-idx="5"] .scoreTag`).textContent = 'BONUS +5';
+        setPrimary('COMPLETE COURSE');
+      } else if(phase===1){
+        completeCourse('4 matching cards score both vertical columns first, then add a +5 bonus. Example: 5 + 5 + 5 = 15.');
+      }
+      break;
+    case 6:
+      if(phase===0){
+        phase = 1;
+        renderGrid();
+        document.querySelector(`.slot[data-idx="0"]`).classList.add('good','showTag');
+        document.querySelector(`.slot[data-idx="0"] .scoreTag`).textContent = '-3';
+        showPairInfo(['Unmatched YELLOW CARD = -3', 'Other unmatched singles = 0']);
+        setMessage('This YELLOW CARD is unmatched, so it scores -3. Other single unmatched cards score 0.');
+        setPrimary('COMPLETE COURSE');
+      } else if(phase===1){
+        completeCourse('An unmatched YELLOW CARD scores -3. Other unmatched single cards score 0.');
+      }
+      break;
+    case 7:
+      if(phase===0){
+        phase = 1;
+        setMessage('A player revealed every card. That triggers Final Turn.');
+        setPrimary('TAKE FINAL TURN');
+      } else if(phase===1){
+        phase = 2;
+        slots[2]=makeCard('SOCCER'); slots[3]=makeCard('SHOOT'); slots[4]=makeCard('DEFENSE'); slots[5]=makeCard('PLAYER'); slots[6]=makeCard('YELLOW CARD'); slots[7]=makeCard('DRIBBLE PAST');
+        renderGrid();
+        setMessage('Every other player gets one more turn, then all cards are revealed and the game ends. Highest total score wins.');
+        setPrimary('COMPLETE COURSE');
+      } else if(phase===2){
+        completeCourse('The game ends after 9 rounds, or after Final Turn. When one player reveals all cards, every other player gets one last turn.');
+      }
+      break;
+  }
+};
+
+$('secondaryBtn').onclick = ()=>{
+  if(current===2 && phase===0){
+    phase = 1; chosenCard = 'DEFENSE';
+    setMessage('You took DEFENSE from the Discard Pile. That is also a valid start-of-turn choice.');
+    completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.');
+  }
+};
+
+updateHeader();
+setGrid(Array.from({length:8}, ()=>makeCard('CARD BACK', true)));
+</script>
+</body>
+</html>
