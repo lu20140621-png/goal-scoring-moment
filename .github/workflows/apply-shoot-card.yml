@@ -1,0 +1,95 @@
+name: Apply SHOOT card image
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-shoot-card.yml'
+      - '_shoot_card_source.b64'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build card image and patch tutorials
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, re
+
+          src = Path('_shoot_card_source.b64')
+          if not src.exists():
+              raise SystemExit('Missing _shoot_card_source.b64')
+          raw = ''.join(src.read_text(encoding='utf-8').split())
+          img = Path('images/shoot-card.jpg')
+          img.parent.mkdir(parents=True, exist_ok=True)
+          img.write_bytes(base64.b64decode(raw))
+
+          css = '''/* SHOOT_CARD_IMAGE_V3 */
+          .shootCardImg{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#fff}
+          .face.shootFace{padding:0!important;background:#fff!important;overflow:hidden}
+          .pc.shootPc{padding:0!important;background:#fff!important;overflow:hidden}
+          .flowStep.shootFlow{width:24px;height:32px;display:inline-flex!important;align-items:center;justify-content:center;padding:0!important;border-radius:4px;overflow:hidden;background:#fff;vertical-align:middle}
+          .lessonIcon.shootLesson{width:30px;height:40px;display:inline-flex!important;align-items:center;justify-content:center;overflow:hidden;border-radius:5px;background:#fff}
+          .mini.shootMini{padding:0!important;background:#fff!important;overflow:hidden}
+          .bigIcon.shootBig{width:72px;height:96px;margin:0 auto 7px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px;background:#fff}
+          /* /SHOOT_CARD_IMAGE_V3 */'''
+
+          helper = "const SHOOT_IMG='images/shoot-card.jpg?v=20260818c';function cardVisual(c){return c==='SHOOT'?`<img class=\"shootCardImg\" src=\"${SHOOT_IMG}\" alt=\"SHOOT card\">`:(NAME[c]||c)};"
+
+          def inject_css(s):
+              if 'SHOOT_CARD_IMAGE_V3' not in s:
+                  s = s.replace('</style>', css + '</style>', 1)
+              return s
+
+          # Strategy Mode
+          p = Path('strategy.html')
+          s = p.read_text(encoding='utf-8')
+          s = inject_css(s)
+          if "const SHOOT_IMG='images/shoot-card.jpg?v=20260818c'" not in s:
+              s = s.replace('const LES=', helper + 'const LES=', 1)
+          s = s.replace('function flow(){return LES[lesson].f.map((x,i)=>`${i?\'<span class="flowArrow">→</span>\':\'\'}<span class="flowStep">${x}</span>`).join(\'\')}', 'function flow(){return LES[lesson].f.map((x,i)=>`${i?\'<span class="flowArrow">→</span>\':\'\'}<span class="flowStep ${x===\'SHOOT\'?\'shootFlow\':\'\'}">${x===\'SHOOT\'?cardVisual(\'SHOOT\'):x}</span>`).join(\'\')}')
+          s = s.replace('b.innerHTML=`<div class="face">${NAME[o.c]}</div>`;', 'b.innerHTML=`<div class="face ${o.c===\'SHOOT\'?\'shootFace\':\'\'}">${cardVisual(o.c)}</div>`;')
+          s = s.replace("$('played').innerHTML=S.played.map((c,i)=>`${i?'<span class=\"flowArrow\">→</span>':''}<div class=\"pc\">${NAME[c]||c}</div>`).join('');", "$('played').innerHTML=S.played.map((c,i)=>`${i?'<span class=\"flowArrow\">→</span>':''}<div class=\"pc ${c==='SHOOT'?'shootPc':''}\">${cardVisual(c)}</div>`).join('');")
+          s = s.replace("$('lessonIcon').textContent=LES[lesson].i;", "$('lessonIcon').classList.toggle('shootLesson',lesson===1);$('lessonIcon').innerHTML=lesson===1?cardVisual('SHOOT'):LES[lesson].i;")
+          p.write_text(s, encoding='utf-8')
+
+          # Casual Party Mode
+          p = Path('casual.html')
+          s = p.read_text(encoding='utf-8')
+          s = inject_css(s)
+          if "const SHOOT_IMG='images/shoot-card.jpg?v=20260818c'" not in s:
+              s = s.replace('const LES=', helper + 'const LES=', 1)
+          s = s.replace('function flowHtml(arr){return arr.map((x,i)=>`${i?\'<span class="flowArrow">→</span>\':\'\'}<span class="flowStep">${x}</span>`).join(\'\')}', 'function flowHtml(arr){return arr.map((x,i)=>`${i?\'<span class="flowArrow">→</span>\':\'\'}<span class="flowStep ${x===\'SHOOT\'?\'shootFlow\':\'\'}">${x===\'SHOOT\'?cardVisual(\'SHOOT\'):x}</span>`).join(\'\')}')
+          s = s.replace('b.innerHTML=`<div class="face">${NAME[o.c]}</div>`;', 'b.innerHTML=`<div class="face ${o.c===\'SHOOT\'?\'shootFace\':\'\'}">${cardVisual(o.c)}</div>`;')
+          s = s.replace("$('lessonIcon').textContent=LES[L].i;", "$('lessonIcon').classList.toggle('shootLesson',L===4);$('lessonIcon').innerHTML=L===4?cardVisual('SHOOT'):LES[L].i;")
+          s = s.replace("$('modalIcon').textContent=LES[L].i;", "$('modalIcon').classList.toggle('shootBig',L===4);$('modalIcon').innerHTML=L===4?cardVisual('SHOOT'):LES[L].i;")
+          old_top3 = "$('top3').innerHTML=S.deck.slice(0,3).map(x=>`<div class=\"mini\">${x==='SOCCER'?'⚽ SOCCER':NAME[x]}</div>`).join('')"
+          new_top3 = "$('top3').innerHTML=S.deck.slice(0,3).map(x=>`<div class=\"mini ${x==='SHOOT'?'shootMini':''}\">${x==='SOCCER'?'⚽ SOCCER':cardVisual(x)}</div>`).join('')"
+          s = s.replace(old_top3, new_top3)
+          p.write_text(s, encoding='utf-8')
+
+          # Force fresh tutorial URLs from home page.
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = re.sub(r'strategy\.html\?v=[^\"\']+', 'strategy.html?v=20260818shoot3', s)
+          s = re.sub(r'casual\.html\?v=[^\"\']+', 'casual.html?v=20260818shoot3', s)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit patched site
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/shoot-card.jpg strategy.html casual.html index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Use real SHOOT card artwork in tutorials"
+            git push
+          fi
