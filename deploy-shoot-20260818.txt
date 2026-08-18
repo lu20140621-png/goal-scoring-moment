@@ -1,0 +1,1 @@
+Trigger GitHub Pages deployment after applying the real SHOOT card artwork to Strategy and Casual tutorials.
