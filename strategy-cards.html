@@ -10,8 +10,91 @@
 <style>html,body{margin:0;width:100%;height:100%;overflow:auto;background:#06111d}#game{display:block;width:100%;min-height:100dvh;border:0;background:#06111d}@supports not (min-height:100dvh){#game{min-height:100vh}}</style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260825corepossession1" title="Strategy Mode Tutorial"></iframe>
-<script>const f=document.getElementById('game');function sync(){try{const h=f.contentDocument.documentElement.scrollHeight;f.style.height=Math.max(h,window.innerHeight)+'px'}catch(e){}}f.addEventListener('load',()=>{sync();setTimeout(sync,300);setTimeout(sync,1000)});window.addEventListener('resize',sync);</script>
-<script src="strategy-desktop-polish.js?v=20260825playedsoccer1"></script>
+<iframe id="game" src="strategy.html?v=20260825playedsoccer2" title="Strategy Mode Tutorial"></iframe>
+<script>
+const f=document.getElementById('game');
+function sync(){try{const h=f.contentDocument.documentElement.scrollHeight;f.style.height=Math.max(h,window.innerHeight)+'px'}catch(e){}}
+f.addEventListener('load',()=>{sync();setTimeout(sync,300);setTimeout(sync,1000)});
+window.addEventListener('resize',sync);
+
+function installPlayedSoccer(){
+  try{
+    const d=f.contentDocument;
+    if(!d||!d.head||!d.body)return;
+    if(d.getElementById('gsm-played-soccer-inline-v2'))return;
+
+    const st=d.createElement('style');
+    st.id='gsm-played-soccer-inline-v2';
+    st.textContent=`
+      .gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+      .gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}
+      .gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}
+      .gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}
+      @media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}
+    `;
+    d.head.appendChild(st);
+
+    function holderName(){
+      if(d.querySelector('#H0 .possessionCard'))return 'YOU';
+      if(d.querySelector('#H1 .possessionCard'))return 'BLUE 2';
+      if(d.querySelector('#A0 .possessionCard'))return 'GREEN 1';
+      if(d.querySelector('#A1 .possessionCard'))return 'GREEN 2';
+      return 'CURRENT PLAYER';
+    }
+
+    function soccerNode(text,start=false){
+      const wrap=d.createElement('div');
+      wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');
+      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825playedsoccer2" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
+      return wrap;
+    }
+
+    let timer=null;
+    function schedule(){clearTimeout(timer);timer=setTimeout(refresh,35)}
+
+    function refresh(){
+      const played=d.getElementById('played');
+      if(!played)return;
+      const intro=d.getElementById('intro');
+      const tutorialStarted=!intro||!intro.classList.contains('show');
+
+      if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart')){
+        const empty=played.querySelector('.playedEmpty');
+        if(empty)empty.remove();
+        const had=played.children.length>0;
+        const start=soccerNode(`SOCCER CARD • ${holderName()} STARTS WITH POSSESSION`,true);
+        if(had){
+          const arrow=d.createElement('div');
+          arrow.className='playArrow gsmPlayedSoccerStartArrow';
+          arrow.textContent='→';
+          played.insertBefore(arrow,played.firstChild);
+          played.insertBefore(start,played.firstChild);
+        }else played.appendChild(start);
+        const note=d.getElementById('playedNote');
+        if(note)note.textContent='Full chain • left → right';
+      }
+
+      [...played.querySelectorAll('.resultChip')].forEach(chip=>{
+        const txt=(chip.textContent||'').trim();
+        if(!/SOCCER CARD/i.test(txt))return;
+        const wrap=soccerNode(txt,false);
+        chip.replaceWith(wrap);
+      });
+    }
+
+    const played=d.getElementById('played');
+    if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});
+    const pitch=d.querySelector('.pitch');
+    if(pitch)new MutationObserver(schedule).observe(pitch,{childList:true,subtree:true});
+    const intro=d.getElementById('intro');
+    if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});
+    schedule();
+  }catch(e){console.error('Played Soccer install failed',e)}
+}
+
+f.addEventListener('load',()=>{installPlayedSoccer();setTimeout(installPlayedSoccer,150);setTimeout(installPlayedSoccer,600)});
+if(f.contentDocument&&f.contentDocument.readyState!=='loading')installPlayedSoccer();
+</script>
+<script src="strategy-desktop-polish.js?v=20260825playedsoccer2"></script>
 </body>
 </html>
