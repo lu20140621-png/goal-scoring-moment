@@ -7,6 +7,16 @@
     if(!d||!d.body)return;
     if(d.getElementById('gsm-lesson8-core-fix'))return;
 
+    const style=d.createElement('style');
+    style.id='gsm-lesson8-soccer-card-style';
+    style.textContent=`
+      .seat .gsmPossessionCard{position:absolute;width:54px;height:54px;object-fit:contain;z-index:18;filter:drop-shadow(0 5px 8px #0008);pointer-events:none}
+      .seat.blue .gsmPossessionCard{right:-60px;top:50%;transform:translateY(-50%)}
+      .seat.green .gsmPossessionCard{left:-60px;top:50%;transform:translateY(-50%)}
+      @media(max-width:760px){.seat .gsmPossessionCard{width:42px;height:42px}.seat.blue .gsmPossessionCard{right:-45px}.seat.green .gsmPossessionCard{left:-45px}}
+    `;
+    d.head.appendChild(style);
+
     const s=d.createElement('script');
     s.id='gsm-lesson8-core-fix';
     s.textContent=`
@@ -15,7 +25,23 @@
         window.__gsmLesson8Fixed=true;
 
         lessons[7].hint='First SHOOT triggers the Goalkeeper passive and sends the Soccer Card to GREEN 2. Use TACKLE to take the Soccer Card back, then SHOOT again.';
-        lessons[7].flow=['GK 2 TOKENS','SHOOT','PASSIVE AUTO-SAVE','BALL TO GK','TACKLE','YOU TAKE BALL','SHOOT AGAIN','3RD TOKEN → OUT'];
+        lessons[7].flow=['GK 2 TOKENS','SHOOT','PASSIVE AUTO-SAVE','SOCCER CARD TO GK','TACKLE','YOU TAKE SOCCER CARD','SHOOT AGAIN','3RD TOKEN → OUT'];
+
+        function showRealSoccerCard(){
+          ['H0','H1','A0','A1'].forEach(id=>{
+            const seatEl=$(id);
+            if(!seatEl)return;
+            seatEl.querySelectorAll('.gsmPossessionCard').forEach(x=>x.remove());
+            const badge=seatEl.querySelector('.ball');
+            if(!badge)return;
+            badge.remove();
+            const img=document.createElement('img');
+            img.className='gsmPossessionCard';
+            img.src='images/soccer-card.png';
+            img.alt='Soccer Card';
+            seatEl.appendChild(img);
+          });
+        }
 
         const originalActiveName=activeName;
         activeName=function(){
@@ -36,6 +62,7 @@
           $('H1').innerHTML=seat('BLUE 2','blue','GOALKEEPER',h1Ball,0);
           $('A0').innerHTML=seat('GREEN 1','green','HIDDEN',false,0);
           $('A1').innerHTML=seat('GREEN 2','green',idx===7?'GOALKEEPER':'HIDDEN',a1Ball,gkTokens);
+          showRealSoccerCard();
         };
 
         const originalOnCard=onCard;
@@ -46,7 +73,7 @@
             setTimeout(()=>{
               appendNode({result:'YOUR TURN CONTINUES',kind:'good'});
               gkStep=1.5;
-              setLog('TACKLE takes the Soccer Card back from GREEN 2. You now have the ball, so you may SHOOT again.');
+              setLog('TACKLE takes the Soccer Card back from GREEN 2. You now have the Soccer Card, so you may SHOOT again.');
               render();
             },700);
             return;
@@ -57,6 +84,7 @@
         const originalRender=render;
         render=function(){
           originalRender();
+          showRealSoccerCard();
           if(idx!==7)return;
           const status=$('statusText');
           const action=$('mainAction');
@@ -66,7 +94,7 @@
             if(started&&!awaitingNext)showGuide('TAP SHOOT');
           }else if(gkStep===1){
             status.textContent='Goalkeeper saved • GREEN 2 now has the Soccer Card';
-            action.textContent='PLAY TACKLE — TAKE BALL BACK';
+            action.textContent='PLAY TACKLE — TAKE SOCCER CARD BACK';
             if(started&&!awaitingNext)showGuide('TAP TACKLE — TAKE THE SOCCER CARD');
           }else if(gkStep===1.5){
             status.textContent='You stole the Soccer Card • SHOOT again';
