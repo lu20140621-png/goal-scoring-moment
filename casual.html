@@ -13,7 +13,7 @@
 <script>
 (async()=>{
   try{
-    const r=await fetch('casual-game.html?v=20260825ioslock1',{cache:'no-store'});
+    const r=await fetch('casual-game.html?v=20260825rulebookscroll1',{cache:'no-store'});
     if(!r.ok)throw new Error('Unable to load Casual mode');
     let html=await r.text();
     const lockStyle=`<style id="casual-ios-viewport-lock">
@@ -21,10 +21,13 @@
   html,body{width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important;background:#06111d!important}
   body{position:fixed!important;inset:0!important;width:100%!important;height:var(--vvh,100dvh)!important;max-height:var(--vvh,100dvh)!important;overflow:hidden!important}
   .shell{height:var(--shellh,calc(100dvh - 66px))!important;max-height:var(--shellh,calc(100dvh - 66px))!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important}
+  body.gsm-modal-open .shell{overflow:hidden!important;touch-action:none!important}
   .hand{overscroll-behavior-x:contain!important;touch-action:pan-x!important}
   .played{overscroll-behavior-x:contain!important}
   .modal{position:fixed!important;left:0!important;right:0!important;top:var(--vvtop,0px)!important;bottom:auto!important;width:100vw!important;height:var(--vvh,100dvh)!important;max-height:var(--vvh,100dvh)!important;overflow:hidden!important;overscroll-behavior:none!important}
   .modal .box{max-height:calc(var(--vvh,100dvh) - 28px)!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important}
+  #rulebookModal{padding:12px!important;align-items:center!important;justify-content:center!important}
+  #rulebookModal .box.rulebook{height:calc(var(--vvh,100dvh) - 24px)!important;max-height:calc(var(--vvh,100dvh) - 24px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
 }
 </style>`;
     const lockScript=`<script id="casual-ios-viewport-script">(()=>{
@@ -41,20 +44,34 @@
         root.style.setProperty('--shellh',Math.max(320,h-used)+'px');
         if(window.scrollY!==0)window.scrollTo(0,0);
       }
+      function syncModalLock(){
+        const open=!!document.querySelector('.modal.show');
+        document.body.classList.toggle('gsm-modal-open',open);
+        const rb=document.querySelector('#rulebookModal.show .box.rulebook');
+        if(rb&&rb.dataset.gsmOpened!=='1'){
+          rb.scrollTop=0;
+          rb.dataset.gsmOpened='1';
+        }
+        const closed=document.querySelector('#rulebookModal:not(.show) .box.rulebook');
+        if(closed)closed.dataset.gsmOpened='0';
+      }
       syncViewport();
+      syncModalLock();
       window.addEventListener('resize',syncViewport,{passive:true});
       if(window.visualViewport){
         window.visualViewport.addEventListener('resize',syncViewport,{passive:true});
         window.visualViewport.addEventListener('scroll',syncViewport,{passive:true});
       }
+      document.querySelectorAll('.modal').forEach(m=>new MutationObserver(syncModalLock).observe(m,{attributes:true,attributeFilter:['class']}));
       let startY=0;
       document.addEventListener('touchstart',e=>{if(e.touches.length===1)startY=e.touches[0].clientY},{passive:true});
       document.addEventListener('touchmove',e=>{
         if(window.innerWidth>760||e.touches.length!==1)return;
         const target=e.target;
-        if(target.closest&&target.closest('.hand'))return;
+        if(target.closest&&target.closest('.hand')&&!document.body.classList.contains('gsm-modal-open'))return;
         const scroller=(target.closest&&target.closest('.box'))||(target.closest&&target.closest('.shell'));
         if(!scroller){e.preventDefault();return}
+        if(document.body.classList.contains('gsm-modal-open')&&!target.closest('.box')){e.preventDefault();return}
         const y=e.touches[0].clientY,dy=y-startY;
         const max=scroller.scrollHeight-scroller.clientHeight;
         if(max<=1||(scroller.scrollTop<=0&&dy>0)||(scroller.scrollTop>=max-1&&dy<0))e.preventDefault();
