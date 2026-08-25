@@ -2,25 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Goal-Scoring Moment — Strategy Tutorial</title>
-<style>html,body{margin:0;width:100%;height:100%;overflow:auto;background:#06111d}#game{display:block;width:100%;min-height:100dvh;border:0;background:#06111d}@supports not (min-height:100dvh){#game{min-height:100vh}}</style>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
+#game{display:block;width:100%;height:100dvh;max-height:100dvh;border:0;background:#06111d}
+@supports not (height:100dvh){#game{height:100vh;max-height:100vh}}
+</style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260825completion1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260825rulebookscroll1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
-function sync(){try{const h=f.contentDocument.documentElement.scrollHeight;f.style.height=Math.max(h,window.innerHeight)+'px'}catch(e){}}
-f.addEventListener('load',()=>{sync();setTimeout(sync,300);setTimeout(sync,1000)});
-window.addEventListener('resize',sync);
+
+function installRulebookScroll(){
+  try{
+    const w=f.contentWindow,d=f.contentDocument;
+    if(!w||!d||!d.head||!d.body)return;
+    if(!/strategy-rulebook\.html$/i.test(w.location.pathname))return;
+    if(d.getElementById('gsm-strategy-rulebook-scroll'))return;
+
+    const st=d.createElement('style');
+    st.id='gsm-strategy-rulebook-scroll';
+    st.textContent=`
+      html,body{height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important}
+      body{display:flex!important;flex-direction:column!important;position:relative!important;width:100%!important}
+      .hero{flex:0 0 auto!important}
+      .wrap{flex:1 1 auto!important;min-height:0!important;width:100%!important;max-width:860px!important;margin:0 auto!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
+      .back{position:sticky!important;bottom:8px!important}
+    `;
+    d.head.appendChild(st);
+
+    const scroller=d.querySelector('.wrap');
+    if(!scroller)return;
+    scroller.scrollTop=0;
+    let startY=0;
+    d.addEventListener('touchstart',e=>{if(e.touches.length===1)startY=e.touches[0].clientY},{passive:true});
+    d.addEventListener('touchmove',e=>{
+      if(e.touches.length!==1)return;
+      const target=e.target;
+      if(!(target.closest&&target.closest('.wrap'))){e.preventDefault();return}
+      const y=e.touches[0].clientY,dy=y-startY;
+      const max=scroller.scrollHeight-scroller.clientHeight;
+      if(max<=1||(scroller.scrollTop<=0&&dy>0)||(scroller.scrollTop>=max-1&&dy<0))e.preventDefault();
+    },{passive:false});
+  }catch(e){console.error('Rulebook scroll install failed',e)}
+}
 
 function installPlayedSoccer(){
   try{
     const d=f.contentDocument;
     if(!d||!d.head||!d.body)return;
+    if(!d.getElementById('played'))return;
     if(d.getElementById('gsm-played-soccer-inline-v2'))return;
 
     const st=d.createElement('style');
@@ -45,7 +81,7 @@ function installPlayedSoccer(){
     function soccerNode(text,start=false){
       const wrap=d.createElement('div');
       wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');
-      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825completion1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
+      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825rulebookscroll1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
       return wrap;
     }
 
@@ -134,13 +170,19 @@ function installCompletionAction(){
 }
 
 function installAll(){
+  installRulebookScroll();
   installPlayedSoccer();
   installCompletionAction();
 }
 
-f.addEventListener('load',()=>{installAll();setTimeout(installAll,150);setTimeout(installAll,600)});
+f.addEventListener('load',()=>{
+  try{f.contentWindow.scrollTo(0,0)}catch(e){}
+  installAll();
+  setTimeout(installAll,150);
+  setTimeout(installAll,600);
+});
 if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
-<script src="strategy-desktop-polish.js?v=20260825completion1"></script>
+<script src="strategy-desktop-polish.js?v=20260825rulebookscroll1"></script>
 </body>
 </html>
