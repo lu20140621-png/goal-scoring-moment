@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260825desktopclick1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260825desktopfix2" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -81,7 +81,7 @@ function installPlayedSoccer(){
     function soccerNode(text,start=false){
       const wrap=d.createElement('div');
       wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');
-      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825desktopclick1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
+      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825desktopfix2" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
       return wrap;
     }
 
@@ -94,7 +94,7 @@ function installPlayedSoccer(){
       const intro=d.getElementById('intro');
       const tutorialStarted=!intro||!intro.classList.contains('show');
 
-      if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart')){
+      if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart,.gsmSoccerStart')){
         const empty=played.querySelector('.playedEmpty');
         if(empty)empty.remove();
         const had=played.children.length>0;
@@ -183,6 +183,6 @@ f.addEventListener('load',()=>{
 });
 if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
-<script src="strategy-desktop-polish.js?v=20260825desktopclick1"></script>
+<script src="strategy-desktop-polish.js?v=20260825desktopfix2"></script>
 </body>
 </html>
