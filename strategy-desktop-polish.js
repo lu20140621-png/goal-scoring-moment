@@ -41,7 +41,8 @@
       const isPass=(title.textContent||'').trim()==='PASS';
       lesson.classList.toggle('gsmPassLesson',isPass);
       if(isPass){
-        hint.innerHTML='Pass the Soccer Card to BLUE 2.<br>Possession changes, but your turn does not end.';
+        const desired='Pass the Soccer Card to BLUE 2.<br>Possession changes, but your turn does not end.';
+        if(hint.innerHTML!==desired)hint.innerHTML=desired;
       }
     }
 
