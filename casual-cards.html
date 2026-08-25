@@ -1,1 +1,32 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0"><title>Goal-Scoring Moment — Casual Party Tutorial</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}iframe{position:fixed;inset:0;width:100%;height:100dvh;border:0;display:block;background:#06111d}</style></head><body><iframe id="game" src="casual.html?v=20260825casualnaturalfield1" title="Casual Party Mode Tutorial"></iframe><script>const f=document.getElementById('game');function fit(){f.style.height=((window.visualViewport&&window.visualViewport.height)||window.innerHeight||document.documentElement.clientHeight)+'px'}fit();window.addEventListener('resize',fit);if(window.visualViewport)window.visualViewport.addEventListener('resize',fit);f.addEventListener('load',()=>{fit();const d=f.contentDocument;if(!d||!d.head)return;const s=d.createElement('style');s.id='casual-scroll-fix';s.textContent=`html{overscroll-behavior-y:none!important;background:#06111d!important}body{min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:none!important;-webkit-overflow-scrolling:touch}.pitch{max-height:none!important}.modal{overscroll-behavior:contain!important}.box{overscroll-behavior:contain!important}`;d.head.appendChild(s);try{f.contentWindow.scrollTo(0,0)}catch(e){}});</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Goal-Scoring Moment — Casual Party Tutorial</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:auto;background:#06111d;overscroll-behavior-y:none}
+#game{display:block;width:100%;min-height:100dvh;border:0;background:#06111d}
+@supports not (min-height:100dvh){#game{min-height:100vh}}
+</style>
+</head>
+<body>
+<iframe id="game" src="casual.html?v=20260825casualnaturalfield2" title="Casual Party Mode Tutorial"></iframe>
+<script>
+const f=document.getElementById('game');
+function sync(){
+  try{
+    const d=f.contentDocument;
+    if(!d)return;
+    const h=Math.max(d.documentElement.scrollHeight,d.body?d.body.scrollHeight:0);
+    f.style.height=Math.max(h,window.innerHeight)+'px';
+  }catch(e){}
+}
+f.addEventListener('load',()=>{sync();setTimeout(sync,250);setTimeout(sync,800);setTimeout(sync,1600)});
+window.addEventListener('resize',sync);
+</script>
+</body>
+</html>
