@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260826gkskill1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260826gkpopup1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -40,42 +40,107 @@ function installRulebookScroll(){
 function installPlayedSoccer(){
   try{
     const d=f.contentDocument;
-    if(!d||!d.head||!d.body||!d.getElementById('played')||d.getElementById('gsm-played-soccer-inline-v2'))return;
-    const st=d.createElement('style');st.id='gsm-played-soccer-inline-v2';st.textContent=`.gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}.gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}.gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}.gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}@media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}`;d.head.appendChild(st);
+    if(!d||!d.head||!d.body||!d.getElementById('played')||d.getElementById('gsm-played-soccer-inline-v3'))return;
+    const st=d.createElement('style');st.id='gsm-played-soccer-inline-v3';st.textContent=`.gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}.gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}.gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}.gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}@media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}`;
+    d.head.appendChild(st);
     function holderName(){if(d.querySelector('#H0 .possessionCard'))return'YOU';if(d.querySelector('#H1 .possessionCard'))return'BLUE 2';if(d.querySelector('#A0 .possessionCard'))return'GREEN 1';if(d.querySelector('#A1 .possessionCard'))return'GREEN 2';return'CURRENT PLAYER'}
-    function soccerNode(text,start=false){const wrap=d.createElement('div');wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826gkskill1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;return wrap}
+    function soccerNode(text,start=false){const wrap=d.createElement('div');wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826gkpopup1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;return wrap}
     let timer=null;function schedule(){clearTimeout(timer);timer=setTimeout(refresh,35)}
     function refresh(){const played=d.getElementById('played');if(!played)return;const intro=d.getElementById('intro');const tutorialStarted=!intro||!intro.classList.contains('show');if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart,.gsmSoccerStart')){const empty=played.querySelector('.playedEmpty');if(empty)empty.remove();const had=played.children.length>0,start=soccerNode(`SOCCER CARD • ${holderName()} STARTS WITH POSSESSION`,true);if(had){const arrow=d.createElement('div');arrow.className='playArrow gsmPlayedSoccerStartArrow';arrow.textContent='→';played.insertBefore(arrow,played.firstChild);played.insertBefore(start,played.firstChild)}else played.appendChild(start);const note=d.getElementById('playedNote');if(note)note.textContent='Full chain • left → right'}[...played.querySelectorAll('.resultChip')].forEach(chip=>{const txt=(chip.textContent||'').trim();if(!/SOCCER CARD/i.test(txt))return;chip.replaceWith(soccerNode(txt,false))})}
-    const played=d.getElementById('played');if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});const pitch=d.querySelector('.pitch');if(pitch)new MutationObserver(schedule).observe(pitch,{childList:true,subtree:true});const intro=d.getElementById('intro');if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});schedule();
+    const played=d.getElementById('played');if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});
+    const pitch=d.querySelector('.pitch');if(pitch)new MutationObserver(schedule).observe(pitch,{childList:true,subtree:true});
+    const intro=d.getElementById('intro');if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});
+    schedule();
   }catch(e){console.error('Played Soccer install failed',e)}
 }
 
-function installGoalkeeperSkillVisual(){
+function installGoalkeeperPassivePopup(){
   try{
-    const d=f.contentDocument;if(!d||!d.head||!d.body||d.getElementById('gsm-gk-skill-style'))return;
-    const st=d.createElement('style');st.id='gsm-gk-skill-style';st.textContent=`
-      .gsmGkSkill{display:none;align-items:center;justify-content:center;gap:10px;margin:8px auto 0;padding:8px 10px;max-width:410px;border:2px solid #e36a78;border-radius:12px;background:#fff0f2;text-align:left}
-      .gsmGkSkill.show{display:flex}.gsmGkSkill img{width:58px;height:82px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 4px 7px #0003)}
-      .gsmGkSkill strong{display:block;color:#a52335;font-size:10px;margin-bottom:3px}.gsmGkSkill span{display:block;color:#4d3b43;font-size:9px;line-height:1.35;font-weight:800}
-      @media(max-width:760px){.gsmGkSkill{gap:6px;padding:5px 6px;margin-top:5px;max-width:270px}.gsmGkSkill img{width:40px;height:56px}.gsmGkSkill strong{font-size:7px}.gsmGkSkill span{font-size:6.5px;line-height:1.25}}
-    `;d.head.appendChild(st);
-    function refresh(){const lesson=d.querySelector('.lesson'),title=d.getElementById('lessonTitle');if(!lesson||!title)return;let box=d.getElementById('gsmGkSkill');if(!box){box=d.createElement('div');box.id='gsmGkSkill';box.className='gsmGkSkill';box.innerHTML=`<img loading="lazy" decoding="async" src="images/goalkeeper-card.png?v=20260826gkskill1" alt="Goalkeeper Role Card"><div><strong>GOALKEEPER PASSIVE</strong><span>When the Goalkeeper has 2 Tokens, the next attack that would give the 3rd Token is automatically saved once. No 3rd Token is added, and the Soccer Card goes to the Goalkeeper.</span></div>`;const flow=lesson.querySelector('.flow');if(flow)lesson.insertBefore(box,flow);else lesson.appendChild(box)}const isGK=/GOALKEEPER PASSIVE/i.test((title.textContent||'').trim());box.classList.toggle('show',isGK)}
-    refresh();const lesson=d.querySelector('.lesson');if(lesson)new MutationObserver(refresh).observe(lesson,{childList:true,subtree:true,characterData:true});
-  }catch(e){console.error('Goalkeeper skill visual install failed',e)}
+    const w=f.contentWindow,d=f.contentDocument;
+    if(!w||!d||!d.head||!d.body||!d.getElementById('played')||w.__gsmGkPopupPatched)return;
+    w.__gsmGkPopupPatched=true;
+
+    const st=d.createElement('style');
+    st.id='gsm-gk-popup-style';
+    st.textContent=`
+      #gsmGkPassiveModal{z-index:350;background:#07172ce8}
+      #gsmGkPassiveModal .gsmGkBox{width:min(590px,100%);border:4px solid #d84a5d;border-top-color:#b51f35;border-radius:18px;padding:18px;text-align:left;background:#fffdf8;box-shadow:0 18px 55px #0007}
+      .gsmGkTag{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:#ffe5e9;color:#b42339;font-size:10px;font-weight:950;letter-spacing:.06em}
+      .gsmGkInner{display:flex;align-items:center;gap:18px}.gsmGkCard{width:112px;height:156px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 8px 12px #0004)}
+      .gsmGkTitle{font-size:24px;line-height:1.05;font-weight:950;color:#a52335;margin-bottom:7px}.gsmGkSub{font-size:13px;font-weight:950;color:#123a73;margin-bottom:8px}
+      .gsmGkCopy{font-size:12px;line-height:1.55;color:#425970;font-weight:750}.gsmGkOnce{margin-top:9px;font-size:10px;color:#8b5f6b;font-weight:900}
+      .gsmGkContinue{display:block;width:100%;margin-top:15px;border:0;border-radius:11px;padding:11px;background:#1aa05b;color:#fff;font-weight:950;box-shadow:0 3px 0 #0b693b;cursor:pointer}
+      @media(max-width:760px){#gsmGkPassiveModal .gsmGkBox{padding:12px}.gsmGkTag{font-size:8px;padding:4px 7px;margin-bottom:8px}.gsmGkInner{gap:10px;align-items:flex-start}.gsmGkCard{width:76px;height:108px}.gsmGkTitle{font-size:16px}.gsmGkSub{font-size:10px}.gsmGkCopy{font-size:9px;line-height:1.4}.gsmGkOnce{font-size:8px}.gsmGkContinue{font-size:10px;padding:9px}}
+    `;
+    d.head.appendChild(st);
+
+    const modal=d.createElement('div');
+    modal.className='modal';
+    modal.id='gsmGkPassiveModal';
+    modal.innerHTML=`<div class="gsmGkBox"><div class="gsmGkTag">SPECIAL ABILITY TRIGGERED</div><div class="gsmGkInner"><img class="gsmGkCard" src="images/goalkeeper-card.png?v=20260826gkpopup1" alt="Goalkeeper Card"><div><div class="gsmGkTitle">GOALKEEPER PASSIVE ACTIVATES</div><div class="gsmGkSub">Goalkeeper Passive</div><div class="gsmGkCopy">The Goalkeeper would receive a 3rd Token, but the passive skill automatically saves this goal. No 3rd Token is added, and the Soccer Card goes to the Goalkeeper.</div><div class="gsmGkOnce">This only happens once per game.</div></div></div><button class="gsmGkContinue" id="gsmGkContinue">CONTINUE</button></div>`;
+    d.body.appendChild(modal);
+
+    setTimeout(()=>{const img=new Image();img.src='images/goalkeeper-card.png?v=20260826gkpopup1'},1200);
+
+    w.eval(`
+      (function(){
+        if(window.__gsmResolveShootOriginal)return;
+        window.__gsmResolveShootOriginal=resolveShoot;
+        window.__gsmGkPassivePending=false;
+        window.__gsmResolveGkPassive=function(){
+          var modal=document.getElementById('gsmGkPassiveModal');
+          if(modal)modal.classList.remove('show');
+          appendNode({result:'GOALKEEPER PASSIVE AUTO-SAVE',kind:'good'});
+          appendNode({result:'NO 3RD TOKEN',kind:'good'});
+          appendNode({result:'SOCCER CARD → GOALKEEPER',kind:'good'});
+          ballOwner='A1';
+          gkStep=1;
+          window.__gsmGkPassivePending=false;
+          setLog('Goalkeeper passive saves the shot. GREEN 2 now has the Soccer Card. Play TACKLE to take it back before attacking again.');
+          render();
+        };
+        resolveShoot=function(target){
+          if(window.__gsmGkPassivePending)return;
+          if(idx===7&&gkStep===0){
+            closeTarget();
+            if(target!=='A1'){
+              setLog('For this lesson choose GREEN 2, the revealed Goalkeeper.');
+              setTimeout(openTarget,250);
+              return;
+            }
+            appendNode({card:'SHOOT',owner:'YOU',text:'SHOOT → GREEN 2'});
+            setTimeout(function(){appendNode({result:'DEFENDING TEAM DOES NOT PLAY DEFENSE',kind:'neutral'})},250);
+            setTimeout(function(){appendNode({result:'WOULD-BE 3RD GOAL',kind:'warn'})},550);
+            setTimeout(function(){
+              window.__gsmGkPassivePending=true;
+              var modal=document.getElementById('gsmGkPassiveModal');
+              if(modal)modal.classList.add('show');
+            },850);
+            return;
+          }
+          return window.__gsmResolveShootOriginal(target);
+        };
+      })();
+    `);
+
+    d.getElementById('gsmGkContinue').onclick=()=>{if(w.__gsmResolveGkPassive)w.__gsmResolveGkPassive()};
+  }catch(e){console.error('Goalkeeper popup install failed',e)}
 }
 
 function installCompletionAction(){
   try{
-    const d=f.contentDocument;if(!d||!d.head||!d.body)return;const action=d.getElementById('mainAction');if(!action||action.dataset.gsmCompletionBound==='1')return;action.dataset.gsmCompletionBound='1';
+    const d=f.contentDocument;if(!d||!d.head||!d.body)return;
+    const action=d.getElementById('mainAction');if(!action||action.dataset.gsmCompletionBound==='1')return;action.dataset.gsmCompletionBound='1';
     if(!d.getElementById('gsm-completion-style')){const st=d.createElement('style');st.id='gsm-completion-style';st.textContent=`.gsmCompleteActions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:14px}.gsmCompleteCheck{font-size:46px;line-height:1;margin-bottom:4px}.gsmCompleteSmall{font-size:11px;color:#60758b;font-weight:800;margin-top:5px}`;d.head.appendChild(st)}
     function showComplete(){let modal=d.getElementById('gsmComplete');if(!modal){modal=d.createElement('div');modal.className='modal';modal.id='gsmComplete';modal.innerHTML=`<div class="box"><div class="gsmCompleteCheck">✓</div><div style="font-size:10px;font-weight:950;color:#168c50">STRATEGY TUTORIAL COMPLETE</div><h2>YOU'RE READY TO PLAY!</h2><p>You finished all 8 Strategy Mode lessons and reviewed the complete card-flow examples.</p><div class="gsmCompleteSmall">Choose where you want to go next.</div><div class="gsmCompleteActions"><button class="btn green" id="gsmBackModes">BACK TO MODES</button><button class="btn" id="gsmReviewCourses">REVIEW COURSES</button></div></div>`;d.body.appendChild(modal);d.getElementById('gsmBackModes').onclick=()=>{f.contentWindow.location.href='index.html'};d.getElementById('gsmReviewCourses').onclick=()=>{modal.classList.remove('show');const c=d.getElementById('courseBtn');if(c)c.click()}}modal.classList.add('show')}
     action.addEventListener('click',()=>{const status=(d.getElementById('statusTitle')?.textContent||'').trim(),label=(action.textContent||'').trim();if(/TUTORIAL\s+8\/8/i.test(status)&&/TUTORIAL COMPLETE/i.test(label))showComplete()});
   }catch(e){console.error('Completion action install failed',e)}
 }
 
-function installAll(){installRulebookScroll();installPlayedSoccer();installGoalkeeperSkillVisual();installCompletionAction()}
-f.addEventListener('load',()=>{try{f.contentWindow.scrollTo(0,0)}catch(e){}installAll();setTimeout(installAll,150);setTimeout(installAll,600)});if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
+function installAll(){installRulebookScroll();installPlayedSoccer();installGoalkeeperPassivePopup();installCompletionAction()}
+f.addEventListener('load',()=>{try{f.contentWindow.scrollTo(0,0)}catch(e){}installAll();setTimeout(installAll,150);setTimeout(installAll,600)});
+if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
-<script src="strategy-desktop-polish.js?v=20260826gkskill1"></script>
+<script src="strategy-desktop-polish.js?v=20260826gkpopup1"></script>
 </body>
 </html>
