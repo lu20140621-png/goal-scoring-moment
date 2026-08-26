@@ -19,6 +19,7 @@
         .status{min-height:40px;padding:8px 11px;margin-bottom:8px}
         .pitch{aspect-ratio:16/8.2;max-height:560px;border-radius:18px}
         .seat{width:116px;padding:6px}.seat.you{left:12%;bottom:10%}.seat.blue2{left:12%;top:10%}.seat.green1{right:12%;top:10%}.seat.green2{right:12%;bottom:10%}
+        .possessionCard{display:block!important;opacity:1!important;visibility:visible!important}
         .lesson{top:36%;width:min(560px,58%);padding:11px 16px;border-radius:16px;box-shadow:0 10px 28px #0004}
         .lesson.gsmPassLesson{width:min(470px,50%)!important;min-height:138px;height:auto!important;max-height:none!important;padding:11px 16px 14px}
         .lesson.gsmPassLesson .lessonHint{max-width:320px;margin-left:auto;margin-right:auto}
@@ -60,7 +61,7 @@
     function makeSoccerFlow(text,start){
       const wrap=d.createElement('div');
       wrap.className='gsmSoccerFlow'+(start?' gsmSoccerStart':'');
-      wrap.innerHTML=`<img class="gsmSoccerCardImage" src="images/soccer-card.png" alt="Soccer Card"><div class="gsmSoccerText">${text}</div>`;
+      wrap.innerHTML=`<img class="gsmSoccerCardImage" src="images/soccer-card.png?v=20260826soccerrestore1" alt="Soccer Card"><div class="gsmSoccerText">${text}</div>`;
       return wrap;
     }
 
@@ -92,14 +93,6 @@
       [...played.querySelectorAll('.resultChip')].forEach(chip=>{
         const txt=(chip.textContent||'').trim();
         if(!txt.includes('SOCCER CARD'))return;
-
-        if(/^(YOU HAVE SOCCER CARD|GREEN 1 HAS SOCCER CARD|GREEN 2 HAS SOCCER CARD|BLUE 2 HAS SOCCER CARD)$/i.test(txt)&&played.querySelector('.gsmSoccerStart,.gsmPlayedSoccerStart')){
-          const prev=chip.previousElementSibling;
-          chip.remove();
-          if(prev&&prev.classList.contains('playArrow'))prev.remove();
-          return;
-        }
-
         const wrap=makeSoccerFlow(txt,false);
         chip.replaceWith(wrap);
       });
