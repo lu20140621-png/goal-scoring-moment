@@ -13,7 +13,7 @@
 <script>
 (async()=>{
   try{
-    const r=await fetch('casual-game.html?v=20260825rulebookscroll1',{cache:'no-store'});
+    const r=await fetch('casual-game.html?v=20260826rulebookimages1',{cache:'no-store'});
     if(!r.ok)throw new Error('Unable to load Casual mode');
     let html=await r.text();
     const lockStyle=`<style id="casual-ios-viewport-lock">
@@ -29,6 +29,11 @@
   #rulebookModal{padding:12px!important;align-items:center!important;justify-content:center!important}
   #rulebookModal .box.rulebook{height:calc(var(--vvh,100dvh) - 24px)!important;max-height:calc(var(--vvh,100dvh) - 24px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
 }
+#rulebookModal .rbCards{display:flex;gap:8px;align-items:flex-start;float:left;margin:0 12px 7px 0;min-width:62px}
+#rulebookModal .rbCards img{width:58px;height:81px;object-fit:contain;border-radius:7px;background:#fff;filter:drop-shadow(0 4px 6px #0003)}
+#rulebookModal section:after{content:"";display:block;clear:both}
+#rulebookModal .rbNote{font-size:9px;font-weight:900;color:#6a7c8f;margin-top:4px;text-align:center}
+@media(max-width:520px){#rulebookModal .rbCards{margin-right:9px;gap:4px}#rulebookModal .rbCards img{width:48px;height:67px}}
 </style>`;
     const lockScript=`<script id="casual-ios-viewport-script">(()=>{
       const root=document.documentElement;
@@ -55,8 +60,46 @@
         const closed=document.querySelector('#rulebookModal:not(.show) .box.rulebook');
         if(closed)closed.dataset.gsmOpened='0';
       }
+      function decorateRulebook(){
+        const modal=document.getElementById('rulebookModal');
+        if(!modal||modal.dataset.rbDecorated==='1')return;
+        modal.dataset.rbDecorated='1';
+        const map={
+          'SOCCER + DEFENSE':[['images/soccer-card.png','Soccer Card'],['images/defense-card.png','Defense Card']],
+          'DRIBBLE PAST':[['images/dribble%20past-card.png','Dribble Past Card']],
+          'SHOOT':[['images/shoot-card.png','Shoot Card']],
+          'TACKLE':[['images/tackle-card.png','Tackle Card']],
+          'YELLOW CARD':[['images/yellow-card.png','Yellow Card']]
+        };
+        modal.querySelectorAll('section').forEach(section=>{
+          const h=section.querySelector('h3');
+          if(!h)return;
+          const defs=map[(h.textContent||'').trim().toUpperCase()];
+          if(!defs)return;
+          const visual=document.createElement('div');
+          visual.className='rbCards';
+          defs.forEach(([src,alt])=>{
+            const img=document.createElement('img');
+            img.dataset.src=src;
+            img.alt=alt;
+            img.width=58;img.height=81;
+            img.decoding='async';
+            visual.appendChild(img);
+          });
+          h.insertAdjacentElement('afterend',visual);
+        });
+      }
+      function loadRulebookImages(){
+        decorateRulebook();
+        document.querySelectorAll('#rulebookModal img[data-src]').forEach(img=>{
+          if(!img.src){img.loading='lazy';img.src=img.dataset.src;delete img.dataset.src}
+        });
+      }
       syncViewport();
       syncModalLock();
+      decorateRulebook();
+      const rbBtn=document.getElementById('rulebookBtn');
+      if(rbBtn)rbBtn.addEventListener('click',()=>setTimeout(loadRulebookImages,0));
       window.addEventListener('resize',syncViewport,{passive:true});
       if(window.visualViewport){
         window.visualViewport.addEventListener('resize',syncViewport,{passive:true});
