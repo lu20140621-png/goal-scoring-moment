@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260826soccerrestore1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260826gkskill1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -24,165 +24,58 @@ function installRulebookScroll(){
     if(!w||!d||!d.head||!d.body)return;
     if(!/strategy-rulebook\.html$/i.test(w.location.pathname))return;
     if(d.getElementById('gsm-strategy-rulebook-scroll'))return;
-
     const st=d.createElement('style');
     st.id='gsm-strategy-rulebook-scroll';
-    st.textContent=`
-      html,body{height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important}
-      body{display:flex!important;flex-direction:column!important;position:relative!important;width:100%!important}
-      .hero{flex:0 0 auto!important}
-      .wrap{flex:1 1 auto!important;min-height:0!important;width:100%!important;max-width:860px!important;margin:0 auto!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
-      .back{position:sticky!important;bottom:8px!important}
-    `;
+    st.textContent=`html,body{height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important}body{display:flex!important;flex-direction:column!important;position:relative!important;width:100%!important}.hero{flex:0 0 auto!important}.wrap{flex:1 1 auto!important;min-height:0!important;width:100%!important;max-width:860px!important;margin:0 auto!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}.back{position:sticky!important;bottom:8px!important}`;
     d.head.appendChild(st);
-
     const scroller=d.querySelector('.wrap');
     if(!scroller)return;
     scroller.scrollTop=0;
     let startY=0;
     d.addEventListener('touchstart',e=>{if(e.touches.length===1)startY=e.touches[0].clientY},{passive:true});
-    d.addEventListener('touchmove',e=>{
-      if(e.touches.length!==1)return;
-      const target=e.target;
-      if(!(target.closest&&target.closest('.wrap'))){e.preventDefault();return}
-      const y=e.touches[0].clientY,dy=y-startY;
-      const max=scroller.scrollHeight-scroller.clientHeight;
-      if(max<=1||(scroller.scrollTop<=0&&dy>0)||(scroller.scrollTop>=max-1&&dy<0))e.preventDefault();
-    },{passive:false});
+    d.addEventListener('touchmove',e=>{if(e.touches.length!==1)return;const target=e.target;if(!(target.closest&&target.closest('.wrap'))){e.preventDefault();return}const y=e.touches[0].clientY,dy=y-startY,max=scroller.scrollHeight-scroller.clientHeight;if(max<=1||(scroller.scrollTop<=0&&dy>0)||(scroller.scrollTop>=max-1&&dy<0))e.preventDefault()},{passive:false});
   }catch(e){console.error('Rulebook scroll install failed',e)}
 }
 
 function installPlayedSoccer(){
   try{
     const d=f.contentDocument;
-    if(!d||!d.head||!d.body)return;
-    if(!d.getElementById('played'))return;
-    if(d.getElementById('gsm-played-soccer-inline-v2'))return;
-
-    const st=d.createElement('style');
-    st.id='gsm-played-soccer-inline-v2';
-    st.textContent=`
-      .gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}
-      .gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}
-      .gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}
-      .gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}
-      @media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}
-    `;
-    d.head.appendChild(st);
-
-    function holderName(){
-      if(d.querySelector('#H0 .possessionCard'))return 'YOU';
-      if(d.querySelector('#H1 .possessionCard'))return 'BLUE 2';
-      if(d.querySelector('#A0 .possessionCard'))return 'GREEN 1';
-      if(d.querySelector('#A1 .possessionCard'))return 'GREEN 2';
-      return 'CURRENT PLAYER';
-    }
-
-    function soccerNode(text,start=false){
-      const wrap=d.createElement('div');
-      wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');
-      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826soccerrestore1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
-      return wrap;
-    }
-
-    let timer=null;
-    function schedule(){clearTimeout(timer);timer=setTimeout(refresh,35)}
-
-    function refresh(){
-      const played=d.getElementById('played');
-      if(!played)return;
-      const intro=d.getElementById('intro');
-      const tutorialStarted=!intro||!intro.classList.contains('show');
-
-      if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart,.gsmSoccerStart')){
-        const empty=played.querySelector('.playedEmpty');
-        if(empty)empty.remove();
-        const had=played.children.length>0;
-        const start=soccerNode(`SOCCER CARD • ${holderName()} STARTS WITH POSSESSION`,true);
-        if(had){
-          const arrow=d.createElement('div');
-          arrow.className='playArrow gsmPlayedSoccerStartArrow';
-          arrow.textContent='→';
-          played.insertBefore(arrow,played.firstChild);
-          played.insertBefore(start,played.firstChild);
-        }else played.appendChild(start);
-        const note=d.getElementById('playedNote');
-        if(note)note.textContent='Full chain • left → right';
-      }
-
-      [...played.querySelectorAll('.resultChip')].forEach(chip=>{
-        const txt=(chip.textContent||'').trim();
-        if(!/SOCCER CARD/i.test(txt))return;
-        const wrap=soccerNode(txt,false);
-        chip.replaceWith(wrap);
-      });
-    }
-
-    const played=d.getElementById('played');
-    if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});
-    const pitch=d.querySelector('.pitch');
-    if(pitch)new MutationObserver(schedule).observe(pitch,{childList:true,subtree:true});
-    const intro=d.getElementById('intro');
-    if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});
-    schedule();
+    if(!d||!d.head||!d.body||!d.getElementById('played')||d.getElementById('gsm-played-soccer-inline-v2'))return;
+    const st=d.createElement('style');st.id='gsm-played-soccer-inline-v2';st.textContent=`.gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}.gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}.gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}.gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}@media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}`;d.head.appendChild(st);
+    function holderName(){if(d.querySelector('#H0 .possessionCard'))return'YOU';if(d.querySelector('#H1 .possessionCard'))return'BLUE 2';if(d.querySelector('#A0 .possessionCard'))return'GREEN 1';if(d.querySelector('#A1 .possessionCard'))return'GREEN 2';return'CURRENT PLAYER'}
+    function soccerNode(text,start=false){const wrap=d.createElement('div');wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826gkskill1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;return wrap}
+    let timer=null;function schedule(){clearTimeout(timer);timer=setTimeout(refresh,35)}
+    function refresh(){const played=d.getElementById('played');if(!played)return;const intro=d.getElementById('intro');const tutorialStarted=!intro||!intro.classList.contains('show');if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart,.gsmSoccerStart')){const empty=played.querySelector('.playedEmpty');if(empty)empty.remove();const had=played.children.length>0,start=soccerNode(`SOCCER CARD • ${holderName()} STARTS WITH POSSESSION`,true);if(had){const arrow=d.createElement('div');arrow.className='playArrow gsmPlayedSoccerStartArrow';arrow.textContent='→';played.insertBefore(arrow,played.firstChild);played.insertBefore(start,played.firstChild)}else played.appendChild(start);const note=d.getElementById('playedNote');if(note)note.textContent='Full chain • left → right'}[...played.querySelectorAll('.resultChip')].forEach(chip=>{const txt=(chip.textContent||'').trim();if(!/SOCCER CARD/i.test(txt))return;chip.replaceWith(soccerNode(txt,false))})}
+    const played=d.getElementById('played');if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});const pitch=d.querySelector('.pitch');if(pitch)new MutationObserver(schedule).observe(pitch,{childList:true,subtree:true});const intro=d.getElementById('intro');if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});schedule();
   }catch(e){console.error('Played Soccer install failed',e)}
+}
+
+function installGoalkeeperSkillVisual(){
+  try{
+    const d=f.contentDocument;if(!d||!d.head||!d.body||d.getElementById('gsm-gk-skill-style'))return;
+    const st=d.createElement('style');st.id='gsm-gk-skill-style';st.textContent=`
+      .gsmGkSkill{display:none;align-items:center;justify-content:center;gap:10px;margin:8px auto 0;padding:8px 10px;max-width:410px;border:2px solid #e36a78;border-radius:12px;background:#fff0f2;text-align:left}
+      .gsmGkSkill.show{display:flex}.gsmGkSkill img{width:58px;height:82px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 4px 7px #0003)}
+      .gsmGkSkill strong{display:block;color:#a52335;font-size:10px;margin-bottom:3px}.gsmGkSkill span{display:block;color:#4d3b43;font-size:9px;line-height:1.35;font-weight:800}
+      @media(max-width:760px){.gsmGkSkill{gap:6px;padding:5px 6px;margin-top:5px;max-width:270px}.gsmGkSkill img{width:40px;height:56px}.gsmGkSkill strong{font-size:7px}.gsmGkSkill span{font-size:6.5px;line-height:1.25}}
+    `;d.head.appendChild(st);
+    function refresh(){const lesson=d.querySelector('.lesson'),title=d.getElementById('lessonTitle');if(!lesson||!title)return;let box=d.getElementById('gsmGkSkill');if(!box){box=d.createElement('div');box.id='gsmGkSkill';box.className='gsmGkSkill';box.innerHTML=`<img loading="lazy" decoding="async" src="images/goalkeeper-card.png?v=20260826gkskill1" alt="Goalkeeper Role Card"><div><strong>GOALKEEPER PASSIVE</strong><span>When the Goalkeeper has 2 Tokens, the next attack that would give the 3rd Token is automatically saved once. No 3rd Token is added, and the Soccer Card goes to the Goalkeeper.</span></div>`;const flow=lesson.querySelector('.flow');if(flow)lesson.insertBefore(box,flow);else lesson.appendChild(box)}const isGK=/GOALKEEPER PASSIVE/i.test((title.textContent||'').trim());box.classList.toggle('show',isGK)}
+    refresh();const lesson=d.querySelector('.lesson');if(lesson)new MutationObserver(refresh).observe(lesson,{childList:true,subtree:true,characterData:true});
+  }catch(e){console.error('Goalkeeper skill visual install failed',e)}
 }
 
 function installCompletionAction(){
   try{
-    const d=f.contentDocument;
-    if(!d||!d.head||!d.body)return;
-    const action=d.getElementById('mainAction');
-    if(!action||action.dataset.gsmCompletionBound==='1')return;
-    action.dataset.gsmCompletionBound='1';
-
-    if(!d.getElementById('gsm-completion-style')){
-      const st=d.createElement('style');
-      st.id='gsm-completion-style';
-      st.textContent=`
-        .gsmCompleteActions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:14px}
-        .gsmCompleteCheck{font-size:46px;line-height:1;margin-bottom:4px}
-        .gsmCompleteSmall{font-size:11px;color:#60758b;font-weight:800;margin-top:5px}
-      `;
-      d.head.appendChild(st);
-    }
-
-    function showComplete(){
-      let modal=d.getElementById('gsmComplete');
-      if(!modal){
-        modal=d.createElement('div');
-        modal.className='modal';
-        modal.id='gsmComplete';
-        modal.innerHTML=`<div class="box"><div class="gsmCompleteCheck">✓</div><div style="font-size:10px;font-weight:950;color:#168c50">STRATEGY TUTORIAL COMPLETE</div><h2>YOU'RE READY TO PLAY!</h2><p>You finished all 8 Strategy Mode lessons and reviewed the complete card-flow examples.</p><div class="gsmCompleteSmall">Choose where you want to go next.</div><div class="gsmCompleteActions"><button class="btn green" id="gsmBackModes">BACK TO MODES</button><button class="btn" id="gsmReviewCourses">REVIEW COURSES</button></div></div>`;
-        d.body.appendChild(modal);
-        d.getElementById('gsmBackModes').onclick=()=>{f.contentWindow.location.href='index.html'};
-        d.getElementById('gsmReviewCourses').onclick=()=>{modal.classList.remove('show');const c=d.getElementById('courseBtn');if(c)c.click()};
-      }
-      modal.classList.add('show');
-    }
-
-    action.addEventListener('click',()=>{
-      const status=(d.getElementById('statusTitle')?.textContent||'').trim();
-      const label=(action.textContent||'').trim();
-      if(/TUTORIAL\s+8\/8/i.test(status)&&/TUTORIAL COMPLETE/i.test(label))showComplete();
-    });
+    const d=f.contentDocument;if(!d||!d.head||!d.body)return;const action=d.getElementById('mainAction');if(!action||action.dataset.gsmCompletionBound==='1')return;action.dataset.gsmCompletionBound='1';
+    if(!d.getElementById('gsm-completion-style')){const st=d.createElement('style');st.id='gsm-completion-style';st.textContent=`.gsmCompleteActions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:14px}.gsmCompleteCheck{font-size:46px;line-height:1;margin-bottom:4px}.gsmCompleteSmall{font-size:11px;color:#60758b;font-weight:800;margin-top:5px}`;d.head.appendChild(st)}
+    function showComplete(){let modal=d.getElementById('gsmComplete');if(!modal){modal=d.createElement('div');modal.className='modal';modal.id='gsmComplete';modal.innerHTML=`<div class="box"><div class="gsmCompleteCheck">✓</div><div style="font-size:10px;font-weight:950;color:#168c50">STRATEGY TUTORIAL COMPLETE</div><h2>YOU'RE READY TO PLAY!</h2><p>You finished all 8 Strategy Mode lessons and reviewed the complete card-flow examples.</p><div class="gsmCompleteSmall">Choose where you want to go next.</div><div class="gsmCompleteActions"><button class="btn green" id="gsmBackModes">BACK TO MODES</button><button class="btn" id="gsmReviewCourses">REVIEW COURSES</button></div></div>`;d.body.appendChild(modal);d.getElementById('gsmBackModes').onclick=()=>{f.contentWindow.location.href='index.html'};d.getElementById('gsmReviewCourses').onclick=()=>{modal.classList.remove('show');const c=d.getElementById('courseBtn');if(c)c.click()}}modal.classList.add('show')}
+    action.addEventListener('click',()=>{const status=(d.getElementById('statusTitle')?.textContent||'').trim(),label=(action.textContent||'').trim();if(/TUTORIAL\s+8\/8/i.test(status)&&/TUTORIAL COMPLETE/i.test(label))showComplete()});
   }catch(e){console.error('Completion action install failed',e)}
 }
 
-function installAll(){
-  installRulebookScroll();
-  installPlayedSoccer();
-  installCompletionAction();
-}
-
-f.addEventListener('load',()=>{
-  try{f.contentWindow.scrollTo(0,0)}catch(e){}
-  installAll();
-  setTimeout(installAll,150);
-  setTimeout(installAll,600);
-});
-if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
+function installAll(){installRulebookScroll();installPlayedSoccer();installGoalkeeperSkillVisual();installCompletionAction()}
+f.addEventListener('load',()=>{try{f.contentWindow.scrollTo(0,0)}catch(e){}installAll();setTimeout(installAll,150);setTimeout(installAll,600)});if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
-<script src="strategy-desktop-polish.js?v=20260826soccerrestore1"></script>
+<script src="strategy-desktop-polish.js?v=20260826gkskill1"></script>
 </body>
 </html>
