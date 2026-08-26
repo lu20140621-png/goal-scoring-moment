@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260825desktopfix2" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260826soccerrestore1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -81,7 +81,7 @@ function installPlayedSoccer(){
     function soccerNode(text,start=false){
       const wrap=d.createElement('div');
       wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');
-      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260825desktopfix2" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
+      wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826soccerrestore1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;
       return wrap;
     }
 
@@ -183,6 +183,6 @@ f.addEventListener('load',()=>{
 });
 if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
-<script src="strategy-desktop-polish.js?v=20260825desktopfix2"></script>
+<script src="strategy-desktop-polish.js?v=20260826soccerrestore1"></script>
 </body>
 </html>
