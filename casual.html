@@ -121,7 +121,9 @@
       },{passive:false});
     })();<\/script>`;
     html=html.replace('</head>',lockStyle+'</head>');
-    html=html.replace('</body>',lockScript+'</body>');
+    html=html.replace('<script src="analytics-config.js"></script>
+<script src="analytics.js"></script>
+</body>',lockScript+'</body>');
     document.open();
     document.write(html);
     document.close();

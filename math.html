@@ -139,5 +139,7 @@ $('primaryBtn').onclick=()=>{switch(current){case 0:if(phase===0){phase=1;setMes
 $('secondaryBtn').onclick=()=>{if(current===2&&phase===0){phase=1;chosenCard='DEFENSE';setMessage('You took DEFENSE from the Discard Pile. That is also a valid start-of-turn choice.');completeCourse('At the start of your turn, choose ONE: draw from the Draw Pile or take the top Discard card.')}};
 updateHeader();setGrid(Array.from({length:8},()=>makeCard('CARD BACK',true)));
 </script>
+<script src="analytics-config.js"></script>
+<script src="analytics.js"></script>
 </body>
 </html>
