@@ -2,7 +2,9 @@
   const cfg = window.GSM_ANALYTICS_CONFIG || {};
   if (!cfg.enabled || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
 
-  const API = `${cfg.supabaseUrl.replace(/\/$/, '')}/rest/v1/gsm_events`;
+  const root = cfg.supabaseUrl.replace(/\/$/, '');
+  const sessionsApi = `${root}/rest/v1/web_sessions`;
+  const eventsApi = `${root}/rest/v1/web_events`;
   const headers = {
     apikey: cfg.supabaseAnonKey,
     Authorization: `Bearer ${cfg.supabaseAnonKey}`,
@@ -10,106 +12,141 @@
     Prefer: 'return=minimal'
   };
 
-  const uuid = () => (globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`);
-  const clean = (v, max=160) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, max);
-  const getMode = () => {
-    const p = location.pathname.toLowerCase();
-    if (p.includes('strategy2')) return 'strategy2';
-    if (p.includes('strategy')) return 'strategy';
-    if (p.includes('casual')) return 'casual';
-    if (p.includes('math')) return 'math';
-    if (p.endsWith('/') || p.endsWith('/index.html')) return 'home';
-    return 'other';
-  };
+  const uuid = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+  const clean = (v, max=180) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, max);
+  const path = location.pathname;
+  const lower = path.toLowerCase();
+  const mode = lower.includes('strategy2') ? 'strategy2' : lower.includes('strategy') ? 'strategy' : lower.includes('casual') ? 'casual' : lower.includes('math') ? 'math' : (lower.endsWith('/') || lower.endsWith('/index.html')) ? 'home' : 'other';
+  const isTutorial = !['home','other'].includes(mode);
   const deviceType = () => {
-    const m = Math.min(screen.width || innerWidth || 0, screen.height || innerHeight || 0);
-    if (m <= 767) return 'mobile';
-    if (m <= 1100) return 'tablet';
-    return 'desktop';
+    const w = Math.min(screen.width || innerWidth || 0, screen.height || innerHeight || 0);
+    return w <= 767 ? 'mobile' : w <= 1100 ? 'tablet' : 'desktop';
   };
-  const refHost = () => { try { return document.referrer ? new URL(document.referrer).hostname : ''; } catch (_) { return ''; } };
 
-  let visitorId = localStorage.getItem('gsm_visitor_id_v1');
-  if (!visitorId) { visitorId = uuid(); localStorage.setItem('gsm_visitor_id_v1', visitorId); }
-  let sessionId = sessionStorage.getItem('gsm_session_id_v1');
-  if (!sessionId) { sessionId = uuid(); sessionStorage.setItem('gsm_session_id_v1', sessionId); }
+  let visitorId = localStorage.getItem('gsm_visitor_id_v2');
+  if (!visitorId) { visitorId = uuid(); localStorage.setItem('gsm_visitor_id_v2', visitorId); }
+  let sessionId = sessionStorage.getItem('gsm_session_id_v2');
+  if (!sessionId) { sessionId = uuid(); sessionStorage.setItem('gsm_session_id_v2', sessionId); }
 
-  const mode = getMode();
-  let activeSeconds = 0;
-  let started = sessionStorage.getItem(`gsm_started_${mode}`) === '1';
-  let completed = sessionStorage.getItem(`gsm_completed_${mode}`) === '1';
+  let activeSeconds = Number(sessionStorage.getItem('gsm_active_seconds_v2') || 0);
+  let pageViews = Number(sessionStorage.getItem('gsm_page_views_v2') || 0) + 1;
+  sessionStorage.setItem('gsm_page_views_v2', String(pageViews));
+  let maxStep = Number(sessionStorage.getItem('gsm_max_step_v2') || 0);
+  let tutorialStarted = sessionStorage.getItem('gsm_tutorial_started_v2') === '1';
+  let tutorialCompleted = sessionStorage.getItem('gsm_tutorial_completed_v2') === '1';
+  let tutorialMode = sessionStorage.getItem('gsm_tutorial_mode_v2') || null;
 
-  async function send(eventName, label='', meta={}) {
+  async function postEvent(eventName, extra={}) {
     const row = {
-      site: cfg.site || 'goal-scoring-moment',
-      visitor_id: visitorId,
       session_id: sessionId,
+      visitor_id: visitorId,
       event_name: clean(eventName, 48),
-      event_label: clean(label, 140),
-      page_path: location.pathname,
-      page_title: clean(document.title, 180),
+      path,
       mode,
+      step: extra.step ?? null,
       active_seconds: activeSeconds,
+      metadata: extra.metadata || {}
+    };
+    try { await fetch(eventsApi, { method:'POST', headers, body:JSON.stringify(row), keepalive:true }); } catch (_) {}
+  }
+
+  async function createSession() {
+    const row = {
+      session_id: sessionId,
+      visitor_id: visitorId,
+      entry_path: path,
+      last_path: path,
+      referrer: clean(document.referrer, 500),
       device_type: deviceType(),
-      referrer_host: clean(refHost(), 120),
-      meta,
-      occurred_at: new Date().toISOString()
+      user_agent: clean(navigator.userAgent, 500),
+      screen_width: screen.width || null,
+      screen_height: screen.height || null,
+      page_views: pageViews,
+      active_seconds: activeSeconds,
+      tutorial_started: tutorialStarted,
+      tutorial_completed: tutorialCompleted,
+      tutorial_mode: tutorialMode,
+      max_step: maxStep
     };
     try {
-      await fetch(API, { method:'POST', headers, body:JSON.stringify(row), keepalive:true, mode:'cors' });
+      const r = await fetch(sessionsApi, { method:'POST', headers, body:JSON.stringify(row), keepalive:true });
+      if (r.ok || r.status === 409) sessionStorage.setItem('gsm_session_created_v2','1');
     } catch (_) {}
   }
 
-  function labelFor(el) {
-    return clean(el?.getAttribute?.('data-track') || el?.getAttribute?.('aria-label') || el?.textContent || el?.title || '', 120);
-  }
-
-  function maybeTrackTutorial(label, href='') {
-    const s = `${label} ${href}`.toLowerCase();
-    if (mode === 'home' && /(strategy|casual|math|mode)/.test(s)) send('mode_selected', label || href);
-    if (!started && mode !== 'home' && mode !== 'other' && /(start|begin|learn|play|try|continue|next)/.test(s)) {
-      started = true;
-      sessionStorage.setItem(`gsm_started_${mode}`, '1');
-      send('tutorial_started', label || href);
-    }
-    if (!completed && mode !== 'home' && mode !== 'other' && /(finish|complete|completed|done|winner|you win|restart)/.test(s)) {
-      completed = true;
-      sessionStorage.setItem(`gsm_completed_${mode}`, '1');
-      send('tutorial_completed', label || href);
-    }
-  }
-
-  function attach(doc, source='page') {
-    if (!doc || doc.__gsmAnalyticsAttached) return;
-    doc.__gsmAnalyticsAttached = true;
-    doc.addEventListener('click', (e) => {
-      const el = e.target?.closest?.('a,button,[role="button"],input[type="button"],input[type="submit"]');
-      if (!el) return;
-      const label = labelFor(el);
-      const href = el.getAttribute?.('href') || '';
-      send('interaction', label || href, { source, href: clean(href, 180) });
-      maybeTrackTutorial(label, href);
-    }, true);
-  }
-
-  attach(document, 'page');
-
-  document.querySelectorAll('iframe').forEach((frame) => {
-    const hook = () => {
-      try { attach(frame.contentDocument, 'iframe'); } catch (_) {}
+  async function updateSession(ended=false) {
+    const q = `${sessionsApi}?session_id=eq.${encodeURIComponent(sessionId)}`;
+    const body = {
+      last_seen_at: new Date().toISOString(),
+      last_path: path,
+      page_views: pageViews,
+      active_seconds: activeSeconds,
+      tutorial_started: tutorialStarted,
+      tutorial_completed: tutorialCompleted,
+      tutorial_mode: tutorialMode,
+      max_step: maxStep
     };
-    frame.addEventListener('load', hook);
-    hook();
-  });
-
-  if (window.top === window.self) {
-    send('page_view');
-    if (!sessionStorage.getItem('gsm_session_started_v1')) {
-      sessionStorage.setItem('gsm_session_started_v1', '1');
-      send('session_start');
-    }
-    setInterval(() => { if (document.visibilityState === 'visible') activeSeconds += 1; }, 1000);
-    setInterval(() => { if (activeSeconds > 0) send('heartbeat'); }, Math.max(10, Number(cfg.heartbeatSeconds || 15)) * 1000);
-    addEventListener('pagehide', () => send('session_end'));
+    if (ended) body.ended_at = new Date().toISOString();
+    try { await fetch(q, { method:'PATCH', headers, body:JSON.stringify(body), keepalive:true }); } catch (_) {}
   }
+
+  function markStarted() {
+    if (!tutorialStarted && isTutorial) {
+      tutorialStarted = true;
+      tutorialMode = mode;
+      sessionStorage.setItem('gsm_tutorial_started_v2','1');
+      sessionStorage.setItem('gsm_tutorial_mode_v2', mode);
+      postEvent('tutorial_started');
+    }
+  }
+
+  function markCompleted(label='') {
+    if (!tutorialCompleted && isTutorial) {
+      tutorialCompleted = true;
+      sessionStorage.setItem('gsm_tutorial_completed_v2','1');
+      postEvent('tutorial_completed', { metadata:{ label: clean(label,120) } });
+      updateSession(false);
+    }
+  }
+
+  if (!sessionStorage.getItem('gsm_session_created_v2')) createSession();
+  else updateSession(false);
+  postEvent('page_view');
+  markStarted();
+
+  document.addEventListener('click', (e) => {
+    const el = e.target?.closest?.('a,button,[role="button"],input[type="button"],input[type="submit"]');
+    if (!el) return;
+    const label = clean(el.getAttribute?.('data-track') || el.getAttribute?.('aria-label') || el.textContent || el.title || '', 140);
+    const href = clean(el.getAttribute?.('href') || '', 220);
+    const s = `${label} ${href}`.toLowerCase();
+    const stepMatch = s.match(/(?:step|round|stage)\s*(\d{1,2})/i);
+    if (stepMatch) {
+      maxStep = Math.max(maxStep, Number(stepMatch[1]));
+      sessionStorage.setItem('gsm_max_step_v2', String(maxStep));
+      postEvent('tutorial_step', { step:maxStep, metadata:{ label, href } });
+    } else {
+      postEvent('interaction', { metadata:{ label, href } });
+    }
+    if (/(finish|complete|completed|done|winner|you win|restart|play again)/i.test(s)) markCompleted(label);
+  }, true);
+
+  setInterval(() => {
+    if (document.visibilityState === 'visible') {
+      activeSeconds += 1;
+      sessionStorage.setItem('gsm_active_seconds_v2', String(activeSeconds));
+    }
+  }, 1000);
+
+  setInterval(() => {
+    if (activeSeconds > 0) {
+      postEvent('heartbeat');
+      updateSession(false);
+    }
+  }, Math.max(10, Number(cfg.heartbeatSeconds || 15)) * 1000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') updateSession(false);
+  });
+  addEventListener('pagehide', () => { postEvent('session_end'); updateSession(true); });
 })();
