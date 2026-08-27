@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Goal-Scoring Moment — Analytics</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#071813;color:#f7fbf8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#f4c54f;font-weight:900}.title{font-size:34px;font-weight:950;margin:4px 0}.sub{color:#9fb7ae;font-size:13px}.range{display:flex;gap:7px;flex-wrap:wrap}.range button{border:1px solid #2d6752;background:#0c2a20;color:#dcebe4;padding:8px 11px;border-radius:999px;font-weight:850;cursor:pointer}.range button.on{background:#f4c54f;color:#183222;border-color:#f4c54f}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:linear-gradient(180deg,#0d2b21,#0a211a);border:1px solid #24513f;border-radius:16px;padding:16px;box-shadow:0 14px 28px #0003}.k{font-size:11px;color:#a8c0b6;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.v{font-size:31px;font-weight:950;margin-top:7px}.hint{font-size:11px;color:#6f9585;margin-top:4px}.wide{grid-column:span 2}.section{margin-top:18px}.section h2{font-size:16px;margin:0 0 10px}.tableWrap{overflow:auto;border:1px solid #24513f;border-radius:14px;background:#0a211a}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #173c2f;font-size:12px}th{color:#f4c54f;background:#0c2b20;position:sticky;top:0}.bar{height:8px;border-radius:99px;background:#163c2e;overflow:hidden}.bar i{display:block;height:100%;background:#f4c54f}.empty{padding:24px;color:#9fb7ae}.notice{display:none;margin:16px 0;padding:14px;border-radius:12px;background:#40241f;border:1px solid #9e533f;color:#ffd8cb}.refresh{border:0;border-radius:10px;background:#1aa05b;color:white;padding:9px 12px;font-weight:900;cursor:pointer}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.wide{grid-column:span 2}.top{align-items:flex-start;flex-direction:column}}@media(max-width:500px){.wrap{padding:15px}.title{font-size:27px}.grid{grid-template-columns:1fr}.wide{grid-column:span 1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div><div class="eyebrow">GOAL-SCORING MOMENT</div><div class="title">Tutorial Analytics</div><div class="sub">Visitors, active time, tutorial starts, completions, mode usage, and drop-off.</div></div><div><div class="range"><button data-days="1">24H</button><button data-days="7" class="on">7 DAYS</button><button data-days="30">30 DAYS</button><button data-days="3650">ALL</button><button class="refresh" id="refresh">REFRESH</button></div></div></div>
+  <div id="notice" class="notice"></div>
+  <div class="grid">
+    <div class="card"><div class="k">Unique Visitors</div><div class="v" id="visitors">—</div><div class="hint">Distinct browsers</div></div>
+    <div class="card"><div class="k">Sessions</div><div class="v" id="sessions">—</div><div class="hint">Site visits</div></div>
+    <div class="card"><div class="k">Avg. Active Time</div><div class="v" id="avgTime">—</div><div class="hint">Time actively on site</div></div>
+    <div class="card"><div class="k">Tutorial Starts</div><div class="v" id="starts">—</div><div class="hint">Started a tutorial</div></div>
+    <div class="card"><div class="k">Tutorial Completions</div><div class="v" id="completions">—</div><div class="hint">Reached completion</div></div>
+    <div class="card"><div class="k">Completion Rate</div><div class="v" id="rate">—</div><div class="hint">Completions ÷ starts</div></div>
+    <div class="card"><div class="k">Mobile Share</div><div class="v" id="mobile">—</div><div class="hint">Sessions on mobile</div></div>
+    <div class="card"><div class="k">Returning Visitors</div><div class="v" id="returning">—</div><div class="hint">Visitors with 2+ sessions</div></div>
+  </div>
+
+  <div class="section"><h2>Mode performance</h2><div class="tableWrap"><table><thead><tr><th>Mode</th><th>Visitors</th><th>Starts</th><th>Completions</th><th>Completion</th><th>Avg. active time</th></tr></thead><tbody id="modes"></tbody></table></div></div>
+  <div class="section"><h2>Recent sessions</h2><div class="tableWrap"><table><thead><tr><th>Last seen</th><th>Visitor</th><th>Device</th><th>Mode</th><th>Active time</th><th>Started</th><th>Completed</th></tr></thead><tbody id="recent"></tbody></table></div></div>
+</div>
+<script src="analytics-config.js"></script>
+<script>
+const cfg=window.GSM_ANALYTICS_CONFIG||{};let days=7;
+const $=id=>document.getElementById(id);const fmt=s=>{s=Math.max(0,Math.round(Number(s)||0));const m=Math.floor(s/60),r=s%60;return m?`${m}m ${r}s`:`${r}s`};
+function notice(msg){$('notice').style.display='block';$('notice').textContent=msg}
+async function load(){
+  $('notice').style.display='none';
+  if(!cfg.enabled||!cfg.supabaseUrl||!cfg.supabaseAnonKey){notice('Analytics database is not connected yet.');return}
+  const since=new Date(Date.now()-days*86400000).toISOString();
+  const url=`${cfg.supabaseUrl.replace(/\/$/,'')}/rest/v1/gsm_events?select=id,visitor_id,session_id,event_name,event_label,mode,active_seconds,device_type,occurred_at&occurred_at=gte.${encodeURIComponent(since)}&order=occurred_at.desc&limit=10000`;
+  let rows=[];try{const r=await fetch(url,{headers:{apikey:cfg.supabaseAnonKey,Authorization:`Bearer ${cfg.supabaseAnonKey}`}});if(!r.ok)throw new Error(await r.text());rows=await r.json()}catch(e){notice('Could not load analytics data: '+e.message);return}
+  const visitors=new Set(rows.map(x=>x.visitor_id).filter(Boolean));const sessionMap=new Map();
+  for(const r of rows){if(!r.session_id)continue;let s=sessionMap.get(r.session_id);if(!s)s={session_id:r.session_id,visitor_id:r.visitor_id,device:r.device_type,mode:r.mode,last:r.occurred_at,active:0,started:false,completed:false};if(new Date(r.occurred_at)>new Date(s.last))s.last=r.occurred_at;s.active=Math.max(s.active,Number(r.active_seconds)||0);s.started ||= r.event_name==='tutorial_started';s.completed ||= r.event_name==='tutorial_completed';if(r.mode&&r.mode!=='home'&&r.mode!=='other')s.mode=r.mode;sessionMap.set(r.session_id,s)}
+  const ss=[...sessionMap.values()];const starts=ss.filter(s=>s.started).length,completed=ss.filter(s=>s.completed).length;const avg=ss.length?ss.reduce((a,s)=>a+s.active,0)/ss.length:0;const mobile=ss.length?ss.filter(s=>s.device==='mobile').length/ss.length*100:0;const byVisitor={};ss.forEach(s=>(byVisitor[s.visitor_id]??=[]).push(s));const returning=visitors.size?Object.values(byVisitor).filter(a=>a.length>=2).length/visitors.size*100:0;
+  $('visitors').textContent=visitors.size;$('sessions').textContent=ss.length;$('avgTime').textContent=fmt(avg);$('starts').textContent=starts;$('completions').textContent=completed;$('rate').textContent=starts?Math.round(completed/starts*100)+'%':'0%';$('mobile').textContent=Math.round(mobile)+'%';$('returning').textContent=Math.round(returning)+'%';
+  const modes=['strategy','casual','math','strategy2'];$('modes').innerHTML=modes.map(mode=>{const ms=ss.filter(s=>s.mode===mode),v=new Set(ms.map(s=>s.visitor_id)).size,st=ms.filter(s=>s.started).length,co=ms.filter(s=>s.completed).length,av=ms.length?ms.reduce((a,s)=>a+s.active,0)/ms.length:0,rt=st?Math.round(co/st*100):0;return `<tr><td><b>${mode}</b></td><td>${v}</td><td>${st}</td><td>${co}</td><td><div>${rt}%</div><div class="bar"><i style="width:${rt}%"></i></div></td><td>${fmt(av)}</td></tr>`}).join('');
+  $('recent').innerHTML=ss.sort((a,b)=>new Date(b.last)-new Date(a.last)).slice(0,50).map(s=>`<tr><td>${new Date(s.last).toLocaleString()}</td><td>${String(s.visitor_id||'').slice(0,8)}…</td><td>${s.device||'—'}</td><td>${s.mode||'—'}</td><td>${fmt(s.active)}</td><td>${s.started?'Yes':'No'}</td><td>${s.completed?'Yes':'No'}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">No sessions yet.</td></tr>';
+}
+document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-days]').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=Number(b.dataset.days);load()});$('refresh').onclick=load;load();
+</script>
+</body></html>
