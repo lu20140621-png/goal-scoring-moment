@@ -1,0 +1,45 @@
+name: Install analytics scripts
+on:
+  push:
+    paths:
+      - '.github/workflows/install-analytics.yml'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject analytics loader
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          files = [
+              'index.html','casual.html','casual-game.html','math.html',
+              'strategy.html','strategy2.html','strategy-cards.html','strategy-rulebook.html'
+          ]
+          block = '<script src="analytics-config.js"></script>\n<script src="analytics.js"></script>\n'
+          for name in files:
+              p = Path(name)
+              if not p.exists():
+                  continue
+              text = p.read_text(encoding='utf-8')
+              if 'src="analytics.js"' in text:
+                  continue
+              if '</body>' in text:
+                  text = text.replace('</body>', block + '</body>', 1)
+              else:
+                  text += '\n' + block
+              p.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html casual.html casual-game.html math.html strategy.html strategy2.html strategy-cards.html strategy-rulebook.html
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+          else
+            git commit -m "Enable tutorial analytics tracking"
+            git push
+          fi
