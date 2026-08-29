@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Goal-Scoring Moment — Strategy Sound V2</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+#host{display:block;width:100%;height:100dvh;border:0;background:#06111d}
+#musicBtn{position:fixed;right:12px;bottom:12px;z-index:9999;border:1px solid #5e86ae;border-radius:999px;padding:9px 12px;background:#0b2947e8;color:#fff;font-size:11px;font-weight:950;box-shadow:0 4px 16px #0007;cursor:pointer;backdrop-filter:blur(7px)}
+#musicBtn.on{background:#147e49;border-color:#51c887}
+@supports not (height:100dvh){#host{height:100vh}}
+</style>
+</head>
+<body>
+<iframe id="host" src="strategy-sound.html?v=20260828bgmfix2" title="Strategy Tutorial With Music"></iframe>
+<button id="musicBtn" type="button">🎵 MUSIC READY</button>
+<script>
+(()=>{
+const host=document.getElementById('host'),musicBtn=document.getElementById('musicBtn');
+const AC=window.AudioContext||window.webkitAudioContext;
+let ctx=null,out=null,padBus=null,beatBus=null,timer=null,musicOn=false,hookedDoc=null,step=0;
+function ensure(){
+  if(!AC)return false;
+  if(!ctx){
+    ctx=new AC();
+    out=ctx.createGain();padBus=ctx.createGain();beatBus=ctx.createGain();
+    out.gain.value=.26;padBus.gain.value=.62;beatBus.gain.value=.40;
+    padBus.connect(out);beatBus.connect(out);out.connect(ctx.destination);
+  }
+  if(ctx.state==='suspended')ctx.resume();
+  return true;
+}
+function osc(freq,dur,type='sine',vol=.10,when=0,dest=padBus,detune=0){
+  if(!ctx)return;
+  const t=ctx.currentTime+when,o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=type;o.frequency.value=freq;o.detune.value=detune;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,vol),t+.035);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);g.connect(dest);o.start(t);o.stop(t+dur+.08);
+}
+function hat(when=0,vol=.022){
+  if(!ctx)return;const dur=.035,t=ctx.currentTime+when,len=Math.floor(ctx.sampleRate*dur),b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);
+  for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+  const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=b;f.type='highpass';f.frequency.value=5200;g.gain.value=vol;s.connect(f);f.connect(g);g.connect(beatBus);s.start(t);
+}
+function kick(when=0){
+  if(!ctx)return;const t=ctx.currentTime+when,o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(115,t);o.frequency.exponentialRampToValueAtTime(48,t+.13);g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.16);o.connect(g);g.connect(beatBus);o.start(t);o.stop(t+.18);
+}
+const chords=[
+  [110.00,164.81,220.00,261.63],
+  [87.31,130.81,174.61,220.00],
+  [65.41,130.81,164.81,196.00],
+  [98.00,146.83,196.00,246.94]
+];
+const arp=[0,2,1,3,2,1,0,2];
+function bar(){
+  if(!musicOn||!ctx)return;
+  const c=chords[step%chords.length],beat=.535;
+  c.slice(0,3).forEach((n,i)=>{osc(n,2.05,'sine',.048,0,padBus,i===1?4:-4)});
+  for(let i=0;i<8;i++){
+    const n=c[arp[i]]*(i>=4?2:1);
+    osc(n,.24,'triangle',.055,i*(beat/2),padBus);
+    hat(i*(beat/2),i%2?.018:.026);
+  }
+  kick(0);kick(beat*2);
+  if(step%2===1)osc(c[3]*2,.32,'triangle',.055,beat*3.45,padBus);
+  step++;
+}
+function startMusic(){
+  if(!ensure()||musicOn)return;
+  musicOn=true;step=0;bar();timer=setInterval(bar,2140);musicBtn.textContent='🎵 MUSIC ON';musicBtn.classList.add('on');
+}
+function stopMusic(){
+  musicOn=false;if(timer){clearInterval(timer);timer=null}musicBtn.textContent='🎵 MUSIC OFF';musicBtn.classList.remove('on');
+}
+musicBtn.onclick=()=>{if(musicOn)stopMusic();else startMusic()};
+function gameDoc(){
+  try{
+    const d1=host.contentDocument;if(!d1)return null;
+    const inner=d1.getElementById('host');
+    if(inner&&inner.contentDocument){
+      const d2=inner.contentDocument;
+      const game=d2.getElementById('game');
+      if(game&&game.contentDocument)return game.contentDocument;
+    }
+    const game=d1.getElementById('game');
+    return game&&game.contentDocument?game.contentDocument:null;
+  }catch(e){return null}
+}
+function hook(){
+  const d=gameDoc();if(!d||d===hookedDoc)return;
+  hookedDoc=d;
+  d.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button');
+    if(!b)return;
+    if(b.id==='startBtn'&&!musicOn)startMusic();
+  },true);
+}
+function poll(){hook();setTimeout(poll,300)}
+host.addEventListener('load',()=>{hookedDoc=null;setTimeout(hook,400);setTimeout(hook,1000)});poll();
+document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden&&ctx.state==='running')ctx.suspend();else if(!document.hidden&&musicOn&&ctx.state==='suspended')ctx.resume()});
+})();
+</script>
+</body>
+</html>
