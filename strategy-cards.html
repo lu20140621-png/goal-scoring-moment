@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260826gkpopup1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260830lesson5interactive1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -52,6 +52,120 @@ function installPlayedSoccer(){
     const intro=d.getElementById('intro');if(intro)new MutationObserver(schedule).observe(intro,{attributes:true,attributeFilter:['class']});
     schedule();
   }catch(e){console.error('Played Soccer install failed',e)}
+}
+
+function installLesson5Interactive(){
+  try{
+    const w=f.contentWindow,d=f.contentDocument;
+    if(!w||!d||!d.head||!d.body||!d.getElementById('hand')||w.__gsmLesson5InteractivePatched)return;
+    w.__gsmLesson5InteractivePatched=true;
+    w.eval(`
+      (function(){
+        if(window.__gsmLesson5PatchReady)return;
+        window.__gsmLesson5PatchReady=true;
+        window.__gsmLesson5Step=0;
+        lessons[4].hint='GREEN 1 attacks. Play the first DEFENSE yourself. GREEN 1 uses DRIBBLE PAST, then play the second DEFENSE yourself and choose 1 remaining card to discard.';
+        lessons[4].flow=['GREEN 1 SHOOT','YOU DEFENSE','GREEN 1 DRIBBLE PAST','YOU DEFENSE','DISCARD 1','STOPPED'];
+        lessons[4].hand=['DEFENSE','DEFENSE','YELLOW','TACKLE'];
+
+        window.__gsmLesson5SeedFlowOriginal=seedFlow;
+        window.__gsmLesson5RenderOriginal=render;
+        window.__gsmLesson5OnCardOriginal=onCard;
+
+        function tuneLesson5Hand(){
+          if(idx!==4)return;
+          var step=window.__gsmLesson5Step||0;
+          var buttons=[].slice.call(document.querySelectorAll('#hand .cardBtn'));
+          var defenseSeen=0;
+          buttons.forEach(function(button){
+            var img=button.querySelector('img');
+            var name=img?(img.getAttribute('alt')||''):'';
+            var enable=false;
+            if(name==='DEFENSE'){
+              defenseSeen++;
+              if(step===0)enable=true;
+              else if(step===1){
+                if(defenseSeen===1)button.style.display='none';
+                else enable=true;
+              }else button.style.display='none';
+            }else if(step===2&&(name==='YELLOW'||name==='TACKLE'))enable=true;
+            button.disabled=!started||awaitingNext||!enable;
+            button.classList.toggle('active',!!(started&&!awaitingNext&&enable));
+          });
+          var action=document.getElementById('mainAction');
+          if(action&&!awaitingNext){
+            action.disabled=true;
+            action.classList.remove('done');
+            action.textContent=step===0?'SELECT FIRST DEFENSE':step===1?'SELECT SECOND DEFENSE':'SELECT 1 CARD TO DISCARD';
+          }
+          var status=document.getElementById('statusText');
+          if(status&&!awaitingNext){
+            status.textContent=step===0?'GREEN 1 attacks • Choose and play your first DEFENSE':step===1?'DRIBBLE PAST continues the attack • Choose and play your second DEFENSE':'Second DEFENSE succeeded • Choose 1 remaining card to discard';
+          }
+          var guide=document.getElementById('tapGuide');
+          if(guide)guide.classList.remove('show');
+        }
+
+        seedFlow=function(){
+          if(idx!==4){
+            window.__gsmLesson5Step=0;
+            return window.__gsmLesson5SeedFlowOriginal();
+          }
+          window.__gsmLesson5Step=0;
+          ballOwner=lessonBallOwner(idx);
+          clearPlayed();
+          appendNode({card:'SHOOT',owner:'GREEN 1',text:'SHOOT → YOU'});
+          appendNode({result:'CHOOSE YOUR FIRST DEFENSE',kind:'neutral'});
+        };
+
+        render=function(){
+          window.__gsmLesson5RenderOriginal();
+          tuneLesson5Hand();
+        };
+
+        onCard=function(name){
+          if(idx!==4)return window.__gsmLesson5OnCardOriginal(name);
+          if(!started||awaitingNext)return;
+          var step=window.__gsmLesson5Step||0;
+          if(step===0&&name==='DEFENSE'){
+            appendNode({card:'DEFENSE',owner:'YOU',text:'FIRST DEFENSE'});
+            setTimeout(function(){appendNode({card:'DRIBBLE PAST',owner:'GREEN 1',text:'DRIBBLE PAST → BYPASS FIRST DEFENSE'})},350);
+            setTimeout(function(){
+              appendNode({result:'ATTACK CONTINUES',kind:'neutral'});
+              window.__gsmLesson5Step=1;
+              setLog('Your first DEFENSE is bypassed by GREEN 1’s DRIBBLE PAST. Choose your second DEFENSE card.');
+              render();
+            },700);
+            return;
+          }
+          if(step===1&&name==='DEFENSE'){
+            appendNode({card:'DEFENSE',owner:'YOU',text:'SECOND DEFENSE'});
+            setTimeout(function(){appendNode({result:'SECOND DEFENSE SUCCESS',kind:'good'})},350);
+            setTimeout(function(){appendNode({result:'SOCCER CARD → YOU (2ND DEFENDER)',kind:'good'})},650);
+            setTimeout(function(){
+              appendNode({result:'CHOOSE 1 REMAINING CARD TO DISCARD',kind:'warn'});
+              ballOwner='H0';
+              window.__gsmLesson5Step=2;
+              setLog('Your second DEFENSE ends the attack. The Soccer Card goes to YOU. Now choose one remaining card to discard.');
+              render();
+            },950);
+            return;
+          }
+          if(step===2&&(name==='YELLOW'||name==='TACKLE')){
+            appendNode({card:name,owner:'YOU',text:'DISCARD '+name});
+            setTimeout(function(){
+              appendNode({result:'DISCARD COMPLETE',kind:'warn'});
+              window.__gsmLesson5Step=3;
+              finishLesson('You played both DEFENSE cards yourself, stopped the attack, received the Soccer Card, and discarded one remaining card.');
+            },350);
+            return;
+          }
+        };
+
+        if(idx===4){seedFlow();render()}
+      })();
+    `);
+  }catch(e){console.error('Lesson 5 interactive install failed',e)}
 }
 
 function installGoalkeeperPassivePopup(){
@@ -137,7 +251,7 @@ function installCompletionAction(){
   }catch(e){console.error('Completion action install failed',e)}
 }
 
-function installAll(){installRulebookScroll();installPlayedSoccer();installGoalkeeperPassivePopup();installCompletionAction()}
+function installAll(){installRulebookScroll();installPlayedSoccer();installLesson5Interactive();installGoalkeeperPassivePopup();installCompletionAction()}
 f.addEventListener('load',()=>{try{f.contentWindow.scrollTo(0,0)}catch(e){}installAll();setTimeout(installAll,150);setTimeout(installAll,600)});
 if(f.contentDocument&&f.contentDocument.readyState!=='loading')installAll();
 </script>
