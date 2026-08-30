@@ -6,132 +6,20 @@
 <meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Goal-Scoring Moment — Casual Party Tutorial</title>
-<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}</style>
-</head>
-<body>
+<meta http-equiv="refresh" content="0;url=casual-game.html?v=20260830loadfix1">
+<title>Goal-Scoring Moment — Casual Party Mode</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#06111d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center;text-align:center;padding:24px}.msg{max-width:420px}.msg a{display:inline-block;margin-top:14px;padding:11px 16px;border-radius:10px;background:#ffd456;color:#573700;font-weight:950;text-decoration:none}
+</style>
 <script>
-(async()=>{
-  try{
-    const r=await fetch('casual-game.html?v=20260826rulebookimages1',{cache:'no-store'});
-    if(!r.ok)throw new Error('Unable to load Casual mode');
-    let html=await r.text();
-    const lockStyle=`<style id="casual-ios-viewport-lock">
-@media(max-width:760px){
-  html,body{width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important;background:#06111d!important}
-  body{position:fixed!important;inset:0!important;width:100%!important;height:var(--vvh,100dvh)!important;max-height:var(--vvh,100dvh)!important;overflow:hidden!important}
-  .shell{height:var(--shellh,calc(100dvh - 66px))!important;max-height:var(--shellh,calc(100dvh - 66px))!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important}
-  body.gsm-modal-open .shell{overflow:hidden!important;touch-action:none!important}
-  .hand{overscroll-behavior-x:contain!important;touch-action:pan-x!important}
-  .played{overscroll-behavior-x:contain!important}
-  .modal{position:fixed!important;left:0!important;right:0!important;top:var(--vvtop,0px)!important;bottom:auto!important;width:100vw!important;height:var(--vvh,100dvh)!important;max-height:var(--vvh,100dvh)!important;overflow:hidden!important;overscroll-behavior:none!important}
-  .modal .box{max-height:calc(var(--vvh,100dvh) - 28px)!important;overflow-y:auto!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important}
-  #rulebookModal{padding:12px!important;align-items:center!important;justify-content:center!important}
-  #rulebookModal .box.rulebook{height:calc(var(--vvh,100dvh) - 24px)!important;max-height:calc(var(--vvh,100dvh) - 24px)!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:contain!important;-webkit-overflow-scrolling:touch!important;touch-action:pan-y!important}
-}
-#rulebookModal .rbCards{display:flex;gap:8px;align-items:flex-start;float:left;margin:0 12px 7px 0;min-width:62px}
-#rulebookModal .rbCards img{width:58px;height:81px;object-fit:contain;border-radius:7px;background:#fff;filter:drop-shadow(0 4px 6px #0003)}
-#rulebookModal section:after{content:"";display:block;clear:both}
-#rulebookModal .rbNote{font-size:9px;font-weight:900;color:#6a7c8f;margin-top:4px;text-align:center}
-@media(max-width:520px){#rulebookModal .rbCards{margin-right:9px;gap:4px}#rulebookModal .rbCards img{width:48px;height:67px}}
-</style>`;
-    const lockScript=`<script id="casual-ios-viewport-script">(()=>{
-      const root=document.documentElement;
-      function syncViewport(){
-        const vv=window.visualViewport;
-        const h=Math.max(320,Math.round(vv?vv.height:window.innerHeight));
-        const top=Math.max(0,Math.round(vv?vv.offsetTop:0));
-        root.style.setProperty('--vvh',h+'px');
-        root.style.setProperty('--vvtop',top+'px');
-        const topbar=document.querySelector('.top');
-        const progress=document.querySelector('.progress');
-        const used=(topbar?topbar.offsetHeight:0)+(progress?progress.offsetHeight:0);
-        root.style.setProperty('--shellh',Math.max(320,h-used)+'px');
-        if(window.scrollY!==0)window.scrollTo(0,0);
-      }
-      function syncModalLock(){
-        const open=!!document.querySelector('.modal.show');
-        document.body.classList.toggle('gsm-modal-open',open);
-        const rb=document.querySelector('#rulebookModal.show .box.rulebook');
-        if(rb&&rb.dataset.gsmOpened!=='1'){
-          rb.scrollTop=0;
-          rb.dataset.gsmOpened='1';
-        }
-        const closed=document.querySelector('#rulebookModal:not(.show) .box.rulebook');
-        if(closed)closed.dataset.gsmOpened='0';
-      }
-      function decorateRulebook(){
-        const modal=document.getElementById('rulebookModal');
-        if(!modal||modal.dataset.rbDecorated==='1')return;
-        modal.dataset.rbDecorated='1';
-        const map={
-          'SOCCER + DEFENSE':[['images/soccer-card.png','Soccer Card'],['images/defense-card.png','Defense Card']],
-          'DRIBBLE PAST':[['images/dribble%20past-card.png','Dribble Past Card']],
-          'SHOOT':[['images/shoot-card.png','Shoot Card']],
-          'TACKLE':[['images/tackle-card.png','Tackle Card']],
-          'YELLOW CARD':[['images/yellow-card.png','Yellow Card']]
-        };
-        modal.querySelectorAll('section').forEach(section=>{
-          const h=section.querySelector('h3');
-          if(!h)return;
-          const defs=map[(h.textContent||'').trim().toUpperCase()];
-          if(!defs)return;
-          const visual=document.createElement('div');
-          visual.className='rbCards';
-          defs.forEach(([src,alt])=>{
-            const img=document.createElement('img');
-            img.dataset.src=src;
-            img.alt=alt;
-            img.width=58;img.height=81;
-            img.decoding='async';
-            visual.appendChild(img);
-          });
-          h.insertAdjacentElement('afterend',visual);
-        });
-      }
-      function loadRulebookImages(){
-        decorateRulebook();
-        document.querySelectorAll('#rulebookModal img[data-src]').forEach(img=>{
-          if(!img.src){img.loading='lazy';img.src=img.dataset.src;delete img.dataset.src}
-        });
-      }
-      syncViewport();
-      syncModalLock();
-      decorateRulebook();
-      const rbBtn=document.getElementById('rulebookBtn');
-      if(rbBtn)rbBtn.addEventListener('click',()=>setTimeout(loadRulebookImages,0));
-      window.addEventListener('resize',syncViewport,{passive:true});
-      if(window.visualViewport){
-        window.visualViewport.addEventListener('resize',syncViewport,{passive:true});
-        window.visualViewport.addEventListener('scroll',syncViewport,{passive:true});
-      }
-      document.querySelectorAll('.modal').forEach(m=>new MutationObserver(syncModalLock).observe(m,{attributes:true,attributeFilter:['class']}));
-      let startY=0;
-      document.addEventListener('touchstart',e=>{if(e.touches.length===1)startY=e.touches[0].clientY},{passive:true});
-      document.addEventListener('touchmove',e=>{
-        if(window.innerWidth>760||e.touches.length!==1)return;
-        const target=e.target;
-        if(target.closest&&target.closest('.hand')&&!document.body.classList.contains('gsm-modal-open'))return;
-        const scroller=(target.closest&&target.closest('.box'))||(target.closest&&target.closest('.shell'));
-        if(!scroller){e.preventDefault();return}
-        if(document.body.classList.contains('gsm-modal-open')&&!target.closest('.box')){e.preventDefault();return}
-        const y=e.touches[0].clientY,dy=y-startY;
-        const max=scroller.scrollHeight-scroller.clientHeight;
-        if(max<=1||(scroller.scrollTop<=0&&dy>0)||(scroller.scrollTop>=max-1&&dy<0))e.preventDefault();
-      },{passive:false});
-    })();<\/script>`;
-    html=html.replace('</head>',lockStyle+'</head>');
-    html=html.replace('<script src="analytics-config.js"></script>
-<script src="analytics.js"></script>
-</body>',lockScript+'</body>');
-    document.open();
-    document.write(html);
-    document.close();
-  }catch(err){
-    document.body.innerHTML='<div style="padding:24px;text-align:center">Casual Party Mode failed to load. Please refresh.</div>';
-    console.error(err);
-  }
+(function(){
+  var target='casual-game.html?v=20260830loadfix1';
+  try{window.location.replace(target)}catch(e){window.location.href=target}
 })();
 </script>
+</head>
+<body>
+<div class="msg"><strong>Opening Casual Party Mode…</strong><br><a href="casual-game.html?v=20260830loadfix1">OPEN CASUAL MODE</a></div>
 </body>
 </html>
