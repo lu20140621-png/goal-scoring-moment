@@ -1,548 +1,855 @@
+/* Goal-Scoring Moment - Mobile Strategy Tutorial Pitch Animation v3
+ * Visual-only layer. Runs inside strategy.html.
+ * Does not change tutorial/game logic.
+ */
 (function(){
+  'use strict';
+
+  const MOBILE_QUERY='(max-width:760px)';
+
   function install(){
-    if(!window.matchMedia('(max-width:760px)').matches)return;
+    if(!window.matchMedia(MOBILE_QUERY).matches)return;
+    if(document.getElementById('gsm-mobile-match-animation-v3-style'))return;
 
-    const d=document;
-    const pitch=d.querySelector('.pitch');
-    const played=d.getElementById('played');
-
+    const pitch=document.querySelector('.pitch');
+    const played=document.getElementById('played');
     if(!pitch||!played)return;
-      if(!w||!d||!d.head||!d.body)return;
-      if(!w.matchMedia('(max-width:760px)').matches)return;
-      if(d.getElementById('gsm-mobile-match-animation-style'))return;
 
-      const pitch=d.querySelector('.pitch');
-      const played=d.getElementById('played');
-      if(!pitch||!played)return;
-
-      const style=d.createElement('style');
-      style.id='gsm-mobile-match-animation-style';
-      style.textContent=`
-        @media(max-width:760px){
-          .gsmMobileAnimLayer{
-            position:absolute;
-            inset:0;
-            z-index:9;
-            pointer-events:none;
-            overflow:hidden;
-          }
-
-          .gsmPlayer{
-            position:absolute;
-            width:24px;
-            height:34px;
-            transform:translate(-50%,-50%);
-            transition:left .42s ease,top .42s ease,transform .22s ease;
-            filter:drop-shadow(0 3px 4px #0008);
-          }
-
-          .gsmPlayer .head{
-            position:absolute;
-            left:50%;
-            top:0;
-            width:10px;
-            height:10px;
-            border-radius:50%;
-            transform:translateX(-50%);
-            background:currentColor;
-          }
-
-          .gsmPlayer .body{
-            position:absolute;
-            left:50%;
-            top:9px;
-            width:8px;
-            height:14px;
-            border-radius:5px 5px 3px 3px;
-            transform:translateX(-50%);
-            background:currentColor;
-          }
-
-          .gsmPlayer .arm,
-          .gsmPlayer .leg{
-            position:absolute;
-            width:4px;
-            height:13px;
-            border-radius:3px;
-            background:currentColor;
-            transform-origin:50% 0;
-          }
-
-          .gsmPlayer .arm.left{
-            left:5px;
-            top:11px;
-            transform:rotate(24deg);
-          }
-
-          .gsmPlayer .arm.right{
-            right:5px;
-            top:11px;
-            transform:rotate(-24deg);
-          }
-
-          .gsmPlayer .leg.left{
-            left:8px;
-            top:21px;
-            transform:rotate(14deg);
-          }
-
-          .gsmPlayer .leg.right{
-            right:8px;
-            top:21px;
-            transform:rotate(-14deg);
-          }
-
-          .gsmPlayer.blue{
-            color:var(--blue);
-          }
-
-          .gsmPlayer.green{
-            color:var(--green);
-          }
-
-          .gsmPlayer.active{
-            filter:
-              drop-shadow(0 0 6px var(--gold))
-              drop-shadow(0 3px 4px #0008);
-          }
-
-          .gsmPlayer.blocking{
-            transform:translate(-50%,-50%) scale(1.12);
-          }
-
-          .gsmPlayer.dribbleUp{
-            transform:
-              translate(-50%,-50%)
-              translateY(-24px)
-              rotate(-8deg);
-          }
-
-          .gsmPlayer.dribbleDown{
-            transform:
-              translate(-50%,-50%)
-              translateY(24px)
-              rotate(8deg);
-          }
-
-          .gsmSoccerVisual{
-            position:absolute;
-            width:30px;
-            height:30px;
-            object-fit:contain;
-            left:50%;
-            top:50%;
-            transform:translate(-50%,-50%);
-            transition:
-              left .45s ease,
-              top .45s ease,
-              transform .25s ease;
-            filter:drop-shadow(0 3px 5px #0008);
-          }
-
-          .gsmSoccerVisual.goal{
-            transform:
-              translate(-50%,-50%)
-              scale(1.18)
-              rotate(8deg);
-          }
-
-          .gsmAnimFlash{
-            position:absolute;
-            left:50%;
-            top:50%;
-            transform:translate(-50%,-50%);
-            padding:4px 7px;
-            border-radius:999px;
-            background:var(--gold);
-            color:var(--ink);
-            font-size:8px;
-            font-weight:950;
-            opacity:0;
-            transition:
-              opacity .18s ease,
-              transform .18s ease;
-            white-space:nowrap;
-          }
-
-          .gsmAnimFlash.show{
-            opacity:1;
-            transform:
-              translate(-50%,-50%)
-              scale(1.06);
-          }
+    const style=document.createElement('style');
+    style.id='gsm-mobile-match-animation-v3-style';
+    style.textContent=`
+      @media(max-width:760px){
+        .gsmAnimV3Layer{
+          position:absolute;
+          inset:0;
+          z-index:9;
+          pointer-events:none;
+          overflow:hidden;
         }
-      `;
-      d.head.appendChild(style);
 
-      const layer=d.createElement('div');
-      layer.className='gsmMobileAnimLayer';
+        .gsmAnimV3Player{
+          position:absolute;
+          width:30px;
+          height:42px;
+          transform:translate(-50%,-50%);
+          transition:
+            left .42s ease,
+            top .42s ease,
+            transform .25s ease,
+            filter .2s ease;
+          filter:drop-shadow(0 3px 4px #0008);
+        }
 
-      layer.innerHTML=`
-        <div class="gsmPlayer blue" data-team="blue">
-          <i class="head"></i>
-          <i class="body"></i>
-          <i class="arm left"></i>
-          <i class="arm right"></i>
-          <i class="leg left"></i>
-          <i class="leg right"></i>
-        </div>
+        .gsmAnimV3Player .head{
+          position:absolute;
+          left:50%;
+          top:0;
+          width:11px;
+          height:11px;
+          border-radius:50%;
+          transform:translateX(-50%);
+          background:currentColor;
+        }
 
-        <div class="gsmPlayer green" data-team="green">
-          <i class="head"></i>
-          <i class="body"></i>
-          <i class="arm left"></i>
-          <i class="arm right"></i>
-          <i class="leg left"></i>
-          <i class="leg right"></i>
-        </div>
+        .gsmAnimV3Player .body{
+          position:absolute;
+          left:50%;
+          top:10px;
+          width:10px;
+          height:17px;
+          border-radius:5px 5px 3px 3px;
+          transform:translateX(-50%);
+          background:currentColor;
+        }
 
-        <img
-          class="gsmSoccerVisual"
-          src="images/soccer-card.png"
-          alt=""
-        >
+        .gsmAnimV3Player .arm,
+        .gsmAnimV3Player .leg{
+          position:absolute;
+          width:4px;
+          height:14px;
+          border-radius:4px;
+          background:currentColor;
+          transform-origin:50% 0;
+        }
 
-        <div class="gsmAnimFlash"></div>
-      `;
+        .gsmAnimV3Player .arm.left{
+          left:6px;
+          top:12px;
+          transform:rotate(28deg);
+        }
 
-      pitch.appendChild(layer);
+        .gsmAnimV3Player .arm.right{
+          right:6px;
+          top:12px;
+          transform:rotate(-28deg);
+        }
 
-      const blue=layer.querySelector('[data-team="blue"]');
-      const green=layer.querySelector('[data-team="green"]');
-      const ball=layer.querySelector('.gsmSoccerVisual');
-      const flash=layer.querySelector('.gsmAnimFlash');
+        .gsmAnimV3Player .leg.left{
+          left:9px;
+          top:25px;
+          transform:rotate(16deg);
+        }
 
-      const state={
-        blue:{x:30,y:66},
-        green:{x:70,y:34},
-        attacker:null,
-        processed:new WeakSet()
-      };
+        .gsmAnimV3Player .leg.right{
+          right:9px;
+          top:25px;
+          transform:rotate(-16deg);
+        }
 
-      function place(el,x,y){
-        el.style.left=x+'%';
-        el.style.top=y+'%';
+        .gsmAnimV3Player.blue{
+          color:var(--blue);
+        }
+
+        .gsmAnimV3Player.green{
+          color:var(--green);
+        }
+
+        .gsmAnimV3Player.active{
+          filter:
+            drop-shadow(0 0 7px var(--gold))
+            drop-shadow(0 3px 4px #0008);
+        }
+
+        .gsmAnimV3Player.blocking{
+          transform:translate(-50%,-50%) scale(1.14);
+        }
+
+        .gsmAnimV3Player.dribbleUp{
+          transform:
+            translate(-50%,-50%)
+            translateY(-24px)
+            rotate(-10deg);
+        }
+
+        .gsmAnimV3Player.dribbleDown{
+          transform:
+            translate(-50%,-50%)
+            translateY(24px)
+            rotate(10deg);
+        }
+
+        .gsmAnimV3Label{
+          position:absolute;
+          left:50%;
+          top:39px;
+          transform:translateX(-50%);
+          padding:1px 4px;
+          border-radius:999px;
+          background:#071827dd;
+          color:#fff;
+          font-size:6px;
+          line-height:1.25;
+          font-weight:950;
+          white-space:nowrap;
+          border:1px solid #ffffff44;
+        }
+
+        .gsmAnimV3Ball{
+          position:absolute;
+          width:29px;
+          height:29px;
+          object-fit:contain;
+          left:50%;
+          top:50%;
+          transform:translate(-50%,-50%);
+          transition:
+            left .42s ease,
+            top .42s ease,
+            transform .25s ease;
+          filter:drop-shadow(0 3px 5px #0009);
+          z-index:3;
+        }
+
+        .gsmAnimV3Ball.goal{
+          transform:
+            translate(-50%,-50%)
+            scale(1.18)
+            rotate(12deg);
+        }
+
+        .gsmAnimV3Flash{
+          position:absolute;
+          left:50%;
+          top:72%;
+          transform:translate(-50%,-50%) scale(.92);
+          padding:4px 7px;
+          border-radius:999px;
+          background:var(--gold);
+          color:var(--ink);
+          font-size:7px;
+          line-height:1;
+          font-weight:950;
+          opacity:0;
+          transition:
+            opacity .18s ease,
+            transform .18s ease;
+          white-space:nowrap;
+          box-shadow:0 3px 8px #0006;
+        }
+
+        .gsmAnimV3Flash.show{
+          opacity:1;
+          transform:
+            translate(-50%,-50%)
+            scale(1);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const layer=document.createElement('div');
+    layer.className='gsmAnimV3Layer';
+
+    layer.innerHTML=`
+      <div class="gsmAnimV3Player blue" data-player="YOU">
+        <i class="head"></i>
+        <i class="body"></i>
+        <i class="arm left"></i>
+        <i class="arm right"></i>
+        <i class="leg left"></i>
+        <i class="leg right"></i>
+        <span class="gsmAnimV3Label">YOU</span>
+      </div>
+
+      <div class="gsmAnimV3Player blue" data-player="BLUE 2">
+        <i class="head"></i>
+        <i class="body"></i>
+        <i class="arm left"></i>
+        <i class="arm right"></i>
+        <i class="leg left"></i>
+        <i class="leg right"></i>
+        <span class="gsmAnimV3Label">BLUE 2</span>
+      </div>
+
+      <div class="gsmAnimV3Player green" data-player="GREEN 1">
+        <i class="head"></i>
+        <i class="body"></i>
+        <i class="arm left"></i>
+        <i class="arm right"></i>
+        <i class="leg left"></i>
+        <i class="leg right"></i>
+        <span class="gsmAnimV3Label">GREEN 1</span>
+      </div>
+
+      <div class="gsmAnimV3Player green" data-player="GREEN 2">
+        <i class="head"></i>
+        <i class="body"></i>
+        <i class="arm left"></i>
+        <i class="arm right"></i>
+        <i class="leg left"></i>
+        <i class="leg right"></i>
+        <span class="gsmAnimV3Label">GREEN 2</span>
+      </div>
+
+      <img
+        class="gsmAnimV3Ball"
+        src="images/soccer-card.png"
+        alt=""
+      >
+
+      <div class="gsmAnimV3Flash"></div>
+    `;
+
+    pitch.appendChild(layer);
+
+    const players={
+      'YOU':layer.querySelector('[data-player="YOU"]'),
+      'BLUE 2':layer.querySelector('[data-player="BLUE 2"]'),
+      'GREEN 1':layer.querySelector('[data-player="GREEN 1"]'),
+      'GREEN 2':layer.querySelector('[data-player="GREEN 2"]')
+    };
+
+    const ball=layer.querySelector('.gsmAnimV3Ball');
+    const flash=layer.querySelector('.gsmAnimV3Flash');
+
+    const base={
+      'YOU':{x:28,y:66},
+      'BLUE 2':{x:28,y:34},
+      'GREEN 1':{x:72,y:34},
+      'GREEN 2':{x:72,y:66}
+    };
+
+    const state={
+      pos:{},
+      attacker:null,
+      lastDefender:null,
+      ballOwner:null,
+      processed:new WeakSet()
+    };
+
+    function cloneBase(){
+      state.pos={};
+
+      Object.keys(base).forEach(name=>{
+        state.pos[name]={
+          x:base[name].x,
+          y:base[name].y
+        };
+      });
+    }
+
+    function place(el,x,y){
+      el.style.left=x+'%';
+      el.style.top=y+'%';
+    }
+
+    function teamOf(name){
+      return name==='YOU'||name==='BLUE 2'
+        ?'blue'
+        :'green';
+    }
+
+    function opponentGoalX(name){
+      return teamOf(name)==='blue'
+        ?96
+        :4;
+    }
+
+    function clearPlayerClasses(){
+      Object.values(players).forEach(el=>{
+        el.classList.remove(
+          'active',
+          'blocking',
+          'dribbleUp',
+          'dribbleDown'
+        );
+      });
+    }
+
+    function showFlash(text){
+      flash.textContent=text;
+      flash.classList.add('show');
+
+      clearTimeout(showFlash.timer);
+
+      showFlash.timer=setTimeout(()=>{
+        flash.classList.remove('show');
+      },650);
+    }
+
+    function detectCurrentBallOwner(){
+      if(document.querySelector('#H0 .possessionCard')){
+        return'YOU';
       }
 
-      function reset(){
-        state.blue={x:30,y:66};
-        state.green={x:70,y:34};
-        state.attacker=null;
-        state.processed=new WeakSet();
+      if(document.querySelector('#H1 .possessionCard')){
+        return'BLUE 2';
+      }
 
-        blue.className='gsmPlayer blue';
-        green.className='gsmPlayer green';
+      if(document.querySelector('#A0 .possessionCard')){
+        return'GREEN 1';
+      }
 
-        place(blue,30,66);
-        place(green,70,34);
+      if(document.querySelector('#A1 .possessionCard')){
+        return'GREEN 2';
+      }
 
-        ball.classList.remove('goal');
+      return null;
+    }
+
+    function moveBallToPlayer(name){
+      if(!players[name])return;
+
+      state.ballOwner=name;
+      ball.classList.remove('goal');
+
+      const p=state.pos[name];
+
+      place(
+        ball,
+        p.x+(teamOf(name)==='blue'?4:-4),
+        p.y-7
+      );
+    }
+
+    function reset(){
+      cloneBase();
+
+      state.attacker=null;
+      state.lastDefender=null;
+      state.processed=new WeakSet();
+
+      clearPlayerClasses();
+
+      Object.keys(players).forEach(name=>{
+        place(
+          players[name],
+          state.pos[name].x,
+          state.pos[name].y
+        );
+      });
+
+      state.ballOwner=
+        detectCurrentBallOwner();
+
+      ball.classList.remove('goal');
+
+      if(state.ballOwner){
+        moveBallToPlayer(
+          state.ballOwner
+        );
+      }else{
         place(ball,50,50);
       }
+    }
 
-      function teamFromOwner(owner){
-        const t=(owner||'').toUpperCase();
+    function normalizeOwner(raw){
+      const t=
+        (raw||'')
+        .trim()
+        .toUpperCase();
 
-        if(
-          t.includes('YOU')||
-          t.includes('BLUE')
-        ){
-          return'blue';
-        }
-
-        if(t.includes('GREEN')){
-          return'green';
-        }
-
-        return null;
+      if(
+        t==='YOU'||
+        t.includes('BLUE 1')
+      ){
+        return'YOU';
       }
 
-      function player(team){
-        return team==='blue'?blue:green;
+      if(t.includes('BLUE 2')){
+        return'BLUE 2';
       }
 
-      function pos(team){
-        return state[team];
+      if(t.includes('GREEN 1')){
+        return'GREEN 1';
       }
 
-      function other(team){
-        return team==='blue'?'green':'blue';
+      if(t.includes('GREEN 2')){
+        return'GREEN 2';
       }
 
-      function showFlash(text){
-        flash.textContent=text;
-        flash.classList.add('show');
+      return null;
+    }
 
-        clearTimeout(showFlash.timer);
+    function shoot(name){
+      if(!players[name])return;
 
-        showFlash.timer=setTimeout(()=>{
-          flash.classList.remove('show');
-        },700);
+      state.attacker=name;
+      state.lastDefender=null;
+
+      const p=state.pos[name];
+
+      p.x+=
+        teamOf(name)==='blue'
+        ?12
+        :-12;
+
+      p.y=50;
+
+      clearPlayerClasses();
+
+      players[name]
+        .classList
+        .add('active');
+
+      place(
+        players[name],
+        p.x,
+        p.y
+      );
+
+      moveBallToPlayer(name);
+
+      showFlash('SHOOT');
+    }
+
+    function defense(name){
+      if(
+        !players[name]||
+        !state.attacker
+      ){
+        return;
       }
 
-      function shoot(team){
-        if(!team)return;
+      state.lastDefender=name;
 
-        state.attacker=team;
+      const ap=
+        state.pos[state.attacker];
 
-        const p=pos(team);
+      const dp=
+        state.pos[name];
 
-        p.x+=team==='blue'?12:-12;
+      dp.x=
+        ap.x+
+        (
+          teamOf(state.attacker)==='blue'
+          ?8
+          :-8
+        );
+
+      dp.y=ap.y;
+
+      players[name]
+        .classList
+        .add('blocking');
+
+      place(
+        players[name],
+        dp.x,
+        dp.y
+      );
+
+      showFlash('DEFENSE');
+    }
+
+    function dribble(name){
+      if(!players[name])return;
+
+      state.attacker=name;
+
+      const p=state.pos[name];
+      const el=players[name];
+
+      const defender=
+        state.lastDefender&&
+        state.pos[state.lastDefender];
+
+      const goDown=
+        defender
+        ?defender.y<=50
+        :p.y<=50;
+
+      el.classList.add(
+        goDown
+        ?'dribbleDown'
+        :'dribbleUp'
+      );
+
+      showFlash(
+        'DRIBBLE PAST'
+      );
+
+      setTimeout(()=>{
+        p.y=
+          goDown
+          ?64
+          :36;
+
+        p.x+=
+          teamOf(name)==='blue'
+          ?11
+          :-11;
+
+        place(
+          el,
+          p.x,
+          p.y
+        );
+
+        moveBallToPlayer(name);
+      },160);
+
+      setTimeout(()=>{
+        el.classList.remove(
+          'dribbleDown',
+          'dribbleUp'
+        );
+
         p.y=50;
 
-        blue.classList.remove('active');
-        green.classList.remove('active');
-
-        player(team).classList.add('active');
-
         place(
-          player(team),
+          el,
           p.x,
           p.y
         );
 
+        moveBallToPlayer(name);
+      },430);
+    }
+
+    function tackle(name){
+      if(!players[name])return;
+
+      const target=
+        state.ballOwner&&
+        players[state.ballOwner]
+        ?state.ballOwner
+        :state.attacker;
+
+      if(
+        target&&
+        state.pos[target]
+      ){
+        const tp=
+          state.pos[target];
+
+        const p=
+          state.pos[name];
+
+        p.x=
+          tp.x+
+          (
+            teamOf(name)==='blue'
+            ?-7
+            :7
+          );
+
+        p.y=tp.y;
+
         place(
-          ball,
-          p.x+(team==='blue'?4:-4),
+          players[name],
+          p.x,
           p.y
         );
-
-        showFlash('SHOOT');
       }
 
-      function defense(team){
-        if(!team)return;
+      clearPlayerClasses();
 
-        const attacker=
-          state.attacker||
-          other(team);
+      players[name]
+        .classList
+        .add('active');
 
-        const ap=pos(attacker);
-        const dp=pos(team);
+      setTimeout(()=>{
+        moveBallToPlayer(name);
+      },220);
 
-        dp.x=
-          ap.x+
-          (attacker==='blue'?8:-8);
+      showFlash('TACKLE');
+    }
 
-        dp.y=ap.y;
+    function goal(){
+      const scorer=
+        state.attacker||
+        state.ballOwner;
 
-        blue.classList.remove('blocking');
-        green.classList.remove('blocking');
+      if(!scorer)return;
 
-        player(team).classList.add('blocking');
+      ball.classList.add('goal');
 
-        place(
-          player(team),
-          dp.x,
-          dp.y
-        );
+      place(
+        ball,
+        opponentGoalX(scorer),
+        50
+      );
 
-        showFlash('DEFENSE');
+      showFlash('GOAL!');
+    }
+
+    function parseBallTransfer(text){
+      const t=text.toUpperCase();
+
+      if(
+        !t.includes('SOCCER CARD')
+      ){
+        return false;
       }
 
-      function dribble(team){
-        if(!team)return;
+      if(
+        t.includes('→ YOU')||
+        t.includes('TO YOU')
+      ){
+        moveBallToPlayer('YOU');
+        return true;
+      }
 
-        state.attacker=team;
+      if(
+        t.includes('→ BLUE 2')||
+        t.includes('TO BLUE 2')
+      ){
+        moveBallToPlayer('BLUE 2');
+        return true;
+      }
 
-        const p=pos(team);
-        const el=player(team);
+      if(
+        t.includes('→ GREEN 1')||
+        t.includes('TO GREEN 1')
+      ){
+        moveBallToPlayer('GREEN 1');
+        return true;
+      }
 
-        const curve=
-          p.y<=50?
-          'dribbleDown':
-          'dribbleUp';
+      if(
+        t.includes('→ GREEN 2')||
+        t.includes('TO GREEN 2')||
+        t.includes('→ GOALKEEPER')||
+        t.includes('TO GOALKEEPER')
+      ){
+        moveBallToPlayer('GREEN 2');
+        return true;
+      }
 
-        el.classList.add(curve);
+      return false;
+    }
 
-        showFlash('DRIBBLE PAST');
+    function processNode(node){
+      if(
+        state.processed.has(node)
+      ){
+        return;
+      }
 
-        setTimeout(()=>{
-          p.x+=team==='blue'?12:-12;
-          p.y=50;
+      state.processed.add(node);
 
-          place(
-            el,
-            p.x,
-            p.y
+      const text=
+        (node.textContent||'')
+        .trim();
+
+      const upper=
+        text.toUpperCase();
+
+      if(
+        node.classList
+        .contains('playNode')
+      ){
+        const owner=
+          normalizeOwner(
+            node.querySelector('em')
+              ?.textContent||
+            ''
           );
 
-          place(
-            ball,
-            p.x+(team==='blue'?4:-4),
-            p.y
-          );
-        },170);
+        if(!owner)return;
 
-        setTimeout(()=>{
-          el.classList.remove(curve);
-        },470);
+        if(
+          upper.includes(
+            'DRIBBLE PAST'
+          )
+        ){
+          dribble(owner);
+
+        }else if(
+          upper.includes(
+            'DEFENSE'
+          )
+        ){
+          defense(owner);
+
+        }else if(
+          upper.includes(
+            'SHOOT'
+          )
+        ){
+          shoot(owner);
+
+        }else if(
+          upper.includes(
+            'TACKLE'
+          )
+        ){
+          tackle(owner);
+        }
+
+        return;
       }
 
-      function tackle(team){
-        if(!team)return;
-
-        state.attacker=team;
-
-        const p=pos(team);
-
-        place(
-          ball,
-          p.x,
-          p.y-8
-        );
-
-        player(team)
-          .classList
-          .add('active');
-
-        showFlash('TACKLE');
-      }
-
-      function goal(){
-        const team=
-          state.attacker||
-          'blue';
-
-        ball.classList.add('goal');
-
-        place(
-          ball,
-          team==='blue'?96:4,
-          50
-        );
-
-        showFlash('GOAL!');
-      }
-
-      function parseNode(node){
-        if(state.processed.has(node)){
+      if(
+        node.classList
+        .contains('resultChip')
+      ){
+        if(
+          parseBallTransfer(text)
+        ){
           return;
         }
 
-        state.processed.add(node);
-
-        const txt=
-          (node.textContent||'')
-          .trim()
-          .toUpperCase();
-
-        const owner=
-          (
-            node.querySelector('em')
-            ?.textContent||
-            ''
-          ).trim();
-
-        const team=
-          teamFromOwner(owner);
-
         if(
-          node
-          .classList
-          .contains('playNode')
+          /\bGOAL\b/.test(upper)&&
+          !upper.includes('WOULD-BE')&&
+          !upper.includes('GOALKEEPER')
         ){
-          if(
-            txt.includes('DRIBBLE PAST')
-          ){
-            dribble(team);
-          }else if(
-            txt.includes('DEFENSE')
-          ){
-            defense(team);
-          }else if(
-            txt.includes('SHOOT')
-          ){
-            shoot(team);
-          }else if(
-            txt.includes('TACKLE')
-          ){
-            tackle(team);
-          }
-        }else if(
-          node
-          .classList
-          .contains('resultChip')
-        ){
-          if(
-            /\bGOAL\b/.test(txt)&&
-            !txt.includes('WOULD-BE')
-          ){
-            goal();
-          }
+          goal();
+        }
+
+        return;
+      }
+
+      if(
+        node.classList
+        .contains('gsmPlayedSoccer')
+      ){
+        const holder=
+          normalizeOwner(text);
+
+        if(holder){
+          moveBallToPlayer(holder);
         }
       }
+    }
 
-      function process(){
-        [...played.children]
-          .forEach(parseNode);
+    function process(){
+      [...played.children]
+        .forEach(processNode);
+    }
+
+    new MutationObserver(
+      process
+    ).observe(
+      played,
+      {
+        childList:true,
+        subtree:true
       }
+    );
 
-      new MutationObserver(
-        process
-      ).observe(
-        played,
+    const lessonNo=
+      document.getElementById(
+        'lessonNo'
+      );
+
+    if(lessonNo){
+      new MutationObserver(()=>{
+        reset();
+
+        setTimeout(
+          process,
+          40
+        );
+      }).observe(
+        lessonNo,
         {
           childList:true,
+          characterData:true,
           subtree:true
         }
       );
+    }
 
-      const lessonNo=
-        d.getElementById('lessonNo');
+    const pitchObserver=
+      new MutationObserver(()=>{
+        const holder=
+          detectCurrentBallOwner();
 
-      if(lessonNo){
-        new MutationObserver(()=>{
-          reset();
+        if(
+          holder&&
+          holder!==state.ballOwner
+        ){
+          moveBallToPlayer(holder);
+        }
+      });
 
-          setTimeout(
-            process,
-            30
-          );
-        }).observe(
-          lessonNo,
-          {
-            childList:true,
-            characterData:true,
-            subtree:true
-          }
-        );
+    pitchObserver.observe(
+      pitch,
+      {
+        childList:true,
+        subtree:true
       }
+    );
 
-      reset();
-      process();
-
-    }catch(err){
-      console.error(
-        'Mobile match animation install failed',
-        err
-      );
-    }
+    reset();
+    process();
   }
-
-  frame.addEventListener(
-    'load',
-    ()=>{
-      install();
-
-      setTimeout(
-        install,
-        150
-      );
-
-      setTimeout(
-        install,
-        500
-      );
-    }
-  );
 
   if(
-    frame.contentDocument&&
-    frame.contentDocument.readyState!==
+    document.readyState===
     'loading'
   ){
-    install();
-  }
+    document.addEventListener(
+      'DOMContentLoaded',
+      ()=>{
+        install();
 
+        setTimeout(
+          install,
+          120
+        );
+      },
+      {once:true}
+    );
+  }else{
+    install();
+
+    setTimeout(
+      install,
+      120
+    );
+  }
 })();
