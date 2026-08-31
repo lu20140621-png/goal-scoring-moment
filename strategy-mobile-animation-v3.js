@@ -1,14 +1,12 @@
-/* Goal-Scoring Moment - Mobile Strategy Tutorial Pitch Animation
- * Visual-only layer. Does not change tutorial/game logic.
- */
 (function(){
-  const frame=document.getElementById('game');
-  if(!frame)return;
-
   function install(){
-    try{
-      const w=frame.contentWindow;
-      const d=frame.contentDocument;
+    if(!window.matchMedia('(max-width:760px)').matches)return;
+
+    const d=document;
+    const pitch=d.querySelector('.pitch');
+    const played=d.getElementById('played');
+
+    if(!pitch||!played)return;
       if(!w||!d||!d.head||!d.body)return;
       if(!w.matchMedia('(max-width:760px)').matches)return;
       if(d.getElementById('gsm-mobile-match-animation-style'))return;
@@ -480,7 +478,7 @@
           .forEach(parseNode);
       }
 
-      new w.MutationObserver(
+      new MutationObserver(
         process
       ).observe(
         played,
@@ -494,7 +492,7 @@
         d.getElementById('lessonNo');
 
       if(lessonNo){
-        new w.MutationObserver(()=>{
+        new MutationObserver(()=>{
           reset();
 
           setTimeout(
