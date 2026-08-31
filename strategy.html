@@ -40,4 +40,5 @@ function buildCourses(){$('courseGrid').innerHTML='';lessons.forEach((l,i)=>{con
 $('startBtn').onclick=()=>{started=true;$('intro').classList.remove('show');seedFlow();render();setLog('Tutorial started. The Soccer Card will move between players according to the game rules.')};$('courseBtn').onclick=()=>{$('courseModal').classList.add('show');buildCourses()};$('closeCourse').onclick=()=>$('courseModal').classList.remove('show');$('ruleBtn').onclick=()=>window.location.href='strategy-rulebook.html';document.querySelectorAll('.targetChoice').forEach(b=>b.onclick=()=>resolveShoot(b.dataset.target));ballOwner=lessonBallOwner(idx);render();buildCourses();
 </script><script src="analytics-config.js"></script>
 <script src="analytics.js"></script>
+<script src="strategy-mobile-animation-v3.js?v=20260831a3"></script>
 </body></html>
