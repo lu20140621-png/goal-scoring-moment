@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#06111d}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy.html?v=20260830lesson5interactive1" title="Strategy Mode Tutorial"></iframe>
+<iframe id="game" src="strategy.html?v=20260903loadfast1" title="Strategy Mode Tutorial"></iframe>
 <script>
 const f=document.getElementById('game');
 
@@ -44,7 +44,7 @@ function installPlayedSoccer(){
     const st=d.createElement('style');st.id='gsm-played-soccer-inline-v3';st.textContent=`.gsmPlayedSoccer{display:flex;align-items:center;gap:7px;flex:0 0 auto}.gsmPlayedSoccer img{width:58px;height:82px;object-fit:contain;display:block;filter:drop-shadow(0 5px 8px #0007)}.gsmPlayedSoccerText{max-width:135px;font-size:9px;line-height:1.25;font-weight:900;color:#e4eef8}.gsmPlayedSoccerStart .gsmPlayedSoccerText{color:#ffd456}@media(max-width:760px){.gsmPlayedSoccer img{width:44px;height:62px}.gsmPlayedSoccerText{max-width:90px;font-size:7px}}`;
     d.head.appendChild(st);
     function holderName(){if(d.querySelector('#H0 .possessionCard'))return'YOU';if(d.querySelector('#H1 .possessionCard'))return'BLUE 2';if(d.querySelector('#A0 .possessionCard'))return'GREEN 1';if(d.querySelector('#A1 .possessionCard'))return'GREEN 2';return'CURRENT PLAYER'}
-    function soccerNode(text,start=false){const wrap=d.createElement('div');wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');wrap.innerHTML=`<img src="images/soccer-card.png?v=20260826gkpopup1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;return wrap}
+    function soccerNode(text,start=false){const wrap=d.createElement('div');wrap.className='gsmPlayedSoccer'+(start?' gsmPlayedSoccerStart':'');wrap.innerHTML=`<img src="images/soccer-card.webp?v=20260903loadfast1" alt="Soccer Card"><div class="gsmPlayedSoccerText">${text}</div>`;return wrap}
     let timer=null;function schedule(){clearTimeout(timer);timer=setTimeout(refresh,35)}
     function refresh(){const played=d.getElementById('played');if(!played)return;const intro=d.getElementById('intro');const tutorialStarted=!intro||!intro.classList.contains('show');if(tutorialStarted&&!played.querySelector('.gsmPlayedSoccerStart,.gsmSoccerStart')){const empty=played.querySelector('.playedEmpty');if(empty)empty.remove();const had=played.children.length>0,start=soccerNode(`SOCCER CARD • ${holderName()} STARTS WITH POSSESSION`,true);if(had){const arrow=d.createElement('div');arrow.className='playArrow gsmPlayedSoccerStartArrow';arrow.textContent='→';played.insertBefore(arrow,played.firstChild);played.insertBefore(start,played.firstChild)}else played.appendChild(start);const note=d.getElementById('playedNote');if(note)note.textContent='Full chain • left → right'}[...played.querySelectorAll('.resultChip')].forEach(chip=>{const txt=(chip.textContent||'').trim();if(!/SOCCER CARD/i.test(txt))return;chip.replaceWith(soccerNode(txt,false))})}
     const played=d.getElementById('played');if(played)new MutationObserver(schedule).observe(played,{childList:true,subtree:true,characterData:true});
@@ -191,10 +191,10 @@ function installGoalkeeperPassivePopup(){
     const modal=d.createElement('div');
     modal.className='modal';
     modal.id='gsmGkPassiveModal';
-    modal.innerHTML=`<div class="gsmGkBox"><div class="gsmGkTag">SPECIAL ABILITY TRIGGERED</div><div class="gsmGkInner"><img class="gsmGkCard" src="images/goalkeeper-card.png?v=20260826gkpopup1" alt="Goalkeeper Card"><div><div class="gsmGkTitle">GOALKEEPER PASSIVE ACTIVATES</div><div class="gsmGkSub">Goalkeeper Passive</div><div class="gsmGkCopy">The Goalkeeper would receive a 3rd Token, but the passive skill automatically saves this goal. No 3rd Token is added, and the Soccer Card goes to the Goalkeeper.</div><div class="gsmGkOnce">This only happens once per game.</div></div></div><button class="gsmGkContinue" id="gsmGkContinue">CONTINUE</button></div>`;
+    modal.innerHTML=`<div class="gsmGkBox"><div class="gsmGkTag">SPECIAL ABILITY TRIGGERED</div><div class="gsmGkInner"><img class="gsmGkCard" src="images/goalkeeper-card.webp?v=20260903loadfast1" alt="Goalkeeper Card"><div><div class="gsmGkTitle">GOALKEEPER PASSIVE ACTIVATES</div><div class="gsmGkSub">Goalkeeper Passive</div><div class="gsmGkCopy">The Goalkeeper would receive a 3rd Token, but the passive skill automatically saves this goal. No 3rd Token is added, and the Soccer Card goes to the Goalkeeper.</div><div class="gsmGkOnce">This only happens once per game.</div></div></div><button class="gsmGkContinue" id="gsmGkContinue">CONTINUE</button></div>`;
     d.body.appendChild(modal);
 
-    setTimeout(()=>{const img=new Image();img.src='images/goalkeeper-card.png?v=20260826gkpopup1'},1200);
+    setTimeout(()=>{const img=new Image();img.src='images/goalkeeper-card.webp?v=20260903loadfast1'},1200);
 
     w.eval(`
       (function(){
