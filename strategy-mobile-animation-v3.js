@@ -243,7 +243,7 @@
 
       <img
         class="gsmAnimV3Ball"
-        src="images/soccer-card.png"
+        src="images/soccer-card.webp"
         alt=""
       >
 
