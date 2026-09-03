@@ -4,12 +4,229 @@
 :root{--navy:#071827;--blue:#2469c6;--green:#168c50;--red:#dd3c4f;--gold:#ffd456;--ink:#142a42}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#06111d;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,a{font:inherit}.top{height:54px;display:flex;align-items:center;justify-content:space-between;padding:6px 9px;background:linear-gradient(#0c2c4e,#071827);border-bottom:3px solid var(--red);position:sticky;top:0;z-index:80}.brand{font-size:13px;line-height:.95;font-weight:950}.brand span{color:var(--gold)}.topBtns{display:flex;gap:4px}.btn{border:0;border-radius:8px;padding:7px 8px;background:#255d9e;color:#fff;font-weight:900;box-shadow:0 3px 0 #163a65;text-decoration:none;cursor:pointer}.btn.gold{background:var(--gold);color:#593900;box-shadow:0 3px 0 #a67910}.btn.green{background:#1aa05b;box-shadow:0 3px 0 #0b693b}.progress{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;padding:5px 8px;background:#071421}.step{height:6px;border-radius:99px;background:#304a64}.step.on{background:var(--gold)}.shell{max-width:1120px;margin:auto;padding:7px;display:grid;grid-template-columns:145px minmax(0,1fr) 145px;gap:7px}.side{background:linear-gradient(#0d3159,#081f3a);border:2px solid #1e5d9f;border-radius:12px;padding:8px}.side.greenSide{background:linear-gradient(#0b4932,#073521);border-color:#248d58}.side h3{font-size:11px;letter-spacing:.08em;margin:0 0 7px;color:#d3e6fa;display:flex;align-items:center;gap:6px}.side h3:before{content:"";width:18px;height:18px;flex:0 0 18px;background:linear-gradient(#65b9ff,#3185e7);filter:drop-shadow(0 2px 3px #0005);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3l2-1h4l2 1 4.5 2.2-2 4.4-2.5-1.2V21H8V8.4L5.5 9.6l-2-4.4L8 3z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3l2-1h4l2 1 4.5 2.2-2 4.4-2.5-1.2V21H8V8.4L5.5 9.6l-2-4.4L8 3z'/%3E%3C/svg%3E") center/contain no-repeat}.side.greenSide h3:before{background:linear-gradient(#63db85,#2dac5d)}.mini{background:#ffffff0c;border:1px solid #ffffff20;border-radius:9px;padding:7px 35px 7px 7px;margin:6px 0;font-size:9px;line-height:1.45;position:relative;min-height:61px}.mini:after{content:"";position:absolute;right:9px;top:50%;transform:translateY(-50%);width:23px;height:23px;background:linear-gradient(#69bbff,#3488eb);filter:drop-shadow(0 2px 3px #0005);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M4 22c.45-5.2 3.25-8 8-8s7.55 2.8 8 8H4z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7' r='4'/%3E%3Cpath d='M4 22c.45-5.2 3.25-8 8-8s7.55 2.8 8 8H4z'/%3E%3C/svg%3E") center/contain no-repeat}.greenSide .mini:after{background:linear-gradient(#8bd46b,#61aa4f)}.mini strong{font-size:11px}.center{min-width:0}.status{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#0c223b;border:2px solid #2b5b89;border-radius:10px;padding:7px 9px;margin-bottom:5px}.status strong{font-size:11px}.status span{font-size:9px;color:#c6d6e6}.mobileTeams{display:none}.pitch{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border:3px solid #f4fff9;border-radius:15px;background:repeating-linear-gradient(90deg,#2da65f 0 68px,#269957 68px 136px);box-shadow:inset 0 0 0 2px #12633e,0 10px 24px #0006}.pitch:before{content:"";position:absolute;inset:12px;border:2px solid #ffffffdf;border-radius:7px}.halfLine{position:absolute;top:12px;bottom:12px;left:50%;border-left:2px solid #fff}.circle{position:absolute;left:50%;top:50%;width:112px;height:112px;border:2px solid #fff;border-radius:50%;transform:translate(-50%,-50%)}.spot{position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#fff;transform:translate(-50%,-50%)}.penalty{position:absolute;top:25%;width:16%;height:50%;border:2px solid #fff}.penalty.left{left:12px;border-left:0}.penalty.right{right:12px;border-right:0}.goalBox{position:absolute;top:35%;width:8%;height:30%;border:2px solid #fff}.goalBox.left{left:12px;border-left:0}.goalBox.right{right:12px;border-right:0}.goalNet{position:absolute;top:39%;width:17px;height:22%;border:2px solid #fff;background:repeating-linear-gradient(0deg,#ffffff55 0 1px,transparent 1px 6px),repeating-linear-gradient(90deg,#ffffff55 0 1px,transparent 1px 6px)}.goalNet.left{left:0;border-right:0}.goalNet.right{right:0;border-left:0}.seat{position:absolute;width:105px;background:#fff;color:var(--ink);border:3px solid;border-radius:11px;padding:5px;z-index:6;box-shadow:0 5px 13px #0005}.seat.blue{border-color:#2c75cf}.seat.green{border-color:#159457}.seat.you{left:18%;bottom:11%;box-shadow:0 0 0 3px var(--gold),0 5px 13px #0005}.seat.blue2{left:18%;top:11%}.seat.green1{right:18%;top:11%}.seat.green2{right:18%;bottom:11%}.seatName{display:flex;justify-content:space-between;gap:4px;font-size:9px;font-weight:950}.tag{font-size:7px;color:#fff;border-radius:99px;padding:2px 4px}.tag.blue{background:#2368bc}.tag.green{background:#147e49}.role{margin-top:4px;padding:3px;background:#f3f7fa;border:1px solid #d5dee6;border-radius:5px;font-size:7px;font-weight:850}.tokens{margin-top:4px;font-size:7px;font-weight:900;color:#714b17}.ball{display:inline-block;margin-left:4px;padding:2px 4px;border-radius:99px;background:var(--gold);border:1px solid #bc8d17;color:#5c3e00}.possessionCard{position:absolute;width:54px;height:54px;object-fit:contain;z-index:18;filter:drop-shadow(0 5px 8px #0008);pointer-events:none}.seat.blue .possessionCard{right:-60px;top:50%;transform:translateY(-50%)}.seat.green .possessionCard{left:-60px;top:50%;transform:translateY(-50%)}.lesson{position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);width:min(500px,48%);z-index:12;background:#fffdf8f7;color:var(--ink);border:3px solid #245f9f;border-radius:13px;padding:7px;text-align:center}.lessonNo{font-size:9px;font-weight:950;color:var(--red)}.lessonTitle{font-size:18px;font-weight:950;color:#123a73}.lessonHint{font-size:10px;line-height:1.35;color:#425970;font-weight:750;margin-top:3px}.flow{font-size:8px;font-weight:950;color:#123a73;margin-top:4px}.flow b{color:var(--red);padding:0 3px}.playedPanel{margin-top:6px;background:#081f36;border:2px solid #2b6395;border-radius:12px;padding:6px}.playedTitle{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:950;color:#bcd5ed;margin-bottom:4px}.played{min-height:92px;display:flex;align-items:center;gap:6px;overflow-x:auto;padding:4px 2px}.playedEmpty{margin:auto;color:#8fa8c0;font-size:9px;font-weight:900}.playNode{display:flex;align-items:center;gap:5px;flex:0 0 auto}.playCard{width:52px;height:72px;object-fit:contain;border-radius:7px;box-shadow:0 5px 12px #0006}.playText{max-width:105px;font-size:8px;line-height:1.25;font-weight:900;color:#e4eef8}.playText em{display:block;color:#ffd456;font-style:normal;font-size:7px;margin-bottom:2px}.playArrow{font-size:22px;color:var(--gold);font-weight:950}.resultChip{flex:0 0 auto;background:#143b60;border:1px solid #3e79ad;border-radius:999px;padding:7px 9px;font-size:8px;font-weight:950;color:#fff;white-space:nowrap}.resultChip.good{background:#136641;border-color:#36a96f}.resultChip.warn{background:#6b3a13;border-color:#d89238}.resultChip.neutral{background:#24374e;border-color:#607a93}.controls{margin-top:6px;background:linear-gradient(#0b2746,#07182c);border:2px solid #2b5f8e;border-radius:12px;padding:6px}.mobileLog,.log{font-size:9px;line-height:1.4;color:#d6e2ed}.log strong{color:var(--gold)}.mobileLog{display:none}.handLabel{text-align:center;font-size:9px;color:#adc9e5;font-weight:950;margin:3px 0}.hand{display:flex;justify-content:center;align-items:end;gap:6px;min-height:90px}.cardBtn{width:60px;height:84px;border:0;padding:0;background:transparent;border-radius:8px;cursor:pointer;position:relative}.cardBtn:disabled{filter:grayscale(.82) brightness(.62)}.cardBtn.active{animation:cardPulse .8s infinite alternate}.cardFace{width:100%;height:100%;border-radius:8px;overflow:hidden;border:2px solid #d8e8f7;background:#163b61;display:grid;place-items:center;color:#fff;font-size:8px;font-weight:950;text-align:center}.cardFace img{width:100%;height:100%;object-fit:contain}.actionBar{display:flex;justify-content:center;margin-top:6px;position:relative}.mainAction{min-width:190px;border:0;border-radius:10px;padding:10px 14px;background:var(--gold);color:#573700;font-weight:950;box-shadow:0 3px 0 #a87a0c;cursor:pointer}.mainAction.done{background:#35ad69;color:#fff;box-shadow:0 3px 0 #176d45}.tapGuide{position:absolute;left:50%;bottom:48px;transform:translateX(-50%);z-index:40;pointer-events:none;text-align:center;display:none}.tapGuide.show{display:block}.guideBubble{display:inline-block;background:#fff;color:#b62837;border:2px solid var(--red);border-radius:999px;padding:5px 8px;font-size:9px;font-weight:950;white-space:nowrap}.guideArrow{font-size:27px;line-height:22px;color:#fff;text-shadow:0 2px 6px #123a73;animation:bob .55s infinite alternate}.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:14px;background:#07172cd0}.modal.show{display:flex}.box{width:min(620px,100%);max-height:88dvh;overflow:auto;background:#fffdf8;color:var(--ink);border:4px solid #245f9f;border-top-color:var(--red);border-radius:17px;padding:16px;text-align:center}.box h2{font-size:26px;color:#123a73;margin:4px 0 8px}.box p{font-size:12px;line-height:1.5;color:#425970;font-weight:650}.introFlow{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;font-size:11px;font-weight:950;color:#123a73}.introFlow b{color:var(--red)}.courseGrid,.targetGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.course,.targetChoice{border:2px solid #2e6eb3;background:#f4f8ff;border-radius:10px;padding:10px;color:#173c63;font-weight:900;cursor:pointer}.targetChoice{font-size:14px}.targetChoice small{display:block;font-size:9px;font-weight:700;color:#60758b;margin-top:4px}@keyframes cardPulse{from{transform:translateY(-4px) scale(1.02);filter:drop-shadow(0 0 2px #ffd456)}to{transform:translateY(-12px) scale(1.07);filter:drop-shadow(0 0 10px #ffd456)}}@keyframes bob{from{transform:translateY(-2px)}to{transform:translateY(5px)}}
 @media(max-width:760px){.top{height:50px;padding:5px 6px}.brand{font-size:11px}.btn{font-size:9px;padding:6px}.shell{display:block;padding:5px}.side{display:none}.mobileTeams{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:5px}.mobileTeam{background:#0c2b4c;border:1px solid #2866a5;border-radius:7px;padding:5px 6px;font-size:8px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mobileTeam.green{background:#0b402c;border-color:#278d58}.status{padding:5px 7px;margin-bottom:5px}.status strong{font-size:9px}.status span{font-size:8px}.pitch{aspect-ratio:4/3;border-width:2px}.pitch:before{inset:7px}.halfLine{top:7px;bottom:7px}.circle{width:78px;height:78px}.penalty{top:27%;height:46%}.goalBox{top:38%;height:24%}.goalNet{top:41%;height:18%;width:12px}.seat{width:80px;padding:4px;border-width:2px}.seat.you{left:6%;bottom:7%}.seat.blue2{left:6%;top:7%}.seat.green1{right:6%;top:7%}.seat.green2{right:6%;bottom:7%}.seatName{font-size:7px}.tag,.role,.tokens{font-size:6px}.possessionCard{width:42px;height:42px}.seat.blue .possessionCard{right:-45px}.seat.green .possessionCard{left:-45px}.lesson{top:29%;width:88%;padding:5px}.lessonTitle{font-size:14px}.lessonHint{font-size:8px}.flow{font-size:7px}.playedPanel{margin-top:5px;padding:5px}.played{min-height:86px;gap:4px}.playCard{width:44px;height:62px}.playText{max-width:72px;font-size:7px}.playArrow{font-size:17px}.resultChip{font-size:7px;padding:5px 7px}.controls{margin-top:5px;padding:5px}.log{display:none}.mobileLog{display:block;min-height:22px;white-space:normal}.hand{min-height:82px;gap:4px}.cardBtn{width:52px;height:74px}.mainAction{width:min(300px,92%);font-size:11px;padding:10px}.tapGuide{bottom:46px}.guideBubble{font-size:8px;padding:4px 7px}.guideArrow{font-size:23px}.box{padding:12px}.box h2{font-size:22px}.courseGrid{grid-template-columns:1fr}}
 </style></head><body>
+  <style>
+#gsmLoading{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at 50% 35%,#176441 0,#0b3728 42%,#06111d 100%);
+  color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  transition:opacity .3s ease;
+}
+#gsmLoading.hide{
+  opacity:0;
+  pointer-events:none;
+}
+.gsmLoadingBox{
+  width:min(310px,82vw);
+  text-align:center;
+}
+.gsmLoadingBall{
+  font-size:52px;
+  margin-bottom:15px;
+  animation:gsmLoadingBall 1s ease-in-out infinite alternate;
+}
+.gsmLoadingTitle{
+  font-size:21px;
+  font-weight:950;
+  letter-spacing:.08em;
+  color:#ffd456;
+}
+.gsmLoadingText{
+  margin-top:7px;
+  font-size:11px;
+  font-weight:800;
+  color:#d8e6ef;
+}
+.gsmLoadingTrack{
+  height:10px;
+  margin-top:18px;
+  border-radius:999px;
+  overflow:hidden;
+  background:#ffffff1c;
+  border:1px solid #ffffff32;
+}
+.gsmLoadingBar{
+  width:0;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#25a762,#ffd456);
+  transition:width .2s ease;
+}
+.gsmLoadingPercent{
+  margin-top:7px;
+  font-size:10px;
+  font-weight:950;
+}
+@keyframes gsmLoadingBall{
+  from{transform:translateY(0) rotate(-7deg)}
+  to{transform:translateY(-8px) rotate(7deg)}
+}
+</style>
+
+<div id="gsmLoading">
+  <div class="gsmLoadingBox">
+    <div class="gsmLoadingBall">⚽</div>
+    <div class="gsmLoadingTitle">LOADING MATCH</div>
+    <div class="gsmLoadingText" id="gsmLoadingText">Preparing cards...</div>
+
+    <div class="gsmLoadingTrack">
+      <div class="gsmLoadingBar" id="gsmLoadingBar"></div>
+    </div>
+
+    <div class="gsmLoadingPercent" id="gsmLoadingPercent">0%</div>
+  </div>
+</div>
 <header class="top"><div class="brand">GOAL-SCORING <span>MOMENT</span></div><div class="topBtns"><button class="btn gold" id="ruleBtn">RULEBOOK</button><button class="btn" id="courseBtn">COURSES</button><a class="btn" href="index.html">MODES</a></div></header><div class="progress" id="progress"></div>
 <main class="shell"><aside class="side"><h3>BLUE SQUAD</h3><div class="mini"><strong>YOU — BLUE 1</strong><br>Role: PLAYER<br>Tokens: 0/3</div><div class="mini"><strong>BLUE 2</strong><br>Role: GOALKEEPER<br>Tokens: 0/3</div></aside><section class="center"><div class="status"><strong id="statusTitle"></strong><span id="statusText"></span></div><div class="mobileTeams"><div class="mobileTeam">BLUE: YOU + BLUE 2</div><div class="mobileTeam green">GREEN: GREEN 1 + GREEN 2</div></div><div class="pitch"><div class="halfLine"></div><div class="circle"></div><div class="spot"></div><div class="penalty left"></div><div class="penalty right"></div><div class="goalBox left"></div><div class="goalBox right"></div><div class="goalNet left"></div><div class="goalNet right"></div><div class="seat blue you" id="H0"></div><div class="seat blue blue2" id="H1"></div><div class="seat green green1" id="A0"></div><div class="seat green green2" id="A1"></div><div class="lesson"><div class="lessonNo" id="lessonNo"></div><div class="lessonTitle" id="lessonTitle"></div><div class="lessonHint" id="lessonHint"></div><div class="flow" id="flow"></div></div></div><div class="playedPanel"><div class="playedTitle"><span>PLAYED CARDS — CURRENT FLOW</span><span id="playedNote">Nothing played yet</span></div><div class="played" id="played"><div class="playedEmpty">Cards will appear here in order.</div></div></div><div class="controls"><div class="mobileLog" id="mobileLog">MATCH LOG: Tutorial ready.</div><div class="log" id="log"><strong>MATCH LOG</strong><br>Tutorial ready.</div><div class="handLabel">YOUR HAND</div><div class="hand" id="hand"></div><div class="actionBar"><button class="mainAction" id="mainAction">PASS SOCCER</button><div class="tapGuide" id="tapGuide"><div class="guideBubble" id="guideText"></div><div class="guideArrow">↓</div></div></div></div></section><aside class="side greenSide"><h3>GREEN SQUAD</h3><div class="mini"><strong>GREEN 1</strong><br>Role: HIDDEN<br>Tokens: 0/3</div><div class="mini"><strong>GREEN 2</strong><br>Role: HIDDEN<br>Tokens: 0/3</div></aside></main>
 <div class="modal show" id="intro"><div class="box"><div style="font-size:36px">⚽</div><div style="font-size:10px;font-weight:950;color:#c02b3b">INTERACTIVE STRATEGY TUTORIAL</div><h2>Learn by playing the cards</h2><p>Every card in the attack and response chain stays visible in PLAYED CARDS until you choose to continue.</p><div class="introFlow"><span>PLAY</span><b>→</b><span>SEE OPPONENT RESPONSE</span><b>→</b><span>REVIEW FULL FLOW</span></div><button class="btn green" id="startBtn">START TUTORIAL</button></div></div>
 <div class="modal" id="courseModal"><div class="box"><h2>COURSES</h2><div class="courseGrid" id="courseGrid"></div><div style="margin-top:10px"><button class="btn" id="closeCourse">CLOSE</button></div></div></div>
 <div class="modal" id="targetModal"><div class="box"><div style="font-size:32px">🎯</div><h2>CHOOSE YOUR TARGET</h2><p>SHOOT must target one living opponent.</p><div class="targetGrid"><button class="targetChoice" data-target="A0">GREEN 1<small>Living opponent</small></button><button class="targetChoice" data-target="A1">GREEN 2<small id="green2TargetNote">Living opponent</small></button></div></div></div>
 <script>
+  <script>
+(function(){
+
+  const images=[
+    'images/soccer-card',
+    'images/shoot-card',
+    'images/defense-card',
+    'images/tackle-card',
+    'images/dribble%20past-card',
+    'images/yellow-card',
+    'images/goalkeeper-card'
+  ];
+
+  /*
+   * 任何 WebP 图片加载失败
+   * 自动换回同名 PNG
+   */
+  document.addEventListener('error',function(e){
+
+    const img=e.target;
+
+    if(!img || img.tagName!=='IMG'){
+      return;
+    }
+
+    if(!/\.webp(?:\?|$)/i.test(img.src)){
+      return;
+    }
+
+    if(img.dataset.pngFallback==='1'){
+      return;
+    }
+
+    img.dataset.pngFallback='1';
+
+    img.src=img.src.replace(
+      /\.webp(\?.*)?$/i,
+      '.png$1'
+    );
+
+  },true);
+
+
+  function loadImage(base){
+
+    return new Promise(resolve=>{
+
+      const webp=base+'.webp';
+      const png=base+'.png';
+
+      const test=new Image();
+
+      test.onload=function(){
+        resolve('webp');
+      };
+
+      test.onerror=function(){
+
+        const fallback=new Image();
+
+        fallback.onload=function(){
+          resolve('png');
+        };
+
+        fallback.onerror=function(){
+          resolve('failed');
+        };
+
+        fallback.src=png;
+      };
+
+      /*
+       * 永远先请求 WebP
+       */
+      test.src=webp;
+
+    });
+  }
+
+
+  async function startLoading(){
+
+    const bar=document.getElementById('gsmLoadingBar');
+    const percent=document.getElementById('gsmLoadingPercent');
+    const text=document.getElementById('gsmLoadingText');
+
+    let done=0;
+
+    for(const image of images){
+
+      const result=await loadImage(image);
+
+      done++;
+
+      const value=Math.round(
+        done/images.length*100
+      );
+
+      if(bar){
+        bar.style.width=value+'%';
+      }
+
+      if(percent){
+        percent.textContent=value+'%';
+      }
+
+      if(text){
+        text.textContent=
+          result==='webp'
+          ?'Loading optimized cards...'
+          :'Loading compatible cards...';
+      }
+    }
+
+    if(text){
+      text.textContent='Ready!';
+    }
+
+    setTimeout(function(){
+
+      const loading=
+        document.getElementById('gsmLoading');
+
+      if(!loading){
+        return;
+      }
+
+      loading.classList.add('hide');
+
+      setTimeout(function(){
+        loading.remove();
+      },320);
+
+    },180);
+  }
+
+  startLoading();
+
+})();
+</script>
 const lessons=[
 {title:'PASS',hint:'Pass the Soccer Card to BLUE 2. Possession changes, but your turn does not end.',flow:['YOU HAVE BALL','PASS','BLUE 2 HAS BALL','YOUR TURN CONTINUES'],hand:['SHOOT','DEFENSE','TACKLE'],action:'PASS'},
 {title:'SHOOT',hint:'Play SHOOT, choose a living opponent, then watch the complete result before continuing.',flow:['YOU HAVE BALL','SHOOT','CHOOSE TARGET','NO DEFENSE','GOAL'],hand:['SHOOT','DEFENSE','TACKLE'],action:'SHOOT'},
@@ -19,10 +236,10 @@ const lessons=[
 {title:'TACKLE',hint:'GREEN 2 has the Soccer Card. TACKLE takes it directly; DEFENSE cannot stop TACKLE.',flow:['GREEN 2 HAS BALL','TACKLE','YOU TAKE BALL','TURN CONTINUES'],hand:['TACKLE','SHOOT','YELLOW'],action:'TACKLE'},
 {title:'YELLOW CARD',hint:'YELLOW skips the next living player’s normal turn, even a teammate. DEFENSE reactions are still allowed.',flow:['YOU','YELLOW','NEXT LIVING PLAYER','NORMAL TURN SKIPPED'],hand:['YELLOW','SHOOT','DEFENSE'],action:'YELLOW'},
 {title:'GOALKEEPER PASSIVE',hint:'First SHOOT triggers the Goalkeeper passive and sends the Soccer Card to GREEN 2. Use TACKLE to take the Soccer Card back, then SHOOT again.',flow:['GK 2 TOKENS','SHOOT','PASSIVE AUTO-SAVE','SOCCER CARD TO GK','TACKLE','YOU TAKE SOCCER CARD','SHOOT AGAIN','3RD TOKEN → OUT'],hand:['SHOOT','TACKLE','DEFENSE'],action:'GK'}];
-const assets={'SHOOT':'images/shoot-card.png','DEFENSE':'images/defense-card.png','TACKLE':'images/tackle-card.png','DRIBBLE PAST':'images/dribble%20past-card.png','YELLOW':'images/yellow-card.png'};
+const assets={'SHOOT':'images/shoot-card.webp','DEFENSE':'images/defense-card.webp','TACKLE':'images/tackle-card.webp','DRIBBLE PAST':'images/dribble%20past-card.webp','YELLOW':'images/yellow-card.webp'};
 let idx=0,started=false,passDone=false,gkStep=0,lesson5Step=0,awaitingNext=false,ballOwner='H0';const $=id=>document.getElementById(id);
 function lessonBallOwner(i){if(i===0)return'H0';if(i===1)return'H0';if(i===2)return'A0';if(i===3)return'H0';if(i===4)return'A0';if(i===5)return'A1';if(i===6)return'H0';if(i===7)return'H0';return null}
-function seat(name,team,role,ball,tokens=0){return `<div class="seatName"><span>${name}</span><span class="tag ${team}">${team.toUpperCase()}</span></div><div class="role">ROLE <strong>${role}</strong></div><div class="tokens">${'● '.repeat(tokens)}${'○ '.repeat(Math.max(0,3-tokens))}</div>${ball?'<img class="possessionCard" src="images/soccer-card.png" alt="Soccer Card">':''}`}
+function seat(name,team,role,ball,tokens=0){return `<div class="seatName"><span>${name}</span><span class="tag ${team}">${team.toUpperCase()}</span></div><div class="role">ROLE <strong>${role}</strong></div><div class="tokens">${'● '.repeat(tokens)}${'○ '.repeat(Math.max(0,3-tokens))}</div>${ball?'<img class="possessionCard" src="images/soccer-card.webp" alt="Soccer Card">':''}`}
 function renderSeats(){const gkTokens=idx===7?(gkStep>=2?3:2):0;$('H0').innerHTML=seat('YOU','blue','PLAYER',ballOwner==='H0',0);$('H1').innerHTML=seat('BLUE 2','blue','GOALKEEPER',ballOwner==='H1',0);$('A0').innerHTML=seat('GREEN 1','green','HIDDEN',ballOwner==='A0',0);$('A1').innerHTML=seat('GREEN 2','green',idx===7?'GOALKEEPER':'HIDDEN',ballOwner==='A1',gkTokens)}
 function setLog(t){$('log').innerHTML=`<strong>MATCH LOG</strong><br>${t}`;$('mobileLog').textContent=`MATCH LOG: ${t}`}
 function clearPlayed(){$('played').innerHTML='<div class="playedEmpty">Cards will appear here in order.</div>';$('playedNote').textContent='Nothing played yet'}
@@ -37,7 +254,7 @@ setTimeout(()=>appendNode({result:'DEFENDING TEAM DOES NOT PLAY DEFENSE',kind:'n
 function onCard(name){if(!started||awaitingNext)return;if(idx===4){if(lesson5Step===0&&name==='DEFENSE'){appendNode({card:'DEFENSE',owner:'BLUE 2',text:'FIRST DEFENSE'});setLog('First DEFENSE selected. GREEN 1 now uses DRIBBLE PAST to continue the same attack.');setTimeout(()=>{appendNode({card:'DRIBBLE PAST',owner:'GREEN 1',text:'BYPASS DEFENSE'});appendNode({result:'ATTACK CONTINUES',kind:'neutral'});lesson5Step=1;render()},500);return}if(lesson5Step===1&&name==='DEFENSE'){appendNode({card:'DEFENSE',owner:'YOU',text:'SECOND DEFENSE'});setTimeout(()=>appendNode({result:'SECOND DEFENSE SUCCESS',kind:'good'}),350);setTimeout(()=>{appendNode({result:'SOCCER CARD → YOU (2ND DEFENDER)',kind:'good'});ballOwner='H0';lesson5Step=2;setLog('Second DEFENSE succeeds. Choose YELLOW or TACKLE from your remaining hand to discard 1 card.');render()},700);return}if(lesson5Step===2&&(name==='YELLOW'||name==='TACKLE')){appendNode({card:name,owner:'YOU',text:`DISCARD ${name}`});setTimeout(()=>{appendNode({result:'DISCARD 1 COMPLETE',kind:'warn'});finishLesson(`You chose ${name} to discard after the second DEFENSE. Lesson 5 is complete.`)},350);return}return}if(idx===7&&gkStep===1&&name==='TACKLE'){appendNode({card:'TACKLE',owner:'YOU',text:'TACKLE → GREEN 2'});setTimeout(()=>appendNode({result:'YOU STEAL THE SOCCER CARD',kind:'good'}),350);setTimeout(()=>{appendNode({result:'YOUR TURN CONTINUES',kind:'good'});ballOwner='H0';gkStep=1.5;setLog('TACKLE takes the Soccer Card from GREEN 2. The Soccer Card is now back with YOU, so you may SHOOT again.');render()},700);return}if(name==='SHOOT'){openTarget();return}appendNode({card:name,owner:'YOU',text:name==='DEFENSE'?'DEFENSE FOR TEAM':name});if(idx===2){setTimeout(()=>appendNode({result:'GREEN ATTACK STOPPED',kind:'good'}),350);setTimeout(()=>{appendNode({result:'SOCCER CARD → YOU (DEFENDER)',kind:'good'});ballOwner='H0';finishLesson('Your DEFENSE stops GREEN 1’s SHOOT. The Soccer Card goes to YOU, the player who played DEFENSE.')},700)}else if(idx===3){setTimeout(()=>appendNode({result:'FIRST DEFENSE BYPASSED',kind:'good'}),350);setTimeout(()=>{appendNode({result:'SAME ATTACK CONTINUES',kind:'neutral'});finishLesson('DRIBBLE PAST bypasses the first DEFENSE. You keep the Soccer Card because the same attack is still alive.')},700)}else if(idx===5){setTimeout(()=>appendNode({result:'DEFENSE CANNOT STOP TACKLE',kind:'good'}),350);setTimeout(()=>{appendNode({result:'SOCCER CARD → YOU',kind:'good'});appendNode({result:'YOUR TURN CONTINUES',kind:'good'});ballOwner='H0';finishLesson('TACKLE directly takes the Soccer Card from GREEN 2. The Soccer Card is now with YOU.')},700)}else if(idx===6){setTimeout(()=>appendNode({result:'NEXT LIVING PLAYER SKIPS NORMAL TURN',kind:'warn'}),350);setTimeout(()=>appendNode({result:'NO DRAW • NO NORMAL ACTIONS',kind:'warn'}),650);setTimeout(()=>{appendNode({result:'SOCCER CARD STAYS WITH YOU',kind:'good'});finishLesson('YELLOW affects the next living player, but it does not change Soccer Card possession. The Soccer Card stays with YOU.')},950)}}
 function doPass(){if(idx!==0||!started||awaitingNext)return;passDone=true;appendNode({result:'YOU HAVE SOCCER CARD',kind:'good'});setTimeout(()=>appendNode({result:'PASS → BLUE 2',kind:'good'}),300);setTimeout(()=>{appendNode({result:'SOCCER CARD → BLUE 2',kind:'good'});appendNode({result:'YOUR TURN CONTINUES',kind:'good'});ballOwner='H1';finishLesson('The Soccer Card moves to BLUE 2, but your turn does not end. Review the complete PASS flow.')},650)}
 function buildCourses(){$('courseGrid').innerHTML='';lessons.forEach((l,i)=>{const b=document.createElement('button');b.className='course';b.textContent=`${i+1}. ${l.title}`;b.onclick=()=>{idx=i;passDone=false;gkStep=0;lesson5Step=0;awaitingNext=false;started=true;$('courseModal').classList.remove('show');seedFlow();render();setLog(`Opened Lesson ${i+1}: ${l.title}. The Soccer Card starts with the correct player for this lesson.`)};$('courseGrid').appendChild(b)})}
-$('startBtn').onclick=()=>{started=true;$('intro').classList.remove('show');seedFlow();render();setLog('Tutorial started. The Soccer Card will move between players according to the game rules.')};$('courseBtn').onclick=()=>{$('courseModal').classList.add('show');buildCourses()};$('closeCourse').onclick=()=>$('courseModal').classList.remove('show');$('ruleBtn').onclick=()=>window.location.href='strategy-rulebook.html';document.querySelectorAll('.targetChoice').forEach(b=>b.onclick=()=>resolveShoot(b.dataset.target));ballOwner=lessonBallOwner(idx);render();buildCourses();
+$('startBtn').onclick=()=>{started=true;$('intro').classList.remove('show');seedFlow();render();setLog('Tutorial started. The Soccer Card will move between players according to the game rules.')};$('courseBtn').onclick=()=>{$('courseModal').classList.add('show');buildCourses()};$('closeCourse').onclick=()=>$('courseModal').classList.remove('show');$('ruleBtn').onclick=()=>window.location.href='strategy-rulebook.html';document.querySelectorAll('.targetChoice').forEach(b=>b.onclick=()=>resolveShoot(b.dataset.target));ballOwner=lessonBallOwner(idx);render();buildCourses();</script>
 </script>
 
 <script src="strategy-mobile-animation-v3.js?v=20260831a3"></script>
