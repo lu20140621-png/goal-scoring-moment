@@ -150,3 +150,76 @@
   });
   addEventListener('pagehide', () => { postEvent('session_end'); updateSession(true); });
 })();
+
+/* Mobile Strategy layout fix: dock LESSON above the pitch so it never covers players. */
+(() => {
+  const path = location.pathname.toLowerCase();
+  if (!path.endsWith('/strategy.html') && !path.endsWith('strategy.html')) return;
+
+  const lesson = document.querySelector('.lesson');
+  const pitch = document.querySelector('.pitch');
+  if (!lesson || !pitch || !pitch.parentNode) return;
+
+  if (!document.getElementById('gsm-mobile-lesson-dock-style')) {
+    const style = document.createElement('style');
+    style.id = 'gsm-mobile-lesson-dock-style';
+    style.textContent = `
+      @media(max-width:760px){
+        .lesson[data-gsm-mobile-docked="1"]{
+          position:relative!important;
+          left:auto!important;
+          top:auto!important;
+          transform:none!important;
+          width:100%!important;
+          margin:0 0 5px!important;
+          padding:5px 8px!important;
+          z-index:20!important;
+          border-width:2px!important;
+          border-radius:10px!important;
+          box-shadow:0 4px 12px #0005!important;
+          background:#fffdf8!important;
+        }
+        .lesson[data-gsm-mobile-docked="1"] .lessonNo{
+          font-size:7px!important;
+          line-height:1!important;
+        }
+        .lesson[data-gsm-mobile-docked="1"] .lessonTitle{
+          font-size:12px!important;
+          line-height:1.05!important;
+          margin-top:2px!important;
+        }
+        .lesson[data-gsm-mobile-docked="1"] .lessonHint{
+          font-size:7px!important;
+          line-height:1.2!important;
+          margin-top:2px!important;
+        }
+        .lesson[data-gsm-mobile-docked="1"] .flow{
+          font-size:6.2px!important;
+          line-height:1.15!important;
+          margin-top:3px!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const media = window.matchMedia('(max-width:760px)');
+
+  function syncLessonPosition(){
+    if (media.matches) {
+      if (lesson.parentNode === pitch) {
+        pitch.parentNode.insertBefore(lesson, pitch);
+      }
+      lesson.dataset.gsmMobileDocked = '1';
+    } else {
+      if (lesson.parentNode !== pitch) {
+        pitch.appendChild(lesson);
+      }
+      delete lesson.dataset.gsmMobileDocked;
+    }
+  }
+
+  syncLessonPosition();
+  if (media.addEventListener) media.addEventListener('change', syncLessonPosition);
+  else if (media.addListener) media.addListener(syncLessonPosition);
+})();
