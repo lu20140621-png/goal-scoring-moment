@@ -197,7 +197,7 @@ body{overflow-x:hidden}
 }
 
 .modeCopy{position:relative;z-index:4;padding:28px 28px 88px;max-width:62%}
-.modeCard:not(.strategy) .modeCopy{max-width:none;padding:24px 22px 78px}
+.modeCard:not(.strategy) .modeCopy{width:55%;max-width:55%;padding:24px 8px 88px 22px}
 .modeTop{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:8px}
 .modeNo,.modeBadge{display:inline-flex;align-items:center;border-radius:999px;font-size:9px;font-weight:950;letter-spacing:.08em}
 .modeNo{padding:6px 8px;background:#fff;color:#092014;border:2px solid #092014;box-shadow:0 3px 0 rgba(0,0,0,.28)}
@@ -214,6 +214,7 @@ body{overflow-x:hidden}
 }
 .modeCard:not(.strategy) .modeCopy h2{font-size:clamp(34px,3.2vw,49px)}
 .modeCopy p{margin:0;color:var(--copy);font-size:13px;line-height:1.5;font-weight:800;text-shadow:none}
+.modeCard:not(.strategy) .modeCopy p{max-width:100%}
 .featureRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}
 .feature{padding:5px 8px;border-radius:999px;background:#063119;border:1.5px solid rgba(255,255,255,.84);font-size:8px;font-weight:950;color:#fff}
 .modeCard:not(.strategy) .feature{background:rgba(255,255,255,.76);border-color:rgba(6,24,13,.78);color:#0b2818}
@@ -228,10 +229,10 @@ body{overflow-x:hidden}
 .strategy:hover .cardFan img:nth-child(1){transform:rotate(-16deg) translateX(-5px)}
 .strategy:hover .cardFan img:nth-child(2){transform:rotate(-1deg) translateY(-7px)}
 .strategy:hover .cardFan img:nth-child(3){transform:rotate(16deg) translateX(5px)}
-.modeCard:not(.strategy) .cardFan{right:-10px;bottom:44px;width:54%;height:190px}
-.modeCard:not(.strategy) .cardFan img{width:116px;height:174px}
-.modeCard:not(.strategy) .cardFan img:nth-child(1){right:92px;top:18px;transform:rotate(-10deg)}
-.modeCard:not(.strategy) .cardFan img:nth-child(2){right:10px;top:0;z-index:2;transform:rotate(8deg)}
+.modeCard:not(.strategy) .cardFan{right:8px;bottom:40px;width:42%;height:190px}
+.modeCard:not(.strategy) .cardFan img{width:105px;height:158px}
+.modeCard:not(.strategy) .cardFan img:nth-child(1){right:76px;top:24px;transform:rotate(-10deg)}
+.modeCard:not(.strategy) .cardFan img:nth-child(2){right:0;top:2px;z-index:2;transform:rotate(8deg)}
 .modeCard:not(.strategy):hover .cardFan img:nth-child(1){transform:rotate(-14deg) translateX(-4px)}
 .modeCard:not(.strategy):hover .cardFan img:nth-child(2){transform:rotate(12deg) translateX(4px)}
 
@@ -263,8 +264,8 @@ body{overflow-x:hidden}
   .modeGrid{grid-template-columns:1fr 1fr}
   .modeCard.strategy{grid-column:1/-1}
   .modeCard.strategy2{grid-column:1/-1}
-  .modeCard.strategy2 .modeCopy{max-width:58%}
-  .modeCard.strategy2 .cardFan{width:42%}
+  .modeCard.strategy2 .modeCopy{width:55%;max-width:55%}
+  .modeCard.strategy2 .cardFan{width:40%}
 }
 @media(max-width:760px){
   .shell{padding:14px 12px 30px}
@@ -280,8 +281,9 @@ body{overflow-x:hidden}
   .heroChip{font-size:8px;padding:6px 8px}
   .modeGrid{grid-template-columns:1fr;gap:18px}
   .modeCard,.modeCard.strategy,.modeCard.strategy2{grid-column:auto;min-height:450px;border-width:4px;border-radius:22px;box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 6px var(--accent),0 7px 0 #011b0b,0 18px 30px #0005}
-  .modeCopy,.modeCard:not(.strategy) .modeCopy,.modeCard.strategy2 .modeCopy{max-width:none;padding:21px 19px 80px}
+  .modeCopy,.modeCard:not(.strategy) .modeCopy,.modeCard.strategy2 .modeCopy{width:auto;max-width:none;padding:21px 19px 80px}
   .modeCopy p{max-width:70%;font-size:11px}
+  .modeCard:not(.strategy) .modeCopy p{max-width:70%}
   .modeCopy h2,.modeCard:not(.strategy) .modeCopy h2{font-size:40px}
   .strategy .cardFan,.modeCard:not(.strategy) .cardFan,.modeCard.strategy2 .cardFan{right:-12px;top:auto;bottom:50px;width:100%;height:215px}
   .strategy .cardFan img,.modeCard:not(.strategy) .cardFan img{width:126px;height:190px}
@@ -295,7 +297,7 @@ body{overflow-x:hidden}
 @media(max-width:420px){
   .hero h1{font-size:52px}
   .modeCard,.modeCard.strategy{min-height:430px}
-  .modeCopy p{max-width:67%}
+  .modeCopy p,.modeCard:not(.strategy) .modeCopy p{max-width:67%}
   .strategy .cardFan img,.modeCard:not(.strategy) .cardFan img{width:112px;height:168px}
   .strategy .cardFan img:nth-child(1){right:186px}.strategy .cardFan img:nth-child(2){right:96px}.strategy .cardFan img:nth-child(3){right:9px}
 }
