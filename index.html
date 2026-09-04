@@ -45,15 +45,7 @@ body{overflow-x:hidden}
     radial-gradient(circle at 50% 14%,rgba(255,255,255,.92) 0 3%,transparent 3.2% 100%);
   mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.8) 38%,transparent 76%);
 }
-.page:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.08;
-  background-image:radial-gradient(rgba(255,255,255,.85) 1.1px,transparent 1.1px);
-  background-size:8px 8px;
-}
+.page:after{display:none}
 .shell{position:relative;z-index:2;width:min(1360px,100%);margin:auto;padding:22px 26px 42px}
 
 .topCard{
@@ -125,12 +117,19 @@ body{overflow-x:hidden}
 .modeGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
 .modeCard{
   --accent:var(--lime);
+  --surface1:#119d47;
+  --surface2:#087535;
+  --ray:rgba(201,255,38,.56);
+  --title:#fff;
+  --stroke:#06170b;
+  --titleShadow:#00160a;
+  --copy:#f4fff6;
   position:relative;
   min-height:390px;
   overflow:hidden;
   text-decoration:none;
   border-radius:26px;
-  background:linear-gradient(180deg,#0b6f34,#03471f);
+  background:#fff;
   border:5px solid #061b0d;
   box-shadow:
     inset 0 0 0 3px #fff,
@@ -140,7 +139,7 @@ body{overflow-x:hidden}
   isolation:isolate;
   transition:transform .2s ease,filter .2s ease;
 }
-.modeCard:hover{transform:translateY(-5px);filter:saturate(1.08) brightness(1.03)}
+.modeCard:hover{transform:translateY(-5px);filter:saturate(1.05) brightness(1.02)}
 .modeCard:focus-visible{outline:4px solid #fff;outline-offset:4px}
 .modeCard:before{
   content:"";
@@ -149,46 +148,75 @@ body{overflow-x:hidden}
   border-radius:15px;
   z-index:-3;
   background:
-    repeating-conic-gradient(from -18deg at 78% 42%,color-mix(in srgb,var(--accent) 72%,transparent) 0 4deg,transparent 4deg 11deg),
-    radial-gradient(circle at 78% 42%,rgba(255,255,255,.62) 0 2%,transparent 18%),
-    linear-gradient(145deg,#119d47 0%,#087535 42%,#03451f 100%);
-  opacity:.9;
+    repeating-conic-gradient(from -18deg at 78% 42%,var(--ray) 0 4deg,transparent 4deg 11deg),
+    radial-gradient(circle at 78% 42%,rgba(255,255,255,.56) 0 2%,transparent 18%),
+    linear-gradient(145deg,var(--surface1) 0%,var(--surface2) 100%);
 }
-.modeCard:after{
-  content:"";
-  position:absolute;
-  inset:8px;
-  border-radius:15px;
-  z-index:-2;
-  opacity:.16;
-  background-image:radial-gradient(#001d0c 1.2px,transparent 1.2px);
-  background-size:7px 7px;
+.modeCard:after{display:none}
+.modeCard.strategy{
+  --accent:#c9ff26;
+  --surface1:#17a14a;
+  --surface2:#086d32;
+  --ray:rgba(201,255,38,.58);
+  --title:#fff;
+  --stroke:#06170b;
+  --titleShadow:#00160a;
+  --copy:#f4fff6;
+  grid-column:1/-1;
+  min-height:430px;
 }
-.modeCard.strategy{--accent:#c9ff26;grid-column:1/-1;min-height:430px}
-.modeCard.casual{--accent:#ffd323}
-.modeCard.math{--accent:#42a5ff}
-.modeCard.strategy2{--accent:#ff6b5d}
+.modeCard.casual{
+  --accent:#ffd323;
+  --surface1:#fff8dc;
+  --surface2:#ffd85a;
+  --ray:rgba(255,255,255,.72);
+  --title:#14351d;
+  --stroke:#fff8dd;
+  --titleShadow:#b78700;
+  --copy:#21412a;
+}
+.modeCard.math{
+  --accent:#42a5ff;
+  --surface1:#eff9ff;
+  --surface2:#66bcff;
+  --ray:rgba(255,255,255,.68);
+  --title:#0a3455;
+  --stroke:#eef9ff;
+  --titleShadow:#2b73a7;
+  --copy:#163f5d;
+}
+.modeCard.strategy2{
+  --accent:#ff6b5d;
+  --surface1:#fff0ec;
+  --surface2:#ff8c7d;
+  --ray:rgba(255,255,255,.64);
+  --title:#421a16;
+  --stroke:#fff1ed;
+  --titleShadow:#a5483e;
+  --copy:#542a26;
+}
 
 .modeCopy{position:relative;z-index:4;padding:28px 28px 88px;max-width:62%}
 .modeCard:not(.strategy) .modeCopy{max-width:none;padding:24px 22px 78px}
 .modeTop{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:8px}
 .modeNo,.modeBadge{display:inline-flex;align-items:center;border-radius:999px;font-size:9px;font-weight:950;letter-spacing:.08em}
-.modeNo{padding:6px 8px;background:#052a16;color:#fff;border:2px solid #fff;box-shadow:0 3px 0 #00170a}
-.modeBadge{padding:6px 9px;background:var(--accent);color:#0a160b;border:2px solid #07160b;box-shadow:0 3px 0 #00170a}
+.modeNo{padding:6px 8px;background:#fff;color:#092014;border:2px solid #092014;box-shadow:0 3px 0 rgba(0,0,0,.28)}
+.modeBadge{padding:6px 9px;background:var(--accent);color:#0a160b;border:2px solid #07160b;box-shadow:0 3px 0 rgba(0,0,0,.28)}
 .modeCopy h2{
   margin:8px 0 9px;
   font-family:Impact,"Arial Black",Arial,sans-serif;
   font-size:clamp(38px,4.5vw,68px);
   line-height:.88;
   letter-spacing:.01em;
-  color:#fff;
-  -webkit-text-stroke:2px #06170b;
-  text-shadow:3px 4px 0 #00160a;
+  color:var(--title);
+  -webkit-text-stroke:2px var(--stroke);
+  text-shadow:3px 4px 0 var(--titleShadow);
 }
 .modeCard:not(.strategy) .modeCopy h2{font-size:clamp(34px,3.2vw,49px)}
-.modeCopy p{margin:0;color:#f4fff6;font-size:13px;line-height:1.5;font-weight:800;text-shadow:0 2px 3px rgba(0,20,8,.7)}
+.modeCopy p{margin:0;color:var(--copy);font-size:13px;line-height:1.5;font-weight:800;text-shadow:none}
 .featureRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}
 .feature{padding:5px 8px;border-radius:999px;background:#063119;border:1.5px solid rgba(255,255,255,.84);font-size:8px;font-weight:950;color:#fff}
+.modeCard:not(.strategy) .feature{background:rgba(255,255,255,.76);border-color:rgba(6,24,13,.78);color:#0b2818}
 
 .cardFan{position:absolute;z-index:3;pointer-events:none}
 .strategy .cardFan{right:22px;top:38px;width:46%;height:335px}
