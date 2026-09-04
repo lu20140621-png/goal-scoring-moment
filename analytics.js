@@ -223,3 +223,47 @@
   if (media.addEventListener) media.addEventListener('change', syncLessonPosition);
   else if (media.addListener) media.addListener(syncLessonPosition);
 })();
+
+/* Asset compatibility: always use the newest transparent Tackle artwork. */
+(() => {
+  const NEW_TACKLE = 'images/tackle.webp?v=20260904tackle2';
+
+  function isOldTackle(src){
+    return /(?:^|\/)tackle-card\.(?:webp|png)(?:\?|$)/i.test(src || '');
+  }
+
+  function swapImage(img){
+    if (!img || img.tagName !== 'IMG') return;
+    const raw = img.getAttribute('src') || '';
+    if (isOldTackle(raw) || isOldTackle(img.src)) {
+      img.setAttribute('src', NEW_TACKLE);
+    }
+  }
+
+  function scan(root){
+    if (!root) return;
+    if (root.tagName === 'IMG') swapImage(root);
+    if (root.querySelectorAll) root.querySelectorAll('img').forEach(swapImage);
+  }
+
+  scan(document);
+
+  const observer = new MutationObserver(records => {
+    records.forEach(record => {
+      if (record.type === 'attributes') {
+        swapImage(record.target);
+        return;
+      }
+      record.addedNodes.forEach(node => {
+        if (node.nodeType === 1) scan(node);
+      });
+    });
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['src']
+  });
+})();
