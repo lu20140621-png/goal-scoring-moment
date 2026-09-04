@@ -29,23 +29,29 @@ body{overflow-x:hidden}
   position:relative;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 16%,rgba(190,255,31,.22),transparent 24%),
-    radial-gradient(circle at 14% 52%,rgba(38,121,255,.13),transparent 24%),
-    radial-gradient(circle at 88% 58%,rgba(255,211,35,.12),transparent 22%),
-    linear-gradient(180deg,#0b6a31 0%,#06411f 35%,#032514 72%,#02160c 100%);
+    radial-gradient(ellipse at 50% -4%,rgba(125,255,166,.14) 0%,rgba(125,255,166,0) 34%),
+    linear-gradient(180deg,#081c13 0%,#08261a 28%,#061d14 58%,#03140d 100%);
 }
 .page:before{
   content:"";
   position:absolute;
-  inset:-10%;
+  inset:0;
   pointer-events:none;
-  opacity:.18;
+  opacity:.72;
   background:
-    repeating-conic-gradient(from -16deg at 50% 14%,rgba(215,255,58,.95) 0 2deg,transparent 2deg 8deg),
-    radial-gradient(circle at 50% 14%,rgba(255,255,255,.92) 0 3%,transparent 3.2% 100%);
-  mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.8) 38%,transparent 76%);
+    linear-gradient(90deg,transparent 49.82%,rgba(255,255,255,.055) 49.94%,rgba(255,255,255,.055) 50.06%,transparent 50.18%),
+    radial-gradient(circle at 50% 62%,transparent 0 115px,rgba(255,255,255,.045) 116px 118px,transparent 119px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 110px,rgba(0,0,0,.018) 110px 220px);
 }
-.page:after{display:none}
+.page:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.018) 0%,transparent 18%),
+    radial-gradient(ellipse at 50% 23%,rgba(203,255,106,.065) 0%,transparent 28%);
+}
 .shell{position:relative;z-index:2;width:min(1360px,100%);margin:auto;padding:22px 26px 42px}
 
 .topCard{
