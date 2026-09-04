@@ -260,6 +260,32 @@ body{overflow-x:hidden}
 .footer{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}
 .footer span{padding:6px 9px;border-radius:999px;background:#052817;border:1px solid #72d58f;color:#ccebd5;font-size:8px;font-weight:900;letter-spacing:.08em}
 
+@media(hover:hover) and (pointer:fine){
+  .modeCard{
+    transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease,box-shadow .3s ease;
+  }
+  .modeCard:before{transition:transform .36s ease,filter .36s ease}
+  .modeCard:hover{
+    transform:translateY(-11px) scale(1.012);
+    filter:saturate(1.1) brightness(1.04);
+    box-shadow:
+      inset 0 0 0 3px #fff,
+      inset 0 0 0 8px var(--accent),
+      0 13px 0 #011b0b,
+      0 30px 48px rgba(0,0,0,.42);
+  }
+  .modeCard:hover:before{transform:scale(1.035)}
+  .cardFan img{transition:transform .32s cubic-bezier(.2,.8,.2,1),filter .32s ease}
+  .strategy:hover .cardFan img:nth-child(1){transform:rotate(-21deg) translate(-20px,8px) scale(1.04)}
+  .strategy:hover .cardFan img:nth-child(2){transform:rotate(-1deg) translateY(-22px) scale(1.075)}
+  .strategy:hover .cardFan img:nth-child(3){transform:rotate(21deg) translate(20px,8px) scale(1.04)}
+  .modeCard:not(.strategy):hover .cardFan img:nth-child(1){transform:rotate(-18deg) translate(-13px,6px) scale(1.045)}
+  .modeCard:not(.strategy):hover .cardFan img:nth-child(2){transform:rotate(15deg) translate(13px,-8px) scale(1.065)}
+  .enter,.enterArrow{transition:transform .24s ease,box-shadow .24s ease}
+  .modeCard:hover .enter{transform:translateX(8px);box-shadow:0 7px 0 #00170a}
+  .modeCard:hover .enterArrow{transform:translateX(3px)}
+}
+
 @media(max-width:1080px){
   .modeGrid{grid-template-columns:1fr 1fr}
   .modeCard.strategy{grid-column:1/-1}
