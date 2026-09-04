@@ -15,7 +15,7 @@ window.GSM_ANALYTICS_CONFIG = {
   if (!isHome || document.querySelector('script[data-gsm-home-polish]')) return;
 
   const script = document.createElement('script');
-  script.src = 'homepage-background-polish.js?v=20260904v3';
+  script.src = 'homepage-background-polish.js?v=20260904v4';
   script.defer = true;
   script.dataset.gsmHomePolish = '1';
   document.head.appendChild(script);
