@@ -9,32 +9,82 @@
 <title>Goal-Scoring Moment — Strategy Tutorial</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#061421}
-#game{display:block;width:100%;height:100dvh;max-height:100dvh;border:0;background:#061421}
+#game{display:block;width:100%;height:100dvh;max-height:100dvh;border:0;background:#061421;opacity:0;visibility:hidden;transition:opacity .28s ease}
+body.ready #game{opacity:1;visibility:visible}
 @supports not (height:100dvh){#game{height:100vh;max-height:100vh}}
+#strategyLoader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#0d4b2c 0,#082b1d 38%,#041a12 100%);color:#fff;transition:opacity .28s ease,visibility .28s ease}
+#strategyLoader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loaderCard{width:min(340px,86vw);padding:26px 24px 23px;border-radius:24px;background:linear-gradient(180deg,#0d3f2a,#07291d);border:3px solid #f5fff8;box-shadow:0 0 0 5px #159457,0 18px 45px #0008;text-align:center}
+.loaderBall{width:82px;height:82px;margin:0 auto 17px;border-radius:50%;background:#fff url('images/soccer-header-icon.webp') center/145% 145% no-repeat;border:4px solid #06170b;box-shadow:0 0 0 4px #fff,0 0 0 8px #bfff1f,0 10px 22px #0007;animation:loaderPulse .9s ease-in-out infinite alternate}
+.loaderTitle{font-family:Impact,"Arial Black",Arial,sans-serif;font-size:30px;line-height:.95;letter-spacing:.03em;color:#fff;text-shadow:3px 3px 0 #00170a}
+.loaderSub{margin-top:8px;font-size:10px;font-weight:900;letter-spacing:.16em;color:#dfff72}
+.loaderTrack{height:8px;margin-top:18px;border-radius:999px;overflow:hidden;background:#03150d;border:1px solid #34734f}
+.loaderBar{width:38%;height:100%;border-radius:999px;background:linear-gradient(90deg,#bfff1f,#fff06a);animation:loaderMove 1s ease-in-out infinite alternate}
+@keyframes loaderPulse{from{transform:scale(.96) rotate(-2deg)}to{transform:scale(1.04) rotate(2deg)}}
+@keyframes loaderMove{from{transform:translateX(-85%)}to{transform:translateX(250%)}}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy-13.html?v=20260905yellow1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<div id="strategyLoader" role="status" aria-live="polite"><div class="loaderCard"><div class="loaderBall" aria-hidden="true"></div><div class="loaderTitle">STRATEGY MODE</div><div class="loaderSub">LOADING GAME ASSETS</div><div class="loaderTrack"><div class="loaderBar"></div></div></div></div>
+<iframe id="game" src="strategy-13.html?v=20260905yellowload1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
+const loader=document.getElementById('strategyLoader');
+const preloadImage=src=>new Promise(resolve=>{const img=new Image();let done=false;const finish=()=>{if(done)return;done=true;resolve()};img.onload=finish;img.onerror=finish;img.src=src;if(img.complete)finish()});
+const strategyAssets=[
+  'images/soccer-header-icon.webp',
+  'images/soccer-card.webp?v=20260904fix1',
+  'images/shoot-card.webp',
+  'images/defense-card.webp',
+  'images/tackle.webp?v=20260904tackle2',
+  'images/dribble%20past-card.webp',
+  'images/yellow-card.webp',
+  'images/player-card.webp',
+  'images/goalkeeper-card.webp',
+  'images/coach-guide.webp?v=20260905all13b'
+];
+let assetsReady=false,bootReady=false,cssReady=false,revealed=false;
+const tryReveal=()=>{
+  if(revealed||!assetsReady||!bootReady||!cssReady)return;
+  revealed=true;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    document.body.classList.add('ready');
+    loader.classList.add('done');
+    setTimeout(()=>loader.remove(),360);
+  }));
+};
+Promise.all(strategyAssets.map(preloadImage)).then(()=>{assetsReady=true;tryReveal()});
+
 f.addEventListener('load',()=>{
   try{
     const d=f.contentDocument;
     if(!d)return;
 
-    if(!d.getElementById('gsm-coach-all-css')){
+    const currentImages=[...d.images].map(img=>img.currentSrc||img.src).filter(Boolean);
+    Promise.all(currentImages.map(preloadImage)).then(()=>{assetsReady=true;tryReveal()});
+
+    const existingCoachCss=d.getElementById('gsm-coach-all-css');
+    if(!existingCoachCss){
       const l=d.createElement('link');
       l.id='gsm-coach-all-css';
       l.rel='stylesheet';
-      l.href='strategy-13-coach-all.css?v=20260905yellow1';
+      l.href='strategy-13-coach-all.css?v=20260905yellowload1';
+      l.onload=()=>{cssReady=true;tryReveal()};
+      l.onerror=()=>{cssReady=true;tryReveal()};
       d.head.appendChild(l);
+    }else{
+      cssReady=true;
     }
 
+    const markBootReady=()=>{bootReady=true;tryReveal()};
+
     const loadCardConsumeFix=()=>{
-      if(d.getElementById('gsm-card-consume-fix-loader'))return;
+      if(d.getElementById('gsm-card-consume-fix-loader')){markBootReady();return;}
       const h=d.createElement('script');
       h.id='gsm-card-consume-fix-loader';
-      h.src='strategy-13-card-consume-fix.js?v=20260905yellow1';
+      h.src='strategy-13-card-consume-fix.js?v=20260905yellowload1';
+      h.onload=markBootReady;
+      h.onerror=markBootReady;
       d.body.appendChild(h);
     };
 
@@ -42,7 +92,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-strategy13-rule-correction-loader')){loadCardConsumeFix();return;}
       const r=d.createElement('script');
       r.id='gsm-strategy13-rule-correction-loader';
-      r.src='strategy-13-rule-correction.js?v=20260905yellow1';
+      r.src='strategy-13-rule-correction.js?v=20260905yellowload1';
       r.onload=loadCardConsumeFix;
       r.onerror=loadCardConsumeFix;
       d.body.appendChild(r);
@@ -52,7 +102,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-strategy13-runtime-fix-loader')){loadRuleCorrection();return;}
       const q=d.createElement('script');
       q.id='gsm-strategy13-runtime-fix-loader';
-      q.src='strategy-13-runtime-fix.js?v=20260905yellow1';
+      q.src='strategy-13-runtime-fix.js?v=20260905yellowload1';
       q.onload=loadRuleCorrection;
       q.onerror=loadRuleCorrection;
       d.body.appendChild(q);
@@ -62,7 +112,7 @@ f.addEventListener('load',()=>{
       if(!d.getElementById('gsm-strategy13-safety-loader')){
         const s=d.createElement('script');
         s.id='gsm-strategy13-safety-loader';
-        s.src='strategy-13-safety.js?v=20260905yellow1';
+        s.src='strategy-13-safety.js?v=20260905yellowload1';
         s.onload=loadRuntimeFix;
         s.onerror=loadRuntimeFix;
         d.body.appendChild(s);
@@ -75,7 +125,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-next-in-coach-loader')){loadSafety();return;}
       const n=d.createElement('script');
       n.id='gsm-next-in-coach-loader';
-      n.src='strategy-13-next-in-coach.js?v=20260905yellow1';
+      n.src='strategy-13-next-in-coach.js?v=20260905yellowload1';
       n.onload=loadSafety;
       n.onerror=loadSafety;
       d.body.appendChild(n);
@@ -85,7 +135,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-coach-detail-v3-loader')){loadCoachNext();return;}
       const c=d.createElement('script');
       c.id='gsm-coach-detail-v3-loader';
-      c.src='strategy-13-coach-detail-v3.js?v=20260905yellow1';
+      c.src='strategy-13-coach-detail-v3.js?v=20260905yellowload1';
       c.onload=loadCoachNext;
       c.onerror=loadCoachNext;
       d.body.appendChild(c);
@@ -94,14 +144,17 @@ f.addEventListener('load',()=>{
     if(!d.getElementById('gsm-coach-guide-v2-loader')){
       const g=d.createElement('script');
       g.id='gsm-coach-guide-v2-loader';
-      g.src='strategy-13-coach-guide-v2.js?v=20260905yellow1';
+      g.src='strategy-13-coach-guide-v2.js?v=20260905yellowload1';
       g.onload=loadCoachDetail;
       g.onerror=loadCoachDetail;
       d.body.appendChild(g);
     }else{
       loadCoachDetail();
     }
-  }catch(e){console.error('Strategy 13 all-lesson coach loader failed',e)}
+  }catch(e){
+    console.error('Strategy 13 all-lesson coach loader failed',e);
+    bootReady=true;cssReady=true;tryReveal();
+  }
 });
 </script>
 </body>
