@@ -1,0 +1,53 @@
+/* Cinematic coach onboarding: deliberately scoped to Lessons 1–3. */
+html,body{background:radial-gradient(ellipse at 50% -15%,#315f6c 0,#123342 35%,#081c2a 78%,#061522 100%)}
+body:after{content:"";position:fixed;inset:110px 0 auto;height:190px;pointer-events:none;background:radial-gradient(ellipse at 15% 0,#e8fff02e,transparent 42%),radial-gradient(ellipse at 85% 0,#d8f7ff2b,transparent 42%);filter:blur(8px)}
+.pitch{background:repeating-linear-gradient(90deg,#23a568 0 72px,#1b955d 72px 144px);box-shadow:inset 0 0 42px #00342188,0 18px 45px #0007,0 0 50px #bfffd619}
+
+.introGuide .app{grid-template-columns:minmax(0,1fr);grid-template-areas:"board" "actions";max-width:1000px}
+.introGuide .coach{display:none}
+.introGuide .board{position:relative}
+.introGuide .flowPanel{display:none}
+.introGuide .actions{position:relative;padding:12px 16px 16px}
+.introGuide .actionTitle{justify-content:center}
+.introGuide .actionTitle>span:first-child{display:none}
+.guideScene{display:flex;align-items:flex-end;gap:14px;margin-top:12px;min-width:0}
+.guidePortrait{position:relative;flex:0 0 142px;height:154px;border-radius:74px 74px 22px 22px;background:radial-gradient(circle at 50% 27%,#ffd0a6 0 21%,transparent 22%),radial-gradient(ellipse at 50% 89%,#2188ce 0 50%,#103b62 51% 61%,transparent 62%),linear-gradient(145deg,#2a5a72,#112f43);border:2px solid #8fd6f055;box-shadow:inset 0 1px #fff3,0 16px 30px #0006;overflow:hidden}
+.guidePortrait:before{content:"COACH";position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:10px;font-weight:950;letter-spacing:.18em;color:#fff}
+.guidePortrait.hasImage{background-position:center top;background-size:cover;background-repeat:no-repeat}
+.guidePortrait.hasImage:before{display:none}
+.guideDialogue{min-width:0;flex:1;position:relative;border:2px solid #90cce5;border-radius:19px 19px 19px 5px;padding:16px 58px 15px 18px;min-height:112px;background:linear-gradient(145deg,#f9fff9,#e9f3ed);color:#153142;box-shadow:0 18px 38px #0007,inset 0 1px #fff;cursor:pointer}
+.guideDialogue:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.guideSpeaker{display:block;margin-bottom:7px;color:#1c74a8;font-size:9px;font-weight:950;letter-spacing:.2em}
+.guideText{margin:0;white-space:pre-line;font-size:15px;line-height:1.45;font-weight:780}
+.guideContinue{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border:0;border-radius:50%;background:#ffd34e;color:#533900;font-size:20px;font-weight:950;cursor:pointer;animation:guideArrow .8s ease-in-out infinite alternate}
+.guideContinue[hidden]{display:none}
+.guideScene.locked .guideDialogue{pointer-events:none}
+.introGuide .player{transition:opacity .25s,filter .25s,transform .25s,box-shadow .25s}
+.introGuide .player.guideDim{opacity:.34;filter:saturate(.55)}
+.introGuide .player.guideFocus{z-index:12;box-shadow:0 0 0 4px #ffd34e,0 0 30px #ffd34e99,0 12px 30px #001c12aa;transform:scale(1.05)}
+.introGuide .teamChip.guideFocus{box-shadow:0 0 0 2px #fff8,0 0 22px currentColor;filter:brightness(1.35)}
+.player.guideWrong{animation:guideWrong .34s ease}
+.teamLink{position:absolute;left:50%;top:50%;z-index:16;transform:translate(-50%,-50%);padding:9px 14px;border-radius:99px;background:#0b3154e8;border:1px solid #72bdff;color:#fff;font-size:10px;font-weight:950;letter-spacing:.08em;box-shadow:0 8px 25px #0007}
+.tokenDemo{position:absolute;right:18%;top:48%;z-index:18;transform:translate(50%,-50%);padding:10px 13px;border-radius:12px;background:#071b2ee8;border:1px solid #ffd34e;color:#fff;text-align:center;font-size:13px;font-weight:950;line-height:1.45;letter-spacing:3px;box-shadow:0 12px 28px #0008}
+.drawCardFlight{position:fixed;z-index:500;width:72px;height:101px;object-fit:contain;pointer-events:none;filter:drop-shadow(0 10px 14px #0009);transition:transform .56s cubic-bezier(.2,.85,.2,1),opacity .56s}
+.cardBtn.guideNewCard{animation:guideCardGlow .75s ease-in-out 2 alternate}
+.introGuide.guideBright .pitch{filter:brightness(1.13);transition:filter 1s ease}
+@keyframes guideArrow{to{transform:translateY(3px)}}
+@keyframes guideWrong{25%{transform:translateX(-7px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}
+@keyframes guideCardGlow{to{transform:translateY(-9px) scale(1.08);filter:drop-shadow(0 0 14px #ffd34e)}}
+
+@media(max-width:760px){
+  .introGuide .app{display:flex;padding:6px;gap:6px}
+  .introGuide .board{order:1}
+  .introGuide .actions{order:3;padding:8px}
+  .guideScene{order:2;margin:0;width:100%;align-items:stretch;gap:7px}
+  .guidePortrait{flex-basis:96px;height:108px;border-radius:48px 48px 14px 14px}
+  .guidePortrait:before{font-size:8px;bottom:7px}
+  .guideDialogue{min-height:108px;padding:11px 48px 10px 12px;border-radius:14px 14px 14px 4px}
+  .guideSpeaker{font-size:8px;margin-bottom:4px}.guideText{font-size:12px;line-height:1.35}
+  .guideContinue{right:5px;bottom:5px}
+  .introGuide .pitch{aspect-ratio:4/3}
+  .tokenDemo{right:50%;top:50%;font-size:10px;padding:7px 9px}
+}
+@media(max-width:350px){.guidePortrait{flex-basis:88px;height:100px}.guideText{font-size:11px}.guideDialogue{padding-left:9px}}
+@media(prefers-reduced-motion:reduce){.guideContinue,.player.guideWrong,.cardBtn.guideNewCard{animation:none}.drawCardFlight{transition-duration:.01ms}}

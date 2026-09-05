@@ -39,6 +39,10 @@
   // Replace player handling so a newly exposed SHOOT target can be tapped
   // immediately, even while the previous card animation is finishing.
   handlePlayer = function(id) {
+    if (current < 3 && window.StrategyIntroGuide) {
+      window.StrategyIntroGuide.player(id);
+      return;
+    }
     const mode = lessons[current].mode;
 
     if (mode === 'teammate') {
