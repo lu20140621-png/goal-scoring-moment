@@ -187,3 +187,12 @@ body.coachEveryLesson .coach{display:none!important}
   .guideText{font-size:11px!important}
   .guideContinue.wide{min-width:88px!important;max-width:104px!important;font-size:8.5px!important}
 }
+
+/* Lessons 4–13: the lower area is hand/cards only.
+   Completion navigation now lives inside the coach speech bubble. */
+body.coachEveryLesson .actions .actionTitle{display:none!important}
+body.coachEveryLesson .actions .hand{min-height:0!important;padding:0!important;margin:0!important}
+body.coachEveryLesson .actions .hand>div:not(.cardBtn){display:none!important}
+body.coachEveryLesson .actions .contextActions:empty{display:none!important}
+body.coachEveryLesson .actions:not(:has(.cardBtn)):not(:has(.contextActions .actionBtn)){display:none!important}
+body.coachEveryLesson .actions:has(.cardBtn){padding:8px!important}
