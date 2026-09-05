@@ -14,7 +14,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#061421}
 </style>
 </head>
 <body>
-<iframe id="game" src="strategy-13.html?v=20260905all13d" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<iframe id="game" src="strategy-13.html?v=20260905rules1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
 f.addEventListener('load',()=>{
@@ -26,15 +26,25 @@ f.addEventListener('load',()=>{
       const l=d.createElement('link');
       l.id='gsm-coach-all-css';
       l.rel='stylesheet';
-      l.href='strategy-13-coach-all.css?v=20260905all13d';
+      l.href='strategy-13-coach-all.css?v=20260905rules1';
       d.head.appendChild(l);
     }
 
+    const loadRuleCorrection=()=>{
+      if(d.getElementById('gsm-strategy13-rule-correction-loader'))return;
+      const r=d.createElement('script');
+      r.id='gsm-strategy13-rule-correction-loader';
+      r.src='strategy-13-rule-correction.js?v=20260905rules1';
+      d.body.appendChild(r);
+    };
+
     const loadRuntimeFix=()=>{
-      if(d.getElementById('gsm-strategy13-runtime-fix-loader'))return;
+      if(d.getElementById('gsm-strategy13-runtime-fix-loader')){loadRuleCorrection();return;}
       const q=d.createElement('script');
       q.id='gsm-strategy13-runtime-fix-loader';
-      q.src='strategy-13-runtime-fix.js?v=20260905all13d';
+      q.src='strategy-13-runtime-fix.js?v=20260905rules1';
+      q.onload=loadRuleCorrection;
+      q.onerror=loadRuleCorrection;
       d.body.appendChild(q);
     };
 
@@ -42,7 +52,7 @@ f.addEventListener('load',()=>{
       if(!d.getElementById('gsm-strategy13-safety-loader')){
         const s=d.createElement('script');
         s.id='gsm-strategy13-safety-loader';
-        s.src='strategy-13-safety.js?v=20260905all13d';
+        s.src='strategy-13-safety.js?v=20260905rules1';
         s.onload=loadRuntimeFix;
         s.onerror=loadRuntimeFix;
         d.body.appendChild(s);
@@ -55,7 +65,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-next-in-coach-loader')){loadSafety();return;}
       const n=d.createElement('script');
       n.id='gsm-next-in-coach-loader';
-      n.src='strategy-13-next-in-coach.js?v=20260905all13d';
+      n.src='strategy-13-next-in-coach.js?v=20260905rules1';
       n.onload=loadSafety;
       n.onerror=loadSafety;
       d.body.appendChild(n);
@@ -65,7 +75,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-coach-detail-v3-loader')){loadCoachNext();return;}
       const c=d.createElement('script');
       c.id='gsm-coach-detail-v3-loader';
-      c.src='strategy-13-coach-detail-v3.js?v=20260905all13d';
+      c.src='strategy-13-coach-detail-v3.js?v=20260905rules1';
       c.onload=loadCoachNext;
       c.onerror=loadCoachNext;
       d.body.appendChild(c);
@@ -74,7 +84,7 @@ f.addEventListener('load',()=>{
     if(!d.getElementById('gsm-coach-guide-v2-loader')){
       const g=d.createElement('script');
       g.id='gsm-coach-guide-v2-loader';
-      g.src='strategy-13-coach-guide-v2.js?v=20260905all13d';
+      g.src='strategy-13-coach-guide-v2.js?v=20260905rules1';
       g.onload=loadCoachDetail;
       g.onerror=loadCoachDetail;
       d.body.appendChild(g);
