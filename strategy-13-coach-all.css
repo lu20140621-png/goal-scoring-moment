@@ -3,7 +3,7 @@
 /* The full coach WebP must stay visible instead of being cropped. */
 .guidePortrait{
   background-color:#102b3d;
-  background-image:url("images/coach-guide.webp?v=20260905all13");
+  background-image:url("images/coach-guide.webp?v=20260905all13b");
   background-size:contain;
   background-position:center bottom;
   background-repeat:no-repeat;
@@ -31,44 +31,52 @@
   text-align:center;
 }
 
+/* LESSONS 4–13: use the same coach-dialogue layout as Lessons 1–3.
+   The old right-side COACH'S HUD is intentionally removed. */
+body.coachEveryLesson .coach{display:none!important}
+
 /* DESKTOP / TABLET LANDSCAPE */
 @media(min-width:761px){
-  /* Lessons 4–13: give the coach a real top row instead of an implicit grid row
-     that pushed him to the bottom of the page and created a huge empty area. */
-  body:not(.introGuide) .app{
-    grid-template-columns:minmax(0,1.55fr) 360px;
+  body.coachEveryLesson .app{
+    grid-template-columns:minmax(0,1fr)!important;
     grid-template-areas:
-      "guide guide"
-      "board coach"
-      "actions coach";
+      "board"
+      "guide"
+      "actions"!important;
+    max-width:1000px!important;
     align-items:start;
   }
-  body:not(.introGuide) .guideScene{
+  body.coachEveryLesson .board{grid-area:board;width:100%}
+  body.coachEveryLesson .guideScene{
     grid-area:guide;
     position:relative;
     z-index:35;
     width:100%;
-    margin:0;
+    margin:12px 0 0;
     display:flex;
-    align-items:center;
-    gap:12px;
+    align-items:flex-end;
+    gap:14px;
   }
-  body:not(.introGuide) .guidePortrait{
-    flex:0 0 94px;
-    width:94px;
-    height:104px;
-    border-radius:20px 20px 13px 13px;
+  body.coachEveryLesson .guidePortrait{
+    flex:0 0 142px;
+    width:142px;
+    height:154px;
+    border-radius:74px 74px 22px 22px;
   }
-  body:not(.introGuide) .guideDialogue{
-    min-height:94px;
-    padding:15px 58px 14px 18px;
+  body.coachEveryLesson .guideDialogue{
+    min-width:0;
+    flex:1;
+    min-height:112px;
+    padding:16px 58px 15px 18px;
+    border-radius:19px 19px 19px 5px;
   }
-  body:not(.introGuide) .guideText{
-    font-size:14px;
-    line-height:1.42;
+  body.coachEveryLesson .guideText{
+    font-size:15px;
+    line-height:1.45;
   }
+  body.coachEveryLesson .actions{grid-area:actions;width:100%}
 
-  /* Lessons 1–3 keep the cinematic guided sequence, but the coach area stays compact. */
+  /* Lessons 1–3 keep the exact same cinematic structure. */
   .introGuide .guideScene{max-width:1000px}
   .introGuide .guideDialogue{overflow:hidden}
 }
@@ -83,11 +91,17 @@
     gap:6px!important;
   }
 
-  /* Coach speaks first on every lesson. */
+  /* Remove the old rule HUD on Lessons 4–13; coach dialogue is the teaching UI. */
+  body.coachEveryLesson .coach{display:none!important}
+
+  /* Same order as the intro lessons: pitch, coach dialogue, hand/actions. */
+  .introGuide .board,
+  body.coachEveryLesson .board{order:1!important;width:100%!important}
+
   .guideScene,
-  body:not(.introGuide) .guideScene,
+  body.coachEveryLesson .guideScene,
   .introGuide .guideScene{
-    order:1!important;
+    order:2!important;
     position:relative!important;
     z-index:40!important;
     width:100%!important;
@@ -97,14 +111,11 @@
     gap:7px!important;
   }
 
-  body:not(.introGuide) .coach{order:2!important}
-  body:not(.introGuide) .board{order:3!important}
-  body:not(.introGuide) .actions{order:4!important}
-  .introGuide .board{order:2!important}
-  .introGuide .actions{order:3!important}
+  .introGuide .actions,
+  body.coachEveryLesson .actions{order:3!important;width:100%!important}
 
   .guidePortrait,
-  body:not(.introGuide) .guidePortrait,
+  body.coachEveryLesson .guidePortrait,
   .introGuide .guidePortrait{
     flex:0 0 88px!important;
     width:88px!important;
@@ -115,16 +126,23 @@
   }
 
   .guideDialogue,
-  body:not(.introGuide) .guideDialogue,
+  body.coachEveryLesson .guideDialogue,
   .introGuide .guideDialogue{
     min-width:0!important;
     min-height:112px!important;
-    padding:11px 11px 12px 12px!important;
+    padding:11px 50px 12px 12px!important;
     border-radius:14px 14px 14px 4px!important;
     overflow:hidden!important;
   }
   .guideSpeaker{font-size:8px!important;margin-bottom:4px!important}
-  .guideText{font-size:12px!important;line-height:1.34!important;padding-right:2px!important}
+  .guideText{
+    font-size:12px!important;
+    line-height:1.34!important;
+    padding-right:0!important;
+    max-width:100%!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+  }
 
   .guideContinue{
     right:7px!important;
@@ -151,15 +169,16 @@
     overflow-wrap:break-word!important;
   }
 
-  /* Reserve space for the wide CTA so no word can escape the speech card. */
+  /* Reserve bottom space whenever a text CTA is visible. */
   .guideDialogue:has(.guideContinue.wide:not([hidden])){
-    padding-bottom:56px!important;
+    padding-right:12px!important;
+    padding-bottom:58px!important;
   }
 }
 
 @media(max-width:350px){
   .guidePortrait,
-  body:not(.introGuide) .guidePortrait,
+  body.coachEveryLesson .guidePortrait,
   .introGuide .guidePortrait{
     flex-basis:78px!important;
     width:78px!important;
