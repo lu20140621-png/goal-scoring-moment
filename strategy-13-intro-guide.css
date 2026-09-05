@@ -3,14 +3,14 @@ html,body{background:radial-gradient(ellipse at 50% -15%,#315f6c 0,#123342 35%,#
 body:after{content:"";position:fixed;inset:110px 0 auto;height:190px;pointer-events:none;background:radial-gradient(ellipse at 15% 0,#e8fff02e,transparent 42%),radial-gradient(ellipse at 85% 0,#d8f7ff2b,transparent 42%);filter:blur(8px)}
 .pitch{background:repeating-linear-gradient(90deg,#23a568 0 72px,#1b955d 72px 144px);box-shadow:inset 0 0 42px #00342188,0 18px 45px #0007,0 0 50px #bfffd619}
 
-.introGuide .app{grid-template-columns:minmax(0,1fr);grid-template-areas:"board" "actions";max-width:1000px}
+.introGuide .app{grid-template-columns:minmax(0,1fr);grid-template-areas:"board" "guide" "actions";max-width:1000px}
 .introGuide .coach{display:none}
 .introGuide .board{position:relative}
 .introGuide .flowPanel{display:none}
 .introGuide .actions{position:relative;padding:12px 16px 16px}
 .introGuide .actionTitle{justify-content:center}
 .introGuide .actionTitle>span:first-child{display:none}
-.guideScene{display:flex;align-items:flex-end;gap:14px;margin-top:12px;min-width:0}
+.guideScene{grid-area:guide;display:flex;align-items:flex-end;gap:14px;margin-top:12px;min-width:0}
 .guidePortrait{position:relative;flex:0 0 142px;height:154px;border-radius:74px 74px 22px 22px;background:radial-gradient(circle at 50% 27%,#ffd0a6 0 21%,transparent 22%),radial-gradient(ellipse at 50% 89%,#2188ce 0 50%,#103b62 51% 61%,transparent 62%),linear-gradient(145deg,#2a5a72,#112f43);border:2px solid #8fd6f055;box-shadow:inset 0 1px #fff3,0 16px 30px #0006;overflow:hidden}
 .guidePortrait:before{content:"COACH";position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:10px;font-weight:950;letter-spacing:.18em;color:#fff}
 .guidePortrait.hasImage{background-position:center top;background-size:cover;background-repeat:no-repeat}
