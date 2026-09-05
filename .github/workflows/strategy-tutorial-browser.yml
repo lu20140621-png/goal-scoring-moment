@@ -1,0 +1,52 @@
+name: Strategy Tutorial Browser Validation
+
+on:
+  pull_request:
+    paths:
+      - "strategy-13.html"
+      - "strategy-13-gameplay-v2.js"
+      - "strategy-13-safety.js"
+      - "strategy-cards.html"
+      - "images/**"
+      - "tests/browser/**"
+      - "playwright.config.js"
+      - ".github/workflows/strategy-tutorial-browser.yml"
+  push:
+    branches:
+      - codex/redesign-ux-for-strategy-tutorial
+  workflow_dispatch:
+
+jobs:
+  chromium:
+    name: Chromium viewport and gameplay tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: npm install --no-save --no-package-lock @playwright/test@1.55.0
+
+      - name: Install Chromium and system dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Strategy Tutorial browser validation
+        run: npx playwright test --config=playwright.config.js
+
+      - name: Upload screenshots and Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strategy-tutorial-browser-artifacts
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: warn
+          retention-days: 14
