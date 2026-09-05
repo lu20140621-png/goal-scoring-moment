@@ -51,3 +51,15 @@ body:after{content:"";position:fixed;inset:110px 0 auto;height:190px;pointer-eve
 }
 @media(max-width:350px){.guidePortrait{flex-basis:88px;height:100px}.guideText{font-size:11px}.guideDialogue{padding-left:9px}}
 @media(prefers-reduced-motion:reduce){.guideContinue,.player.guideWrong,.cardBtn.guideNewCard{animation:none}.drawCardFlight{transition-duration:.01ms}}
+
+/* Coach visibility fix — keep the real WebP visible in the first mobile viewport. */
+.guidePortrait{background-color:#102b3d;background-image:url("images/coach-guide.webp?v=20260905coach3");background-size:contain;background-position:center bottom;background-repeat:no-repeat}
+.guidePortrait.hasImage{background-size:contain;background-position:center bottom;background-repeat:no-repeat}
+@media(max-width:760px){
+  .introGuide .app{display:flex!important;flex-direction:column!important}
+  .guideScene{order:1!important;display:flex!important;width:100%!important;margin:0 0 6px!important;align-items:flex-end!important;gap:8px!important;position:relative;z-index:20}
+  .introGuide .board{order:2!important}
+  .introGuide .actions{order:3!important}
+  .guidePortrait{flex:0 0 104px!important;width:104px!important;height:124px!important;border-radius:20px 20px 12px 12px!important;background-size:contain!important;background-position:center bottom!important}
+  .guideDialogue{min-height:116px!important}
+}
