@@ -72,12 +72,79 @@
     lockInputs(false);
   }
 
+  function ensureYellowOrderStyles() {
+    if (document.getElementById('yellowOrderVisualStyles')) return;
+    const style = document.createElement('style');
+    style.id = 'yellowOrderVisualStyles';
+    style.textContent = `
+      .yellowOrderNo{position:absolute;z-index:30;left:-10px;top:-12px;min-width:28px;height:28px;padding:0 7px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:#071c31;color:#fff;border:2px solid #ffd557;box-shadow:0 4px 10px #0007;font-size:12px;font-weight:950;pointer-events:none}
+      .yellowNextTag{position:absolute;z-index:29;right:-8px;top:-13px;padding:4px 7px;border-radius:999px;background:#ffd557;color:#543700;border:2px solid #fff3b2;box-shadow:0 4px 10px #0006;font-size:7px;font-weight:950;letter-spacing:.05em;pointer-events:none}
+      .yellowSkipIcon{position:absolute;z-index:40;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:5px solid #e33d4f;color:#e33d4f;box-shadow:0 0 0 4px #ffffffaa,0 8px 20px #0008;font-size:36px;line-height:1;pointer-events:none;animation:yellowSkipPop .35s ease-out}
+      .yellowSkipText{position:absolute;z-index:41;left:50%;bottom:-27px;transform:translateX(-50%);white-space:nowrap;padding:4px 8px;border-radius:999px;background:#9d2437;color:#fff;border:2px solid #fff;font-size:8px;font-weight:950;letter-spacing:.05em;pointer-events:none}
+      .turnOrder.yellowExpanded{display:flex!important;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:7px 5px;margin:6px 0 2px;border:1px solid #6c8194;border-radius:10px;background:#071a2d}
+      .turnOrder.yellowExpanded .turnSeat{padding:5px 7px;border-radius:999px;background:#163a59;border:1px solid #416f93;color:#fff;font-size:8px;font-weight:950;white-space:nowrap}
+      .turnOrder.yellowExpanded .turnSeat.next{background:#6e5411;border-color:#ffd557;color:#fff7d7;box-shadow:0 0 0 2px #ffd55755}
+      .turnOrder.yellowExpanded .turnSeat.skipped{background:#8e2638;border-color:#ff7182;color:#fff;text-decoration:line-through}
+      .turnOrder.yellowExpanded .turnSeat.now{background:#1e5f9d;border-color:#70b7ff}
+      .turnOrder.yellowExpanded .turnArrow{font-size:14px;color:#ffd557;font-weight:950}
+      .yellowOrderNote{width:100%;text-align:center;color:#bcd0e2;font-size:7px;font-weight:900;margin-top:1px}
+      @keyframes yellowSkipPop{from{transform:translate(-50%,-50%) scale(.45) rotate(-15deg);opacity:.2}to{transform:translate(-50%,-50%) scale(1) rotate(0);opacity:1}}
+      @media(max-width:760px){
+        .yellowOrderNo{left:-7px;top:-9px;min-width:23px;height:23px;padding:0 5px;font-size:10px}
+        .yellowNextTag{right:-5px;top:-10px;font-size:6px;padding:3px 5px}
+        .yellowSkipIcon{width:52px;height:52px;border-width:4px;font-size:28px}
+        .yellowSkipText{bottom:-23px;font-size:6.5px;padding:3px 6px}
+        .turnOrder.yellowExpanded{gap:3px;padding:5px 3px}
+        .turnOrder.yellowExpanded .turnSeat{font-size:6.5px;padding:4px 5px}
+        .turnOrder.yellowExpanded .turnArrow{font-size:11px}
+        .yellowOrderNote{font-size:6.2px}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function clearYellowFieldOrder() {
+    document.querySelectorAll('.yellowOrderNo,.yellowNextTag,.yellowSkipIcon,.yellowSkipText').forEach(el => el.remove());
+  }
+
+  function renderYellowFieldOrder(skipped = false) {
+    ensureYellowOrderStyles();
+    clearYellowFieldOrder();
+    const sequence = [['A0','1'],['H1','2'],['A1','3'],['H0','4']];
+    sequence.forEach(([id, number]) => {
+      const seat = player(id);
+      if (!seat) return;
+      const badge = document.createElement('span');
+      badge.className = 'yellowOrderNo';
+      badge.textContent = number;
+      seat.appendChild(badge);
+    });
+    const green1 = player('A0');
+    if (!green1) return;
+    if (skipped) {
+      const icon = document.createElement('span');
+      icon.className = 'yellowSkipIcon';
+      icon.textContent = '🚫';
+      const text = document.createElement('span');
+      text.className = 'yellowSkipText';
+      text.textContent = 'SKIPPED';
+      green1.append(icon, text);
+    } else {
+      const next = document.createElement('span');
+      next.className = 'yellowNextTag';
+      next.textContent = 'NEXT';
+      green1.appendChild(next);
+    }
+  }
+
   function renderTurnOrder(skipped = false) {
     document.querySelector('.turnOrder')?.remove();
+    clearYellowFieldOrder();
     if (lessons[current].mode !== 'yellow') return;
+    renderYellowFieldOrder(skipped);
     const order = document.createElement('div');
-    order.className = 'turnOrder';
-    order.innerHTML = `<span class="turnSeat">YOU · NOW</span><span class="turnArrow">→</span><span class="turnSeat ${skipped ? 'skipped' : 'next'}">GREEN 1 · NEXT</span><span class="turnArrow">→</span><span class="turnSeat">BLUE 2</span>`;
+    order.className = 'turnOrder yellowExpanded';
+    order.innerHTML = `<span class="turnSeat ${skipped ? 'skipped' : 'next'}">① GREEN 1 · ${skipped ? 'SKIPPED' : 'NEXT'}</span><span class="turnArrow">→</span><span class="turnSeat">② BLUE 2</span><span class="turnArrow">→</span><span class="turnSeat">③ GREEN 2</span><span class="turnArrow">→</span><span class="turnSeat now">④ YOU · NOW</span><div class="yellowOrderNote">After YOU, the turn order loops back to GREEN 1.</div>`;
     $('contextActions').before(order);
   }
 
