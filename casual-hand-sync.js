@@ -10,6 +10,17 @@ const IMG = {
   YELLOW:'images/yellow-card.webp',
   TACKLE:'images/tackle.webp?v=20260904tackle2'
 };
+const LESSON_HANDS = {
+  1:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  2:['DEFENSE','DRIBBLE','SHOOT','YELLOW'],
+  3:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  4:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  5:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  6:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  7:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  8:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE'],
+  9:['DEFENSE','DRIBBLE','SHOOT','YELLOW','TACKLE']
+};
 
 let lessonNo = 0;
 let finalMode = false;
@@ -17,6 +28,8 @@ let finalPhase = 'idle';
 let handCards = [...START];
 let otherCounts = [0,4,5,3];
 let drawHandled = false;
+let soccerDrawHandled = false;
+let lessonOneOutHandled = false;
 let opponentShootApplied = false;
 let changeTimer = 0;
 
@@ -86,6 +99,21 @@ function cardNode(name,gained=false){
   return b;
 }
 
+function applyStartingHand(cards){
+  handCards=[...cards];
+  const hand=$('hand');
+  if(!hand){ syncFans(); return; }
+  const wanted=new Map();
+  cards.forEach(n=>wanted.set(n,(wanted.get(n)||0)+1));
+  [...hand.querySelectorAll('.cardBtn[data-card]')].forEach(node=>{
+    const n=node.dataset.card;
+    const left=wanted.get(n)||0;
+    if(left>0) wanted.set(n,left-1);
+    else node.remove();
+  });
+  syncFans();
+}
+
 function removeVisualCard(name,chipIt=true){
   const hand=$('hand');
   if(!hand) return;
@@ -113,16 +141,18 @@ function addVisualCard(name,chipIt=true){
 function rebuildFinalHand(){
   const hand=$('hand');
   if(!hand) return;
-  handCards=[...START];
+  handCards=[...LESSON_HANDS[9]];
   hand.innerHTML='';
-  START.forEach(n=>hand.appendChild(cardNode(n,false)));
+  LESSON_HANDS[9].forEach(n=>hand.appendChild(cardNode(n,false)));
   syncFans();
 }
 
-function clearVisualHand(){
+function clearVisualHand(chipIt=false){
+  const before=handCards.length;
   handCards=[];
   if($('hand')) $('hand').innerHTML='';
   syncFans();
+  if(chipIt && before) addFlowChip(`OUT → DISCARD ${before} CARDS • YOUR HAND 0`,'bad');
 }
 
 function changeOther(i,delta,kind='good'){
@@ -147,17 +177,15 @@ function syncLesson(force=false){
   lessonNo=p.no;
   finalMode=p.isFinal;
   finalPhase=finalMode?'peek':'idle';
-  handCards=[...START];
+  handCards=[...(LESSON_HANDS[lessonNo]||START)];
   otherCounts=[0,4,5,3];
   drawHandled=false;
+  soccerDrawHandled=false;
+  lessonOneOutHandled=false;
   opponentShootApplied=false;
   setTimeout(()=>{
-    if(finalMode){
-      rebuildFinalHand();
-    }else{
-      handCards=[...START];
-      syncFans();
-    }
+    if(finalMode) rebuildFinalHand();
+    else applyStartingHand(LESSON_HANDS[lessonNo]||START);
   },0);
 }
 
@@ -171,9 +199,7 @@ function handleFrontBubble(e){
   const card=e.target.closest?.('.cardBtn[data-card]');
   if(card){
     const name=card.dataset.card;
-    if(name===expectedCard()){
-      setTimeout(()=>removeVisualCard(name,true),545);
-    }
+    if(name===expectedCard()) setTimeout(()=>removeVisualCard(name,true),545);
     return;
   }
 
@@ -237,10 +263,11 @@ function handleFinalCapture(e){
     const i=Number(target.dataset.player);
     if(i===0){
       finalPhase='resetting';
-      setTimeout(()=>clearVisualHand(),700);
+      setTimeout(()=>clearVisualHand(true),700);
       setTimeout(()=>{rebuildFinalHand(); finalPhase='peek';},2900);
     }else{
       finalPhase='finish';
+      setTimeout(()=>changeOther(i,0,'good'),20);
     }
     return;
   }
@@ -255,7 +282,7 @@ function handleFinalCapture(e){
       },570);
     }else if(finalPhase==='peek' || finalPhase==='decide'){
       finalPhase='resetting';
-      setTimeout(()=>clearVisualHand(),700);
+      setTimeout(()=>clearVisualHand(true),700);
       setTimeout(()=>{rebuildFinalHand(); finalPhase='peek';},2900);
     }
   }
@@ -265,17 +292,34 @@ document.addEventListener('click',handleFinalCapture,true);
 document.addEventListener('click',handleFrontBubble,false);
 
 const flowObserver=new MutationObserver(()=>{
-  if(finalMode || lessonNo!==7 || opponentShootApplied) return;
   const text=$('flow')?.textContent||'';
-  if(text.includes('PLAYER 2 PLAYS SHOOT')){
+
+  if(!finalMode && lessonNo===7 && !opponentShootApplied && text.includes('PLAYER 2 PLAYS SHOOT')){
     opponentShootApplied=true;
     setTimeout(()=>{
       changeOther(1,-1,'warn');
       addFlowChip('PLAYER 2 PLAYED SHOOT → CARD LEFT THEIR HAND','warn');
     },80);
   }
+
+  if(!finalMode && (lessonNo===3 || lessonNo===4) && !soccerDrawHandled && /YOU DRAW/.test(text) && /SOCCER/.test(text)){
+    soccerDrawHandled=true;
+    setTimeout(()=>addFlowChip(`SOCCER RESOLVES • YOUR HAND STAYS ${handCards.length}`,'warn'),120);
+  }
 });
 if($('flow')) flowObserver.observe($('flow'),{subtree:true,childList:true,characterData:true});
+
+const playerObserver=new MutationObserver(()=>{
+  if(finalMode || lessonNo!==1 || lessonOneOutHandled) return;
+  const p=$('P0');
+  if(!p) return;
+  const out=p.classList.contains('out') || /\bOUT\b/.test(p.querySelector('.pTag')?.textContent||'');
+  if(out){
+    lessonOneOutHandled=true;
+    setTimeout(()=>clearVisualHand(true),120);
+  }
+});
+if($('P0')) playerObserver.observe($('P0'),{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
 
 const lessonObserver=new MutationObserver(()=>{
   clearTimeout(changeTimer);
