@@ -12,6 +12,7 @@
 <link rel="preload" as="script" href="casual-coach.js?v=20260906coach4">
 <link rel="preload" as="script" href="casual-hand-sync.js?v=20260906hand2">
 <link rel="preload" as="script" href="casual-final-fix.js?v=20260906final1">
+<link rel="preload" as="image" href="images/soccer-header-icon.webp">
 <link rel="preload" as="image" href="images/coach-guide.webp">
 <link rel="preload" as="image" href="images/soccer-card.webp?v=20260904fix1">
 <link rel="preload" as="image" href="images/shoot-card.webp">
@@ -24,11 +25,11 @@
 <style>
 html,body{margin:0;min-height:100%;background:#06111d}
 #loader{position:fixed;inset:0;z-index:5000;display:grid;place-items:center;background:radial-gradient(circle at 50% 20%,#164765,#061522 62%,#030b12);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#fff;transition:.28s opacity}
-#loader.done{opacity:0;pointer-events:none}.loadCard{width:min(390px,88vw);text-align:center}.loadBall{width:72px;height:72px;margin:0 auto 12px;background:url('images/soccer-card.webp?v=20260904fix1') center/contain no-repeat;filter:drop-shadow(0 10px 18px #0008)}.loadTitle{font-weight:950;font-size:25px}.loadSub{font-size:11px;letter-spacing:.16em;color:#bdd1e4;margin-top:5px}.loadTrack{height:8px;border-radius:99px;background:#ffffff1c;overflow:hidden;margin:18px 0 7px}.loadFill{height:100%;width:0;background:linear-gradient(90deg,#ffcf42,#fff0a0);transition:.15s width}.loadPct{font-size:11px;color:#d4e1ed}
+#loader.done{opacity:0;pointer-events:none}.loadCard{width:min(390px,88vw);text-align:center}.loadBall{width:82px;height:82px;margin:0 auto 17px;border-radius:50%;background:#fff url('images/soccer-header-icon.webp') center/145% 145% no-repeat;border:4px solid #06170b;box-shadow:0 0 0 4px #fff,0 0 0 8px #bfff1f,0 10px 22px #0007;animation:loaderPulse .9s ease-in-out infinite alternate}.loadTitle{font-weight:950;font-size:25px}.loadSub{font-size:11px;letter-spacing:.16em;color:#bdd1e4;margin-top:5px}.loadTrack{height:8px;border-radius:99px;background:#ffffff1c;overflow:hidden;margin:18px 0 7px}.loadFill{height:100%;width:0;background:linear-gradient(90deg,#ffcf42,#fff0a0);transition:.15s width}.loadPct{font-size:11px;color:#d4e1ed}@keyframes loaderPulse{from{transform:scale(.96) rotate(-2deg)}to{transform:scale(1.04) rotate(2deg)}}
 </style>
 </head>
 <body>
-<div id="loader" role="status" aria-live="polite"><div class="loadCard"><div class="loadBall"></div><div class="loadTitle">CASUAL PARTY MODE</div><div class="loadSub">LOADING COACH + GAME ASSETS</div><div class="loadTrack"><div class="loadFill" id="loaderFill"></div></div><div class="loadPct" id="loaderPct">0%</div></div></div>
+<div id="loader" role="status" aria-live="polite"><div class="loadCard"><div class="loadBall" aria-hidden="true"></div><div class="loadTitle">CASUAL PARTY MODE</div><div class="loadSub">LOADING COACH + GAME ASSETS</div><div class="loadTrack"><div class="loadFill" id="loaderFill"></div></div><div class="loadPct" id="loaderPct">0%</div></div></div>
 <div id="app" hidden>
 <header class="topbar"><div class="brand">GOAL-SCORING <span>MOMENT</span></div><div class="topActions"><button class="navBtn gold" id="ruleBtn">RULEBOOK</button><button class="navBtn" id="coursesBtn">COURSES</button><a class="navBtn" href="index.html">MODES</a></div></header>
 <div class="progress" id="progress"></div>
