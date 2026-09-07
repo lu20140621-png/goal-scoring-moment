@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="page">
-<nav class="topbar"><div class="brand"><div class="brandBall"></div><div>MATCH MODE<small>3v3 PLAYTEST · VS AI · CURRENT RULES</small></div></div><div class="toplinks"><a href="match-rules-v7.html?v=20260907m15">RULEBOOK</a><a href="match.html?v=20260907m15">MATCH MENU</a><a href="index.html">ALL MODES</a></div></nav>
+<nav class="topbar"><div class="brand"><div class="brandBall"></div><div>MATCH MODE<small>3v3 PLAYTEST · VS AI · CURRENT RULES</small></div></div><div class="toplinks"><a href="match-rules.html?v=20260907m16">RULEBOOK</a><a href="match.html?v=20260907m16">MATCH MENU</a><a href="index.html">ALL MODES</a></div></nav>
 <div class="scorebar"><div class="scoreTeam green">AI GREEN<div class="scoreNum" id="greenScore">0</div></div><div class="clock"><b id="clock">10:00</b><span id="clockLabel">TRADE TIME COUNTS</span></div><div class="scoreTeam blue">YOU BLUE<div class="scoreNum" id="blueScore">0</div></div></div>
 <div class="field"><div class="formation">
 <div class="player green" id="GKG"><div class="playerRole">GOALKEEPER</div><div class="playerName">AI GK</div><div class="handCount">8 CARDS</div><div class="ball"></div></div>
@@ -20,7 +20,7 @@
 <div class="player blue" id="BKG"><div class="playerRole">GOALKEEPER</div><div class="playerName">BLUE GK</div><div class="handCount">8 CARDS</div><div class="ball"></div></div>
 </div></div>
 <div class="matchStatusLine"><span>6 PLAYERS × 8 CARDS = 48 DEALT</span><span id="roundHint">3 EXTRAS DISCARDED</span></div>
-<div class="notice" id="notice">Goalkeepers may join the attack. If an attacking GK loses Soccer to TACKLE, that GK is OUT OF POSITION until the team regains Soccer or the GK discards 1 card to return when the counterattack reaches goal.</div>
+<div class="notice" id="notice">TURNOVER RESET: whenever TACKLE changes possession, the old attack ends completely. The next SHOOT always starts again at the opponent's Defender 1. Goalkeepers may also join the attack, but losing Soccer to TACKLE can leave them OUT OF POSITION.</div>
 <div class="livePlay" id="livePlay"><div class="liveHead">LIVE CARD PLAY <span>cards resolve left → right</span></div><div class="liveCards" id="liveCards"><div class="liveEmpty">Played cards appear here.</div></div></div>
 <div class="layout">
 <section class="panel"><h2 id="phaseTitle">TEAM TRADE</h2><div class="tradeHelp" id="phaseHelp">Everyone has 8 cards. Tap 1 card, switch to another BLUE teammate, then tap the card you want to exchange with it. The swap happens automatically. GK may attack, so SHOOT / DRIBBLE / attacking YELLOW can be useful in the GK hand; manage DEFENSE carefully because returning from an advanced position may cost 1 card. AUTO BALANCE is optional.</div><div class="handTabs" id="handTabs"></div><div class="cards" id="cards"></div><div class="actions" id="actions"></div></section>
