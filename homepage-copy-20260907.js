@@ -21,6 +21,9 @@
     chip.classList.toggle('homeUpdateChip',i===0);
   });
 
+  const strategy2=document.querySelector('a.modeCard.strategy2');
+  if(strategy2)strategy2.href='strategy2.html?v=20260907idcheck1';
+
   if(!document.getElementById('gsm-home-copy-style')){
     const style=document.createElement('style');
     style.id='gsm-home-copy-style';
