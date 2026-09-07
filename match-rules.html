@@ -6,185 +6,136 @@
 <title>Match Mode — Complete Rulebook</title>
 <link rel="stylesheet" href="match.css?v=20260907m2">
 <style>
-.rulebook{max-width:980px;margin:18px auto 0}.ruleHero{text-align:center;padding:28px 14px 18px}.ruleHero .kicker{font-size:9px;font-weight:1000;letter-spacing:.18em;color:#dfff72}.ruleHero h1{margin:5px 0 8px;font:clamp(46px,8vw,78px)/.9 Impact,"Arial Black",Arial,sans-serif;text-shadow:4px 5px 0 #062c17}.ruleHero h1 span{color:#ffd83d}.ruleHero p{max-width:760px;margin:0 auto;color:#d9ebde;font-size:12px;font-weight:750;line-height:1.55}.difficulty{display:inline-flex;margin-top:14px;padding:8px 12px;border-radius:999px;background:#ffb21b;color:#261300;border:2px solid #321800;box-shadow:0 4px 0 #170b00;font-size:9px;font-weight:1000;letter-spacing:.08em}.quickGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 18px}.quick{padding:11px;border-radius:13px;background:#0b341d;border:1px solid #4ea96a;font-size:9px;font-weight:850;line-height:1.45}.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 16px}.toc a{text-decoration:none;padding:9px 10px;border-radius:11px;background:#092719;border:1px solid #397b50;color:#eaf7ed;font-size:9px;font-weight:900}.ruleSection{margin:12px 0;padding:17px;border-radius:18px;border:2px solid #3f9c5d;background:linear-gradient(180deg,#0d321d,#071f12);box-shadow:0 7px 20px #0004}.ruleSection h2{margin:0 0 10px;font-family:"Arial Black",Arial,sans-serif;font-size:17px;color:#eaff9d}.ruleSection h3{margin:15px 0 7px;font-size:12px;color:#fff}.ruleSection p,.ruleSection li{font-size:11px;line-height:1.62;color:#e4f2e7}.ruleSection ul,.ruleSection ol{margin:7px 0 0;padding-left:20px}.ruleLine{display:grid;grid-template-columns:170px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #ffffff12}.ruleLine:last-child{border-bottom:0}.ruleKey{font-size:10px;font-weight:1000;color:#dfff72}.ruleVal{font-size:11px;line-height:1.55;color:#edf7ef}.formationRule{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.formationStep{padding:12px 8px;border-radius:13px;text-align:center;background:#0a4928;border:1px solid #6ac486;font-size:10px;font-weight:1000}.arrowFlow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0}.flowBox{padding:7px 9px;border-radius:10px;background:#123e24;border:1px solid #5fb67a;font-size:9px;font-weight:950}.arrow{font-weight:1000;color:#dfff72}.cardRules{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.cardRule{padding:9px;border-radius:13px;background:#082718;border:1px solid #4f9e68;text-align:center}.cardRule img{width:76px;height:112px;object-fit:contain;filter:drop-shadow(0 5px 5px #0008)}.cardRule b{display:block;font-size:9px;margin-top:4px}.cardRule span{display:block;margin-top:4px;font-size:8px;line-height:1.42;color:#d4e8d8}.example,.ruling,.important{margin-top:10px;padding:11px;border-radius:13px;background:#041b0f;border:1px solid #2f7145}.example b,.ruling b{color:#ffd83d}.ruling{border-color:#4a91ce;background:#071d2c}.ruling b{color:#8fd0ff}.important{border-color:#d9b83f;background:#302807}.important b{color:#ffe56f}.warning{border-color:#d9b83f;background:#302807}.penalty{border-color:#f2c63f;background:linear-gradient(180deg,#3b3007,#171304)}.penalty h2{color:#ffe56f}.caseGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.case{padding:11px;border-radius:13px;background:#082719;border:1px solid #3f8457}.case b{display:block;color:#dfff72;font-size:10px;margin-bottom:5px}.case span{font-size:10px;line-height:1.5;color:#e9f5ec}.ruleFooter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}.ruleFooter a{text-decoration:none;color:#07150a;background:#c9ff26;border:2px solid #06160a;border-radius:11px;padding:10px 12px;font-size:10px;font-weight:1000;box-shadow:0 4px 0 #00170a}.ruleFooter a.alt{background:#5db5ff}.version{text-align:center;color:#9bc9a7;font-size:8px;letter-spacing:.12em;margin-top:12px}@media(max-width:760px){.quickGrid{grid-template-columns:1fr 1fr}.toc{grid-template-columns:1fr 1fr}.cardRules{grid-template-columns:1fr 1fr}.ruleLine{grid-template-columns:1fr;gap:3px}.formationRule{grid-template-columns:1fr}.caseGrid{grid-template-columns:1fr}.rulebook{margin-top:10px}.ruleSection{padding:13px}.ruleHero{padding-top:22px}}@media(max-width:420px){.quickGrid,.toc{grid-template-columns:1fr}.cardRules{grid-template-columns:1fr 1fr}.cardRule img{width:68px;height:101px}}
+.rulebook{max-width:980px;margin:18px auto 0}.ruleHero{text-align:center;padding:28px 14px 18px}.ruleHero .kicker{font-size:9px;font-weight:1000;letter-spacing:.18em;color:#dfff72}.ruleHero h1{margin:5px 0 8px;font:clamp(46px,8vw,78px)/.9 Impact,"Arial Black",Arial,sans-serif;text-shadow:4px 5px 0 #062c17}.ruleHero h1 span{color:#ffd83d}.ruleHero p{max-width:760px;margin:0 auto;color:#d9ebde;font-size:12px;font-weight:750;line-height:1.55}.difficulty{display:inline-flex;margin-top:14px;padding:8px 12px;border-radius:999px;background:#ffb21b;color:#261300;border:2px solid #321800;box-shadow:0 4px 0 #170b00;font-size:9px;font-weight:1000;letter-spacing:.08em}.quickGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 18px}.quick{padding:11px;border-radius:13px;background:#0b341d;border:1px solid #4ea96a;font-size:9px;font-weight:850;line-height:1.45}.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 16px}.toc a{text-decoration:none;padding:9px 10px;border-radius:11px;background:#092719;border:1px solid #397b50;color:#eaf7ed;font-size:9px;font-weight:900}.ruleSection{margin:12px 0;padding:17px;border-radius:18px;border:2px solid #3f9c5d;background:linear-gradient(180deg,#0d321d,#071f12);box-shadow:0 7px 20px #0004}.ruleSection h2{margin:0 0 10px;font-family:"Arial Black",Arial,sans-serif;font-size:17px;color:#eaff9d}.ruleSection h3{margin:15px 0 7px;font-size:12px;color:#fff}.ruleSection p,.ruleSection li{font-size:11px;line-height:1.62;color:#e4f2e7}.ruleSection ul,.ruleSection ol{margin:7px 0 0;padding-left:20px}.ruleLine{display:grid;grid-template-columns:180px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #ffffff12}.ruleLine:last-child{border-bottom:0}.ruleKey{font-size:10px;font-weight:1000;color:#dfff72}.ruleVal{font-size:11px;line-height:1.55;color:#edf7ef}.arrowFlow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0}.flowBox{padding:7px 9px;border-radius:10px;background:#123e24;border:1px solid #5fb67a;font-size:9px;font-weight:950}.arrow{font-weight:1000;color:#dfff72}.cardRules{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.cardRule{padding:9px;border-radius:13px;background:#082718;border:1px solid #4f9e68;text-align:center}.cardRule img{width:76px;height:112px;object-fit:contain;filter:drop-shadow(0 5px 5px #0008)}.cardRule b{display:block;font-size:9px;margin-top:4px}.cardRule span{display:block;margin-top:4px;font-size:8px;line-height:1.42;color:#d4e8d8}.example,.ruling,.important{margin-top:10px;padding:11px;border-radius:13px;background:#041b0f;border:1px solid #2f7145}.example b{color:#ffd83d}.ruling{border-color:#4a91ce;background:#071d2c}.ruling b{color:#8fd0ff}.important{border-color:#d9b83f;background:#302807}.important b{color:#ffe56f}.yellowBox{border-color:#f0c83c;background:linear-gradient(180deg,#403407,#171504)}.yellowBox h2{color:#ffe46b}.caseGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.case{padding:11px;border-radius:13px;background:#082719;border:1px solid #3f8457}.case b{display:block;color:#dfff72;font-size:10px;margin-bottom:5px}.case span{font-size:10px;line-height:1.5;color:#e9f5ec}.ruleFooter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}.ruleFooter a{text-decoration:none;color:#07150a;background:#c9ff26;border:2px solid #06160a;border-radius:11px;padding:10px 12px;font-size:10px;font-weight:1000;box-shadow:0 4px 0 #00170a}.ruleFooter a.alt{background:#5db5ff}.version{text-align:center;color:#9bc9a7;font-size:8px;letter-spacing:.12em;margin-top:12px}@media(max-width:760px){.quickGrid{grid-template-columns:1fr 1fr}.toc{grid-template-columns:1fr 1fr}.cardRules{grid-template-columns:1fr 1fr}.ruleLine{grid-template-columns:1fr;gap:3px}.caseGrid{grid-template-columns:1fr}.ruleSection{padding:13px}}@media(max-width:420px){.quickGrid,.toc{grid-template-columns:1fr}.cardRules{grid-template-columns:1fr 1fr}.cardRule img{width:68px;height:101px}}
 </style>
 </head>
 <body>
 <div class="page">
-<nav class="topbar"><div class="brand"><div class="brandBall"></div><div>MATCH MODE<small>COMPLETE PLAYTEST RULEBOOK</small></div></div><div class="toplinks"><a href="match.html?v=20260907m9">MATCH MENU</a><a href="match-ai.html?v=20260907m9">VS AI</a><a href="match-tutorial.html?v=20260907m9">TUTORIAL</a></div></nav>
+<nav class="topbar"><div class="brand"><div class="brandBall"></div><div>MATCH MODE<small>COMPLETE PLAYTEST RULEBOOK · CURRENT RULES</small></div></div><div class="toplinks"><a href="match.html?v=20260907m12">MATCH MENU</a><a href="match-ai.html?v=20260907m12">VS AI</a><a href="match-tutorial.html?v=20260907m12">TUTORIAL</a></div></nav>
 <main class="rulebook">
-<header class="ruleHero"><div class="kicker">GOAL-SCORING MOMENT · MODE 05</div><h1>MATCH <span>MODE</span></h1><p>A complete 10-minute 3v3 playtest rulebook covering setup, possession, every attack and defense step, TACKLE turnovers, DRIBBLE recovery, YELLOW timing, Goalkeeper outcomes, match endings, and common table disputes.</p><div class="difficulty">⚠ HIGH DIFFICULTY · FIRST-TIME PLAYERS SHOULD READ THE FULL FLOW</div></header>
-
-<section class="quickGrid"><div class="quick">👥 <b>3v3</b><br>Defender 1 + Defender 2 + Goalkeeper.</div><div class="quick">🃏 <b>8 EACH</b><br>48 dealt. 3 extras discarded.</div><div class="quick">⏱️ <b>10:00 TOTAL</b><br>Trading time counts.</div><div class="quick">⚽ <b>WIN BY SCORE</b><br>Tie → Penalty Shootout.</div></section>
-
-<nav class="toc"><a href="#setup">1. Setup</a><a href="#possession">2. Possession & Pass</a><a href="#cards">3. Card Functions</a><a href="#attack">4. Full Attack Flow</a><a href="#defense">5. DEFENSE Flow</a><a href="#tackle">6. TACKLE & Steal Flow</a><a href="#dribble">7. DRIBBLE & Chase</a><a href="#yellow">8. YELLOW Timing</a><a href="#gk">9. Goalkeeper Flow</a><a href="#end">10. Match End</a><a href="#penalty">11. Penalty Shootout</a><a href="#rulings">12. Common Rulings</a></nav>
+<header class="ruleHero"><div class="kicker">GOAL-SCORING MOMENT · MODE 05</div><h1>MATCH <span>MODE</span></h1><p>Complete 10-minute 3v3 rules covering setup, possession, passing, every defensive line, DEFENSE, TACKLE, DRIBBLE, line-specific YELLOW timing, Goalkeeper outcomes, turnovers, endings and tie-breaks.</p><div class="difficulty">⚠ HIGH DIFFICULTY · FIRST-TIME PLAYERS SHOULD READ THE FULL FLOW</div></header>
+<section class="quickGrid"><div class="quick">👥 <b>3v3</b><br>Defender 1 + Defender 2 + Goalkeeper.</div><div class="quick">🃏 <b>8 EACH</b><br>48 dealt. 3 extras discarded.</div><div class="quick">⏱️ <b>10:00 TOTAL</b><br>Trading time counts.</div><div class="quick">⚽ <b>HIGH SCORE WINS</b><br>Tie → Penalty Shootout.</div></section>
+<nav class="toc"><a href="#setup">1. Setup</a><a href="#possession">2. Possession & Pass</a><a href="#cards">3. Cards</a><a href="#attack">4. Full Attack</a><a href="#defense">5. DEFENSE</a><a href="#tackle">6. TACKLE</a><a href="#dribble">7. DRIBBLE</a><a href="#yellow">8. YELLOW</a><a href="#gk">9. Goalkeeper</a><a href="#turnover">10. New Possession</a><a href="#end">11. Match End</a><a href="#penalty">12. Penalty</a><a href="#rulings">13. Rulings</a></nav>
 
 <section class="ruleSection" id="setup"><h2>1. SETUP, DEAL & CLOCK</h2>
-<div class="ruleLine"><div class="ruleKey">TEAMS</div><div class="ruleVal">Standard Match Mode playtest is 3v3. Each team has Defender 1, Defender 2, and one Goalkeeper.</div></div>
-<div class="ruleLine"><div class="ruleKey">ROLES</div><div class="ruleVal">Roles are public. Everyone knows each team's two field defenders and Goalkeeper.</div></div>
-<div class="ruleLine"><div class="ruleKey">DEAL</div><div class="ruleVal">Shuffle all 51 Action Cards. Deal exactly 8 cards to each of the 6 players: 48 cards total. Discard the remaining 3 cards face-down. They are not used during the main match.</div></div>
-<div class="ruleLine"><div class="ruleKey">10-MINUTE CLOCK</div><div class="ruleVal">Start the timer immediately after dealing. Team trading and final setup are already part of the 10 minutes.</div></div>
-<div class="ruleLine"><div class="ruleKey">TEAM TRADE</div><div class="ruleVal">Before the team is locked, teammates may trade cards. Every trade must keep hand sizes equal; the web version uses 1-for-1 swaps. After the team is locked, normal trading ends.</div></div>
-<div class="ruleLine"><div class="ruleKey">HAND SIZE AFTER START</div><div class="ruleVal">Everyone begins with the same 8 cards. Once play begins, hand sizes naturally become different as cards are played or discarded.</div></div>
-<div class="ruleLine"><div class="ruleKey">FIRST POSSESSION</div><div class="ruleVal">Use Rock-Paper-Scissors. Repeat ties. The winner receives the Soccer Card and becomes the first attacking team.</div></div>
+<div class="ruleLine"><div class="ruleKey">TEAMS</div><div class="ruleVal">Play 3v3. Each team has Defender 1, Defender 2 and one Goalkeeper. Roles are public.</div></div>
+<div class="ruleLine"><div class="ruleKey">DEAL</div><div class="ruleVal">Shuffle all 51 Action Cards. Deal exactly 8 to each of the 6 players = 48 cards. Discard the remaining 3 face-down for the main match.</div></div>
+<div class="ruleLine"><div class="ruleKey">CLOCK</div><div class="ruleVal">Start the 10:00 timer immediately after dealing. Team trading and final setup already count against the clock.</div></div>
+<div class="ruleLine"><div class="ruleKey">TRADING</div><div class="ruleVal">Before teams are locked, teammates may exchange cards while keeping hand sizes equal. The web version uses 1-for-1 swaps.</div></div>
+<div class="ruleLine"><div class="ruleKey">FIRST SOCCER</div><div class="ruleVal">Use Rock-Paper-Scissors. Repeat ties. The winner receives Soccer and starts with possession.</div></div>
 </section>
 
 <section class="ruleSection" id="possession"><h2>2. POSSESSION & PASSING</h2>
-<p>The Soccer Card represents the ball. Whoever physically holds Soccer is the active ballholder. A new possession is not automatically an attack; the ballholder decides what to do next.</p>
-<div class="ruleLine"><div class="ruleKey">WHO CAN ACT?</div><div class="ruleVal">The Soccer holder may initiate PASS or play SHOOT if that player has a SHOOT card. This also applies when the Goalkeeper later becomes the Soccer holder.</div></div>
-<div class="ruleLine"><div class="ruleKey">PASS</div><div class="ruleVal">PASS is free and uses no Action Card. The Soccer holder may pass to either teammate.</div></div>
-<div class="ruleLine"><div class="ruleKey">PASS DEFENSE</div><div class="ruleVal">During a PASS, opposing field Players may attempt TACKLE in formation order: Defender 1 first, then Defender 2. Goalkeepers do not use TACKLE to intercept a normal PASS.</div></div>
-<div class="ruleLine"><div class="ruleKey">PASS → TACKLE</div><div class="ruleVal">If a TACKLE succeeds, the pass immediately ends and the tackler takes Soccer.</div></div>
-<div class="ruleLine"><div class="ruleKey">PASS → TACKLE → DRIBBLE</div><div class="ruleVal">The passer may play DRIBBLE PAST against that TACKLE. If the DRIBBLE succeeds, that TACKLE is beaten and the pass continues to the next interception window.</div></div>
-<div class="ruleLine"><div class="ruleKey">YELLOW ON PASS</div><div class="ruleVal">YELLOW is not active during a normal PASS because a SHOOT chain has not started.</div></div>
+<p>Soccer represents possession. Only the player physically holding Soccer is the active ballholder.</p>
+<div class="ruleLine"><div class="ruleKey">BALLHOLDER OPTIONS</div><div class="ruleVal">The holder may PASS to either teammate for free, or play SHOOT if holding a SHOOT card.</div></div>
+<div class="ruleLine"><div class="ruleKey">PASS</div><div class="ruleVal">PASS uses no Action Card.</div></div>
+<div class="ruleLine"><div class="ruleKey">PASS DEFENSE</div><div class="ruleVal">During a PASS, Defender 1 gets the first TACKLE window, then Defender 2. Goalkeeper does not TACKLE a normal PASS.</div></div>
+<div class="ruleLine"><div class="ruleKey">PASS TACKLE</div><div class="ruleVal">Successful TACKLE ends the PASS and gives Soccer to the tackler. The passer may answer that TACKLE with DRIBBLE PAST.</div></div>
+<div class="ruleLine"><div class="ruleKey">YELLOW ON PASS</div><div class="ruleVal">No YELLOW during a normal PASS. A SHOOT defensive line has not started yet.</div></div>
 <div class="arrowFlow"><span class="flowBox">SOCCER HOLDER</span><span class="arrow">→</span><span class="flowBox">PASS</span><span class="arrow">→</span><span class="flowBox">D1 TACKLE?</span><span class="arrow">→</span><span class="flowBox">D2 TACKLE?</span><span class="arrow">→</span><span class="flowBox">PASS COMPLETE</span></div>
-<p class="ruling"><b>RULING:</b> A defender cannot simply throw TACKLE the instant the other team receives Soccer. Outside a SHOOT, TACKLE's possession-interception window is created by a PASS.</p>
+<p class="ruling"><b>RULING:</b> You cannot TACKLE simply because an opponent just received Soccer. Outside a SHOOT, TACKLE needs a PASS window.</p>
 </section>
 
-<section class="ruleSection" id="cards"><h2>3. WHAT EACH ACTION CARD DOES</h2>
-<div class="cardRules">
-<div class="cardRule"><img src="images/shoot-card.webp" alt="SHOOT card"><b>SHOOT</b><span>Starts a scoring attack. SHOOT cannot be canceled by YELLOW.</span></div>
-<div class="cardRule"><img src="images/defense-card.webp" alt="DEFENSE card"><b>DEFENSE</b><span>Field Player: ends this SHOOT but does not steal Soccer. Goalkeeper: starts the RPS save duel.</span></div>
-<div class="cardRule"><img src="images/tackle.webp?v=20260904tackle2" alt="TACKLE card"><b>TACKLE</b><span>Intercepts PASS or challenges during a SHOOT. Successful TACKLE steals Soccer.</span></div>
-<div class="cardRule"><img src="images/dribble%20past-card.webp" alt="DRIBBLE PAST card"><b>DRIBBLE PAST</b><span>Beats one field DEFENSE or TACKLE attempt. One DRIBBLE = one defensive attempt beaten.</span></div>
-<div class="cardRule"><img src="images/yellow-card.webp" alt="YELLOW card"><b>YELLOW</b><span>Only active inside a SHOOT chain. Cancels TACKLE, DRIBBLE or YELLOW. Never SHOOT or DEFENSE.</span></div>
-</div>
-</section>
+<section class="ruleSection" id="cards"><h2>3. ACTION CARD FUNCTIONS</h2><div class="cardRules">
+<div class="cardRule"><img src="images/shoot-card.webp" alt="SHOOT"><b>SHOOT</b><span>Starts one scoring attack. It cannot be canceled by YELLOW.</span></div>
+<div class="cardRule"><img src="images/defense-card.webp" alt="DEFENSE"><b>DEFENSE</b><span>Field Player: stops this SHOOT but does not steal Soccer. GK: starts RPS.</span></div>
+<div class="cardRule"><img src="images/tackle.webp?v=20260904tackle2" alt="TACKLE"><b>TACKLE</b><span>Intercept PASS or challenge a SHOOT line. Successful TACKLE wins Soccer.</span></div>
+<div class="cardRule"><img src="images/dribble%20past-card.webp" alt="DRIBBLE"><b>DRIBBLE PAST</b><span>Beats one field DEFENSE or TACKLE attempt.</span></div>
+<div class="cardRule"><img src="images/yellow-card.webp" alt="YELLOW"><b>YELLOW</b><span>Line-specific reaction. Defender uses it only against opponent DRIBBLE/YELLOW on that line.</span></div>
+</div></section>
 
 <section class="ruleSection" id="attack"><h2>4. COMPLETE SHOOT / ATTACK FLOW</h2>
-<p>Playing SHOOT creates one attack chain. That chain must be fully resolved before a new PASS or new SHOOT can begin.</p>
+<p>One SHOOT creates one attack chain. Resolve it completely before any new PASS or SHOOT.</p>
 <div class="arrowFlow"><span class="flowBox">SHOOT</span><span class="arrow">→</span><span class="flowBox">DEFENDER 1</span><span class="arrow">→</span><span class="flowBox">DEFENDER 2</span><span class="arrow">→</span><span class="flowBox">GOALKEEPER</span></div>
-<ol>
-<li><b>Ballholder plays SHOOT.</b> The SHOOT card is spent and the attack begins. YELLOW cannot cancel the SHOOT itself.</li>
-<li><b>Defender 1 receives the first defensive window.</b> D1 may play DEFENSE, play TACKLE, or let the attack through.</li>
-<li>If D1 plays DEFENSE or TACKLE, the attacker may answer with DRIBBLE PAST.</li>
-<li>If the attacker beats D1 with DRIBBLE, D1 immediately decides whether to pay the chase-back cost or allow the attack to move on.</li>
-<li><b>Defender 2 then receives a defensive window.</b> D2 may also play DEFENSE or TACKLE during the same SHOOT. TACKLE is therefore not limited to passing.</li>
-<li>Resolve D2 exactly the same way: DEFENSE/TACKLE → possible DRIBBLE → possible chase-back.</li>
-<li>If all active field defense is cleared, the attack reaches the Goalkeeper.</li>
-</ol>
-<p class="important"><b>NO SIMULTANEOUS DEFENSE:</b> Both field Players may defend in the same SHOOT, but resolve them in order. Defender 2 does not throw a card while Defender 1 still has an unresolved defensive response. This prevents arguments about which card was first.</p>
-
-<h3>If a defender chooses LET ATTACK THROUGH</h3><p>No card is spent and the attacker does not need DRIBBLE. The attack simply advances to the next defensive line.</p>
-<h3>If a defender has no DEFENSE or TACKLE</h3><p>That line is passed automatically. The attack advances without requiring DRIBBLE.</p>
+<ol><li>Ballholder spends SHOOT. SHOOT cannot be erased by YELLOW.</li><li>D1 receives the first defensive line. D1 may play DEFENSE, play TACKLE, or not defend.</li><li>If D1 plays DEFENSE/TACKLE, attacker may respond with DRIBBLE. Resolve all reactions on D1 before moving on.</li><li>If D1 is passed, D1 may pay the chase-back cost after a successful DRIBBLE, otherwise the attack advances.</li><li>D2 now receives its own separate defensive line and the same choices.</li><li>If D2 uses no DEFENSE or TACKLE, D2 has not defended. The attacker needs no DRIBBLE and goes directly to the Goalkeeper.</li><li>If both field lines are cleared, resolve the Goalkeeper stage.</li></ol>
+<p class="important"><b>VERY IMPORTANT:</b> D1 and D2 are separate windows. D2 does not play before D1 finishes. Once the attack moves to D2, D1's normal defensive-line reactions are over.</p>
+<p class="example"><b>Example:</b> SHOOT → D1 DEFENSE → DRIBBLE → D1 does not chase → D2 plays nothing → no second DRIBBLE is required → attack goes straight to GK.</p>
 </section>
 
-<section class="ruleSection" id="defense"><h2>5. DEFENSE — COMPLETE RESULT FLOW</h2>
-<p>DEFENSE is the safer defensive card. It can stop a SHOOT, but a field Player's DEFENSE does <b>not</b> win possession.</p>
-<div class="arrowFlow"><span class="flowBox">SHOOT</span><span class="arrow">→</span><span class="flowBox">FIELD DEFENSE</span><span class="arrow">→</span><span class="flowBox">DRIBBLE?</span></div>
-<div class="caseGrid">
-<div class="case"><b>NO DRIBBLE / ATTACKER DECLINES</b><span>DEFENSE succeeds. The current SHOOT ends. Soccer stays with the attacking player who had it.</span></div>
-<div class="case"><b>DRIBBLE SUCCEEDS</b><span>The defender is beaten. The defender chooses chase-back or lets the attack continue to the next line.</span></div>
-<div class="case"><b>YELLOW vs DEFENSE</b><span>Not allowed. DEFENSE is immune to YELLOW.</span></div>
-<div class="case"><b>YELLOW CANCELS THE DRIBBLE</b><span>The DRIBBLE disappears, so the earlier DEFENSE succeeds. The SHOOT ends, but Soccer still stays with the attacking side.</span></div>
-</div>
-<h3>What happens immediately after a successful field DEFENSE?</h3>
-<ol><li>The current SHOOT chain ends.</li><li>The SHOOT and DEFENSE cards stay spent/discarded.</li><li>Soccer remains with the same attacking ballholder.</li><li>All temporary beaten/chase states from that SHOOT reset.</li><li>The game returns to normal possession.</li><li>The ballholder may PASS, or may later use another SHOOT if available.</li><li>A new SHOOT always starts again at Defender 1.</li></ol>
-<p class="example"><b>Example:</b> BLUE 1 SHOOT → GREEN 1 DEFENSE → BLUE has no DRIBBLE. The attack ends. BLUE 1 still holds Soccer. BLUE may PASS to BLUE 2 or, if BLUE 1 has another SHOOT, attack again. The next SHOOT starts again at GREEN 1.</p>
+<section class="ruleSection" id="defense"><h2>5. FIELD DEFENSE — WHAT HAPPENS AFTER IT WORKS</h2>
+<div class="ruleLine"><div class="ruleKey">WHEN USED</div><div class="ruleVal">Only when the SHOOT is currently at that field defender's line.</div></div>
+<div class="ruleLine"><div class="ruleKey">YELLOW IMMUNITY</div><div class="ruleVal">DEFENSE cannot be canceled by YELLOW.</div></div>
+<div class="ruleLine"><div class="ruleKey">IF NOT DRIBBLED</div><div class="ruleVal">The current SHOOT ends immediately.</div></div>
+<div class="ruleLine"><div class="ruleKey">SOCCER AFTER DEFENSE</div><div class="ruleVal"><b>Soccer stays with the attacking ballholder.</b> DEFENSE stops the shot; it does not win possession.</div></div>
+<div class="ruleLine"><div class="ruleKey">NEXT ACTION</div><div class="ruleVal">Reset temporary attack states. The holder may PASS or later use another SHOOT. A new SHOOT starts again at D1.</div></div>
+<p class="example"><b>Example:</b> BLUE SHOOT → GREEN D1 DEFENSE → BLUE does not DRIBBLE. This SHOOT ends, but BLUE still has Soccer.</p>
 </section>
 
-<section class="ruleSection" id="tackle"><h2>6. TACKLE — STEALING SOCCER & WHAT HAPPENS NEXT</h2>
-<p>TACKLE is the possession-winning defensive card. It has two legal families of use: intercepting a PASS and challenging a SHOOT at a field defensive line.</p>
-<h3>A. TACKLE during PASS</h3><div class="arrowFlow"><span class="flowBox">PASS</span><span class="arrow">→</span><span class="flowBox">TACKLE</span><span class="arrow">→</span><span class="flowBox">DRIBBLE?</span><span class="arrow">→</span><span class="flowBox">STEAL OR PASS CONTINUES</span></div>
-<h3>B. TACKLE during SHOOT</h3><div class="arrowFlow"><span class="flowBox">SHOOT</span><span class="arrow">→</span><span class="flowBox">D1 / D2 TACKLE</span><span class="arrow">→</span><span class="flowBox">YELLOW?</span><span class="arrow">→</span><span class="flowBox">DRIBBLE?</span><span class="arrow">→</span><span class="flowBox">STEAL OR ATTACK CONTINUES</span></div>
-<div class="caseGrid">
-<div class="case"><b>TACKLE SUCCEEDS</b><span>The current PASS or SHOOT ends immediately. The tackler physically takes the Soccer Card.</span></div>
-<div class="case"><b>DRIBBLE BEATS TACKLE</b><span>TACKLE fails. During a SHOOT, the defender is beaten and enters the chase-back decision. During a PASS, the pass continues through the remaining interception windows.</span></div>
-<div class="case"><b>YELLOW CANCELS TACKLE</b><span>Only possible inside a SHOOT chain. The TACKLE is canceled, no possession changes, and the attack advances to the next defensive line.</span></div>
-<div class="case"><b>TACKLE DURING NORMAL POSSESSION</b><span>Not legal merely because the opponent has Soccer. A legal trigger must exist: PASS or a SHOOT defensive window.</span></div>
-</div>
-<h3>After TACKLE successfully steals Soccer</h3>
-<ol>
-<li>The old PASS or SHOOT chain ends immediately.</li>
-<li>The tackler becomes the new Soccer holder.</li>
-<li>The tackler's team becomes the attacking team; the old attacking team becomes the defending team.</li>
-<li>All beaten, chase-back, and unresolved attack status from the old attack are cleared.</li>
-<li>No card is drawn. The game simply enters a new possession phase.</li>
-<li>The new Soccer holder may PASS to a teammate, or play SHOOT if holding a SHOOT card.</li>
-<li>When the new team eventually plays SHOOT, the opponent's defense begins fresh at Defender 1 → Defender 2 → Goalkeeper.</li>
-<li>YELLOW windows from the old attack are closed. A new YELLOW window will not exist until a new SHOOT chain begins.</li>
-</ol>
-<p class="ruling"><b>IMPORTANT:</b> DEFENSE stopping a shot and TACKLE winning the ball are intentionally different. DEFENSE = stop this SHOOT but leave Soccer with the attacker. TACKLE = stop the action and change possession.</p>
+<section class="ruleSection" id="tackle"><h2>6. TACKLE — WINNING POSSESSION</h2>
+<p>TACKLE is the aggressive possession-winning defense.</p>
+<div class="ruleLine"><div class="ruleKey">NORMAL PASS</div><div class="ruleVal">D1 then D2 may TACKLE a PASS. YELLOW is not active during the normal PASS.</div></div>
+<div class="ruleLine"><div class="ruleKey">DURING SHOOT</div><div class="ruleVal">The current field defender may choose TACKLE instead of DEFENSE in that defender's own line.</div></div>
+<div class="ruleLine"><div class="ruleKey">ATTACKER RESPONSE</div><div class="ruleVal">The attacker may use DRIBBLE PAST. The attacker may also use YELLOW against the current defender's TACKLE. If the attacker plays YELLOW, that same current defender may answer with YELLOW because the opponent has now played YELLOW against this line.</div></div>
+<div class="ruleLine"><div class="ruleKey">TACKLE SUCCEEDS</div><div class="ruleVal">The current action ends immediately and the tackler takes Soccer.</div></div>
+<div class="ruleLine"><div class="ruleKey">AFTER STEAL</div><div class="ruleVal">Old attack status clears. The tackler's team is now attacking. The new holder may PASS or SHOOT; the next SHOOT starts at the opponent's D1.</div></div>
+<p class="important"><b>KEY DIFFERENCE:</b> DEFENSE = stop the SHOOT, attacker keeps Soccer. TACKLE = stop the action and change possession.</p>
 </section>
 
-<section class="ruleSection warning" id="dribble"><h2>7. DRIBBLE PAST & CHASE-BACK</h2>
-<p>DRIBBLE PAST beats exactly one field defensive attempt. There is no fixed per-attack DRIBBLE limit; the attacker may use another DRIBBLE against another legal field defensive attempt if cards remain.</p>
-<div class="ruleLine"><div class="ruleKey">BEATS</div><div class="ruleVal">One field DEFENSE or one field TACKLE.</div></div>
-<div class="ruleLine"><div class="ruleKey">DOES NOT BYPASS GK</div><div class="ruleVal">Once the SHOOT reaches Goalkeeper DEFENSE, DRIBBLE does not skip the Goalkeeper duel.</div></div>
-<h3>Every time a field defender is beaten during a SHOOT</h3>
-<ol><li>Pause the attack immediately.</li><li>Ask that exact defender: <b>CHASE BACK or LET THE NEXT LINE DEFEND?</b></li><li>To CHASE BACK, that defender must be able to discard 1 extra card and still have a legal DEFENSE or TACKLE to play.</li><li>Discard 1 card as the stamina/recovery cost.</li><li>Then play DEFENSE or TACKLE again.</li><li>If DRIBBLE beats the same defender again, ask again. Every additional chase requires another 1-card discard.</li><li>If the defender chooses not to chase, or cannot pay the cost, move to the next defensive line.</li></ol>
-<p class="example"><b>Example:</b> GREEN 1 DEFENSE → BLUE DRIBBLE. GREEN 1 is beaten. GREEN 1 chooses CHASE BACK, discards 1 card, then plays TACKLE. BLUE may now DRIBBLE again. If BLUE beats GREEN 1 again, GREEN 1 must decide again whether to discard another card and chase again.</p>
-<p class="important"><b>CHASE COST:</b> The discarded stamina card is spent and does not count as the new defensive card. The defender must still play a separate DEFENSE or TACKLE after paying the cost.</p>
+<section class="ruleSection" id="dribble"><h2>7. DRIBBLE PAST & CHASE-BACK</h2>
+<div class="ruleLine"><div class="ruleKey">BEATS</div><div class="ruleVal">Exactly one field DEFENSE or one field TACKLE attempt.</div></div>
+<div class="ruleLine"><div class="ruleKey">NO FREE BYPASS</div><div class="ruleVal">If a defender plays nothing, no DRIBBLE is required. DRIBBLE is only needed to beat an actual DEFENSE/TACKLE.</div></div>
+<div class="ruleLine"><div class="ruleKey">AFTER EVERY SUCCESSFUL DRIBBLE</div><div class="ruleVal">Immediately ask that exact beaten defender: CHASE BACK or LET THE NEXT LINE DEFEND?</div></div>
+<div class="ruleLine"><div class="ruleKey">CHASE COST</div><div class="ruleVal">Discard 1 extra card, then play a separate DEFENSE or TACKLE. The discarded card is only the stamina cost.</div></div>
+<div class="ruleLine"><div class="ruleKey">BEATEN AGAIN</div><div class="ruleVal">Ask again. Every additional chase costs another discard.</div></div>
+<div class="ruleLine"><div class="ruleKey">GOALKEEPER</div><div class="ruleVal">DRIBBLE does not bypass Goalkeeper DEFENSE/RPS.</div></div>
 </section>
 
-<section class="ruleSection" id="yellow"><h2>8. YELLOW — EXACT TIMING & COUNTER-CHAIN</h2>
-<p>YELLOW is not a general anytime card in Match Mode. It is a reaction card that only operates once a SHOOT chain has started.</p>
-<div class="ruleLine"><div class="ruleKey">WHO CONTROLS YELLOW?</div><div class="ruleVal">Each team's Defender 1 is that team's YELLOW controller for the current SHOOT chain. Defender 2 and Goalkeeper do not play YELLOW in that chain.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN CANCEL</div><div class="ruleVal">TACKLE, DRIBBLE PAST, and another YELLOW.</div></div>
-<div class="ruleLine"><div class="ruleKey">CANNOT CANCEL</div><div class="ruleVal">SHOOT or DEFENSE.</div></div>
-<div class="ruleLine"><div class="ruleKey">IMMEDIATE TIMING</div><div class="ruleVal">YELLOW must be played before the target Action has fully resolved. Once the table has moved on to the next line or new possession, it is too late.</div></div>
-<div class="ruleLine"><div class="ruleKey">D1 ALREADY BEATEN?</div><div class="ruleVal">Defender 1 remains that team's YELLOW controller for the rest of that SHOOT chain even if D1 has already been dribbled past.</div></div>
-<h3>YELLOW vs DRIBBLE after DEFENSE</h3><div class="arrowFlow"><span class="flowBox">SHOOT</span><span class="arrow">→</span><span class="flowBox">DEFENSE</span><span class="arrow">→</span><span class="flowBox">DRIBBLE</span><span class="arrow">→</span><span class="flowBox">YELLOW</span></div><p>The YELLOW cancels DRIBBLE. The earlier DEFENSE therefore succeeds. The SHOOT ends and Soccer remains with the attacker.</p>
-<h3>YELLOW vs DRIBBLE after TACKLE</h3><p>The YELLOW cancels DRIBBLE. The earlier TACKLE therefore succeeds and the tackler takes Soccer.</p>
-<h3>YELLOW directly on TACKLE</h3><p>The TACKLE is canceled. No one steals Soccer. The current SHOOT continues to the next defensive line.</p>
-<h3>YELLOW → YELLOW → YELLOW</h3><p>A YELLOW may cancel the immediately previous YELLOW. Each additional YELLOW reverses the result of the immediately previous one. Resolve the chain from the last YELLOW backward until the final active/canceled state is clear.</p>
-<p class="example"><b>Example:</b> BLUE DRIBBLE → GREEN D1 YELLOW (DRIBBLE canceled) → BLUE D1 YELLOW (GREEN YELLOW canceled, DRIBBLE restored) → GREEN D1 YELLOW (BLUE YELLOW canceled, GREEN YELLOW becomes active again, DRIBBLE canceled).</p>
-<p class="ruling"><b>NOT LEGAL:</b> SHOOT → YELLOW to erase SHOOT. SHOOT cannot be canceled in Match Mode.</p>
+<section class="ruleSection yellowBox" id="yellow"><h2>8. YELLOW — CURRENT DEFENSIVE LINE ONLY</h2>
+<p>YELLOW is tied to the <b>current field defensive line</b>. It is not controlled by Defender 1 for the whole attack.</p>
+<div class="ruleLine"><div class="ruleKey">WHO MAY USE DEFENSIVE YELLOW?</div><div class="ruleVal">The field defender whose line is currently being attacked. At D1, D1 controls that line's defensive YELLOW. After play moves to D2, D2 controls that line's defensive YELLOW.</div></div>
+<div class="ruleLine"><div class="ruleKey">DEFENDER MAY USE YELLOW ONLY WHEN...</div><div class="ruleVal">The opponent has just played <b>DRIBBLE PAST</b> against this defender's DEFENSE/TACKLE, or the opponent has just played <b>YELLOW</b> against this line.</div></div>
+<div class="ruleLine"><div class="ruleKey">DEFENDER CANNOT YELLOW</div><div class="ruleVal">SHOOT, DEFENSE, a normal PASS, an action on a different defensive line, or an action that has already fully resolved.</div></div>
+<div class="ruleLine"><div class="ruleKey">ATTACKER YELLOW vs TACKLE</div><div class="ruleVal">During the current SHOOT line, the attacker may use YELLOW to cancel that defender's TACKLE. The current defender may then use YELLOW to cancel the attacker's YELLOW.</div></div>
+<div class="ruleLine"><div class="ruleKey">YELLOW vs DRIBBLE</div><div class="ruleVal">If the current defender uses YELLOW on DRIBBLE, that DRIBBLE is canceled and the earlier defensive card becomes active again.</div></div>
+<div class="ruleLine"><div class="ruleKey">YELLOW CHAIN</div><div class="ruleVal">YELLOW may cancel the immediately previous YELLOW. The attacker and the current defender may continue the chain while they have YELLOW cards.</div></div>
+<div class="ruleLine"><div class="ruleKey">WHEN THE LINE CHANGES</div><div class="ruleVal">Once D1 is finished and the attack moves to D2, D1 can no longer use YELLOW for D2's line. D2 now owns the defensive YELLOW window.</div></div>
+<div class="ruleLine"><div class="ruleKey">GOALKEEPER STAGE</div><div class="ruleVal">This field-line YELLOW window ends when the SHOOT reaches the Goalkeeper.</div></div>
+<h3>Example — Defender 1</h3><p class="example"><b>SHOOT → D1 DEFENSE → DRIBBLE → D1 YELLOW.</b> D1's YELLOW cancels the DRIBBLE. D1 DEFENSE succeeds, the SHOOT ends, and Soccer stays with the attacker.</p>
+<h3>Example — Defender 2</h3><p class="example"><b>SHOOT → D1 passed → D2 DEFENSE → DRIBBLE → D2 YELLOW.</b> D2, not D1, cancels the DRIBBLE. D2 DEFENSE succeeds.</p>
+<h3>Example — TACKLE & YELLOW counter</h3><p class="example"><b>SHOOT → D2 TACKLE → attacker YELLOW → D2 YELLOW.</b> Attacker's YELLOW tried to cancel D2 TACKLE. D2's YELLOW cancels that YELLOW, so the TACKLE becomes active again.</p>
+<p class="important"><b>DO NOT CROSS LINES:</b> A player cannot use YELLOW to protect a teammate's different defensive line.</p>
 </section>
 
-<section class="ruleSection" id="gk"><h2>9. GOALKEEPER — EVERY POSSIBLE RESULT</h2>
-<p>The Goalkeeper stage begins only after the current SHOOT has cleared both field defensive lines.</p>
-<div class="ruleLine"><div class="ruleKey">GK HAS NO DEFENSE</div><div class="ruleVal">Automatic GOAL. The attacking team scores +1. Then Soccer goes to the defending Goalkeeper.</div></div>
-<div class="ruleLine"><div class="ruleKey">GK PLAYS DEFENSE</div><div class="ruleVal">Goalkeeper DEFENSE cannot be canceled by YELLOW. Shooter and Goalkeeper play Rock-Paper-Scissors.</div></div>
-<div class="ruleLine"><div class="ruleKey">GK WINS RPS</div><div class="ruleVal">SAVE. No goal. Soccer goes to the Goalkeeper.</div></div>
-<div class="ruleLine"><div class="ruleKey">SHOOTER WINS RPS</div><div class="ruleVal">GOAL +1. Even though the shot scored, Soccer still goes to the defending Goalkeeper for the restart.</div></div>
-<div class="ruleLine"><div class="ruleKey">RPS TIE</div><div class="ruleVal">Repeat RPS until there is a winner.</div></div>
-<div class="ruleLine"><div class="ruleKey">DRIBBLE vs GK</div><div class="ruleVal">DRIBBLE PAST does not skip Goalkeeper DEFENSE. The Goalkeeper stage is resolved by the rule above.</div></div>
-<h3>After the Goalkeeper receives Soccer</h3>
-<ol><li>The old SHOOT chain is completely finished.</li><li>Any previous beaten/chase status resets.</li><li>The Goalkeeper is now the Soccer holder.</li><li>The Goalkeeper's team becomes the attacking team.</li><li>The Goalkeeper may PASS to a teammate, or may play SHOOT if holding SHOOT.</li><li>The next new SHOOT by that team starts against the opponent's Defender 1.</li></ol>
-<p class="important"><b>KEY GOALKEEPER RULE:</b> Once a SHOOT reaches the Goalkeeper stage, Soccer ends in the Goalkeeper's hand afterward whether the Goalkeeper saves it, loses the RPS and concedes, or has no DEFENSE and concedes automatically.</p>
+<section class="ruleSection" id="gk"><h2>9. GOALKEEPER FLOW</h2>
+<div class="ruleLine"><div class="ruleKey">REACHING GK</div><div class="ruleVal">The SHOOT reaches GK only after D1 and D2 have both been cleared or chose not to defend.</div></div>
+<div class="ruleLine"><div class="ruleKey">GK NO DEFENSE</div><div class="ruleVal">Automatic GOAL +1. Soccer then goes to the defending Goalkeeper.</div></div>
+<div class="ruleLine"><div class="ruleKey">GK DEFENSE</div><div class="ruleVal">Starts Rock-Paper-Scissors between shooter and Goalkeeper. GK DEFENSE cannot be canceled by YELLOW.</div></div>
+<div class="ruleLine"><div class="ruleKey">GK WINS</div><div class="ruleVal">SAVE. No goal. Soccer is in the Goalkeeper's hand.</div></div>
+<div class="ruleLine"><div class="ruleKey">SHOOTER WINS</div><div class="ruleVal">GOAL +1. Soccer still goes to the defending Goalkeeper for the restart.</div></div>
+<div class="ruleLine"><div class="ruleKey">RPS TIE</div><div class="ruleVal">Repeat until there is a winner.</div></div>
+<p class="important"><b>KEY GK RULE:</b> Once a SHOOT reaches the GK stage, Soccer ends with the defending GK whether the GK saves, concedes in RPS, or has no DEFENSE and concedes automatically.</p>
 </section>
 
-<section class="ruleSection" id="end"><h2>10. WHEN THE MAIN MATCH ENDS</h2>
-<p>The main match ends when one of these conditions is reached:</p>
-<ol><li><b>10:00 reaches 00:00.</b> If a PASS, SHOOT, YELLOW chain, chase-back, or Goalkeeper duel is already resolving, finish that current chain first, then end the match.</li><li><b>Both teams have no Action Cards left.</b></li><li><b>Both teams can no longer attack.</b> For this playtest, a team can attack if any player on that team still has a SHOOT card. The Soccer holder can PASS to a teammate who has SHOOT.</li></ol>
-<p class="important"><b>DO NOT END EARLY:</b> If BLUE has no SHOOT anywhere but GREEN still has SHOOT, the match continues. BLUE's DEFENSE and TACKLE cards still matter because GREEN can continue attacking.</p>
-<div class="caseGrid">
-<div class="case"><b>BLUE NO SHOOT · GREEN HAS SHOOT</b><span>Continue the match. BLUE may defend and try to protect the score.</span></div>
-<div class="case"><b>GREEN NO SHOOT · BLUE HAS SHOOT</b><span>Continue the match. BLUE may still create attacks.</span></div>
-<div class="case"><b>NEITHER TEAM HAS SHOOT</b><span>End the main match and compare the score.</span></div>
-<div class="case"><b>TIME EXPIRES MID-ATTACK</b><span>Finish that active chain, apply any goal/turnover/save, then end the match.</span></div>
-</div>
-<p>Higher score wins. If tied, go to the Penalty Shootout.</p>
+<section class="ruleSection" id="turnover"><h2>10. AFTER POSSESSION CHANGES</h2>
+<h3>After successful TACKLE</h3><ol><li>Old PASS/SHOOT ends.</li><li>Tackler takes Soccer.</li><li>All old line, DRIBBLE, chase and YELLOW status clears.</li><li>Tackler's team becomes attacking team.</li><li>New holder may PASS or SHOOT.</li><li>A new SHOOT begins at opponent D1.</li></ol>
+<h3>After field DEFENSE</h3><ol><li>Only the SHOOT ends.</li><li>Attacker keeps Soccer.</li><li>Temporary attack status resets.</li><li>Attacker may PASS or start another SHOOT later.</li></ol>
+<h3>After Goalkeeper stage</h3><ol><li>Old SHOOT ends completely.</li><li>Defending GK receives Soccer.</li><li>GK's team becomes attacking team.</li><li>GK may PASS or SHOOT if holding SHOOT.</li></ol>
 </section>
 
-<section class="ruleSection penalty" id="penalty"><h2>11. PENALTY SHOOTOUT</h2>
-<ol><li>Collect all 51 Action Cards: played cards, cards still in hands, chase-cost discards, and the 3 cards discarded during setup.</li><li>Shuffle the full deck.</li><li>Each field Player draws 1 card. SHOOT = +1 for that team; every other card = 0.</li><li>Each Goalkeeper draws 1 card. DEFENSE = -1 against the opponent's shootout total; every other card = 0.</li><li>Calculate both team totals.</li><li>Higher total wins the match.</li><li>If tied, collect all 51 cards again, reshuffle, and repeat the shootout.</li></ol>
+<section class="ruleSection" id="end"><h2>11. WHEN THE MAIN MATCH ENDS</h2>
+<ol><li><b>00:00.</b> If a PASS, SHOOT, line-specific YELLOW chain, chase-back or GK duel is already resolving, finish that current chain first, then end.</li><li><b>Both teams have no Action Cards left.</b></li><li><b>Both teams can no longer attack.</b> A team can still attack if any teammate has a SHOOT because Soccer can be passed to that teammate.</li></ol>
+<p class="important"><b>ONE TEAM WITH NO SHOOT DOES NOT END THE MATCH.</b> If BLUE has no SHOOT but GREEN still has SHOOT, continue. BLUE's DEFENSE/TACKLE still matter.</p>
+<p>Higher score wins. If tied, use the Penalty Shootout.</p>
 </section>
 
-<section class="ruleSection" id="rulings"><h2>12. COMMON TABLE RULINGS — READ THIS BEFORE ARGUING</h2>
-<div class="ruleLine"><div class="ruleKey">CAN I TACKLE IMMEDIATELY AFTER THEY GET SOCCER?</div><div class="ruleVal"><b>No.</b> Normal possession alone is not a TACKLE trigger. TACKLE becomes legal on a PASS or in a field defensive window after SHOOT.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN DEFENDER 2 DEFEND THE SAME SHOOT?</div><div class="ruleVal"><b>Yes.</b> Both field Players may use DEFENSE/TACKLE in one SHOOT, but resolve D1 first and D2 second.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN D2 THROW A CARD BEFORE D1 FINISHES?</div><div class="ruleVal"><b>No.</b> Resolve only one defensive window at a time.</div></div>
-<div class="ruleLine"><div class="ruleKey">DEFENSE WORKED. WHO HAS SOCCER?</div><div class="ruleVal">The attacker still has Soccer. Only the current SHOOT is stopped.</div></div>
-<div class="ruleLine"><div class="ruleKey">TACKLE WORKED. WHO HAS SOCCER?</div><div class="ruleVal">The tackler takes Soccer immediately. Old attack ends; new possession starts.</div></div>
-<div class="ruleLine"><div class="ruleKey">DOES A TACKLE TURNOVER KEEP THE OLD ATTACK GOING?</div><div class="ruleVal"><b>No.</b> The old PASS/SHOOT is over. Reset all attack status. The tackler's team now controls possession.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN YELLOW CANCEL SHOOT?</div><div class="ruleVal"><b>No.</b> SHOOT always starts the attack.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN YELLOW CANCEL DEFENSE?</div><div class="ruleVal"><b>No.</b> Field and Goalkeeper DEFENSE are both immune.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN YELLOW CANCEL TACKLE ON A PASS?</div><div class="ruleVal"><b>No.</b> YELLOW is not active before SHOOT starts.</div></div>
-<div class="ruleLine"><div class="ruleKey">CAN YELLOW CANCEL TACKLE DURING SHOOT?</div><div class="ruleVal"><b>Yes.</b> The TACKLE disappears, Soccer stays with the attacker, and the SHOOT moves to the next line.</div></div>
-<div class="ruleLine"><div class="ruleKey">I DRIBBLED A DEFENDER. CAN THEY DEFEND AGAIN?</div><div class="ruleVal"><b>Yes.</b> During a SHOOT, ask immediately. They must discard 1 extra card, then play another DEFENSE/TACKLE.</div></div>
-<div class="ruleLine"><div class="ruleKey">THE SAME DEFENDER IS DRIBBLED TWICE.</div><div class="ruleVal">Ask again. Every additional chase requires another extra 1-card discard.</div></div>
-<div class="ruleLine"><div class="ruleKey">GK LOST RPS AND CONCEDED. WHO RESTARTS?</div><div class="ruleVal">The defending Goalkeeper receives Soccer and becomes the new ballholder.</div></div>
-<div class="ruleLine"><div class="ruleKey">GK SAVED. WHO HAS SOCCER?</div><div class="ruleVal">The Goalkeeper has Soccer.</div></div>
-<div class="ruleLine"><div class="ruleKey">ONE TEAM HAS NO SHOOT.</div><div class="ruleVal">Do not end the match if the other team can still attack.</div></div>
-<div class="ruleLine"><div class="ruleKey">DO PLAYED CARDS COME BACK?</div><div class="ruleVal"><b>No.</b> There is no normal draw/recycle pile during the 10-minute main match. Resource management matters.</div></div>
+<section class="ruleSection" id="penalty"><h2>12. PENALTY SHOOTOUT</h2>
+<ol><li>Collect all 51 Action Cards, including hands, played cards, chase-cost discards and the 3 setup extras.</li><li>Shuffle all 51.</li><li>Each field Player draws 1. SHOOT = +1; all other cards = 0.</li><li>Each GK draws 1. DEFENSE = -1 against the opponent total; all other cards = 0.</li><li>Higher team total wins.</li><li>If tied, collect all 51, reshuffle and repeat.</li></ol>
 </section>
 
-<section class="ruleSection"><h2>13. MAIN-MATCH CARD RESOURCE RULE</h2><p>There is no normal draw pile during the 10-minute main match. Cards used for SHOOT, DEFENSE, TACKLE, DRIBBLE, YELLOW, or chase-back costs are spent. The 3 setup extras stay out of play until a possible Penalty Shootout. This is why pre-match trading and card conservation matter.</p></section>
+<section class="ruleSection" id="rulings"><h2>13. COMMON TABLE RULINGS</h2><div class="caseGrid">
+<div class="case"><b>D2 DOES NOT PLAY DEFENSE/TACKLE</b><span>D2 did not defend. No DRIBBLE is required. Go directly to GK.</span></div>
+<div class="case"><b>D1 WAS PASSED. CAN D1 YELLOW D2'S DRIBBLE?</b><span>No. Once the attack is at D2, D2 owns that defensive YELLOW window.</span></div>
+<div class="case"><b>D2 DEFENSE → ATTACKER DRIBBLE</b><span>D2 may play YELLOW to cancel that DRIBBLE before it resolves.</span></div>
+<div class="case"><b>D2 TACKLE → ATTACKER YELLOW</b><span>D2 may answer with YELLOW because the opponent played YELLOW against D2's line.</span></div>
+<div class="case"><b>DEFENDER WANTS YELLOW ON SHOOT</b><span>Not legal. SHOOT cannot be canceled.</span></div>
+<div class="case"><b>DEFENDER WANTS YELLOW ON DEFENSE</b><span>Not legal. DEFENSE is immune.</span></div>
+<div class="case"><b>DEFENSE WORKED</b><span>Shooter keeps Soccer; only this SHOOT ends.</span></div>
+<div class="case"><b>TACKLE WORKED</b><span>Tackler immediately takes Soccer; old action ends.</span></div>
+<div class="case"><b>SAME DEFENDER DRIBBLED TWICE</b><span>Ask chase-back again. Every extra chase costs another discard.</span></div>
+<div class="case"><b>ONE TEAM HAS NO SHOOT</b><span>Continue if the other team can still attack.</span></div>
+</div></section>
 
-<div class="ruleFooter"><a href="match-ai.html?v=20260907m9">PLAY VS AI →</a><a class="alt" href="match-tutorial.html?v=20260907m9">COACH TUTORIAL →</a><a href="match.html?v=20260907m9">MATCH MENU</a></div><div class="version">MATCH MODE · COMPLETE PLAYTEST RULEBOOK V4 · 2026-09-07</div>
-</main>
-</div>
-</body>
-</html>
+<section class="ruleSection"><h2>14. MAIN-MATCH RESOURCE RULE</h2><p>There is no normal draw/recycle pile during the 10-minute main match. Played cards and chase-back cost cards are spent. The 3 setup extras remain outside the main match until a possible Penalty Shootout.</p></section>
+<div class="ruleFooter"><a href="match-ai.html?v=20260907m12">PLAY VS AI →</a><a class="alt" href="match-tutorial.html?v=20260907m12">COACH TUTORIAL →</a><a href="match.html?v=20260907m12">MATCH MENU</a></div>
+<div class="version">MATCH MODE · COMPLETE PLAYTEST RULEBOOK V5 · LINE-SPECIFIC YELLOW · 2026-09-07</div>
+</main></div></body></html>
