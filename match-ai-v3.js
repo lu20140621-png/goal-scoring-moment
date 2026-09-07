@@ -1,0 +1,359 @@
+(()=>{
+'use strict';
+
+const CARD_IMG={
+  SHOOT:'images/shoot-card.webp',
+  DEFENSE:'images/defense-card.webp',
+  TACKLE:'images/tackle.webp?v=20260904tackle2',
+  DRIBBLE:'images/dribble%20past-card.webp',
+  YELLOW:'images/yellow-card.webp'
+};
+const FULL_DECK=[
+  ...Array(10).fill('SHOOT'),
+  ...Array(12).fill('DEFENSE'),
+  ...Array(10).fill('TACKLE'),
+  ...Array(10).fill('DRIBBLE'),
+  ...Array(9).fill('YELLOW')
+];
+const BLUE=['B1','B2','BKG'];
+const GREEN=['G1','G2','GKG'];
+const FIELD={blue:['B1','B2'],green:['G1','G2']};
+const GK={blue:'BKG',green:'GKG'};
+const TEAM={blue:BLUE,green:GREEN};
+const DEAL_ORDER=['B1','G1','B2','G2','BKG','GKG'];
+const HAND_SIZE=Math.floor(FULL_DECK.length/DEAL_ORDER.length);
+const DEAL_COUNT=HAND_SIZE*DEAL_ORDER.length;
+const EXTRA_COUNT=FULL_DECK.length-DEAL_COUNT;
+
+const state={
+  hands:{}, score:{blue:0,green:0}, ball:null,
+  phase:'trade', selectedHand:'B1', tradePick:null,
+  time:600, timer:null, ended:false, timeExpired:false,
+  busy:false, attack:null, userDecision:null,
+  extras:[], flow:[], live:[]
+};
+
+const $=id=>document.getElementById(id);
+const teamOf=id=>id&&id[0]==='B'?'blue':'green';
+const other=t=>t==='blue'?'green':'blue';
+const isGK=id=>!!id&&id.includes('KG');
+const name=id=>id==='BKG'?'BLUE GK':id==='GKG'?'AI GK':id?.replace('B','BLUE ').replace('G','GREEN ');
+const teamName=t=>t==='blue'?'BLUE':'GREEN';
+const firstLine=t=>FIELD[t][0];
+
+function shuffle(a){
+  a=[...a];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function has(id,c){return !!state.hands[id]?.includes(c)}
+function removeCard(id,c){const h=state.hands[id]||[];const i=h.indexOf(c);if(i<0)return false;h.splice(i,1);return true}
+function removeAt(id,i){const h=state.hands[id]||[];if(i<0||i>=h.length)return null;return h.splice(i,1)[0]}
+function randomDiscard(id){const h=state.hands[id]||[];if(!h.length)return null;return h.splice(Math.floor(Math.random()*h.length),1)[0]}
+function totalCards(team){return TEAM[team].reduce((n,id)=>n+(state.hands[id]?.length||0),0)}
+function teamHas(team,c){return TEAM[team].some(id=>has(id,c))}
+function teamCanAttack(team){return teamHas(team,'SHOOT')}
+
+function log(msg){const d=document.createElement('div');d.textContent=msg;$('log').prepend(d)}
+function notice(msg,type=''){const n=$('notice');if(!n)return;n.textContent=msg;n.className='notice'+(type?' '+type:'')}
+function fmt(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
+function updateClock(){$('clock').textContent=fmt(state.time);$('clockLabel').textContent=state.time<=60?'FINAL MINUTE':state.phase==='trade'?'TRADE TIME COUNTS':'MATCH CLOCK'}
+function addFlow(text,type=''){state.flow.push({text,type});state.flow=state.flow.slice(-12);$('flow').innerHTML=state.flow.map(x=>`<span class="chip ${x.type}">${x.text}</span>`).join('')}
+function liveEvent(label,type=''){state.live.push({event:label,type});state.live=state.live.slice(-7);renderLive()}
+function liveCard(owner,card,label=''){state.live.push({owner,card,label});state.live=state.live.slice(-7);renderLive()}
+function renderLive(){
+  const box=$('liveCards');if(!box)return;
+  if(!state.live.length){box.innerHTML='<div class="liveEmpty">Played cards appear here.</div>';return}
+  box.innerHTML=state.live.map((x,i)=>x.event?
+    `<div class="liveEvent ${x.type||''}" style="--i:${i}">${x.event}</div>`:
+    `<div class="livePlayed" style="--i:${i}"><div class="liveOwner">${name(x.owner)}</div><img src="${CARD_IMG[x.card]}" alt="${x.card}"><div class="liveTag">${x.label||x.card}</div></div>`).join('')
+}
+function playVisual(owner,card,label=''){liveCard(owner,card,label);addFlow(`${name(owner)} ${label||card}`,teamOf(owner)==='blue'?'good':'bad');log(`${name(owner)} plays ${card}${label&&label!==card?` (${label})`:''}.`)}
+function markLastCanceled(byOwner){const items=[...$('liveCards').querySelectorAll('.livePlayed')];const target=items.at(-2)||items.at(-1);if(target)target.classList.add('canceled');liveEvent(`YELLOW CANCELS PREVIOUS ACTION · ${name(byOwner)}`,'yellow')}
+
+function dealEqual(){
+  const d=shuffle(FULL_DECK);const dealt=d.slice(0,DEAL_COUNT);state.extras=d.slice(DEAL_COUNT);
+  DEAL_ORDER.forEach(id=>state.hands[id]=[]);
+  for(let r=0;r<HAND_SIZE;r++)for(const id of DEAL_ORDER)state.hands[id].push(dealt.shift());
+  log(`${HAND_SIZE} cards dealt to every player. ${EXTRA_COUNT} extra cards discarded face-down.`);
+  addFlow(`${HAND_SIZE} EACH · ${EXTRA_COUNT} EXTRAS DISCARDED`,'good');
+}
+
+function renderPlayers(){
+  [...BLUE,...GREEN].forEach(id=>{
+    const p=$(id);if(!p)return;
+    p.querySelector('.handCount').textContent=`${state.hands[id]?.length||0} CARDS`;
+    p.classList.toggle('hasBall',state.ball===id);
+    p.classList.toggle('active',state.ball===id);
+    p.classList.toggle('beaten',!!state.attack?.beaten?.includes(id));
+    p.classList.remove('missing');
+  });
+  $('blueScore').textContent=state.score.blue;$('greenScore').textContent=state.score.green;
+}
+function renderTabs(){
+  $('handTabs').innerHTML=BLUE.map(id=>`<button class="tab ${state.selectedHand===id?'on':''}" data-tab="${id}">${id==='BKG'?'BLUE GK':id.replace('B','BLUE ')}</button>`).join('');
+  [...$('handTabs').children].forEach(b=>b.onclick=()=>{
+    state.selectedHand=b.dataset.tab;render();
+    if(state.phase==='trade'&&state.tradePick)notice(`FIRST PICK: ${name(state.tradePick.owner)} · ${state.tradePick.card}. Now choose one card from another BLUE teammate.`);
+  });
+}
+function cardButton(card,idx,id){
+  let enabled=false;
+  if(state.phase==='trade')enabled=true;
+  else if(state.userDecision&&state.userDecision.owner===id)enabled=state.userDecision.mode==='discard'||state.userDecision.legal.includes(card);
+  const selected=state.phase==='trade'&&state.tradePick&&state.tradePick.owner===id&&state.tradePick.idx===idx;
+  return `<button class="card${enabled?' playable':''}${selected?' sel':''}" data-card="${card}" data-idx="${idx}" data-owner="${id}" ${enabled?'':'disabled'}><img src="${CARD_IMG[card]}" alt="${card}"><span class="cardTag">${card}</span></button>`;
+}
+function renderHand(){
+  const id=state.selectedHand;const h=state.hands[id]||[];
+  $('cards').innerHTML=h.map((c,i)=>cardButton(c,i,id)).join('');
+  [...$('cards').querySelectorAll('.card')].forEach(b=>{
+    if(state.phase==='trade')b.onclick=()=>tradeSelect(b);
+    else if(!b.disabled)b.onclick=()=>handleUserCard(b.dataset.owner,b.dataset.card,Number(b.dataset.idx));
+  });
+}
+function actionButton(label,fn,cls=''){const b=document.createElement('button');b.className='action'+(cls?' '+cls:'');b.textContent=label;b.onclick=fn;$('actions').appendChild(b)}
+function renderActions(){
+  $('actions').innerHTML='';
+  if(state.phase==='trade'){actionButton('LOCK TEAM & PLAY RPS',lockTrade);actionButton('AUTO BALANCE',autoBalance,'dark');return}
+  if(state.userDecision){for(const x of state.userDecision.extras||[])actionButton(x.label,x.fn,x.cls||'dark');return}
+  if(state.phase==='ended')actionButton('NEW MATCH',()=>location.reload());
+}
+function render(){renderPlayers();renderTabs();renderHand();renderActions();renderLive();updateClock();const h=$('roundHint');if(h)h.textContent=`${HAND_SIZE} CARDS EACH · ${EXTRA_COUNT} EXTRAS DISCARDED`}
+
+function setUserDecision(owner,legal,help,onCard,extras=[],mode='play'){
+  state.userDecision={owner,legal:[...new Set(legal)],onCard,extras,mode};state.selectedHand=owner;state.busy=true;$('phaseHelp').textContent=help;render();
+}
+function clearUserDecision(){state.userDecision=null;state.busy=false}
+function handleUserCard(owner,card,idx){
+  const d=state.userDecision;if(!d||d.owner!==owner)return;if(d.mode!=='discard'&&!d.legal.includes(card))return;
+  const removed=removeAt(owner,idx);if(!removed)return;clearUserDecision();
+  if(d.mode==='discard'){liveEvent(`${name(owner)} DISCARDS ${removed}`,'cost');addFlow(`${name(owner)} DISCARD ${removed}`,'good');log(`${name(owner)} discards ${removed} as the chase-back cost.`)}
+  else playVisual(owner,removed);
+  render();d.onCard(removed);
+}
+
+function tradeSelect(btn){
+  const pick={owner:btn.dataset.owner,idx:Number(btn.dataset.idx),card:btn.dataset.card};
+  if(!state.tradePick){state.tradePick=pick;notice(`FIRST PICK: ${name(pick.owner)} · ${pick.card}. Switch to another BLUE teammate and choose the card to swap.`);render();return}
+  if(state.tradePick.owner===pick.owner){state.tradePick=pick;notice(`FIRST PICK changed to ${name(pick.owner)} · ${pick.card}. Choose from a different teammate.`);render();return}
+  const a=state.tradePick,b=pick;[state.hands[a.owner][a.idx],state.hands[b.owner][b.idx]]=[state.hands[b.owner][b.idx],state.hands[a.owner][a.idx]];
+  log(`1-for-1 trade: ${name(a.owner)} ${a.card} ↔ ${name(b.owner)} ${b.card}.`);state.tradePick=null;notice(`Trade complete. Everyone still has exactly ${HAND_SIZE} cards.`);render();
+}
+function autoBalanceTeam(team){
+  const seats=TEAM[team],gk=GK[team],players=FIELD[team],pool=seats.flatMap(id=>state.hands[id]),gkHand=[];
+  while(gkHand.length<HAND_SIZE){let i=gkHand.filter(x=>x==='DEFENSE').length<3?pool.indexOf('DEFENSE'):-1;if(i<0)i=0;gkHand.push(pool.splice(i,1)[0])}
+  state.hands[gk]=gkHand;
+  for(const p of players){const hand=[];for(const pref of ['SHOOT','DRIBBLE','TACKLE','DEFENSE','YELLOW']){while(hand.length<HAND_SIZE){const i=pool.indexOf(pref);if(i<0)break;hand.push(pool.splice(i,1)[0]);if(hand.filter(x=>x===pref).length>=2)break}}while(hand.length<HAND_SIZE)hand.push(pool.shift());state.hands[p]=hand}
+}
+function autoBalance(){autoBalanceTeam('blue');state.tradePick=null;notice(`Auto-balance complete. Every BLUE player still has ${HAND_SIZE} cards.`);log('BLUE auto-balance completed.');render()}
+function lockTrade(){
+  state.tradePick=null;autoBalanceTeam('green');state.phase='rps';$('phaseTitle').textContent='FIRST POSSESSION';$('phaseHelp').textContent='Rock-Paper-Scissors decides which team receives Soccer first.';
+  showRPS('FIRST POSSESSION',r=>{const holder=r==='win'?'B1':'G1';setPossession(holder,`${r==='win'?'BLUE':'GREEN'} wins the opening RPS and receives Soccer.`);beginTurn()});
+}
+
+function showModal(title,text,options,cb){
+  const modal=$('modal');$('modalTitle').textContent=title;$('modalText').innerHTML=text;$('modalActions').innerHTML='';
+  options.forEach(([label,val,cls])=>{const b=document.createElement('button');b.className='action'+(cls?' '+cls:'');b.textContent=label;b.onclick=()=>{modal.classList.remove('on');cb(val)};$('modalActions').appendChild(b)});modal.classList.add('on');
+}
+function showRPS(title,cb){
+  showModal(title,'Choose Rock, Paper, or Scissors.',[['✊ ROCK','rock'],['✋ PAPER','paper'],['✌️ SCISSORS','scissors']],choice=>{
+    const ai=['rock','paper','scissors'][Math.floor(Math.random()*3)];const win=(choice==='rock'&&ai==='scissors')||(choice==='paper'&&ai==='rock')||(choice==='scissors'&&ai==='paper');const tie=choice===ai;
+    log(`RPS: YOU ${choice.toUpperCase()} · AI ${ai.toUpperCase()}`);if(tie){liveEvent('RPS TIE · AGAIN');setTimeout(()=>showRPS(title,cb),220)}else cb(win?'win':'lose');
+  });
+}
+
+function startTimer(){
+  clearInterval(state.timer);state.timer=setInterval(()=>{
+    if(state.ended)return;state.time=Math.max(0,state.time-1);updateClock();
+    if(state.time===0){state.timeExpired=true;if(!state.attack&&!state.userDecision&&!state.busy)finishMatch('FULL TIME');else notice('FULL TIME reached. Finish the current action chain, then the match ends.','warn')}
+  },1000);
+}
+function checkEnd(){
+  render();if(state.ended)return true;
+  if(state.timeExpired&&!state.attack&&!state.userDecision){finishMatch('FULL TIME');return true}
+  if(totalCards('blue')===0&&totalCards('green')===0){finishMatch('BOTH TEAMS HAVE NO ACTION CARDS');return true}
+  if(!teamCanAttack('blue')&&!teamCanAttack('green')){finishMatch('BOTH TEAMS CAN NO LONGER ATTACK');return true}
+  return false;
+}
+function setPossession(id,msg=''){state.ball=id;state.attack=null;state.busy=false;if(msg)notice(msg);addFlow(`⚽ ${name(id)} HAS SOCCER`,teamOf(id)==='blue'?'good':'bad');render()}
+function beginTurn(){if(checkEnd())return;const team=teamOf(state.ball);if(!team)return;if(team==='blue')startBlueTurn();else startAITurn()}
+function startBlueTurn(){
+  state.phase='play';state.busy=false;state.attack=null;state.selectedHand=state.ball;$('phaseTitle').textContent='YOUR POSSESSION';
+  const legal=has(state.ball,'SHOOT')?['SHOOT']:[];
+  setUserDecision(state.ball,legal,!teamCanAttack('blue')?'BLUE has no SHOOT left, but the match continues because GREEN can still attack. You may PASS and protect the score.':'Only the Soccer holder has the active move. Play SHOOT or PASS to any teammate.',
+    card=>{if(card==='SHOOT')startShoot(state.ball,'green')},
+    BLUE.filter(id=>id!==state.ball).map(id=>({label:`PASS → ${name(id)}`,fn:()=>{const from=state.ball;clearUserDecision();userPass(from,id)},cls:'blue'}))
+  );
+}
+function startAITurn(){state.phase='ai';state.busy=true;state.attack=null;state.selectedHand='B1';$('phaseTitle').textContent='AI POSSESSION';$('phaseHelp').textContent=!teamCanAttack('green')?'GREEN has no SHOOT left. The match still continues while BLUE can attack.':'AI is choosing between SHOOT and PASS.';render();setTimeout(aiChooseAction,420)}
+function aiChooseAction(){
+  if(state.ended||teamOf(state.ball)!=='green')return;const holder=state.ball;
+  if(teamCanAttack('green')&&has(holder,'SHOOT')&&Math.random()<.72){removeCard(holder,'SHOOT');playVisual(holder,'SHOOT');startShoot(holder,'blue');return}
+  const shooters=GREEN.filter(id=>id!==holder&&has(id,'SHOOT'));const mates=shooters.length?shooters:GREEN.filter(id=>id!==holder);aiPass(holder,mates[Math.floor(Math.random()*mates.length)]);
+}
+
+function userPass(from,to){state.busy=true;liveEvent(`⚽ ${name(from)} PASS → ${name(to)}`,'good');log(`${name(from)} passes to ${name(to)}.`);aiPassWindow(from,to,[...FIELD.green],0)}
+function aiPassWindow(from,to,defs,i){
+  if(i>=defs.length){state.ball=to;state.selectedHand=to;state.busy=false;liveEvent(`⚽ PASS COMPLETED · ${name(to)}`,'good');render();setTimeout(startBlueTurn,240);return}
+  const d=defs[i];if(!has(d,'TACKLE')||Math.random()>=.46){aiPassWindow(from,to,defs,i+1);return}
+  removeCard(d,'TACKLE');playVisual(d,'TACKLE','INTERCEPT PASS');
+  passTackleResponse(from,d,()=>{setPossession(d,`${name(d)} intercepts the PASS and wins Soccer.`);beginTurn()},()=>{liveEvent(`${name(d)} BEATEN ON PASS`,'good');aiPassWindow(from,to,defs,i+1)});
+}
+function aiPass(from,to){state.busy=true;liveEvent(`⚽ ${name(from)} PASS → ${name(to)}`,'bad');log(`${name(from)} passes to ${name(to)}.`);userPassWindow(from,to,[...FIELD.blue],0)}
+function userPassWindow(from,to,defs,i){
+  if(i>=defs.length){state.ball=to;state.busy=false;liveEvent(`⚽ AI PASS COMPLETED · ${name(to)}`,'bad');render();setTimeout(aiChooseAction,250);return}
+  const d=defs[i];if(!has(d,'TACKLE')){userPassWindow(from,to,defs,i+1);return}
+  setUserDecision(d,['TACKLE'],`${name(d)} can use TACKLE to intercept this PASS. YELLOW cannot be used because no SHOOT chain has started.`,()=>{
+    passTackleResponse(from,d,()=>{setPossession(d,`${name(d)} intercepts the PASS and wins Soccer.`);beginTurn()},()=>{liveEvent(`${name(d)} BEATEN ON PASS`,'warn');userPassWindow(from,to,defs,i+1)});
+  },[{label:'LET PASS GO',fn:()=>{clearUserDecision();userPassWindow(from,to,defs,i+1)}}]);
+}
+function passTackleResponse(passer,defender,onSuccess,onDribbled){
+  if(teamOf(passer)==='blue'){
+    if(has(passer,'DRIBBLE'))setUserDecision(passer,['DRIBBLE'],'TACKLE is attacking the PASS. Use DRIBBLE PAST to beat it, or let TACKLE win Soccer.',()=>onDribbled(),[{label:'LET TACKLE WIN',fn:()=>{clearUserDecision();onSuccess()}}]);
+    else onSuccess();
+  }else{
+    if(has(passer,'DRIBBLE')&&Math.random()<.58){removeCard(passer,'DRIBBLE');playVisual(passer,'DRIBBLE','BEAT PASS TACKLE');setTimeout(onDribbled,220)}else onSuccess();
+  }
+}
+
+function startShoot(shooter,defTeam){state.attack={shooter,atkTeam:teamOf(shooter),defTeam,index:0,current:null,beaten:[]};state.busy=true;$('phaseTitle').textContent='ATTACK';notice(`${name(shooter)} starts a SHOOT. SHOOT itself cannot be canceled by YELLOW.`);setTimeout(defendStep,240)}
+function currentDefender(){if(!state.attack)return null;const order=[...FIELD[state.attack.defTeam],GK[state.attack.defTeam]];return order[state.attack.index]||GK[state.attack.defTeam]}
+function defendStep(){if(!state.attack)return;const d=currentDefender();state.attack.current=d;if(isGK(d)){goalkeeperStage(d);return}if(teamOf(d)==='blue')userDefender(d);else setTimeout(()=>aiDefender(d),240)}
+function userDefender(d){
+  const legal=[];if(has(d,'DEFENSE'))legal.push('DEFENSE');if(has(d,'TACKLE'))legal.push('TACKLE');
+  if(!legal.length){liveEvent(`${name(d)} HAS NO DEFENSIVE CARD`,'warn');state.attack.index++;setTimeout(defendStep,230);return}
+  setUserDecision(d,legal,`${name(state.attack.shooter)} is attacking this line. ${name(d)} may use DEFENSE or TACKLE, or let the attack through.`,card=>{
+    if(card==='DEFENSE')resolveFieldDefense(d);else resolveFieldTackle(d);
+  },[{label:'LET ATTACK THROUGH',fn:()=>{clearUserDecision();state.attack.index++;liveEvent(`${name(d)} LETS ATTACK THROUGH`,'warn');setTimeout(defendStep,230)}}]);
+}
+function aiDefender(d){
+  const opts=[];if(has(d,'DEFENSE'))opts.push('DEFENSE');if(has(d,'TACKLE'))opts.push('TACKLE');
+  if(!opts.length){liveEvent(`${name(d)} HAS NO DEFENSIVE CARD`,'warn');state.attack.index++;render();setTimeout(defendStep,230);return}
+  const card=opts.includes('TACKLE')&&Math.random()<.46?'TACKLE':opts.includes('DEFENSE')?'DEFENSE':'TACKLE';removeCard(d,card);playVisual(d,card);if(card==='DEFENSE')resolveFieldDefense(d);else resolveFieldTackle(d);
+}
+
+function resolveFieldDefense(defender){
+  const shooter=state.attack?.shooter;if(!shooter)return;
+  if(teamOf(shooter)==='blue'){
+    if(has(shooter,'DRIBBLE'))setUserDecision(shooter,['DRIBBLE'],'DEFENSE cannot be canceled by YELLOW. Use DRIBBLE PAST to beat this defender, or let DEFENSE stop this SHOOT.',()=>resolveDribble(shooter,defender,()=>defenderBeaten(defender),()=>fieldDefenseSuccess(defender)),[{label:'LET DEFENSE STOP SHOOT',fn:()=>{clearUserDecision();fieldDefenseSuccess(defender)}}]);
+    else fieldDefenseSuccess(defender);
+  }else{
+    if(has(shooter,'DRIBBLE')&&Math.random()<.64){removeCard(shooter,'DRIBBLE');playVisual(shooter,'DRIBBLE');resolveDribble(shooter,defender,()=>defenderBeaten(defender),()=>fieldDefenseSuccess(defender))}else fieldDefenseSuccess(defender);
+  }
+}
+function fieldDefenseSuccess(defender){
+  const atk=state.attack;if(!atk)return;const shooter=atk.shooter;
+  liveEvent(`${name(defender)} DEFENSE STOPS THIS SHOOT`,'save');log(`${name(defender)} stops the SHOOT with DEFENSE. Soccer stays with ${name(shooter)}.`);
+  state.attack=null;state.busy=false;state.ball=shooter;notice(`DEFENSE succeeds. This SHOOT ends, but ${name(shooter)} keeps Soccer.`,'good');render();setTimeout(beginTurn,280);
+}
+function resolveFieldTackle(defender){
+  const atk=state.attack;if(!atk)return;const shooter=atk.shooter;
+  yellowWindow('TACKLE',teamOf(defender),()=>{
+    if(teamOf(shooter)==='blue'){
+      if(has(shooter,'DRIBBLE'))setUserDecision(shooter,['DRIBBLE'],'TACKLE will steal Soccer. Use DRIBBLE PAST to beat it, or let TACKLE win possession.',()=>resolveDribble(shooter,defender,()=>defenderBeaten(defender),()=>tackleWins(defender)),[{label:'LET TACKLE WIN',fn:()=>{clearUserDecision();tackleWins(defender)}}]);
+      else tackleWins(defender);
+    }else{
+      if(has(shooter,'DRIBBLE')&&Math.random()<.60){removeCard(shooter,'DRIBBLE');playVisual(shooter,'DRIBBLE');resolveDribble(shooter,defender,()=>defenderBeaten(defender),()=>tackleWins(defender))}else tackleWins(defender);
+    }
+  },()=>{liveEvent('TACKLE CANCELED BY YELLOW','yellow');notice('TACKLE is canceled. The attack moves to the next defensive line.','warn');state.attack.index++;setTimeout(defendStep,240)});
+}
+function tackleWins(defender){if(!state.attack)return;liveEvent(`${name(defender)} TACKLE WINS SOCCER`,'turnover');state.attack=null;state.busy=false;setPossession(defender,`${name(defender)} wins Soccer with TACKLE. Possession changes.`);setTimeout(beginTurn,240)}
+
+function resolveDribble(attacker,defender,onActive,onCanceled){yellowWindow('DRIBBLE',teamOf(attacker),onActive,onCanceled)}
+function yellowWindow(action,actorTeam,onActive,onCanceled){
+  if(!state.attack||!['TACKLE','DRIBBLE'].includes(action)){onActive();return}
+  const responderTeam=other(actorTeam);const seat=firstLine(responderTeam);
+  if(!has(seat,'YELLOW')){onActive();return}
+  yellowChain(action,responderTeam,true,onActive,onCanceled);
+}
+function yellowChain(action,nextTeam,canceled,onActive,onCanceled){
+  const seat=firstLine(nextTeam);
+  if(!has(seat,'YELLOW')){canceled?onCanceled():onActive();return}
+  const play=()=>{
+    removeCard(seat,'YELLOW');playVisual(seat,'YELLOW');markLastCanceled(seat);const nextCanceled=!canceled;
+    liveEvent(`YELLOW CHAIN · ${action} ${nextCanceled?'RESTORED':'CANCELED'}`,'yellow');setTimeout(()=>yellowChain(action,other(nextTeam),nextCanceled,onActive,onCanceled),220);
+  };
+  const stop=()=>canceled?onCanceled():onActive();
+  if(nextTeam==='blue')setUserDecision(seat,['YELLOW'],`${name(seat)} is BLUE's first defensive line. YELLOW may cancel ${action} during this SHOOT chain. SHOOT and DEFENSE cannot be canceled.`,()=>play(),[{label:'DO NOT USE YELLOW',fn:()=>{clearUserDecision();stop()}}]);
+  else if(Math.random()<.36)play();else stop();
+}
+
+function defenderBeaten(defender){
+  if(!state.attack)return;if(!state.attack.beaten.includes(defender))state.attack.beaten.push(defender);liveEvent(`${name(defender)} BEATEN BY DRIBBLE`,'good');log(`${name(defender)} is beaten by DRIBBLE.`);render();offerChase(defender);
+}
+function canChase(id){const h=state.hands[id]||[];return h.length>=2&&(h.includes('DEFENSE')||h.includes('TACKLE'))}
+function moveToNextLine(){if(!state.attack)return;state.attack.index++;setTimeout(defendStep,230)}
+function offerChase(defender){
+  if(!state.attack)return;
+  if(!canChase(defender)){liveEvent(`${name(defender)} CANNOT CHASE BACK`,'warn');moveToNextLine();return}
+  if(teamOf(defender)==='blue'){
+    setUserDecision(defender,[],`${name(defender)} was beaten. Every successful DRIBBLE creates this choice: discard 1 card to chase back and defend again, or let the next line defend.`,()=>{},[
+      {label:'CHASE BACK · DISCARD 1',fn:()=>chooseChaseDiscard(defender),cls:'blue'},
+      {label:'LET NEXT LINE DEFEND',fn:()=>{clearUserDecision();moveToNextLine()}}
+    ]);
+  }else{
+    const chase=Math.random()<.46;
+    showModal('AI TRACK-BACK DECISION',`${name(defender)} was beaten by DRIBBLE.<br><br>AI must decide whether to discard 1 card to chase back.`,[[chase?'AI CHASES BACK':'AI LETS NEXT LINE DEFEND','go']],()=>{
+      if(!chase){moveToNextLine();return}
+      const cost=randomDiscard(defender);liveEvent(`${name(defender)} DISCARDS ${cost} · CHASE BACK`,'cost');log(`${name(defender)} discards ${cost} to chase back.`);setTimeout(()=>aiChaseDefense(defender),220);
+    });
+  }
+}
+function chooseChaseDiscard(defender){
+  setUserDecision(defender,[],`Choose 1 card from ${name(defender)} to discard as the chase-back cost.`,()=>{},[],'discard');
+  state.userDecision.onCard=()=>{
+    const legal=[];if(has(defender,'DEFENSE'))legal.push('DEFENSE');if(has(defender,'TACKLE'))legal.push('TACKLE');
+    if(!legal.length){notice(`${name(defender)} paid the cost but has no DEFENSE or TACKLE left. The attack moves on.`,'warn');moveToNextLine();return}
+    setUserDecision(defender,legal,'Chase-back cost paid. Now play DEFENSE or TACKLE to defend again.',card=>{if(card==='DEFENSE')resolveFieldDefense(defender);else resolveFieldTackle(defender)},[{label:'STOP CHASING',fn:()=>{clearUserDecision();moveToNextLine()}}]);
+  };
+}
+function aiChaseDefense(defender){
+  if(!state.attack)return;const opts=[];if(has(defender,'DEFENSE'))opts.push('DEFENSE');if(has(defender,'TACKLE'))opts.push('TACKLE');if(!opts.length){moveToNextLine();return}
+  const card=opts.includes('TACKLE')&&Math.random()<.46?'TACKLE':opts.includes('DEFENSE')?'DEFENSE':'TACKLE';removeCard(defender,card);playVisual(defender,card,'CHASE '+card);if(card==='DEFENSE')resolveFieldDefense(defender);else resolveFieldTackle(defender);
+}
+
+function goalkeeperStage(gk){
+  if(!state.attack)return;
+  if(!has(gk,'DEFENSE')){scoreGoalAndGiveGK(gk,'NO GK DEFENSE');return}
+  if(teamOf(gk)==='blue')setUserDecision(gk,['DEFENSE'],'The SHOOT reached your Goalkeeper. GK DEFENSE starts Rock-Paper-Scissors. Whether the save succeeds or fails, Soccer will be in the Goalkeeper’s hand afterward.',()=>goalkeeperDuel(gk),[{label:'DO NOT USE DEFENSE',fn:()=>{clearUserDecision();scoreGoalAndGiveGK(gk,'GK DOES NOT USE DEFENSE')}}]);
+  else{removeCard(gk,'DEFENSE');playVisual(gk,'DEFENSE','GK DEFENSE');setTimeout(()=>goalkeeperDuel(gk),240)}
+}
+function goalkeeperDuel(gk){
+  if(!state.attack)return;
+  if(teamOf(gk)==='blue')showRPS('GOALKEEPER DUEL',res=>res==='win'?goalkeeperSave(gk):scoreGoalAndGiveGK(gk,'SHOOTER WINS GK DUEL'));
+  else showRPS('GOALKEEPER DUEL',res=>res==='win'?scoreGoalAndGiveGK(gk,'SHOOTER WINS GK DUEL'):goalkeeperSave(gk));
+}
+function goalkeeperSave(gk){liveEvent(`${name(gk)} SAVE · GK KEEPS SOCCER`,'save');state.attack=null;state.busy=false;setPossession(gk,`${name(gk)} saves the SHOOT and keeps Soccer.`);setTimeout(beginTurn,240)}
+function scoreGoalAndGiveGK(gk,reason='GOAL'){
+  if(!state.attack)return;const atk=state.attack,team=atk.atkTeam;state.score[team]++;liveEvent(`${teamName(team)} GOAL +1`,'goal');log(`${name(atk.shooter)} scores. BLUE ${state.score.blue} — ${state.score.green} GREEN.`);
+  state.attack=null;state.busy=false;setPossession(gk,`${reason}. GOAL for ${teamName(team)}. ${name(gk)} receives Soccer for the restart.`);setTimeout(beginTurn,260);
+}
+
+function finishMatch(reason){
+  if(state.ended)return;state.ended=true;clearInterval(state.timer);state.phase='ended';state.userDecision=null;state.busy=true;state.attack=null;$('modal').classList.remove('on');
+  notice(`${reason}. FINAL SCORE: BLUE ${state.score.blue} — ${state.score.green} GREEN.`);liveEvent(`FULL MATCH · BLUE ${state.score.blue} — ${state.score.green} GREEN`,'goal');log(`Match ends: ${reason}.`);render();
+  if(state.score.blue===state.score.green)setTimeout(()=>penaltyShootout(1),380);
+  else showModal('MATCH WINNER',`${state.score.blue>state.score.green?'BLUE':'GREEN'} wins the match, ${Math.max(state.score.blue,state.score.green)}–${Math.min(state.score.blue,state.score.green)}.`,[['PLAY AGAIN','again'],['MATCH MENU','menu']],v=>v==='again'?location.reload():location.href='match.html');
+}
+function penaltyShootout(round){
+  const deck=shuffle(FULL_DECK),draws={};[...BLUE,...GREEN].forEach(id=>draws[id]=deck.pop());
+  const blueShot=FIELD.blue.reduce((n,id)=>n+(draws[id]==='SHOOT'?1:0),0),greenShot=FIELD.green.reduce((n,id)=>n+(draws[id]==='SHOOT'?1:0),0);
+  const blueSave=draws.BKG==='DEFENSE'?1:0,greenSave=draws.GKG==='DEFENSE'?1:0,blueNet=blueShot-greenSave,greenNet=greenShot-blueSave;
+  const row=id=>`<div class="penDraw"><img src="${CARD_IMG[draws[id]]}" alt="${draws[id]}"><div><b>${name(id)}</b><br>${draws[id]} ${isGK(id)?(draws[id]==='DEFENSE'?'· -1 vs opponent':'· 0'):(draws[id]==='SHOOT'?'· +1':'· 0')}</div></div>`;
+  const html=`<div class="penV2"><div><h3>BLUE</h3>${BLUE.map(row).join('')}<b>SHOOTOUT SCORE ${blueNet}</b></div><div><h3>GREEN</h3>${GREEN.map(row).join('')}<b>SHOOTOUT SCORE ${greenNet}</b></div></div>`;
+  showModal(`PENALTY SHOOTOUT · DRAW ${round}`,`All 51 Action Cards are reshuffled. Every Player and Goalkeeper draws 1.<br><br>PLAYER: SHOOT = +1.<br>GOALKEEPER: DEFENSE = -1 against the opponent.${html}`,[['CONTINUE','go']],()=>{
+    if(blueNet===greenNet)penaltyShootout(round+1);else showModal('MATCH WINNER',`${blueNet>greenNet?'BLUE':'GREEN'} wins the penalty shootout, ${Math.max(blueNet,greenNet)} to ${Math.min(blueNet,greenNet)}.`,[['PLAY AGAIN','again'],['MATCH MENU','menu']],v=>v==='again'?location.reload():location.href='match.html');
+  });
+}
+
+function reset(){
+  clearInterval(state.timer);state.hands={};state.score={blue:0,green:0};state.ball=null;state.phase='trade';state.selectedHand='B1';state.tradePick=null;state.time=600;state.ended=false;state.timeExpired=false;state.busy=false;state.attack=null;state.userDecision=null;state.extras=[];state.flow=[];state.live=[];$('log').innerHTML='';
+  dealEqual();startTimer();$('phaseTitle').textContent='TEAM TRADE';$('phaseHelp').textContent=`Everyone has exactly ${HAND_SIZE} cards. Pick 1 card, switch to another BLUE teammate, then pick the second card to swap. The 10-minute clock is already running.`;notice(`${HAND_SIZE} cards each. ${EXTRA_COUNT} extras discarded. Manual 1-for-1 trading is ready.`);render();
+}
+
+reset();
+})();
