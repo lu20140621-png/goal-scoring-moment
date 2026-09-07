@@ -3,7 +3,7 @@
 const ids=['B1','B2','BKG','G1','G2','GKG'];
 const sync=()=>ids.forEach(id=>{
   const el=document.querySelector(`#${id} .handCount`);
-  if(el)el.textContent='8 START';
+  if(el&&el.textContent!=='8 START')el.textContent='8 START';
 });
 sync();
 const field=document.querySelector('.field');
