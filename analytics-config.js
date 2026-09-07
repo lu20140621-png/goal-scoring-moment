@@ -6,17 +6,27 @@ window.GSM_ANALYTICS_CONFIG = {
   heartbeatSeconds: 15
 };
 
-/* Homepage-only visual polish loader. */
+/* Homepage-only visual polish loaders. */
 (() => {
   const cleanPath = location.pathname.replace(/\/+$/, '');
   const isHome = cleanPath.endsWith('/goal-scoring-moment') ||
     cleanPath.endsWith('/goal-scoring-moment/index.html') ||
     cleanPath === '' || cleanPath === '/index.html';
-  if (!isHome || document.querySelector('script[data-gsm-home-polish]')) return;
+  if (!isHome) return;
 
-  const script = document.createElement('script');
-  script.src = 'homepage-background-polish.js?v=20260904v4';
-  script.defer = true;
-  script.dataset.gsmHomePolish = '1';
-  document.head.appendChild(script);
+  if (!document.querySelector('script[data-gsm-home-polish]')) {
+    const script = document.createElement('script');
+    script.src = 'homepage-background-polish.js?v=20260904v4';
+    script.defer = true;
+    script.dataset.gsmHomePolish = '1';
+    document.head.appendChild(script);
+  }
+
+  if (!document.querySelector('script[data-gsm-match-home-polish]')) {
+    const script = document.createElement('script');
+    script.src = 'home-match-mode-polish.js?v=20260907m1';
+    script.defer = true;
+    script.dataset.gsmMatchHomePolish = '1';
+    document.head.appendChild(script);
+  }
 })();
