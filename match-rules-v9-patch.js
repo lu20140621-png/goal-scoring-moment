@@ -1,38 +1,52 @@
 (()=>{
 'use strict';
 function apply(){
-  document.title='Match Mode — Complete Rulebook V9';
-  const small=document.querySelector('.brand small');if(small)small.textContent='COMPLETE RULEBOOK · V9';
-  const penalty=document.querySelector('#penalty');
-  if(penalty){
-    penalty.innerHTML=`<h2>14. PENALTY SHOOTOUT — 5 ROUNDS</h2>
-    <p>If the main match finishes tied, use a real-style five-round penalty shootout adapted for this 3v3 card game.</p>
-    <div class="flow"><span class="box">GREEN KICK</span><span class="arr">→</span><span class="box">BLUE KICK</span><span class="arr">→</span><span class="box">ROUND 1</span><span class="arr">→</span><span class="box">...UP TO ROUND 5</span></div>
-    <ol>
-      <li>Collect all 51 Action Cards, including played cards, chase-cost discards, cards still in hands, and the 3 setup extras. Shuffle all 51.</li>
-      <li>Teams alternate penalties. GREEN takes the first kick, then BLUE takes the matching kick for that round.</li>
-      <li>Each team has up to 5 kicks in the main shootout.</li>
-      <li>For the 3v3 adaptation, the field-player order is D1, D2, D1, D2, D1. Both teams use the same order.</li>
-      <li>For every single kick, the kicker draws 1 card and the opposing Goalkeeper draws a fresh 1 card.</li>
-      <li>If the kicker draws SHOOT and the opposing GK does NOT draw DEFENSE, that kick scores 1 GOAL.</li>
-      <li>If the kicker does not draw SHOOT, the kick is a MISS and scores 0.</li>
-      <li>If the kicker draws SHOOT but the opposing GK draws DEFENSE, it is a SAVE and scores 0.</li>
-      <li>The same GK draws a brand-new card against every penalty. A previous DEFENSE never carries over to another kick.</li>
-      <li>Keep a running penalty score. The team with more goals after 5 kicks each wins.</li>
-    </ol>
-    <p class="important"><b>EARLY WIN — LIKE REAL FOOTBALL:</b> If one team is already too far ahead for the opponent to catch with its remaining kicks, stop immediately. There is no need to force all 5 kicks.</p>
-    <p class="example"><b>EXAMPLE:</b> After 4 kicks each, GREEN leads 4–1. BLUE has only 1 kick remaining, so BLUE can reach at most 2. GREEN has already won; the shootout ends immediately.</p>
-    <h3>SUDDEN DEATH AFTER 5–5 ROUNDS</h3>
-    <ol>
-      <li>If the score is tied after both teams complete their 5 main kicks, enter Sudden Death.</li>
-      <li>GREEN takes 1 kick, then BLUE takes 1 matching kick.</li>
-      <li>If one scores and the other does not in the same sudden-death round, the scoring team wins immediately.</li>
-      <li>If both score or both fail, play another sudden-death round.</li>
-      <li>Every kick still uses a fresh kicker draw and a fresh opposing GK draw.</li>
-    </ol>
-    <p class="ruling"><b>NO NEGATIVE SCORES:</b> DEFENSE does not subtract a goal. It simply turns that specific SHOOT penalty into a SAVE worth 0.</p>`;
-  }
-  const v=document.querySelector('.version');if(v)v.textContent='MATCH MODE · PLAYTEST RULEBOOK V9 · 5-ROUND PENALTY SHOOTOUT';
+ document.title='Match Mode — Complete Rulebook V9';
+ const small=document.querySelector('.brand small');
+ if(small) small.textContent='COMPLETE RULEBOOK · V9';
+ const main=document.body;
+ const wrap=document.createElement('section');
+ wrap.className='v9-expanded-rulebook';
+ wrap.innerHTML=`
+ <h1>GOAL-SCORING MOMENT — MATCH MODE V9 COMPLETE RULEBOOK</h1>
+ <p>This rulebook explains every possible attack, defense, turnover, goalkeeper and penalty situation.</p>
+ 
+ <h2>1. ATTACK ORDER</h2>
+ <p>Every SHOOT follows the same order: Attacker SHOOT → Defender 1 → Defender 2 → Goalkeeper.</p>
+ <p>A defender who does not play DEFENSE or TACKLE does not defend that line. The attack moves forward automatically. No DRIBBLE is required.</p>
+ 
+ <h2>2. DEFENSE VS TACKLE</h2>
+ <p><b>DEFENSE:</b> Stops the current SHOOT only. Soccer stays with the attacking team.</p>
+ <p><b>TACKLE:</b> Stops the action and steals Soccer. The successful tackler becomes the new attacker.</p>
+ <p>Any successful TACKLE resets the attack. The next SHOOT always starts from the opponent's Defender 1.</p>
+ 
+ <h2>3. DRIBBLE PAST</h2>
+ <p>DRIBBLE is only needed when a defender actually plays DEFENSE or TACKLE.</p>
+ <p>After a successful DRIBBLE, that defender chooses: discard 1 card to CHASE BACK, or allow the next defensive line to act.</p>
+ <p>Every defensive line must make its own decision.</p>
+ 
+ <h2>4. YELLOW RULE</h2>
+ <p>YELLOW belongs to the current defensive line.</p>
+ <p>D1 can only use YELLOW against actions targeting D1. D2 can only use YELLOW against actions targeting D2.</p>
+ <p>YELLOW may cancel DRIBBLE or YELLOW. It cannot cancel SHOOT or DEFENSE.</p>
+ 
+ <h2>5. GOALKEEPER RULES</h2>
+ <p>Goalkeeper DEFENSE uses the goalkeeper save system. If the goalkeeper attacks with Soccer, the goalkeeper follows normal SHOOT rules.</p>
+ <p>If an attacking goalkeeper loses Soccer by TACKLE, the goalkeeper is OUT OF POSITION.</p>
+ <p>When a counterattack reaches an out-of-position goalkeeper: discard 1 card to RETURN TO GOAL. Then DEFENSE may be used. Without returning, the goal is automatic.</p>
+ 
+ <h2>6. POSSESSION RESET</h2>
+ <p>After any successful TACKLE, all previous DRIBBLE progress and defensive positions are cleared. A new attack starts from D1.</p>
+ 
+ <h2>7. MATCH END</h2>
+ <p>The match does not end because only one team has no SHOOT cards. Both teams must be unable to create attacks, or time must expire.</p>
+ 
+ <h2>8. PENALTY SHOOTOUT</h2>
+ <p>Use five rounds like real football. Each kick: kicker draws one card, opposing goalkeeper draws one fresh card.</p>
+ <p>SHOOT without GK DEFENSE = GOAL. SHOOT with GK DEFENSE = SAVE. No SHOOT = MISS.</p>
+ <p>After five rounds, highest score wins. If tied, enter sudden death.</p>
+ `;
+ main.appendChild(wrap);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
