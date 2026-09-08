@@ -267,3 +267,18 @@
     attributeFilter: ['src']
   });
 })();
+
+/* Math Challenge: expose the full rulebook from both tutorial pages. */
+(() => {
+  const path = location.pathname.toLowerCase();
+  if (!path.endsWith('/math.html') && !path.endsWith('math.html') && !path.includes('math-coach-')) return;
+  const actions = document.querySelector('.topActions');
+  if (!actions || actions.querySelector('[data-math-rulebook-link]')) return;
+  const link = document.createElement('a');
+  link.className = 'navBtn';
+  link.href = 'math-rules.html?v=20260907mathrules1';
+  link.textContent = 'RULEBOOK';
+  link.dataset.mathRulebookLink = '1';
+  const modes = [...actions.querySelectorAll('a')].find(a => /MODES/i.test(a.textContent || ''));
+  actions.insertBefore(link, modes || null);
+})();
