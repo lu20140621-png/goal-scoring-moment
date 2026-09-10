@@ -1,7 +1,13 @@
 /* Lightweight original background music for Strategy Tutorial.
-   No external audio file is required. Starts after the first user gesture because browsers block autoplay audio. */
+   No external audio file is required. Starts after the first user gesture because browsers block autoplay audio.
+   Music control is intentionally shown ONLY in the top-right tutorial navigation. */
 (()=>{
   'use strict';
+
+  // Remove any legacy bottom-right floating button before doing anything else.
+  document.querySelectorAll('.strategyMusicFloat').forEach(el=>el.remove());
+  document.getElementById('gsm-strategy-music-float-style')?.remove();
+
   if(window.__gsmStrategyBgmV1Installed)return;
   window.__gsmStrategyBgmV1Installed=true;
 
@@ -122,25 +128,36 @@
     b.style.opacity=muted?'.62':'1';
   }
 
-  function installButton(){
-    if(document.getElementById('strategyMusicToggle'))return;
-    const host=document.querySelector('.topBtns')||document.body;
+  function createTopButton(host){
+    if(!host||document.getElementById('strategyMusicToggle'))return true;
     const b=document.createElement('button');
     b.id='strategyMusicToggle';
     b.type='button';
-    b.className=host===document.body?'strategyMusicFloat':'topBtn';
+    b.className='topBtn';
     b.addEventListener('click',async e=>{
       e.preventDefault();e.stopPropagation();
       if(!started&&!muted)await start();
       else if(!started&&muted){muted=false;await start();localStorage.setItem(STORAGE_KEY,'0')}
       else setMuted(!muted);
     });
-    if(host===document.body){
-      const s=document.createElement('style');
-      s.textContent='.strategyMusicFloat{position:fixed;right:12px;bottom:12px;z-index:9999;border:2px solid #fff;border-radius:999px;padding:10px 14px;background:#0b3458;color:#fff;font:900 11px/1 Arial;box-shadow:0 6px 18px #0008;cursor:pointer;white-space:nowrap}';
-      document.head.appendChild(s);
-    }
-    host.appendChild(b);updateButton();
+    host.appendChild(b);
+    updateButton();
+    return true;
+  }
+
+  function installTopButtonOnly(){
+    // Never create a body/floating fallback. The only visible music control belongs in .topBtns.
+    document.querySelectorAll('.strategyMusicFloat').forEach(el=>el.remove());
+    const host=document.querySelector('.topBtns');
+    if(host){createTopButton(host);return true;}
+    return false;
+  }
+
+  if(!installTopButtonOnly()){
+    const navObserver=new MutationObserver(()=>{
+      if(installTopButtonOnly())navObserver.disconnect();
+    });
+    navObserver.observe(document.documentElement,{childList:true,subtree:true});
   }
 
   async function firstGesture(){
@@ -156,7 +173,4 @@
     if(document.hidden)ctx.suspend().catch(()=>{});
     else if(started&&!muted)ctx.resume().catch(()=>{});
   });
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installButton,{once:true});
-  else installButton();
 })();
