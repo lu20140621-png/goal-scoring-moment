@@ -32,4 +32,12 @@
   const observer=new MutationObserver(apply);
   observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
   apply();
+
+  // Load the original low-volume Strategy Mode background music system.
+  if(!document.getElementById('gsm-strategy-bgm-v1')){
+    const music=document.createElement('script');
+    music.id='gsm-strategy-bgm-v1';
+    music.src='strategy-bgm-v1.js?v=20260909bgm1';
+    document.body.appendChild(music);
+  }
 })();
