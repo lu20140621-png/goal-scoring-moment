@@ -26,7 +26,7 @@ body.ready #game{opacity:1;visibility:visible}
 </head>
 <body>
 <div id="strategyLoader" role="status" aria-live="polite"><div class="loaderCard"><div class="loaderBall" aria-hidden="true"></div><div class="loaderTitle">STRATEGY MODE</div><div class="loaderSub">LOADING GAME ASSETS</div><div class="loaderTrack"><div class="loaderBar"></div></div></div></div>
-<iframe id="game" src="strategy-13.html?v=20260909clickfix1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<iframe id="game" src="strategy-13.html?v=20260909clickfix2" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
 const loader=document.getElementById('strategyLoader');
@@ -82,7 +82,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-physical-prep-correction-loader')){markBootReady();return;}
       const p=d.createElement('script');
       p.id='gsm-physical-prep-correction-loader';
-      p.src='strategy-physical-prep-correction.js?v=20260909clickfix1';
+      p.src='strategy-physical-prep-correction.js?v=20260909clickfix2';
       p.onload=markBootReady;
       p.onerror=markBootReady;
       d.body.appendChild(p);
@@ -92,7 +92,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-card-consume-fix-loader')){loadPhysicalPrepCorrection();return;}
       const h=d.createElement('script');
       h.id='gsm-card-consume-fix-loader';
-      h.src='strategy-13-card-consume-fix.js?v=20260909clickfix1';
+      h.src='strategy-13-card-consume-fix.js?v=20260909clickfix2';
       h.onload=loadPhysicalPrepCorrection;
       h.onerror=loadPhysicalPrepCorrection;
       d.body.appendChild(h);
@@ -154,7 +154,7 @@ f.addEventListener('load',()=>{
     if(!d.getElementById('gsm-coach-guide-v2-loader')){
       const g=d.createElement('script');
       g.id='gsm-coach-guide-v2-loader';
-      g.src='strategy-13-coach-guide-v2.js?v=20260905yellowload1';
+      g.src='strategy-13-coach-guide-v2.js?v=20260909clickfix2';
       g.onload=loadCoachDetail;
       g.onerror=loadCoachDetail;
       d.body.appendChild(g);
