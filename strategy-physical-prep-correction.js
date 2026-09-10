@@ -3,7 +3,7 @@
   if(window.__gsmStrategyPhysicalPrepCorrectionInstalled)return;
   window.__gsmStrategyPhysicalPrepCorrectionInstalled=true;
 
-  const correctedText='Before we start, take out 2 GOALKEEPER cards and 2 PLAYER cards. Put one Goalkeeper + one Player on the BLUE side, and the other Goalkeeper + one Player on the GREEN side. Then take out the SOCCER card and any 1 ACTION card. Keep all six in front of you and follow along with me.';
+  const correctedText='Before we start, take out the BLUE Team GOALKEEPER and PLAYER, the GREEN Team GOALKEEPER and PLAYER, 1 SOCCER card, and any 1 ACTION card. Put the GREEN Goalkeeper and Player on the opposite side. Keep the BLUE Goalkeeper, BLUE Player, SOCCER, and ACTION card closest to you — these are the four cards you’ll follow with me.';
 
   function apply(){
     const tray=document.querySelector('.physicalPrepTray');
@@ -14,28 +14,36 @@
     if(text && text.textContent.startsWith('Before we start')) text.textContent=correctedText;
 
     const title=tray.querySelector('.physicalPrepTitle');
-    if(title) title.textContent='🃏 PREPARE 2 GOALKEEPERS + 2 PLAYERS + SOCCER + 1 ACTION CARD';
+    if(title) title.textContent='🃏 FOLLOW ALONG WITH THESE 4 CARDS';
 
     const cards=[...tray.querySelectorAll('.physicalPrepCard')];
-    if(cards.length>=6){
-      const teams=[
-        ['BLUE SIDE','Goalkeeper card','GOALKEEPER'],
-        ['BLUE SIDE','Player card','PLAYER'],
-        ['GREEN SIDE','Goalkeeper card','GOALKEEPER'],
-        ['GREEN SIDE','Player card','PLAYER']
-      ];
-      for(let i=0;i<4;i++){
-        const badge=cards[i].querySelector('.physicalPrepTeam');
-        const img=cards[i].querySelector('img');
-        const label=cards[i].querySelector('b');
-        if(badge)badge.textContent=teams[i][0];
-        if(img)img.alt=teams[i][1];
-        if(label)label.textContent=teams[i][2];
-      }
+    if(cards.length>4){
+      cards.slice(4).forEach(card=>card.remove());
     }
 
-    let hint=tray.querySelector('.physicalPrepHint');
-    if(hint) hint.textContent='The Goalkeeper and Player cards use the same artwork for both teams. Just place one pair on the BLUE side and one pair on the GREEN side for this practice.';
+    const remaining=[...tray.querySelectorAll('.physicalPrepCard')];
+    const desired=[
+      ['BLUE TEAM','images/goalkeeper-card.webp','Blue Team Goalkeeper card','GOALKEEPER','blueRole'],
+      ['BLUE TEAM','images/player-card.webp','Blue Team Player card','PLAYER','blueRole'],
+      ['TAKE 1','images/soccer-card.webp','Soccer card','SOCCER',''],
+      ['ANY 1','images/shoot-card.webp','Example Action card','ACTION CARD','']
+    ];
+    remaining.forEach((card,i)=>{
+      const d=desired[i]; if(!d)return;
+      card.className='physicalPrepCard'+(d[4]?' '+d[4]:'');
+      const badge=card.querySelector('.physicalPrepTeam');
+      const img=card.querySelector('img');
+      const label=card.querySelector('b');
+      if(badge){badge.textContent=d[0];badge.className='physicalPrepTeam '+(i<2?'blue':'neutral');}
+      if(img){img.src=d[1];img.alt=d[2];}
+      if(label)label.textContent=d[3];
+    });
+
+    const grid=tray.querySelector('.physicalPrepCards');
+    if(grid) grid.style.gridTemplateColumns='repeat(4,minmax(0,1fr))';
+
+    const hint=tray.querySelector('.physicalPrepHint');
+    if(hint) hint.textContent='The GREEN Goalkeeper and Player stay on the opposite side. Only these four cards are shown here because these are the cards you’ll move with the coach.';
   }
 
   const observer=new MutationObserver(apply);
