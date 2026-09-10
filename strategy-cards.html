@@ -26,7 +26,7 @@ body.ready #game{opacity:1;visibility:visible}
 </head>
 <body>
 <div id="strategyLoader" role="status" aria-live="polite"><div class="loaderCard"><div class="loaderBall" aria-hidden="true"></div><div class="loaderTitle">STRATEGY MODE</div><div class="loaderSub">LOADING GAME ASSETS</div><div class="loaderTrack"><div class="loaderBar"></div></div></div></div>
-<iframe id="game" src="strategy-13.html?v=20260909physical1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<iframe id="game" src="strategy-13.html?v=20260909physical2" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
 const loader=document.getElementById('strategyLoader');
@@ -82,7 +82,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-card-consume-fix-loader')){markBootReady();return;}
       const h=d.createElement('script');
       h.id='gsm-card-consume-fix-loader';
-      h.src='strategy-13-card-consume-fix.js?v=20260909physical1';
+      h.src='strategy-13-card-consume-fix.js?v=20260909physical2';
       h.onload=markBootReady;
       h.onerror=markBootReady;
       d.body.appendChild(h);
