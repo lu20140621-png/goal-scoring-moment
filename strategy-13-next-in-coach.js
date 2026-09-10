@@ -30,9 +30,14 @@
 
     const isFinal = current === lessons.length - 1;
     const label = isFinal ? 'FINISH TUTORIAL →' : 'NEXT LESSON →';
-    const text = message && message !== 'Lesson complete.'
-      ? `Nice work. ${message}`
-      : 'Nice work. You completed this lesson.';
+    let text;
+    if (current === 9) {
+      text = 'Great — you learned DRIBBLE PAST. This lesson ends here. Next, we will replay a NEW attack from the beginning: SHOOT → first DEFENSE → DRIBBLE PAST. Then you will learn why the defending team can play a second DEFENSE on that same attack.';
+    } else {
+      text = message && message !== 'Lesson complete.'
+        ? `Nice work. ${message}`
+        : 'Nice work. You completed this lesson.';
+    }
 
     button.hidden = true;
     button.textContent = label;
