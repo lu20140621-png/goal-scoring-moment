@@ -96,7 +96,7 @@
     const now=ctx.currentTime;
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(Math.max(master.gain.value,.0001),now);
-    master.gain.exponentialRampToValueAtTime(muted?.0001:.065,now+.45);
+    master.gain.exponentialRampToValueAtTime(muted?.0001:.10,now+.45);
     updateButton();
   }
 
@@ -107,7 +107,7 @@
     const now=ctx.currentTime;
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(Math.max(master.gain.value,.0001),now);
-    master.gain.exponentialRampToValueAtTime(muted?.0001:.065,now+.22);
+    master.gain.exponentialRampToValueAtTime(muted?.0001:.10,now+.22);
     updateButton();
   }
 
