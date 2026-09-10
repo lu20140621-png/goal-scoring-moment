@@ -32,7 +32,7 @@
     const label = isFinal ? 'FINISH TUTORIAL →' : 'NEXT LESSON →';
     let text;
     if (current === 9) {
-      text = 'Great — you learned DRIBBLE PAST. This lesson ends here. Next, we will replay a NEW attack from the beginning: SHOOT → first DEFENSE → DRIBBLE PAST. Then you will learn why the defending team can play a second DEFENSE on that same attack.';
+      text = 'Great — you learned DRIBBLE PAST. This lesson ends here. In the next lesson we start a NEW attack from the beginning: GREEN 1 plays SHOOT, YOU play the first DEFENSE, GREEN 1 uses DRIBBLE PAST, then YOU play the second DEFENSE. You will perform the whole defensive chain yourself.';
     } else {
       text = message && message !== 'Lesson complete.'
         ? `Nice work. ${message}`
