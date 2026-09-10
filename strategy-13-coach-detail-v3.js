@@ -15,7 +15,7 @@
     7: 'GREEN 1 has played SHOOT at you. Play DEFENSE to stop the attack. TACKLE only takes the Soccer Card from a player; it cannot stop an incoming SHOOT. YELLOW does not stop an attack.',
     8: 'GREEN 2 has the Soccer Card. Play TACKLE to take the Soccer Card and win possession. TACKLE is for taking possession, not for defending a SHOOT.',
     9: 'Your SHOOT was stopped by DEFENSE. Play DRIBBLE PAST from your hand to bypass that DEFENSE and continue the same attack.',
-    10: 'The attack is still active after DRIBBLE PAST. First, play DEFENSE to stop the attack. Then choose one remaining card from your hand to discard.',
+    10: 'New lesson — we are replaying a fresh attack from the beginning, not continuing your last DRIBBLE. GREEN 1 plays SHOOT at your team. BLUE 2 uses the first DEFENSE. GREEN 1 uses DRIBBLE PAST to bypass that DEFENSE. The same SHOOT is still alive, so now YOU may play a second DEFENSE. After that second DEFENSE, choose one remaining card from your hand to discard.',
     11: 'Turn order is 1 GREEN 1, 2 BLUE 2, 3 GREEN 2, 4 YOU. You are last in the cycle, so after your turn it loops back to GREEN 1. Play YELLOW now to skip GREEN 1, the next living player.',
     12: 'FINAL CHALLENGE: Stop the incoming SHOOT with DEFENSE. If GREEN uses DRIBBLE PAST, use DEFENSE again. Then discard one card, play SHOOT, and tap the opponent you want to target.'
   };
