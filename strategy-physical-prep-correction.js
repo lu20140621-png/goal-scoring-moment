@@ -45,8 +45,6 @@
       const {state,scene,text,arrow}=guideBits();
       if(!state||state.lesson!==0||state.step!==1||!textStageReady||visualStageShown)return;
 
-      // The first continue after the long prep sentence opens the visual stage
-      // instead of letting the core tutorial jump directly to the next rule.
       e.preventDefault();
       e.stopImmediatePropagation();
       visualStageShown=true;
@@ -78,8 +76,6 @@
     installCapture();
     if(resetIfOutsidePrep(state))return;
 
-    // Core lesson 1 originally creates the tray and the sentence together.
-    // Catch that moment once, detach the tray, and leave only the coach text.
     if(!textStageReady&&tray&&text){
       detachedTray=tray;
       tray.remove();
@@ -105,11 +101,11 @@
   observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
   apply();
 
-  // Keep Strategy Mode background music enabled; button text has no music icon.
+  // Keep Strategy Mode background music enabled; only the top-right MUSIC control is visible.
   if(!document.getElementById('gsm-strategy-bgm-v1')){
     const music=document.createElement('script');
     music.id='gsm-strategy-bgm-v1';
-    music.src='strategy-bgm-v1.js?v=20260909bgm3';
+    music.src='strategy-bgm-v1.js?v=20260909bgm4';
     document.body.appendChild(music);
   }
 })();
