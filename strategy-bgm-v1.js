@@ -16,10 +16,10 @@
 
   function midi(n){return 440*Math.pow(2,(n-69)/12)}
   const progression=[
-    [48,52,55,59], // Cmaj7
-    [45,48,52,55], // Am7
-    [41,45,48,52], // Fmaj7
-    [43,47,50,53]  // G7
+    [48,52,55,59],
+    [45,48,52,55],
+    [41,45,48,52],
+    [43,47,50,53]
   ];
 
   function ensureAudio(){
@@ -114,9 +114,12 @@
   function updateButton(){
     const b=document.getElementById('strategyMusicToggle');
     if(!b)return;
-    b.textContent=muted?'🔇 MUSIC':'🎵 MUSIC';
+    b.textContent='MUSIC';
     b.setAttribute('aria-pressed',muted?'false':'true');
     b.title=muted?'Turn background music on':'Turn background music off';
+    b.style.whiteSpace='nowrap';
+    b.style.lineHeight='1';
+    b.style.opacity=muted?'.62':'1';
   }
 
   function installButton(){
@@ -134,7 +137,7 @@
     });
     if(host===document.body){
       const s=document.createElement('style');
-      s.textContent='.strategyMusicFloat{position:fixed;right:12px;bottom:12px;z-index:9999;border:2px solid #fff;border-radius:999px;padding:10px 14px;background:#0b3458;color:#fff;font:900 11px/1 Arial;box-shadow:0 6px 18px #0008;cursor:pointer}';
+      s.textContent='.strategyMusicFloat{position:fixed;right:12px;bottom:12px;z-index:9999;border:2px solid #fff;border-radius:999px;padding:10px 14px;background:#0b3458;color:#fff;font:900 11px/1 Arial;box-shadow:0 6px 18px #0008;cursor:pointer;white-space:nowrap}';
       document.head.appendChild(s);
     }
     host.appendChild(b);updateButton();
