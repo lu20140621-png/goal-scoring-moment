@@ -19,7 +19,6 @@
     }
     if(fixedForThisStep)return;
 
-    // Stop only the prep sentence's old typewriter timer; do not touch clicks or gameplay.
     if(state.timer) clearTimeout(state.timer);
     state.fullText=CORRECT_TEXT;
     state.typing=false;
@@ -33,11 +32,10 @@
   observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
   apply();
 
-  // Load the Strategy Mode background music system.
   if(!document.getElementById('gsm-strategy-bgm-v1')){
     const music=document.createElement('script');
     music.id='gsm-strategy-bgm-v1';
-    music.src='strategy-bgm-v1.js?v=20260909bgm2';
+    music.src='strategy-bgm-v1.js?v=20260909bgm3';
     document.body.appendChild(music);
   }
 })();
