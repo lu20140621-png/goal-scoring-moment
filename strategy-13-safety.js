@@ -4,11 +4,11 @@
   if (window.__gsmStrategy13SafetyInstalled) return;
   window.__gsmStrategy13SafetyInstalled = true;
 
-  // Lesson 11: BLUE 2 already used the first DEFENSE, so YOU only need one DEFENSE
-  // plus two valid discard choices. This mirrors the taught chain exactly.
+  // SECOND DEFENSE lesson: the learner now plays BOTH the first and second
+  // DEFENSE cards. Keep two DEFENSE cards plus valid discard choices.
   try {
     if (typeof lessons !== 'undefined' && lessons[10]) {
-      lessons[10].hand = ['DEFENSE', 'YELLOW', 'TACKLE'];
+      lessons[10].hand = ['DEFENSE', 'DEFENSE', 'YELLOW', 'TACKLE'];
     }
   } catch (_) {}
 
