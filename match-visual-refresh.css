@@ -1,0 +1,193 @@
+/* Match Mode bright visual refresh — presentation only. Rules and gameplay are untouched. */
+:root{
+  --match-lime:#c9ff26;
+  --match-yellow:#ffd83d;
+  --match-green:#0f9b4b;
+  --match-green2:#08713a;
+  --match-blue:#3b98ff;
+  --match-red:#ff645b;
+  --match-cream:#fffdf2;
+  --match-ink:#102b1b;
+  --match-shadow:#052a16;
+}
+
+html,body{
+  background:
+    radial-gradient(circle at 50% -8%,rgba(201,255,38,.34),transparent 31%),
+    linear-gradient(180deg,#148c48 0%,#0b6837 38%,#064725 72%,#04331c 100%)!important;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 9% 24%,rgba(255,216,61,.16),transparent 18%),
+    radial-gradient(circle at 91% 30%,rgba(59,152,255,.16),transparent 19%),
+    repeating-linear-gradient(105deg,rgba(255,255,255,.03) 0 2px,transparent 2px 17px);
+}
+.page{padding-top:16px!important}
+
+.topbar{
+  border:4px solid #071b0f!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg,#13a451 0%,#08743a 100%)!important;
+  box-shadow:inset 0 0 0 3px #fff,0 7px 0 #04391d,0 15px 30px rgba(0,0,0,.23)!important;
+}
+.brand{font-family:"Arial Black","Trebuchet MS",Arial,sans-serif!important;text-shadow:0 2px 0 #04341b!important}
+.brand small{color:#efff80!important}
+.toplinks a,.toplinks button{
+  border:2px solid #fff!important;
+  border-radius:999px!important;
+  background:#07552d!important;
+  box-shadow:0 3px 0 #02331a!important;
+}
+
+.heroMatch{padding-top:46px!important}
+.heroMatch h1{
+  color:#fff!important;
+  -webkit-text-stroke:2px #061b0d;
+  text-shadow:4px 5px 0 #08703a,8px 9px 0 #03321a!important;
+}
+.heroMatch h1 span{color:var(--match-yellow)!important}
+.heroMatch p{color:#f4fff4!important;text-shadow:0 2px 2px #064525!important}
+.matchWarn{
+  background:linear-gradient(135deg,#fff7c7,#ffd95d)!important;
+  border:3px solid #6b4300!important;
+  box-shadow:0 6px 0 #5a3700,0 13px 25px rgba(0,0,0,.18)!important;
+}
+.rulesMini{gap:11px!important}
+.ruleMini{
+  color:var(--match-ink)!important;
+  background:linear-gradient(180deg,#fffef8,#edf8e8)!important;
+  border:3px solid #8fd68f!important;
+  border-radius:17px!important;
+  box-shadow:0 5px 0 #0b6334,0 11px 20px rgba(0,0,0,.17)!important;
+}
+.ruleMini b{color:#09572e!important}
+
+.choiceGrid{gap:15px!important}
+.choice{
+  color:var(--match-ink)!important;
+  border:4px solid #071c0f!important;
+  border-radius:24px!important;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(201,255,38,.27),transparent 27%),
+    linear-gradient(145deg,#fffef4,#e7f7df)!important;
+  box-shadow:inset 0 0 0 3px #fff,0 8px 0 #07502b,0 18px 30px rgba(0,0,0,.22)!important;
+  transition:transform .22s ease,filter .22s ease!important;
+}
+.choice:nth-child(2){background:radial-gradient(circle at 88% 12%,rgba(255,216,61,.34),transparent 27%),linear-gradient(145deg,#fffdf1,#fff0b7)!important;box-shadow:inset 0 0 0 3px #fff,0 8px 0 #b77c0b,0 18px 30px rgba(0,0,0,.20)!important}
+.choice:nth-child(3){background:radial-gradient(circle at 88% 12%,rgba(59,152,255,.22),transparent 27%),linear-gradient(145deg,#f7fdff,#dcebff)!important;box-shadow:inset 0 0 0 3px #fff,0 8px 0 #286bb0,0 18px 30px rgba(0,0,0,.20)!important}
+.choice h2{color:#09341d!important;text-shadow:2px 2px 0 #fff!important}
+.choice p{color:#2c4b38!important}
+.choice b{background:var(--match-lime)!important;border:2px solid #081b0e!important;box-shadow:0 4px 0 #557a08!important}
+@media(hover:hover){.choice:hover{transform:translateY(-6px) scale(1.01);filter:saturate(1.06) brightness(1.02)}}
+
+/* Scoreboard + field */
+.scorebar{margin:17px 0!important}
+.scoreTeam{
+  border:3px solid #fff!important;
+  border-radius:18px!important;
+  box-shadow:0 5px 0 rgba(2,36,18,.72),0 11px 19px rgba(0,0,0,.18)!important;
+}
+.scoreTeam.blue{background:linear-gradient(180deg,#459eff,#246bc1)!important}
+.scoreTeam.green{background:linear-gradient(180deg,#20b95d,#0a7b3d)!important}
+.clock{
+  background:linear-gradient(180deg,#fffef3,#ecf7e7)!important;
+  color:var(--match-ink)!important;
+  border:4px solid var(--match-lime)!important;
+  box-shadow:0 5px 0 #467109,0 11px 18px rgba(0,0,0,.18)!important;
+}
+.clock b{color:#10321f!important}
+.clock span{color:#24713f!important}
+.field{
+  border:5px solid #fff!important;
+  border-radius:24px!important;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(201,255,38,.08),transparent 28%),
+    repeating-linear-gradient(90deg,#20ae58 0 13%,#189d4d 13% 26%)!important;
+  box-shadow:inset 0 0 0 5px #08703a,0 8px 0 #064b29,0 18px 34px rgba(0,0,0,.26)!important;
+}
+.player{
+  border-radius:17px!important;
+  box-shadow:0 5px 0 #063920,0 10px 17px rgba(0,0,0,.25)!important;
+}
+.player.blue{background:linear-gradient(180deg,#4ba8ff,#276fc4)!important}
+.player.green{background:linear-gradient(180deg,#24bb60,#0d7f41)!important}
+.player.active{
+  outline:5px solid var(--match-yellow)!important;
+  box-shadow:0 0 0 4px #fff,0 0 25px rgba(255,216,61,.85),0 8px 18px rgba(0,0,0,.28)!important;
+}
+
+/* Coach and interaction area */
+.coachRow{margin:14px 0!important;gap:13px!important}
+.coachPic{
+  border-radius:24px 24px 14px 14px!important;
+  background-color:#d9f2cc!important;
+  filter:drop-shadow(0 7px 0 #07542d)!important;
+}
+.coachBubble{
+  color:var(--match-ink)!important;
+  background:linear-gradient(180deg,#fffef7,#fff7d7)!important;
+  border:4px solid #163c24!important;
+  border-radius:22px!important;
+  box-shadow:0 7px 0 #08703a,0 14px 24px rgba(0,0,0,.19)!important;
+}
+.coachBubble:before{border-right-color:#163c24!important}
+.coachLabel{color:#e35135!important}
+.coachNext{background:var(--match-yellow)!important;box-shadow:0 3px 0 #a97308!important}
+
+.panel{
+  color:var(--match-ink)!important;
+  border:3px solid #dcf1d6!important;
+  border-radius:20px!important;
+  background:linear-gradient(180deg,#fffef8,#eaf6e5)!important;
+  box-shadow:0 7px 0 #07542d,0 14px 27px rgba(0,0,0,.20)!important;
+}
+.panel h2,.panel h3{color:#123b23!important}
+.tradeHelp{color:#355844!important}
+.tab{border:2px solid #8cc69a!important;background:#e6f3e0!important;color:#17462b!important;box-shadow:0 3px 0 #74a982!important}
+.tab.on{background:var(--match-lime)!important;color:#11230f!important;border-color:#496a07!important}
+.card img{filter:drop-shadow(0 8px 10px rgba(0,0,0,.32))!important}
+.card.sel{outline:4px solid var(--match-yellow)!important;box-shadow:0 0 18px rgba(255,216,61,.75)!important}
+.action{border:2px solid #183a22!important;box-shadow:0 4px 0 #0b4b27!important}
+.action.dark{background:#e4efe0!important;color:#173c26!important;border-color:#8fbc99!important}
+.flow .chip{background:#e8f2e4!important;border:2px solid #8fc79e!important;color:#244a32!important}
+.chip.bad{background:#ffe4e0!important;border-color:#ff8d84!important;color:#79291f!important}
+.chip.good{background:#e2f2ff!important;border-color:#71c2ff!important;color:#184a73!important}
+.notice{color:#154028!important;background:#edf9ea!important;border:3px solid #72c68b!important;box-shadow:0 4px 0 #599f6e!important}
+.notice.warn{color:#694800!important;background:#fff5c9!important;border-color:#ffd83d!important;box-shadow:0 4px 0 #b6830b!important}
+.notice.bad{color:#79261f!important;background:#ffe8e5!important;border-color:#ff776e!important;box-shadow:0 4px 0 #c74b44!important}
+.log{color:#294c36!important;background:#f8fff5!important;border:2px solid #9dc9a7!important}
+.log div{border-bottom-color:#d4e6d8!important}
+.lessonBar{padding:4px 0 2px!important}
+.lessonDot{color:#204a2e!important;background:#eaf6e7!important;border:2px solid #90c59d!important}
+.lessonDot.on{background:var(--match-lime)!important;color:#10230f!important;border-color:#577d09!important;box-shadow:0 3px 0 #577d09!important}
+
+.modalWrap{background:rgba(3,36,19,.82)!important;backdrop-filter:blur(4px)}
+.modal{
+  color:var(--match-ink)!important;
+  background:linear-gradient(180deg,#fffef8,#edf8e8)!important;
+  border:4px solid #143d25!important;
+  box-shadow:0 0 0 5px var(--match-lime),0 20px 50px rgba(0,0,0,.35)!important;
+}
+.modal h2{color:#123921!important}
+.modal p{color:#365944!important}
+.penCard{color:#244a32!important;background:#f7fff5!important;border:2px solid #93caa1!important}
+
+/* Make any currently playable tutorial card feel alive. */
+.card:not(:disabled):hover{transform:translateY(-4px)}
+@media(max-width:800px){
+  .page{padding-top:10px!important}
+  .panel{box-shadow:0 5px 0 #07542d,0 10px 20px rgba(0,0,0,.16)!important}
+  .coachBubble{box-shadow:0 5px 0 #08703a,0 10px 20px rgba(0,0,0,.16)!important}
+}
+@media(max-width:480px){
+  .topbar{border-width:3px!important;border-radius:17px!important}
+  .scoreTeam{border-width:2px!important}
+  .field{border-width:3px!important;border-radius:18px!important}
+  .panel{border-width:2px!important;border-radius:15px!important}
+  .coachBubble{border-width:3px!important;border-radius:16px!important}
+}
