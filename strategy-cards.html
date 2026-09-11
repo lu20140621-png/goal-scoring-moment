@@ -26,7 +26,7 @@ body.ready #game{opacity:1;visibility:visible}
 </head>
 <body>
 <div id="strategyLoader" role="status" aria-live="polite"><div class="loaderCard"><div class="loaderBall" aria-hidden="true"></div><div class="loaderTitle">STRATEGY MODE</div><div class="loaderSub">LOADING GAME ASSETS</div><div class="loaderTrack"><div class="loaderBar"></div></div></div></div>
-<iframe id="game" src="strategy-13.html?v=20260909fulldef1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<iframe id="game" src="strategy-13.html?v=20260910bright1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
 const loader=document.getElementById('strategyLoader');
@@ -63,17 +63,29 @@ f.addEventListener('load',()=>{
     const currentImages=[...d.images].map(img=>img.currentSrc||img.src).filter(Boolean);
     Promise.all(currentImages.map(preloadImage)).then(()=>{assetsReady=true;tryReveal()});
 
+    const loadVisualCss=()=>{
+      const existing=d.getElementById('gsm-strategy-visual-refresh');
+      if(existing){cssReady=true;tryReveal();return;}
+      const v=d.createElement('link');
+      v.id='gsm-strategy-visual-refresh';
+      v.rel='stylesheet';
+      v.href='strategy-13-visual-refresh.css?v=20260910bright1';
+      v.onload=()=>{cssReady=true;tryReveal()};
+      v.onerror=()=>{cssReady=true;tryReveal()};
+      d.head.appendChild(v);
+    };
+
     const existingCoachCss=d.getElementById('gsm-coach-all-css');
     if(!existingCoachCss){
       const l=d.createElement('link');
       l.id='gsm-coach-all-css';
       l.rel='stylesheet';
-      l.href='strategy-13-coach-all.css?v=20260905yellowload1';
-      l.onload=()=>{cssReady=true;tryReveal()};
-      l.onerror=()=>{cssReady=true;tryReveal()};
+      l.href='strategy-13-coach-all.css?v=20260910bright1';
+      l.onload=loadVisualCss;
+      l.onerror=loadVisualCss;
       d.head.appendChild(l);
     }else{
-      cssReady=true;
+      loadVisualCss();
     }
 
     const markBootReady=()=>{bootReady=true;tryReveal()};
