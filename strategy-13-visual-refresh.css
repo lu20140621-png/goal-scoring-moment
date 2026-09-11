@@ -1,0 +1,292 @@
+/* Strategy Mode visual refresh — presentation only. Gameplay and lesson logic are untouched. */
+:root{
+  --gsm-deep:#07351d;
+  --gsm-green:#0a6c34;
+  --gsm-green2:#10a84f;
+  --gsm-lime:#c9ff26;
+  --gsm-yellow:#ffd83d;
+  --gsm-cream:#fffdf2;
+  --gsm-ink:#102c1b;
+  --gsm-blue:#317fe0;
+  --gsm-shadow:#052413;
+}
+
+html,body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(201,255,38,.26),transparent 34%),
+    linear-gradient(180deg,#0c5d31 0%,#084322 48%,#052d1a 100%)!important;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.34;
+  background:
+    repeating-linear-gradient(105deg,rgba(255,255,255,.025) 0 2px,transparent 2px 16px),
+    radial-gradient(circle at 14% 24%,rgba(255,216,61,.15),transparent 18%),
+    radial-gradient(circle at 88% 74%,rgba(49,127,224,.14),transparent 20%);
+}
+
+/* Header feels like the homepage instead of a utility bar. */
+.topbar{
+  height:62px!important;
+  background:linear-gradient(180deg,#0e7b3e 0%,#07562a 100%)!important;
+  border-bottom:4px solid var(--gsm-yellow)!important;
+  box-shadow:0 7px 0 #043119,0 14px 26px rgba(0,0,0,.24)!important;
+}
+.brand{
+  font-family:"Arial Black","Trebuchet MS",Arial,sans-serif!important;
+  font-size:14px!important;
+  letter-spacing:.035em!important;
+  text-shadow:0 2px 0 #042714!important;
+}
+.brand span{color:var(--gsm-yellow)!important}
+.topBtn{
+  border:2px solid rgba(255,255,255,.9)!important;
+  background:#095c30!important;
+  box-shadow:0 4px 0 #03361b!important;
+  border-radius:999px!important;
+}
+.topBtn.gold{
+  background:var(--gsm-yellow)!important;
+  color:#493500!important;
+  border-color:#fff8cf!important;
+  box-shadow:0 4px 0 #9a7112!important;
+}
+
+.progressWrap{
+  top:62px!important;
+  background:rgba(5,46,25,.96)!important;
+  border-bottom:1px solid rgba(224,255,226,.25)!important;
+  box-shadow:0 5px 15px rgba(0,0,0,.18)!important;
+}
+.progressMeta{color:#e7f7e9!important}
+.progressMeta b{color:var(--gsm-yellow)!important}
+.step{background:#376246!important;height:7px!important}
+.step.on{background:var(--gsm-yellow)!important;box-shadow:0 0 12px rgba(255,216,61,.8)!important}
+.step.done{background:#72df84!important}
+
+.app{padding:13px!important;gap:13px!important}
+.panel{
+  border:3px solid #dff6d9!important;
+  border-radius:22px!important;
+  background:linear-gradient(180deg,#fffef6 0%,#eef8e8 100%)!important;
+  box-shadow:0 8px 0 #063c20,0 19px 34px rgba(0,0,0,.26)!important;
+}
+
+/* Match board */
+.board{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(201,255,38,.22),transparent 42%),
+    linear-gradient(180deg,#eaf7df 0%,#d8efcf 100%)!important;
+  border-color:#f8fff2!important;
+  box-shadow:0 8px 0 #07522b,0 20px 36px rgba(0,0,0,.27)!important;
+}
+.teamStrip{gap:9px!important;margin-bottom:9px!important}
+.teamChip{
+  padding:9px 11px!important;
+  border:3px solid #164e8d!important;
+  border-radius:14px!important;
+  background:linear-gradient(180deg,#4c9cf1,#2672cb)!important;
+  color:#fff!important;
+  box-shadow:0 4px 0 #15497f!important;
+  letter-spacing:.04em!important;
+}
+.teamChip.green{
+  border-color:#076235!important;
+  background:linear-gradient(180deg,#45c875,#169653)!important;
+  box-shadow:0 4px 0 #075a31!important;
+}
+.pitch{
+  border:4px solid #fffef5!important;
+  border-radius:22px!important;
+  background:
+    radial-gradient(circle at 50% 48%,rgba(220,255,91,.22),transparent 35%),
+    repeating-linear-gradient(90deg,#35bd69 0 70px,#28a95d 70px 140px)!important;
+  box-shadow:
+    inset 0 0 0 3px #117342,
+    inset 0 0 38px rgba(0,71,30,.12),
+    0 10px 0 #096137,
+    0 18px 29px rgba(0,0,0,.25)!important;
+}
+.pitch:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.13),transparent 28%,transparent 72%,rgba(255,238,93,.08));
+  mix-blend-mode:screen;
+}
+
+.player{
+  border-width:4px!important;
+  border-radius:16px!important;
+  background:linear-gradient(180deg,#fff 0%,#f5f7ee 100%)!important;
+  color:var(--gsm-ink)!important;
+  box-shadow:0 6px 0 rgba(4,40,20,.32),0 11px 18px rgba(0,0,0,.24)!important;
+}
+.player.blue{border-color:#3d8deb!important}
+.player.green{border-color:#21ad61!important}
+.player.you{
+  box-shadow:0 0 0 4px var(--gsm-yellow),0 7px 0 rgba(4,40,20,.35),0 12px 19px rgba(0,0,0,.25)!important;
+}
+.player.selectable{animation:gsmPlayerPulse .7s infinite alternate!important}
+.player.targeted{box-shadow:0 0 0 5px #ff5c65,0 8px 0 #7d2730,0 14px 20px rgba(0,0,0,.26)!important}
+.player.defending{box-shadow:0 0 0 5px #79c9ff,0 8px 0 #22679a,0 14px 20px rgba(0,0,0,.26)!important}
+.role{background:#eff6e8!important;border:1px solid #ccddc5!important}
+.teamTag{box-shadow:inset 0 -1px 0 rgba(0,0,0,.18)}
+
+.pitchEvent{
+  min-width:210px!important;
+  padding:10px 16px!important;
+  border:3px solid #fff!important;
+  border-radius:16px!important;
+  background:#0b4e2c!important;
+  font-family:"Arial Black","Trebuchet MS",Arial,sans-serif!important;
+  font-size:12px!important;
+  letter-spacing:.06em!important;
+  text-transform:uppercase!important;
+  box-shadow:0 6px 0 #052b18,0 13px 24px rgba(0,0,0,.28)!important;
+}
+.pitchEvent.good{background:#0d8b48!important}
+.pitchEvent.warn{background:#d98b14!important}
+.pitchEvent.bad{background:#d73d4c!important}
+.pitchEvent.show{animation:gsmEventPop .2s ease-out}
+
+/* Flow reads like a scoreboard, not a debug log. */
+.flowPanel{
+  margin-top:10px!important;
+  padding:9px!important;
+  border:2px solid #7ab989!important;
+  border-radius:15px!important;
+  background:rgba(255,255,255,.76)!important;
+  box-shadow:inset 0 1px 0 #fff!important;
+}
+.flowHeader{color:#28583a!important;font-size:9px!important}
+.flowEmpty{color:#73917d!important}
+.flowText{color:#244432!important}
+.arrow{color:#e4a900!important;text-shadow:0 1px 0 #fff!important}
+.result{background:#315a42!important;border-color:#71987d!important}
+.result.good{background:#18884d!important;border-color:#56c781!important}
+.result.warn{background:#b97312!important;border-color:#e5a84f!important}
+.result.bad{background:#c33b4b!important;border-color:#ef8792!important}
+
+/* Coach becomes a comic/game mentor instead of a dashboard card. */
+.guidePortrait{
+  background-color:#dff3cf!important;
+  border:4px solid #fffef5!important;
+  box-shadow:0 0 0 5px var(--gsm-lime),0 8px 0 #07542c,0 16px 26px rgba(0,0,0,.24)!important;
+}
+.guideDialogue{
+  position:relative!important;
+  background:linear-gradient(180deg,#fffef8 0%,#fff8d9 100%)!important;
+  color:var(--gsm-ink)!important;
+  border:4px solid #163d25!important;
+  box-shadow:0 7px 0 var(--gsm-yellow),0 14px 23px rgba(0,0,0,.2)!important;
+}
+.guideDialogue:before{
+  content:"";
+  position:absolute;
+  left:-16px;
+  bottom:22px;
+  width:25px;
+  height:25px;
+  background:#fff9df;
+  border-left:4px solid #163d25;
+  border-bottom:4px solid #163d25;
+  transform:rotate(45deg);
+  z-index:-1;
+}
+.guideSpeaker{
+  display:inline-flex!important;
+  padding:4px 8px!important;
+  border-radius:999px!important;
+  background:#0b7c40!important;
+  color:#fff!important;
+  letter-spacing:.08em!important;
+  box-shadow:0 2px 0 #064a27!important;
+}
+.guideText{color:#193923!important;font-weight:850!important}
+.guideContinue{
+  background:var(--gsm-yellow)!important;
+  color:#413000!important;
+  border:3px solid #163d25!important;
+  box-shadow:0 4px 0 #a2760e!important;
+}
+.guideContinue:hover{filter:brightness(1.04);transform:translateY(-1px)}
+
+/* Hand area feels like a tabletop. */
+.actions{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.96),rgba(243,249,226,.96)),
+    repeating-linear-gradient(90deg,rgba(8,92,47,.03) 0 1px,transparent 1px 16px)!important;
+  border-color:#f8fff0!important;
+  box-shadow:0 7px 0 #07502a,0 16px 27px rgba(0,0,0,.22)!important;
+}
+.actionTitle{color:#31583d!important}
+.cardBtn{
+  transition:transform .18s ease,filter .18s ease!important;
+}
+.cardBtn:not(:disabled):hover{transform:translateY(-8px) rotate(-1deg)!important;filter:brightness(1.04)}
+.cardBtn.active{animation:gsmCardPulse .68s infinite alternate!important}
+.actionBtn{
+  border:3px solid #3d3510!important;
+  border-radius:999px!important;
+  box-shadow:0 4px 0 #8f6c0d!important;
+}
+.actionBtn.blue{border-color:#154c82!important;box-shadow:0 4px 0 #154c82!important}
+.actionBtn.green{border-color:#0a6338!important;box-shadow:0 4px 0 #0a6338!important}
+.actionBtn.red{border-color:#8f2938!important;box-shadow:0 4px 0 #8f2938!important}
+
+.modal{background:rgba(3,36,19,.82)!important;backdrop-filter:blur(5px)}
+.modalBox{
+  border:4px solid #0b6737!important;
+  border-top-color:var(--gsm-yellow)!important;
+  border-radius:24px!important;
+  background:linear-gradient(180deg,#fffef8,#f5f8e9)!important;
+  box-shadow:0 8px 0 #064221,0 22px 50px rgba(0,0,0,.4)!important;
+}
+.modalBox h2{color:#124c2b!important}
+.courseBtn{border-color:#55a56e!important;background:#f4fbef!important;color:#17482b!important}
+.courseBtn.current{border-color:#dfad16!important;background:#fff2ac!important}
+
+@keyframes gsmEventPop{
+  from{transform:translate(-50%,-50%) scale(.82);opacity:.2}
+  to{transform:translate(-50%,-50%) scale(1);opacity:1}
+}
+@keyframes gsmPlayerPulse{
+  from{transform:scale(1);filter:brightness(1)}
+  to{transform:scale(1.045);filter:brightness(1.09) drop-shadow(0 0 8px rgba(255,224,65,.65))}
+}
+@keyframes gsmCardPulse{
+  from{transform:translateY(-4px) scale(1.015);filter:drop-shadow(0 6px 8px rgba(0,0,0,.22))}
+  to{transform:translateY(-13px) scale(1.075);filter:drop-shadow(0 0 14px rgba(255,216,61,.9))}
+}
+
+@media(max-width:760px){
+  .topbar{height:52px!important;border-bottom-width:3px!important;box-shadow:0 5px 0 #043119,0 9px 18px rgba(0,0,0,.2)!important}
+  .brand{font-size:11px!important}
+  .progressWrap{top:52px!important}
+  .app{padding:7px!important;gap:8px!important}
+  .panel{border-width:2px!important;border-radius:16px!important;box-shadow:0 5px 0 #063c20,0 11px 20px rgba(0,0,0,.22)!important}
+  .board{padding:6px!important}
+  .teamChip{padding:6px 7px!important;border-width:2px!important;border-radius:10px!important;box-shadow:0 3px 0 #15497f!important}
+  .teamChip.green{box-shadow:0 3px 0 #075a31!important}
+  .pitch{border-width:3px!important;border-radius:15px!important;box-shadow:inset 0 0 0 2px #117342,0 6px 0 #096137,0 11px 18px rgba(0,0,0,.22)!important}
+  .player{border-width:3px!important;border-radius:11px!important;box-shadow:0 4px 0 rgba(4,40,20,.3),0 7px 12px rgba(0,0,0,.2)!important}
+  .pitchEvent{min-width:155px!important;max-width:70%!important;padding:7px 9px!important;border-width:2px!important;font-size:9px!important;border-radius:12px!important;box-shadow:0 4px 0 #052b18,0 8px 14px rgba(0,0,0,.22)!important}
+  .flowPanel{margin-top:7px!important;padding:6px!important;border-radius:11px!important}
+  .guidePortrait{border-width:3px!important;box-shadow:0 0 0 3px var(--gsm-lime),0 5px 0 #07542c,0 9px 16px rgba(0,0,0,.2)!important}
+  .guideDialogue{border-width:3px!important;box-shadow:0 5px 0 var(--gsm-yellow),0 9px 16px rgba(0,0,0,.16)!important}
+  .guideDialogue:before{left:-10px;bottom:16px;width:18px;height:18px;border-left-width:3px;border-bottom-width:3px}
+  .guideText{font-size:12px!important;line-height:1.34!important}
+  .actions{padding:7px!important;box-shadow:0 5px 0 #07502a,0 10px 18px rgba(0,0,0,.2)!important}
+  .cardBtn:not(:disabled):hover{transform:none!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .player.selectable,.cardBtn.active,.pitchEvent.show{animation:none!important}
+  .cardBtn{transition:none!important}
+}
