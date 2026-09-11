@@ -148,12 +148,51 @@
     $('contextActions').before(order);
   }
 
+  function recommendedCardNames() {
+    const mode = lessons?.[current]?.mode;
+    // The Final Challenge intentionally removes answer hints.
+    if (mode === 'final') return [];
+    if (mode === 'shoot' || mode === 'tokens') return ['SHOOT'];
+    if (mode === 'defense') return ['DEFENSE'];
+    if (mode === 'tackle') return ['TACKLE'];
+    if (mode === 'dribble') return ['DRIBBLE PAST'];
+    if (mode === 'yellow') return ['YELLOW'];
+    if (mode === 'secondDefense') {
+      // Stage 0 asks for the second DEFENSE. Stage 1 is a free discard choice.
+      return stage === 0 ? ['DEFENSE'] : [];
+    }
+    return [];
+  }
+
+  function applyRecommendedCardVisuals() {
+    const recommended = new Set(recommendedCardNames());
+    document.querySelectorAll('#hand .cardBtn').forEach(button => {
+      button.classList.remove('recommended');
+      button.querySelector('.playThisBadge')?.remove();
+      button.querySelector('.recommendedArrow')?.remove();
+
+      const cardName = button.dataset.card || button.querySelector('img')?.alt || '';
+      if (!recommended.has(cardName)) return;
+
+      button.classList.add('recommended');
+      const badge = document.createElement('span');
+      badge.className = 'playThisBadge';
+      badge.textContent = 'PLAY THIS';
+      const arrow = document.createElement('span');
+      arrow.className = 'recommendedArrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = '▼';
+      button.append(badge, arrow);
+    });
+  }
+
   const coreRenderHand = renderHand;
   renderHand = function(activeNames = [], pulse = true) {
     // GUIDE and TEST cards stay available: the board explains consequences instead
     // of disabling every incorrect decision and revealing the answer.
     if (current >= 5) activeNames = [...new Set(handCards)];
-    coreRenderHand(activeNames, current < 5 && pulse);
+    coreRenderHand(activeNames, false);
+    applyRecommendedCardVisuals();
   };
 
   const coreSetupLesson = setupLesson;
