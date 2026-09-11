@@ -104,7 +104,7 @@ function buildCourses(){$('courseGrid').innerHTML='';lessons.forEach((l,i)=>{con
 playerEls().forEach(el=>el.addEventListener('click',()=>handlePlayer(el.dataset.player)));$('startBtn').addEventListener('click',()=>{started=true;$('introModal').classList.remove('show');setupLesson()});$('coursesBtn').addEventListener('click',()=>{$('coursesModal').classList.add('show');buildCourses()});$('closeCourses').addEventListener('click',()=>$('coursesModal').classList.remove('show'));$('gkContinue').addEventListener('click',()=>{$('gkModal').classList.remove('show');startFinalChallenge()});$('restartBtn').addEventListener('click',()=>{current=0;finalIntroSeen=false;$('completeModal').classList.remove('show');setupLesson()});renderProgress();renderCoach();renderPlayers();buildCourses();
 </script>
 <script src="strategy-13-intro-guide.js?v=20260905guide1"></script>
-<script src="strategy-13-gameplay-v2.js?v=20260905play1"></script>
+<script src="strategy-13-gameplay-v2.js?v=20260910recommended1"></script>
 <script src="analytics-config.js"></script><script src="analytics.js"></script>
 </body>
 </html>
