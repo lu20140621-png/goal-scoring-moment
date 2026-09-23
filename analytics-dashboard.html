@@ -6,13 +6,14 @@
 <title>Goal-Scoring Moment — Analytics</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#071813;color:#f7fbf8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#f4c54f;font-weight:900}.title{font-size:34px;font-weight:950;margin:4px 0}.sub{color:#9fb7ae;font-size:13px}.range{display:flex;gap:7px;flex-wrap:wrap}.range button,.login button{border:1px solid #2d6752;background:#0c2a20;color:#dcebe4;padding:8px 11px;border-radius:999px;font-weight:850;cursor:pointer}.range button.on,.login button{background:#f4c54f;color:#183222;border-color:#f4c54f}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:linear-gradient(180deg,#0d2b21,#0a211a);border:1px solid #24513f;border-radius:16px;padding:16px;box-shadow:0 14px 28px #0003}.k{font-size:11px;color:#a8c0b6;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.v{font-size:31px;font-weight:950;margin-top:7px}.hint{font-size:11px;color:#6f9585;margin-top:4px}.section{margin-top:18px}.section h2{font-size:16px;margin:0 0 10px}.tableWrap{overflow:auto;border:1px solid #24513f;border-radius:14px;background:#0a211a}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #173c2f;font-size:12px}th{color:#f4c54f;background:#0c2b20;position:sticky;top:0}.bar{height:8px;border-radius:99px;background:#163c2e;overflow:hidden}.bar i{display:block;height:100%;background:#f4c54f}.empty{padding:24px;color:#9fb7ae}.notice{display:none;margin:16px 0;padding:14px;border-radius:12px;background:#40241f;border:1px solid #9e533f;color:#ffd8cb}.login{margin:70px auto;max-width:520px;background:#0d2b21;border:1px solid #24513f;border-radius:18px;padding:22px}.login h2{margin-top:0}.login input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d6752;background:#071813;color:#fff;margin:8px 0 12px}.hidden{display:none!important}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}@media(max-width:500px){.wrap{padding:15px}.title{font-size:27px}.grid{grid-template-columns:1fr}}
+.login button.secondary{background:transparent;color:#a8c0b6;border-color:#2d6752;margin-left:7px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div id="login" class="login"><div class="eyebrow">GOAL-SCORING MOMENT</div><h2>Analytics Access</h2><div class="sub">Enter the dashboard access key.</div><input id="key" type="password" autocomplete="off" placeholder="Access key"><button id="loginBtn">OPEN DASHBOARD</button><div id="loginMsg" class="sub" style="margin-top:10px"></div></div>
+<div id="login" class="login"><div class="eyebrow">GOAL-SCORING MOMENT</div><h2>Analytics Access</h2><div class="sub">Enter the dashboard access key.</div><input id="key" type="password" autocomplete="off" placeholder="Access key"><button id="loginBtn">OPEN DASHBOARD</button><button id="clearKey" class="secondary" type="button">CLEAR SAVED KEY</button><div id="loginMsg" class="sub" style="margin-top:10px" role="status"></div></div>
   <div id="app" class="hidden">
-    <div class="top"><div><div class="eyebrow">GOAL-SCORING MOMENT</div><div class="title">Tutorial Analytics</div><div class="sub">Visitors, active time, tutorial starts, completions, mode usage, and recent sessions.</div></div><div class="range"><button data-days="1">24H</button><button data-days="7" class="on">7 DAYS</button><button data-days="30">30 DAYS</button><button data-days="365">1 YEAR</button><button id="refresh">REFRESH</button></div></div>
+    <div class="top"><div><div class="eyebrow">GOAL-SCORING MOMENT</div><div class="title">Tutorial Analytics</div><div class="sub">Visitors, active time, tutorial starts, completions, mode usage, and recent sessions.</div></div><div class="range"><button data-days="1">24H</button><button data-days="7">7 DAYS</button><button data-days="30" class="on">30 DAYS</button><button data-days="365">1 YEAR</button><button id="refresh">REFRESH</button></div></div>
     <div id="notice" class="notice"></div>
     <div class="grid">
       <div class="card"><div class="k">Unique Visitors</div><div class="v" id="visitors">—</div><div class="hint">Distinct browsers</div></div>
@@ -30,26 +31,46 @@
 </div>
 <script>
 const ENDPOINT='https://kenkpmxmridexfuguray.supabase.co/functions/v1/analytics-dashboard';
-const $=id=>document.getElementById(id);let days=7;let accessKey=localStorage.getItem('gsm_dashboard_key')||'';
+const $=id=>document.getElementById(id);let days=30;let accessKey=localStorage.getItem('gsm_dashboard_key')||'';
 const fmt=s=>{s=Math.max(0,Math.round(Number(s)||0));const m=Math.floor(s/60),r=s%60;return m?`${m}m ${r}s`:`${r}s`};
 function showNotice(msg){$('notice').style.display='block';$('notice').textContent=msg}
 function clearNotice(){$('notice').style.display='none'}
+function readableError(status,body){
+  if(status===401)return'The access key is incorrect. Please enter the current key.';
+  if([502,503,504].includes(status))return'The analytics service is waking up or temporarily unavailable. Wait about 30 seconds, then try again.';
+  if(status===404)return'The analytics service could not be found. Please contact the site administrator.';
+  let detail='';try{detail=JSON.parse(body).error||''}catch(_){detail=body}
+  return detail?`Analytics service error (${status}): ${detail}`:`Analytics service error (${status}). Please try again.`;
+}
 async function fetchData(){
   clearNotice();
   try{
     const r=await fetch(`${ENDPOINT}?days=${days}`,{headers:{'x-dashboard-key':accessKey}});
-    if(r.status===401) throw new Error('Wrong access key.');
-    if(!r.ok) throw new Error(await r.text());
+    if(!r.ok){const body=await r.text();const error=new Error(readableError(r.status,body));error.status=r.status;throw error}
     const d=await r.json(),s=d.summary||{};
     $('visitors').textContent=s.unique_visitors??0;$('sessions').textContent=s.sessions??0;$('avgTime').textContent=fmt(s.avg_active_seconds);$('starts').textContent=s.tutorial_started??0;$('completions').textContent=s.tutorial_completed??0;$('rate').textContent=(s.completion_rate??0)+'%';$('tutorialTime').textContent=fmt(s.avg_tutorial_seconds);
     const dev=d.by_device||{},total=Math.max(1,s.sessions||0);$('mobile').textContent=Math.round((dev.mobile||0)*100/total)+'%';
     const modes=d.by_mode||{};const entries=Object.entries(modes).sort((a,b)=>b[1]-a[1]);$('modes').innerHTML=entries.length?entries.map(([m,n])=>{const p=Math.round(n*100/total);return `<tr><td><b>${m}</b></td><td>${n}</td><td><div>${p}%</div><div class="bar"><i style="width:${p}%"></i></div></td></tr>`}).join(''):'<tr><td colspan="3" class="empty">No data yet.</td></tr>';
     const rows=d.recent||[];$('recent').innerHTML=rows.length?rows.map(x=>`<tr><td>${new Date(x.started_at).toLocaleString()}</td><td>${x.device_type||'—'}</td><td>${x.tutorial_mode||'—'}</td><td>${fmt(x.active_seconds)}</td><td>${x.page_views||0}</td><td>${x.tutorial_started?'Yes':'No'}</td><td>${x.tutorial_completed?'Yes':'No'}</td><td>${x.max_step||0}</td></tr>`).join(''):'<tr><td colspan="8" class="empty">No sessions yet.</td></tr>';
-    return true;
-  }catch(e){showNotice(e.message||String(e));return false}
+    return{ok:true};
+  }catch(e){
+    const message=e instanceof TypeError?'Could not reach the analytics service. Check your connection and try again.':(e.message||String(e));
+    showNotice(message);return{ok:false,status:e.status||0,message};
+  }
 }
-async function openDashboard(){accessKey=$('key').value.trim()||accessKey;if(!accessKey){$('loginMsg').textContent='Enter the access key.';return}const ok=await fetchData();if(!ok){$('loginMsg').textContent='Access failed. Check the key.';return}localStorage.setItem('gsm_dashboard_key',accessKey);$('login').classList.add('hidden');$('app').classList.remove('hidden')}
+async function openDashboard(){
+  accessKey=$('key').value.trim()||accessKey;
+  if(!accessKey){$('loginMsg').textContent='Enter the access key.';return}
+  $('loginBtn').disabled=true;$('loginMsg').textContent='Connecting to analytics…';
+  const result=await fetchData();$('loginBtn').disabled=false;
+  if(!result.ok){
+    if(result.status===401){localStorage.removeItem('gsm_dashboard_key');accessKey='';$('key').select()}
+    $('loginMsg').textContent=result.message;return;
+  }
+  localStorage.setItem('gsm_dashboard_key',accessKey);$('loginMsg').textContent='';$('login').classList.add('hidden');$('app').classList.remove('hidden')
+}
 $('loginBtn').onclick=openDashboard;$('key').addEventListener('keydown',e=>{if(e.key==='Enter')openDashboard()});
+$('clearKey').onclick=()=>{localStorage.removeItem('gsm_dashboard_key');accessKey='';$('key').value='';$('loginMsg').textContent='Saved key cleared.';$('key').focus()};
 document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-days]').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=Number(b.dataset.days);fetchData()});$('refresh').onclick=fetchData;
 if(accessKey){$('key').value=accessKey;openDashboard()}
 </script>
