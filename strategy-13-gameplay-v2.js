@@ -347,8 +347,8 @@
     coreStartFinalChallenge();
     $('lessonTitle').textContent = 'FINAL CHALLENGE';
     $('lessonSub').textContent = 'NO CARD HINTS · A short playable match';
-    animatePlayer('A0', 'attacking');
-    setPitchEvent('LIVE MATCH · GREEN 1 SHOOTS → YOU', 'bad');
+    animatePlayer('A1', 'attacking');
+    setPitchEvent('LIVE MATCH · GREEN 2 SHOOTS → YOU', 'bad');
   };
 
   lessons[12].title = 'FINAL CHALLENGE';
