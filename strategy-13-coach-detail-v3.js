@@ -14,10 +14,10 @@
     6: 'GREEN 1 already has 2 Tokens. First, play SHOOT. Then tap GREEN 1 as your target. A successful attack gives the 3rd Token and eliminates that player. After elimination, reveal the Role Card. If it is PLAYER, the remaining Action Cards go to a living teammate, and the eliminated player may still give the team advice.',
     7: 'GREEN 1 has played SHOOT at you. Play DEFENSE to stop the attack. TACKLE only takes the Soccer Card from a player; it cannot stop an incoming SHOOT. YELLOW does not stop an attack.',
     8: 'GREEN 2 has the Soccer Card. Play TACKLE to take the Soccer Card and win possession. TACKLE is for taking possession, not for defending a SHOOT.',
-    9: 'Your SHOOT was stopped by DEFENSE. Play DRIBBLE PAST from your hand to bypass that DEFENSE and continue the same attack.',
-    10: 'New lesson. We are starting a fresh attack from the beginning so you can play the whole chain yourself. GREEN 1 plays SHOOT at you. First, YOU play DEFENSE. GREEN 1 will then use DRIBBLE PAST to bypass your first DEFENSE. After that, YOU play DEFENSE again as the second DEFENSE. Then discard 1 remaining card.',
-    11: 'Turn order is 1 GREEN 1, 2 BLUE 2, 3 GREEN 2, 4 YOU. You are last in the cycle, so after your turn it loops back to GREEN 1. Play YELLOW now to skip GREEN 1, the next living player.',
-    12: 'FINAL CHALLENGE: Stop the incoming SHOOT with DEFENSE. If GREEN uses DRIBBLE PAST, use DEFENSE again. Then discard one card, play SHOOT, and tap the opponent you want to target.'
+    9: 'You played SHOOT, so only you may play DRIBBLE PAST to bypass the first DEFENSE. One final DEFENSE may follow. Maximum 1 DRIBBLE PAST and 2 DEFENSE cards per SHOOT.',
+    10: 'New lesson. We are starting a fresh attack from the beginning so you can play the whole chain yourself. GREEN 1 plays SHOOT at you. First, YOU play DEFENSE. GREEN 1 will then use DRIBBLE PAST to bypass your first DEFENSE. After that, YOU play DEFENSE again as the second DEFENSE. Then discard 1 additional Action Card if your hand is not empty. Teammates may communicate and choose who plays each DEFENSE.',
+    11: 'Turn order is 1 GREEN 1, 2 BLUE 2, 3 GREEN 2, 4 YOU. You are last in the cycle, so after your turn it loops back to GREEN 1. Play YELLOW on your own turn to skip GREEN 1, the next living player. Even multiple YELLOW cards this turn skip only GREEN 1’s one turn; they never skip extra players.',
+    12: 'FINAL CHALLENGE: Stop the incoming SHOOT with DEFENSE. If GREEN uses DRIBBLE PAST, use DEFENSE again. Discard 1 additional Action Card if you still have one. After GREEN 2 ends their turn, draw 1 to start your own turn, then attack.'
   };
 
   const originalStop = guide.stop.bind(guide);

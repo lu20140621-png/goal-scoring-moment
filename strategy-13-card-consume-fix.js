@@ -34,7 +34,7 @@
   const lesson = Array.isArray(lessons) ? lessons.find(item => item && item.mode === 'secondDefense') : null;
   if (lesson) {
     lesson.sub = 'Play the complete two-DEFENSE chain yourself.';
-    lesson.rule = 'A fresh SHOOT begins. You play the first DEFENSE. If the attacker answers with DRIBBLE PAST, the same SHOOT continues and you may play a second DEFENSE. After that second DEFENSE, discard 1 card.';
+    lesson.rule = 'A SHOOT allows at most 2 DEFENSE cards and 1 DRIBBLE PAST. Only the original attacker may play DRIBBLE PAST. Teammates choose one defender at each opportunity. The second defender plays DEFENSE + discards 1 additional Action Card if they still have one; an empty hand needs no extra discard.';
     lesson.prompt = 'GREEN 1 starts a fresh SHOOT at you. Play your FIRST DEFENSE.';
     lesson.hand = ['DEFENSE', 'DEFENSE', 'YELLOW', 'TACKLE'];
   }
@@ -151,6 +151,11 @@
       if (typeof addResult === 'function') addResult('SOCCER CARD → YOU', 'good');
       if (typeof renderHand === 'function') renderHand(handCards);
 
+      if (!handCards.length) {
+        stage = 4;
+        complete('Second DEFENSE stopped the attack. Your hand is empty, so no extra discard is required.');
+        return;
+      }
       const prompt = typeof $ === 'function' ? $('promptText') : null;
       if (prompt) prompt.textContent = 'Second DEFENSE succeeded. Now choose 1 remaining card to discard.';
       const handNote = typeof $ === 'function' ? $('handNote') : null;

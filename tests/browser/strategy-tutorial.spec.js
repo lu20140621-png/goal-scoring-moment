@@ -213,7 +213,9 @@ test('final challenge has a complete solvable path to goalkeeper win', async ({p
   await page.waitForTimeout(700);
   await frame.locator('.cardBtn[data-card="YELLOW"]').click();
   await page.waitForTimeout(700);
-  await frame.locator('.cardBtn[data-card="SHOOT"]').click();
+  await frame.getByRole('button', {name: 'GREEN 2: END TURN', exact: true}).click();
+  await frame.getByRole('button', {name: 'DRAW 1 CARD', exact: true}).click();
+  await frame.locator('.cardBtn[data-card="SHOOT"]').first().click();
   await page.waitForTimeout(700);
   await frame.locator('[data-player="A1"]').click();
   await expect(frame.locator('#pitchEvent')).toContainText('GOALKEEPER FOUND');

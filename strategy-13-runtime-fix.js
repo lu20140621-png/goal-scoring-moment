@@ -90,15 +90,18 @@
 
     if (mode === 'shoot') {
       tokens[id] = (tokens[id] || 0) + 1;
+      ballOwner = id;
       renderPlayers();
       addResult(`${nameOf(id)} +1 TOKEN`, 'good');
+      addResult(`SOCCER CARD → ${nameOf(id)}`, 'good');
       setPitchEvent('+1 TOKEN', 'warn');
-      complete('No defense was played, so the target takes 1 Token.');
+      complete('No DEFENSE was played, so the target takes 1 Token and receives the Soccer Card. Your turn does not end automatically.');
       return;
     }
 
     if (mode === 'tokens') {
       tokens.A0 = 3;
+      ballOwner = 'A0';
       eliminated.A0 = true;
       revealed.A0 = 'PLAYER';
       renderPlayers();
@@ -121,6 +124,7 @@
       }
 
       tokens.A1 = 3;
+      ballOwner = 'A1';
       eliminated.A1 = true;
       revealed.A1 = 'GOALKEEPER';
       renderPlayers();

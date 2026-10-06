@@ -12,25 +12,6 @@
     }
   } catch (_) {}
 
-  // Final challenge must remain solvable: keep SHOOT for the attack after the
-  // required second-defense discard.
-  try {
-    if (typeof handleFinalCard === 'function') {
-      const originalHandleFinalCard = handleFinalCard;
-      handleFinalCard = function(name, index) {
-        if (typeof stage !== 'undefined' && stage === 2 && name === 'SHOOT') {
-          if (typeof wrong === 'function') {
-            wrong('Keep SHOOT for the attack after this discard. Choose another remaining card.');
-          }
-          return;
-        }
-        return originalHandleFinalCard(name, index);
-      };
-    }
-  } catch (e) {
-    console.error('Strategy 13 final-challenge safety patch failed', e);
-  }
-
   // On phones, every new lesson starts with the RULE / YOUR MOVE panel visible
   // instead of leaving the player scrolled down at the previous hand.
   try {

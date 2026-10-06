@@ -253,19 +253,7 @@
       return demonstrateWrong(name, 'YELLOW skips a turn. It does not stop SHOOT.');
     }
     if (mode === 'defense' && name === 'TACKLE') {
-      lockInputs(true);
-      removeHandIndex(index);
-      addCard('TACKLE', 'YOU', 'DEFENSIVE TACKLE');
-      ballOwner = 'H0';
-      renderPlayers();
-      setDefender('H0');
-      addResult('ATTACK STOPPED', 'good');
-      addResult('SOCCER CARD → YOU', 'good');
-      animatePlayer('H0', 'blocking');
-      animatePossession('A0', 'H0');
-      complete('Defensive TACKLE is also a legal response: the attack stops and you take possession.');
-      setTimeout(() => lockInputs(false), 680);
-      return;
+      return demonstrateWrong(name, 'TACKLE only takes possession on your own turn. It cannot stop SHOOT. Use DEFENSE.');
     }
     if (mode === 'tackle' && name !== 'TACKLE') {
       return demonstrateWrong(name, `${name} does not take the Soccer Card from GREEN 2. TACKLE transfers possession.`, false);
@@ -280,15 +268,13 @@
       return demonstrateWrong(name, `${name} does not stop the SHOOT after DRIBBLE PAST. The attack is still live.`);
     }
     if (mode === 'final') {
-      if ((stage === 0 || stage === 1) && !['DEFENSE', 'TACKLE'].includes(name)) {
+      if ((stage === 0 || stage === 1) && name !== 'DEFENSE') {
         return demonstrateWrong(name, `${name} leaves the incoming SHOOT active. Choose a legal defensive response.`);
       }
       if (stage === 3 && name !== 'SHOOT') {
         return demonstrateWrong(name, `${name} cannot eliminate the hidden opponent. You have possession; create an attack.`, false);
       }
-      if (stage === 2 && name === 'SHOOT') {
-        return demonstrateWrong(name, 'Keep SHOOT for your attack. Discard another card so the match remains playable.', false);
-      }
+      if (stage === 2.5 || stage === 2.6) return; // Wait for END TURN and the required draw.
     }
 
     lockInputs(true);

@@ -238,7 +238,7 @@
       scene.querySelector('.guideContinue').hidden=true;
       type('Draw one card to continue.','',true);
       const button=addAction('DRAW 1 CARD',drawCard,'blue');button.id='introDrawButton';
-    } else if (state.step === 3) { state.step=4;document.body.classList.add('guideBright');type('From here on, you’ll start making the decisions yourself.'); }
+    } else if (state.step === 3) { state.step=4;document.body.classList.add('guideBright');type('After drawing, take as many legal actions as you want. Say “END TURN” when you decide to stop. Start the game with 5 Action Cards; there is no maximum hand size.'); }
     else if (state.step === 4) { state.step=5;type('Ready? Let’s learn who controls the Soccer Card.','ENTER THE MATCH →'); }
     else if (state.step === 5) completeIntroLesson();
   }

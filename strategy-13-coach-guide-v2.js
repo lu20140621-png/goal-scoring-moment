@@ -27,7 +27,7 @@
     7: 'GREEN 1 is shooting at you. Stop the attack with a legal defense.',
     8: 'GREEN 2 has possession. Use TACKLE to take the Soccer Card.',
     9: 'Your SHOOT was stopped once. Use DRIBBLE PAST to keep the attack alive.',
-    10: 'The attack continues after DRIBBLE PAST. Defend again, then discard 1 card.',
+    10: 'Play through the attack: first DEFENSE, attacker’s DRIBBLE PAST, then second DEFENSE. After the second DEFENSE, discard 1 additional Action Card if you still have one.',
     11: 'It is your turn. Use YELLOW to skip the next living player’s normal turn.',
     12: 'Final test. Protect your hidden Goalkeeper, read the field, and win without card hints.'
   };
@@ -307,7 +307,7 @@
     } else if (state.step === 3) {
       state.step = 4;
       document.body.classList.add('guideBright');
-      type('From here on, you will start making the decisions yourself.');
+      type('After drawing, take as many legal actions as you want. Say “END TURN” when you decide to stop. Start the game with 5 Action Cards; there is no maximum hand size.');
     } else if (state.step === 4) {
       state.step = 5;
       type('Ready? Let’s learn who controls the Soccer Card.', 'ENTER THE MATCH →');
