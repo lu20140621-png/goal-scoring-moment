@@ -107,7 +107,7 @@ if(yellow){
   if(can) can.innerHTML='<li>Cancel DRIBBLE on the current SHOOT line.</li><li>Cancel the current defender\'s TACKLE when played by the attacker.</li><li>Cancel another YELLOW in the same live chain.</li><li>Follow the current field line: D1, then D2, then D3 if that formation uses D3.</li>';
   const d2=$$('.line',yellow).find(r=>$('.key',r)?.textContent.trim()==='D2 LINE');
   if(d2){
-    const v=$('.val',d2); if(v) v.textContent='Once play moves to D2, D1's window is closed. If your formation uses D3, D2 is followed by D3; otherwise the next stage is Goalkeeper.';
+    const v=$('.val',d2); if(v) v.textContent='Once play moves to D2, D1’s window is closed. If your formation uses D3, D2 is followed by D3; otherwise the next stage is Goalkeeper.';
     if(!$$('.line',yellow).some(r=>$('.key',r)?.textContent.trim()==='D3 LINE')){
       const d3=document.createElement('div'); d3.className='line'; d3.innerHTML='<div class="key">D3 LINE</div><div class="val">Only 4v4 uses D3. Once play reaches D3, D1 and D2 YELLOW windows are over. D3 now has the defending-side YELLOW window for that line.</div>'; d2.insertAdjacentElement('afterend',d3);
     }
