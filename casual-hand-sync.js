@@ -255,6 +255,9 @@ function handleFinalCapture(e){
     }else if(finalPhase==='decide' && name==='SHOOT'){
       setTimeout(()=>removeVisualCard('SHOOT',true),545);
       finalPhase='target';
+    }else if(finalPhase==='defend' && name==='DEFENSE'){
+      setTimeout(()=>removeVisualCard('DEFENSE',true),545);
+      finalPhase='finish';
     }
     return;
   }
@@ -281,9 +284,8 @@ function handleFinalCapture(e){
         addFlowChip('END-OF-TURN DRAW → CARD ADDED TO YOUR HAND','good');
       },570);
     }else if(finalPhase==='peek' || finalPhase==='decide'){
-      finalPhase='resetting';
-      setTimeout(()=>clearVisualHand(true),700);
-      setTimeout(()=>{rebuildFinalHand(); finalPhase='peek';},2900);
+      finalPhase='defend';
+      addFlowChip('SOCCER DRAW → DEFENSE WINDOW','warn');
     }
   }
 }
