@@ -8,16 +8,16 @@ const topSmall=$('.topbar .brand small');
 if(topSmall) topSmall.textContent='VISUAL RULEBOOK · V12';
 
 const heroText=$('.heroVisual .heroCopy > p');
-if(heroText) heroText.textContent='Complete Match Mode rules for 2–8 human players, flexible 2v2 / 3v3 / 4v4 role formations, passing, every field defensive line, YELLOW timing, Goalkeeper attacks, turnovers, match endings, and the current Penalty Shootout.';
+if(heroText) heroText.textContent='Complete Match Mode rules for 2–8 players, flexible 2v2 / 3v3 / 4v4 role formations, passing, field-defense order, YELLOW timing, Goalkeeper attacks, turnovers, match endings, and the current Penalty Shootout.';
 
 const quick=$('.quick');
 if(quick) quick.innerHTML=`
-  <div class="q"><span class="qi">👥</span><b>2–8 HUMANS</b><br>People and roles are separate.</div>
-  <div class="q"><span class="qi">🧩</span><b>2v2–4v4 ROLES</b><br>1 GK + 1–3 field Players per team.</div>
-  <div class="q"><span class="qi">🃏</span><b>EQUAL ROLE HANDS</b><br>48 dealt · 3 discarded.</div>
+  <div class="q"><span class="qi">👥</span><b>2–8 HUMANS</b><br>The number of players and roles may differ.</div>
+  <div class="q"><span class="qi">🧩</span><b>2v2–4v4 ROLES</b><br>1 GK + 1–3 field Players on each team.</div>
+  <div class="q"><span class="qi">🃏</span><b>EQUAL ROLE HANDS</b><br>48 dealt · 3 set aside.</div>
   <div class="q"><span class="qi">⏱️</span><b>10:00 TOTAL</b><br>Trading time counts.</div>
-  <div class="q"><span class="qi">🛡️</span><b>DEFENSE ≠ TACKLE</b><br>Stop shot vs win Soccer.</div>
-  <div class="q"><span class="qi">🤖</span><b>VS AI = 3v3</b><br>Digital playtest uses 3 roles per team.</div>`;
+  <div class="q"><span class="qi">🛡️</span><b>DEFENSE ≠ TACKLE</b><br>Stop the shot vs. win possession.</div>
+  <div class="q"><span class="qi">🤖</span><b>VS AI = 3v3</b><br>The digital playtest uses 3 roles per team.</div>`;
 
 const setup=$('#setup');
 if(setup){
@@ -30,16 +30,16 @@ if(setup){
   people.className='peopleRulesV12';
   people.innerHTML=`
     <div class="peopleIntro">
-      <div><span class="peopleBig">2–8</span><b>HUMAN PLAYERS</b><small>Human count does not have to equal role count.</small></div>
-      <div class="peopleRule"><b>FAIRNESS RULE</b><span>Both teams must use the same number of roles. Every team always has exactly <strong>1 Goalkeeper</strong> plus <strong>1–3 field Players</strong>.</span></div>
+      <div><span class="peopleBig">2–8</span><b>HUMAN PLAYERS</b><small>The number of people does not have to match the number of roles.</small></div>
+      <div class="peopleRule"><b>FAIRNESS RULE</b><span>Both teams must use the same number of roles. Each team always has exactly <strong>1 Goalkeeper</strong> plus <strong>1–3 field Players</strong>.</span></div>
     </div>
     <div class="controlGrid">
-      <article><span>2</span><b>2 PLAYERS</b><p>1 human per team. Each person controls the whole team: <strong>1 GK + 1–3 field Players</strong>. Decide the formation together before dealing.</p></article>
-      <article><span>4</span><b>4 PLAYERS</b><p>2 humans per team. Each person may control <strong>1 or 2 roles</strong>, depending on whether you choose 2v2, 3v3, or 4v4 roles.</p></article>
-      <article><span>6</span><b>6 PLAYERS</b><p>3 humans per team. In standard 3v3, each controls 1 role. In 4v4, <strong>one teammate on each team controls 2 roles</strong>.</p></article>
-      <article><span>8</span><b>8 PLAYERS</b><p>4 humans per team. Use 4v4 roles and <strong>each person controls exactly 1 role</strong>.</p></article>
+      <article><span>2</span><b>2 PLAYERS</b><p>1 person per team. Each person controls the entire team: <strong>1 GK + 1–3 field Players</strong>. Decide the formation together before dealing.</p></article>
+      <article><span>4</span><b>4 PLAYERS</b><p>2 people per team. Each person may control <strong>1 or 2 roles</strong>, depending on whether you choose 2v2, 3v3, or 4v4 roles.</p></article>
+      <article><span>6</span><b>6 PLAYERS</b><p>3 people per team. In standard 3v3, each controls 1 role. In 4v4, <strong>one teammate on each team controls 2 roles</strong>.</p></article>
+      <article><span>8</span><b>8 PLAYERS</b><p>4 people per team. Use 4v4 roles and <strong>each person controls exactly 1 role</strong>.</p></article>
     </div>
-    <div class="oddNote"><b>3 / 5 / 7 PLAYERS:</b> split the humans between the two teams as evenly as possible. Keep the <em>roles</em> equal on both teams; the side with fewer humans simply has one person control an extra role.</div>
+    <div class="oddNote"><b>3 / 5 / 7 PLAYERS:</b> split the players between the two teams as evenly as possible. Keep the <em>roles</em> equal on both teams; the team with fewer people simply has one player control an extra role.</div>
     <div class="formationGrid">
       <article class="f2"><b>2v2 ROLES</b><span>GK + D1</span><small>4 total roles · 12 Action Cards per role</small><div>ATTACK: D1 → GK</div></article>
       <article class="f3"><b>3v3 ROLES</b><span>GK + D2 + D1</span><small>6 total roles · 8 Action Cards per role</small><div>ATTACK: D1 → D2 → GK</div></article>
@@ -68,7 +68,7 @@ if(setup){
   if(actionDeck){
     const extra=document.createElement('div');
     extra.className='line';
-    extra.innerHTML='<div class="key">HUMANS vs ROLES</div><div class="val">A human may control more than one role. Each role still keeps its own hand and acts as its own position. Do not merge two role hands together.</div>';
+    extra.innerHTML='<div class="key">HUMANS vs ROLES</div><div class="val">One person may control more than one role. Each role still keeps its own hand and acts as a separate position. Do not combine the hands of two roles.</div>';
     actionDeck.insertAdjacentElement('afterend',extra);
   }
 }
@@ -77,26 +77,26 @@ const pass=$('#pass');
 if(pass){
   const vf=$('.visualFlow',pass);
   if(vf) vf.innerHTML=`
-    <div class="flowStep"><span class="stepNo">1</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>SOCCER HOLDER</b><p>Chooses a teammate and declares PASS.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">2</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D1 WINDOW</b><p>D1 gets the first TACKLE chance.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">3</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D2 IF USED</b><p>In 3v3 / 4v4, D2 gets the next window.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">4</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D3 IF USED</b><p>Only 4v4 has a D3 interception window.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep end"><span class="stepNo">5</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>PASS COMPLETE</b><p>If every active field line clears, the teammate receives Soccer.</p></div>`;
+    <div class="flowStep"><span class="stepNo">1</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>SOCCER HOLDER</b><p>Choose a teammate and declare PASS.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">2</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D1 WINDOW</b><p>D1 gets the first chance to play TACKLE.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">3</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D2 IF USED</b><p>In 3v3 / 4v4, D2 gets the next chance to intercept.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">4</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D3 IF USED</b><p>Only 4v4 includes a D3 interception window.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep end"><span class="stepNo">5</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>PASS COMPLETE</b><p>If every active field line is cleared, the teammate receives the Soccer Card.</p></div>`;
   const ol=$('ol',pass);
-  if(ol) ol.innerHTML='<li>PASS costs no Action Card.</li><li>Resolve TACKLE interception windows in formation order: <b>D1 → D2 → D3</b>, skipping any defender position that is not part of your chosen formation.</li><li>If a TACKLE is beaten by DRIBBLE, continue to the next active field line.</li><li>If all active field lines clear, Soccer reaches the intended teammate.</li><li>Goalkeeper does not TACKLE a normal PASS while acting as Goalkeeper.</li><li>YELLOW is not active during a normal PASS.</li>';
+  if(ol) ol.innerHTML='<li>PASS does not require an Action Card.</li><li>Resolve TACKLE interception windows in formation order: <b>D1 → D2 → D3</b>, skipping any defender position that is not part of your chosen formation.</li><li>If a TACKLE is beaten by DRIBBLE, continue to the next active field line.</li><li>If all active field lines clear, Soccer reaches the intended teammate.</li><li>The Goalkeeper does not play TACKLE against a normal PASS while acting as Goalkeeper.</li><li>YELLOW is not active during a normal PASS.</li>';
 }
 
 const shoot=$('#shoot');
 if(shoot){
   const vf=$('.visualFlow',shoot);
   if(vf) vf.innerHTML=`
-    <div class="flowStep"><span class="stepNo">1</span><img src="images/shoot-card.webp" alt="Shoot"><b>SHOOT</b><p>The ballholder starts the scoring attack.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">2</span><img src="images/defense-card.webp" alt="Defense"><b>DEFENDER 1</b><p>D1 may DEFENSE, TACKLE, or do nothing.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">3</span><img src="images/defense-card.webp" alt="Defense"><b>D2 IF USED</b><p>3v3 / 4v4 continue through D2.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">4</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D3 IF USED</b><p>4v4 continues through D3.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep end"><span class="stepNo">5</span><img src="images/defense-card.webp" alt="Goalkeeper defense"><b>GOALKEEPER</b><p>GK DEFENSE starts RPS. No DEFENSE = automatic goal.</p></div>`;
+    <div class="flowStep"><span class="stepNo">1</span><img src="images/shoot-card.webp" alt="Shoot"><b>SHOOT</b><p>The player with the Soccer Card starts the attack.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">2</span><img src="images/defense-card.webp" alt="Defense"><b>DEFENDER 1</b><p>D1 may play DEFENSE, play TACKLE, or choose not to defend.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">3</span><img src="images/defense-card.webp" alt="Defense"><b>D2 IF USED</b><p>In 3v3 / 4v4, the attack continues to D2.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">4</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D3 IF USED</b><p>In 4v4, the attack then continues to D3.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep end"><span class="stepNo">5</span><img src="images/defense-card.webp" alt="Goalkeeper defense"><b>GOALKEEPER</b><p>GK DEFENSE starts a Goalkeeper Duel. No DEFENSE = automatic goal.</p></div>`;
   const ol=$('ol',shoot);
-  if(ol) ol.innerHTML='<li>Ballholder plays SHOOT. The SHOOT card is spent.</li><li>Resolve each active field defender in order: <b>D1 → D2 → D3</b>, skipping positions not used in your chosen formation.</li><li>Each current field defender may play DEFENSE, TACKLE, or choose not to defend.</li><li>Resolve the current defender completely before moving to the next line.</li><li>If a defender plays nothing, that line provided no defense and the attacker does not need DRIBBLE for it.</li><li>After the final active field line clears, the attack reaches Goalkeeper.</li>';
+  if(ol) ol.innerHTML='<li>The ballholder plays SHOOT, and the SHOOT card is spent.</li><li>Resolve each active field defender in order: <b>D1 → D2 → D3</b>, skipping positions not used in your chosen formation.</li><li>Each active field defender may play DEFENSE, play TACKLE, or choose not to defend.</li><li>Resolve the current defender completely before moving to the next line.</li><li>If a defender chooses not to defend, that line is cleared and the attacker does not need DRIBBLE PAST for it.</li><li>After the final active field line is cleared, the attack reaches the Goalkeeper.</li>';
   const imp=$('.important',shoot);
   if(imp) imp.innerHTML='<b>FORMATION RULE:</b> 2v2 attacks use D1 → GK. 3v3 uses D1 → D2 → GK. 4v4 uses D1 → D2 → D3 → GK.';
 }
@@ -107,9 +107,9 @@ if(yellow){
   if(can) can.innerHTML='<li>Cancel DRIBBLE on the current SHOOT line.</li><li>Cancel the current defender\'s TACKLE when played by the attacker.</li><li>Cancel another YELLOW in the same live chain.</li><li>Follow the current field line: D1, then D2, then D3 if that formation uses D3.</li>';
   const d2=$$('.line',yellow).find(r=>$('.key',r)?.textContent.trim()==='D2 LINE');
   if(d2){
-    const v=$('.val',d2); if(v) v.textContent='Once play moves to D2, D1’s window is over. If your formation uses D3, D2 is followed by D3; otherwise the next stage is Goalkeeper.';
+    const v=$('.val',d2); if(v) v.textContent='Once play moves to D2, D1's window is closed. If your formation uses D3, D2 is followed by D3; otherwise the next stage is Goalkeeper.';
     if(!$$('.line',yellow).some(r=>$('.key',r)?.textContent.trim()==='D3 LINE')){
-      const d3=document.createElement('div'); d3.className='line'; d3.innerHTML='<div class="key">D3 LINE</div><div class="val">Only 4v4 uses D3. Once play reaches D3, D1 and D2 YELLOW windows are over. D3 now owns the defending-side YELLOW window for that line.</div>'; d2.insertAdjacentElement('afterend',d3);
+      const d3=document.createElement('div'); d3.className='line'; d3.innerHTML='<div class="key">D3 LINE</div><div class="val">Only 4v4 uses D3. Once play reaches D3, D1 and D2 YELLOW windows are over. D3 now has the defending-side YELLOW window for that line.</div>'; d2.insertAdjacentElement('afterend',d3);
     }
   }
 }
@@ -130,10 +130,10 @@ for(const id of ['gkattack','turnover']){
 const rulings=$('#rulings');
 if(rulings){
   const d2=$$('.line',rulings).find(r=>$('.key',r)?.textContent.trim()==='D2 DOES NOTHING');
-  if(d2){const v=$('.val',d2); if(v) v.textContent='D2 did not defend. No DRIBBLE required. In 4v4 go to D3; otherwise go straight to GK.';}
+  if(d2){const v=$('.val',d2); if(v) v.textContent='D2 did not defend, so no DRIBBLE PAST is required. In 4v4, continue to D3; otherwise, go straight to the Goalkeeper.';}
   const first=$('.line',rulings);
   if(first){
-    const roles=document.createElement('div'); roles.className='line'; roles.innerHTML='<div class="key">HOW MANY ROLES?</div><div class="val">Both teams choose the same formation: 2v2, 3v3, or 4v4 roles. Human players may control multiple roles when needed.</div>'; first.insertAdjacentElement('beforebegin',roles);
+    const roles=document.createElement('div'); roles.className='line'; roles.innerHTML='<div class="key">HOW MANY ROLES?</div><div class="val">Both teams choose the same formation: 2v2, 3v3, or 4v4 roles. A player may control multiple roles when needed.</div>'; first.insertAdjacentElement('beforebegin',roles);
   }
 }
 
