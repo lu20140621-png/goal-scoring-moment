@@ -26,7 +26,7 @@ body.ready #game{opacity:1;visibility:visible}
 </head>
 <body>
 <div id="strategyLoader" role="status" aria-live="polite"><div class="loaderCard"><div class="loaderBall" aria-hidden="true"></div><div class="loaderTitle">STRATEGY MODE</div><div class="loaderSub">LOADING GAME ASSETS</div><div class="loaderTrack"><div class="loaderBar"></div></div></div></div>
-<iframe id="game" src="strategy-13.html?v=20261006drawpile1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
+<iframe id="game" src="strategy-13.html?v=20261006revealfix1" title="Goal-Scoring Moment Strategy Tutorial — 13 Lessons" allow="fullscreen"></iframe>
 <script>
 const f=document.getElementById('game');
 const loader=document.getElementById('strategyLoader');
@@ -124,7 +124,7 @@ f.addEventListener('load',()=>{
       if(d.getElementById('gsm-strategy13-runtime-fix-loader')){loadRuleCorrection();return;}
       const q=d.createElement('script');
       q.id='gsm-strategy13-runtime-fix-loader';
-      q.src='strategy-13-runtime-fix.js?v=20260905yellowload1';
+      q.src='strategy-13-runtime-fix.js?v=20261006revealfix1';
       q.onload=loadRuleCorrection;
       q.onerror=loadRuleCorrection;
       d.body.appendChild(q);
@@ -166,7 +166,7 @@ f.addEventListener('load',()=>{
     if(!d.getElementById('gsm-coach-guide-v2-loader')){
       const g=d.createElement('script');
       g.id='gsm-coach-guide-v2-loader';
-      g.src='strategy-13-coach-guide-v2.js?v=20261006drawpile1';
+      g.src='strategy-13-coach-guide-v2.js?v=20261006revealfix1';
       g.onload=loadCoachDetail;
       g.onerror=loadCoachDetail;
       d.body.appendChild(g);
