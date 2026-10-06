@@ -64,7 +64,7 @@
       renderPlayers();
       addResult('SOCCER CARD → BLUE 2', 'good');
       setPitchEvent('SOCCER CARD → BLUE 2', 'good');
-      complete('Pass complete. Possession changed to BLUE 2 without using a PASS card.');
+      complete('Pass complete. PASS uses no card and is allowed only during your own turn. Possession changed to BLUE 2, but BLUE 2 does not get an immediate turn.');
       return;
     }
 
@@ -104,8 +104,9 @@
       renderPlayers();
       addResult('GREEN 1 → 3 TOKENS', 'warn');
       addResult('ELIMINATED · PLAYER REVEALED', 'good');
+      addResult('REMAINING HAND → TEAMMATE', 'good');
       setPitchEvent('PLAYER ELIMINATED · ROLE REVEALED', 'good');
-      complete('At 3 Tokens the player is eliminated and the hidden role is revealed.');
+      complete('At 3 Tokens the player is eliminated first, then the hidden role is revealed. If it is PLAYER, give the remaining Action Cards to a living teammate. The eliminated player may still advise the team, but cannot take turns or play cards.');
       return;
     }
 
