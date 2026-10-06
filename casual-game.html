@@ -10,9 +10,9 @@
 <title>Goal-Scoring Moment — Casual Party Tutorial</title>
 <link rel="preload" as="style" href="casual-coach.css?v=20260906coach3">
 <link rel="preload" as="style" href="casual-visual-refresh.css?v=20260910bright1">
-<link rel="preload" as="script" href="casual-coach.js?v=20261006american1">
-<link rel="preload" as="script" href="casual-hand-sync.js?v=20260906hand2">
-<link rel="preload" as="script" href="casual-final-fix.js?v=20260906final1">
+<link rel="preload" as="script" href="casual-coach.js?v=20261006casualrules2">
+<link rel="preload" as="script" href="casual-hand-sync.js?v=20261006casualrules2">
+<link rel="preload" as="script" href="casual-final-fix.js?v=20261006casualrules2">
 <link rel="preload" as="image" href="images/soccer-header-icon.webp">
 <link rel="preload" as="image" href="images/coach-guide.webp">
 <link rel="preload" as="image" href="images/soccer-card.webp?v=20260904fix1">
@@ -56,7 +56,7 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 <li><b>DRIBBLE PAST</b> = look at the top 3 cards of the Draw Pile without changing their order.</li>
 <li><b>SHOOT</b> = choose yourself or any other active player; that player immediately draws the top card of the Draw Pile.</li>
 <li><b>TACKLE</b> = choose another active player and steal 1 random card from that player's hand.</li>
-<li><b>YELLOW</b> = cancel the immediately previous Action/effect before it resolves. YELLOW may also cancel another YELLOW.</li>
+<li><b>YELLOW</b> = cancel the immediately previous played Action Card before it resolves. It may cancel DRIBBLE PAST, SHOOT, TACKLE, or another YELLOW, but it cannot cancel DEFENSE or SOCCER.</li>
 </ul>
 <p><b>Remember the function, not the English word.</b> For this mode, the rules above are what each card means.</p>
 </section>
@@ -64,7 +64,7 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 <section>
 <h3>START HERE — SET UP THE GAME IN THIS EXACT ORDER</h3>
 <ol>
-<li><b>STEP 1 — GET 2–8 PLAYERS.</b> Casual Party Mode is a free-for-all. There are no teams. The Goalkeeper has no special ability in this mode.</li>
+<li><b>STEP 1 — GET 2–8 PLAYERS AND REMOVE ROLE CARDS.</b> Casual Party Mode is a free-for-all. There are no teams and no hidden roles. Put all PLAYER and GOALKEEPER Role Cards back in the box; they are not used in this mode.</li>
 <li><b>STEP 2 — TAKE THE SOCCER CARD OUT FIRST.</b> Keep SOCCER separate while you prepare the starting hands. Do not deal SOCCER as one of the starting 5 cards.</li>
 <li><b>STEP 3 — SHUFFLE THE ACTION CARDS.</b> Shuffle DEFENSE, DRIBBLE PAST, SHOOT, TACKLE, and YELLOW together.</li>
 <li><b>STEP 4 — DEAL 5 ACTION CARDS TO EVERY PLAYER.</b> Each player starts with exactly 5 Action Cards. Keep your hand hidden from the other players.</li>
@@ -102,9 +102,9 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 <ol>
 <li><b>You draw SOCCER.</b> Stop the current draw and resolve SOCCER before anything else continues.</li>
 <li><b>Only the player who actually drew SOCCER may use DEFENSE.</b> This is true whether SOCCER came from your own end-of-turn draw or because SHOOT forced you to draw.</li>
-<li><b>If you play DEFENSE:</b> discard that DEFENSE. You take no new Soccer Strike. Then return SOCCER to the Draw Pile at position 2 or deeper. Never put SOCCER on top.</li>
-<li><b>If you do not play DEFENSE:</b> take 1 Soccer Strike. If this is your first Strike, you stay in the game. If this is your second Strike, you are eliminated.</li>
-<li><b>After SOCCER resolves:</b> SOCCER goes back into the Draw Pile below the top card so it can appear again later.</li>
+<li><b>If you play DEFENSE:</b> discard that DEFENSE. You take no new Soccer Strike. DEFENSE cannot be canceled by YELLOW. Because you drew SOCCER, you choose where to reinsert it in the Draw Pile at position 2 or deeper. Never put SOCCER on top.</li>
+<li><b>If you do not play DEFENSE:</b> take 1 Soccer Strike. If this is your first Strike, you stay in the game. If this is your second Strike, you are eliminated immediately.</li>
+<li><b>After SOCCER resolves:</b> the player who drew SOCCER chooses where to reinsert it at position 2 or deeper. This is true whether DEFENSE was used or a Strike was taken. If that player was eliminated by the second Strike, reinsert SOCCER first, then end that player's turn and continue with the next active player.</li>
 </ol>
 </section>
 
@@ -115,14 +115,14 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 
 <section>
 <h3>DEFENSE</h3>
-<p><b>Use DEFENSE when YOU draw SOCCER.</b> DEFENSE prevents that SOCCER from giving you a new Strike. Discard the DEFENSE, then put SOCCER back into the Draw Pile at position 2 or deeper. Only the player who drew SOCCER may use DEFENSE for that SOCCER.</p>
+<p><b>Use DEFENSE when YOU draw SOCCER.</b> DEFENSE prevents that SOCCER from giving you a new Strike and cannot be canceled by YELLOW. Discard DEFENSE, then you choose where to reinsert SOCCER at position 2 or deeper. Only the player who drew SOCCER may use DEFENSE for that SOCCER.</p>
 </section>
 
 <section>
 <h3>DRIBBLE PAST</h3>
 <ol>
 <li>Play DRIBBLE PAST from your hand.</li>
-<li>Look at the actual top 3 cards of the Draw Pile.</li>
+<li>Look at the actual top 3 cards of the Draw Pile. If fewer than 3 cards remain, refresh the Draw Pile first using the refill rule below.</li>
 <li>Card #1 is the next card that will be drawn.</li>
 <li>Do <b>not</b> rearrange, move, or reorder those 3 cards.</li>
 <li>Return them in exactly the same order and continue your turn.</li>
@@ -137,8 +137,9 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 <li>The chosen player immediately draws exactly 1 card from the top of the Draw Pile.</li>
 <li>If that forced card is a normal Action Card, it goes into that player’s hand.</li>
 <li>If that forced card is SOCCER, resolve SOCCER immediately. The player who drew it may use DEFENSE.</li>
-<li>After the forced draw is fully resolved, the <b>original active player continues the same turn</b>.</li>
-<li>The original active player must still make their own end-of-turn draw when they are finished playing actions.</li>
+<li>Once nobody plays YELLOW, SHOOT begins resolving. Any Action Card drawn because of SHOOT is added to that player's hand, but it cannot be played retroactively against that same SHOOT.</li>
+<li>After the forced draw is fully resolved, the <b>original active player continues the same turn</b> unless that player targeted themself and was eliminated. If the active player is OUT, reinsert SOCCER first, then that turn ends immediately and play passes to the next active player.</li>
+<li>If the original active player is still in the game, they must still make their own end-of-turn draw when they are finished playing actions.</li>
 </ol>
 </section>
 
@@ -153,13 +154,14 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 </section>
 
 <section>
-<h3>YELLOW — CANCEL BEFORE THE EFFECT RESOLVES</h3>
+<h3>YELLOW — CANCEL BEFORE THE ACTION RESOLVES</h3>
 <ol>
-<li>An Action Card is played.</li>
-<li>Before that Action/effect fully resolves, another player may play YELLOW to cancel it.</li>
-<li>A second YELLOW may cancel the first YELLOW.</li>
-<li>A third YELLOW may cancel the second YELLOW, and the chain can continue.</li>
+<li>DRIBBLE PAST, SHOOT, TACKLE, or YELLOW is played.</li>
+<li>Before that card begins resolving, another player may play YELLOW to cancel it.</li>
+<li>YELLOW cannot cancel DEFENSE or SOCCER.</li>
+<li>A second YELLOW may cancel the first YELLOW. A third may cancel the second, and the chain can continue.</li>
 <li>Always resolve the chain from the newest YELLOW backward to determine whether the original Action happens.</li>
+<li>Once the original Action begins resolving, the YELLOW window is closed. A card drawn during SHOOT cannot be used to cancel that already-resolving SHOOT.</li>
 </ol>
 <p><b>Example:</b> SHOOT → YELLOW cancels SHOOT → another YELLOW cancels that YELLOW, so SHOOT becomes active again.</p>
 </section>
@@ -170,15 +172,16 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 </section>
 
 <section>
-<h3>IF THE DRAW PILE RUNS OUT</h3>
-<p>Keep the top card of the Discard Pile separate. Shuffle the other discarded Action Cards into a new face-down Draw Pile, then continue playing.</p>
+<h3>REFRESHING THE DRAW PILE</h3>
+<p><b>If fewer than 3 cards remain:</b> shuffle the entire Discard Pile into a new face-down base pile, then place the remaining Draw Pile cards on top in their current order. If the only remaining card is SOCCER, first shuffle the Discard Pile, then insert SOCCER at position 2 or deeper so it is never on top.</p>
+<p><b>If 3–4 cards remain:</b> players may refresh early. Shuffle the entire Discard Pile and place that shuffled stack underneath the remaining Draw Pile cards.</p>
 </section>
 
 <button class="actionBtn blue" id="closeRulebook">CLOSE</button>
 </div></div>
 </div>
-<script src="casual-coach.js?v=20261006american1" defer></script>
-<script src="casual-hand-sync.js?v=20260906hand2" defer></script>
-<script src="casual-final-fix.js?v=20260906final1" defer></script>
+<script src="casual-coach.js?v=20261006casualrules2" defer></script>
+<script src="casual-hand-sync.js?v=20261006casualrules2" defer></script>
+<script src="casual-final-fix.js?v=20261006casualrules2" defer></script>
 </body>
 </html>
