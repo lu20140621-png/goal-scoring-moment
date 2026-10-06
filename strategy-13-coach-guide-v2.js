@@ -10,6 +10,14 @@
   let scene;
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const player = id => document.querySelector(`[data-player="${id}"]`);
+  const drawPile = () => document.getElementById('strategyDrawPile');
+  const setDrawPileActive = active => {
+    const pile = drawPile();
+    if (!pile) return;
+    pile.disabled = !active;
+    pile.classList.toggle('active', Boolean(active));
+    pile.setAttribute('aria-disabled', active ? 'false' : 'true');
+  };
 
   const LESSON_COACH = {
     3: 'Find the player holding the Soccer Card. That player controls the ball.',
@@ -119,6 +127,7 @@
     if (typeof playerEls === 'function') playerEls().forEach(el => el.classList.remove('guideDim', 'guideFocus', 'guideWrong'));
     document.querySelectorAll('.teamChip').forEach(el => el.classList.remove('guideFocus'));
     document.querySelectorAll('.teamLink,.tokenDemo,.drawCardFlight').forEach(el => el.remove());
+    setDrawPileActive(false);
     if (typeof setPitchEvent === 'function') setPitchEvent('');
   }
 
@@ -288,13 +297,13 @@
     if (state.step === 0) {
       state.step = 1;
       setPitchEvent('YOUR TURN', 'good');
-      type('Every turn includes one required draw.');
+      type('Every turn includes one required draw. Take that card from the Draw Pile in the center of the table.');
     } else if (state.step === 1) {
       state.step = 2;
       scene.querySelector('.guideContinue').hidden = true;
-      type('Draw one card to continue.', '', true);
-      const button = addAction('DRAW 1 CARD', drawCard, 'blue');
-      button.id = 'introDrawButton';
+      type('Tap the DRAW PILE in the center and take the top card.', '', true);
+      $('contextActions').innerHTML = '';
+      setDrawPileActive(true);
     } else if (state.step === 3) {
       state.step = 4;
       document.body.classList.add('guideBright');
@@ -311,29 +320,30 @@
     if (state.lesson !== 2 || state.step !== 2 || state.drawn || state.locked) return;
     state.drawn = true;
     await guarded(async () => {
-      const button = $('introDrawButton');
-      if (!button) return;
-      button.disabled = true;
-      const start = button.getBoundingClientRect();
+      const pile = drawPile();
+      if (!pile) return;
+      setDrawPileActive(false);
+      const start = pile.getBoundingClientRect();
       const flight = document.createElement('img');
       flight.className = 'drawCardFlight';
-      flight.src = ASSETS.YELLOW;
+      flight.src = 'images/card-back.webp';
       flight.alt = '';
-      flight.style.left = `${start.left + start.width / 2 - 36}px`;
-      flight.style.top = `${start.top - 105}px`;
+      flight.style.left = `${start.left + start.width / 2 - 27}px`;
+      flight.style.top = `${start.top + start.height / 2 - 38}px`;
       document.body.appendChild(flight);
       await delay(30);
       const target = $('hand').getBoundingClientRect();
-      flight.style.transform = `translate(${target.left + target.width / 2 - start.left - 36}px,${target.top - start.top + 70}px) scale(1.08)`;
+      flight.style.transform = `translate(${target.left + target.width / 2 - start.left - start.width / 2}px,${target.top + target.height / 2 - start.top - start.height / 2}px) scale(1.08)`;
       await delay(580);
       flight.remove();
       handCards = ['YELLOW'];
       renderHand([]);
       $('hand').querySelector('.cardBtn')?.classList.add('guideNewCard');
       $('contextActions').innerHTML = '';
+      addResult('DRAW PILE → YOUR HAND', 'good');
       addResult('1 CARD DRAWN', 'good');
       state.step = 3;
-      type('Nice. You completed the required draw.');
+      type('Nice. You took the top card from the Draw Pile. That is the required draw.');
     });
   }
 
@@ -384,6 +394,12 @@
     clearVisuals();
     document.body.classList.remove('introGuide', 'coachEveryLesson');
     if (scene) scene.hidden = true;
+  }
+
+  const pile = drawPile();
+  if (pile && !pile.dataset.strategyDrawBound) {
+    pile.dataset.strategyDrawBound = '1';
+    pile.addEventListener('click', drawCard);
   }
 
   window.StrategyIntroGuide = {
