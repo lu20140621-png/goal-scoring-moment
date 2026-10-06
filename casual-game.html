@@ -44,35 +44,124 @@ html,body{margin:0;min-height:100%;background:#f2731f}
 <div class="overlay" id="targetModal"><div class="modal"><h2 id="targetTitle">CHOOSE A PLAYER</h2><p id="targetHelp">Choose a valid target.</p><div class="targetGrid"><button class="targetBtn" data-player="0">YOU</button><button class="targetBtn" data-player="1">PLAYER 2</button><button class="targetBtn" data-player="2">PLAYER 3</button><button class="targetBtn" data-player="3">PLAYER 4</button></div></div></div>
 <div class="overlay" id="top3Modal"><div class="modal"><h2>NEXT 3 CARDS</h2><p>Top card is #1. You only look — do not reorder them.</p><div class="top3" id="top3"></div><button class="actionBtn blue" id="closeTop3">GOT IT</button></div></div>
 <div class="overlay" id="coursesModal"><div class="modal"><h2>COURSES</h2><div class="targetGrid" id="courses"></div><button class="actionBtn blue" id="closeCourses" style="margin-top:10px">CLOSE</button></div></div>
-<div class="overlay" id="rulebookModal"><div class="modal rulebook"><h2>CASUAL PARTY MODE — START HERE</h2>
-<section><h3>DO THIS BEFORE THE FIRST TURN</h3><ol>
-<li><b>Choose the players and sit in a fixed turn order.</b> Decide who takes the first turn before play begins.</li>
-<li><b>Prepare the Casual Action deck.</b> The playable Action cards are DEFENSE, DRIBBLE PAST, SHOOT, YELLOW, TACKLE, plus the SOCCER card used as the danger card.</li>
-<li><b>Put the Draw Pile face-down in the middle.</b> The top card is the next card that will be drawn.</li>
-<li><b>Make a Discard Pile beside it.</b> Played Action Cards go here unless a rule says otherwise.</li>
-<li><b>Each player keeps their own hand hidden.</b> Your hand is separate from the Draw Pile and Discard Pile.</li>
-</ol><p><b>SETUP NOTE:</b> The current Casual rules on the website do not define one official starting-hand size. Do not guess from the tutorial hand; the tutorial uses teaching cards. The turn rules below are the official flow.</p></section>
-<section><h3>YOUR TURN — ALWAYS FOLLOW THESE STEPS</h3><ol>
-<li><b>PLAY ACTION CARDS FIRST — OPTIONAL.</b> You may play any legal Action Cards you want, one at a time, or play none.</li>
-<li><b>FINISH EACH ACTION COMPLETELY.</b> If somebody reacts with YELLOW, or a card makes somebody draw, resolve that whole effect before doing anything else.</li>
-<li><b>WHEN YOU ARE DONE PLAYING ACTIONS, DRAW 1 CARD YOURSELF.</b> Take exactly the top card from the face-down Draw Pile and add/resolve it.</li>
-<li><b>YOUR OWN DRAW ENDS YOUR TURN.</b> After that draw is completely resolved, the next active player begins their turn.</li>
-</ol><p><b>IMPORTANT:</b> A card drawn because SHOOT forced someone to draw does <u>not</u> end the original active player’s turn. Only the active player’s own final draw ends that turn.</p></section>
-<section><h3>WHAT DOES “DRAW 1” MEAN?</h3><p>Take exactly <b>1 card from the top of the face-down Draw Pile</b>. Do not choose a card from the middle. Do not take from the Discard Pile. If it is a normal Action Card, add it to your hand. If it is SOCCER, resolve SOCCER immediately.</p></section>
-<section><h3>IF YOU DRAW SOCCER</h3><ol>
-<li><b>First SOCCER:</b> you now have 1 Soccer strike and stay in the game.</li>
-<li><b>Second SOCCER:</b> you are OUT unless you legally use DEFENSE before the second strike eliminates you.</li>
-<li><b>After SOCCER resolves:</b> put the SOCCER card back into the Draw Pile at position 2 or deeper. <b>Never put it back on top.</b></li>
-<li><b>If you are eliminated:</b> discard your remaining hand and take no more turns.</li>
-</ol><p>Last active player remaining wins.</p></section>
-<section><h3>DEFENSE</h3><p>When SOCCER would give you your second strike, play DEFENSE to survive. You remain at 1 Soccer strike. Then return SOCCER to the Draw Pile at position 2 or deeper — never on top.</p></section>
-<section><h3>DRIBBLE PAST</h3><p>Play DRIBBLE PAST to look at the actual top 3 cards of the Draw Pile in order: #1 is the next card to be drawn. <b>Look only. Do not reorder the cards.</b></p></section>
-<section><h3>SHOOT</h3><ol><li>Play SHOOT.</li><li>Choose yourself or any other active player.</li><li>That chosen player immediately draws the top card of the Draw Pile.</li><li>Resolve that forced draw completely.</li><li>The original active player’s turn continues. That forced draw did not end the turn.</li></ol></section>
-<section><h3>TACKLE</h3><ol><li>Play TACKLE.</li><li>Choose another active player who has at least 1 card.</li><li>Steal 1 random card from that player’s hand and add it to your own hand.</li></ol></section>
-<section><h3>YELLOW</h3><p>YELLOW cancels the immediately previous Action/effect before it fully resolves. Another YELLOW may cancel that YELLOW, so the chain may continue: <b>Action → YELLOW → YELLOW → YELLOW…</b> Each YELLOW cancels the card/effect immediately before it.</p></section>
-<section><h3>FIRST-TURN EXAMPLE</h3><p><b>PLAYER 1 starts.</b> PLAYER 1 may play DRIBBLE PAST and look at the top 3. Then PLAYER 1 may play SHOOT and force PLAYER 3 to draw 1. PLAYER 3’s forced draw resolves, but PLAYER 1 is still taking the turn. When PLAYER 1 is done playing actions, PLAYER 1 draws exactly 1 card from the top of the Draw Pile. That personal draw resolves and then PLAYER 1’s turn ends. PLAYER 2 now starts.</p></section>
-<section><h3>EMPTY DRAW PILE</h3><p>If the Draw Pile runs out, keep the top card of the Discard Pile separate and shuffle the other discarded Action Cards into a new face-down Draw Pile.</p></section>
-<button class="actionBtn blue" id="closeRulebook">CLOSE</button></div></div>
+<div class="overlay" id="rulebookModal"><div class="modal rulebook">
+<h2>CASUAL PARTY MODE — COMPLETE RULEBOOK</h2>
+
+<section>
+<h3>START HERE — SET UP THE GAME IN THIS EXACT ORDER</h3>
+<ol>
+<li><b>STEP 1 — GET 2–8 PLAYERS.</b> Casual Party Mode is a free-for-all. There are no teams. Do not use the Role Cards in this mode, and there is no Goalkeeper special ability.</li>
+<li><b>STEP 2 — TAKE THE SOCCER CARD OUT FIRST.</b> Keep SOCCER separate while you prepare the starting hands. Do not deal SOCCER as one of the starting 5 cards.</li>
+<li><b>STEP 3 — SHUFFLE THE ACTION CARDS.</b> Shuffle DEFENSE, DRIBBLE PAST, SHOOT, TACKLE, and YELLOW together.</li>
+<li><b>STEP 4 — DEAL 5 ACTION CARDS TO EVERY PLAYER.</b> Each player starts with exactly 5 Action Cards. Keep your hand hidden from the other players.</li>
+<li><b>STEP 5 — MAKE THE DRAW PILE.</b> Put all remaining Action Cards face-down in the middle of the table. This face-down stack is the Draw Pile.</li>
+<li><b>STEP 6 — PUT SOCCER INTO THE DRAW PILE.</b> Insert the SOCCER card somewhere below the top card. SOCCER can never be placed on top of the Draw Pile.</li>
+<li><b>STEP 7 — MAKE A DISCARD PILE BESIDE IT.</b> Played Action Cards go to the Discard Pile after their effect or reaction chain is finished.</li>
+<li><b>STEP 8 — CHOOSE WHO STARTS.</b> Choose one starting player, then continue through the agreed player order. Eliminated players are skipped.</li>
+</ol>
+</section>
+
+<section>
+<h3>HOW TO WIN</h3>
+<p>Every player starts with <b>0 Soccer Strikes</b>. If you draw SOCCER and do not stop it with DEFENSE, you take 1 Soccer Strike. Your <b>second Soccer Strike eliminates you</b>. The last active player remaining wins.</p>
+</section>
+
+<section>
+<h3>YOUR TURN — DO THESE STEPS EVERY SINGLE TURN</h3>
+<ol>
+<li><b>STEP 1 — DO NOT DRAW YET.</b> At the start of your turn, look at the Action Cards already in your hand.</li>
+<li><b>STEP 2 — PLAY ANY LEGAL ACTION CARDS YOU WANT, OR PLAY NONE.</b> You may play more than one Action Card during the same turn. Resolve one card completely before starting the next action.</li>
+<li><b>STEP 3 — WHEN YOU ARE FINISHED PLAYING ACTIONS, DRAW EXACTLY 1 CARD.</b> Take the top card of the face-down Draw Pile. This is your own end-of-turn draw.</li>
+<li><b>STEP 4 — RESOLVE THE CARD YOU DREW.</b> If it is a normal Action Card, add it to your hand. If it is SOCCER, resolve SOCCER immediately.</li>
+<li><b>STEP 5 — YOUR TURN ENDS AFTER YOUR OWN DRAW IS FULLY RESOLVED.</b> The next active player now begins their turn at STEP 1.</li>
+</ol>
+<p><b>VERY IMPORTANT:</b> A draw caused by another card — for example, SHOOT forcing somebody to draw — is <u>not</u> that player’s normal end-of-turn draw and does <u>not</u> end the original active player’s turn.</p>
+</section>
+
+<section>
+<h3>WHAT DOES “DRAW 1” MEAN?</h3>
+<p>Take <b>exactly the top card</b> from the face-down Draw Pile. Do not choose a card from the middle. Do not draw from the Discard Pile. If it is an Action Card, put it into your hand. If it is SOCCER, stop and resolve SOCCER immediately.</p>
+</section>
+
+<section>
+<h3>SOCCER — RESOLVE IT IMMEDIATELY</h3>
+<ol>
+<li><b>You draw SOCCER.</b> Stop the current draw and resolve SOCCER before anything else continues.</li>
+<li><b>Only the player who actually drew SOCCER may use DEFENSE.</b> This is true whether SOCCER came from your own end-of-turn draw or because SHOOT forced you to draw.</li>
+<li><b>If you play DEFENSE:</b> discard that DEFENSE. You take no new Soccer Strike. Then return SOCCER to the Draw Pile at position 2 or deeper. Never put SOCCER on top.</li>
+<li><b>If you do not play DEFENSE:</b> take 1 Soccer Strike. If this is your first Strike, you stay in the game. If this is your second Strike, you are eliminated.</li>
+<li><b>After SOCCER resolves:</b> SOCCER goes back into the Draw Pile below the top card so it can appear again later.</li>
+</ol>
+</section>
+
+<section>
+<h3>IF YOU ARE ELIMINATED</h3>
+<p>At 2 Soccer Strikes, you are OUT immediately. Discard all Action Cards remaining in your hand. You take no more turns and cannot be chosen as a future active target. Play continues with the remaining active players.</p>
+</section>
+
+<section>
+<h3>DEFENSE</h3>
+<p><b>Use DEFENSE when YOU draw SOCCER.</b> DEFENSE prevents that SOCCER from giving you a new Strike. Discard the DEFENSE, then put SOCCER back into the Draw Pile at position 2 or deeper. Only the player who drew SOCCER may use DEFENSE for that SOCCER.</p>
+</section>
+
+<section>
+<h3>DRIBBLE PAST</h3>
+<ol>
+<li>Play DRIBBLE PAST from your hand.</li>
+<li>Look at the actual top 3 cards of the Draw Pile.</li>
+<li>Card #1 is the next card that will be drawn.</li>
+<li>Do <b>not</b> rearrange, move, or reorder those 3 cards.</li>
+<li>Return them in exactly the same order and continue your turn.</li>
+</ol>
+</section>
+
+<section>
+<h3>SHOOT</h3>
+<ol>
+<li>Play SHOOT from your hand.</li>
+<li>Choose <b>yourself or any other active player</b>.</li>
+<li>The chosen player immediately draws exactly 1 card from the top of the Draw Pile.</li>
+<li>If that forced card is a normal Action Card, it goes into that player’s hand.</li>
+<li>If that forced card is SOCCER, resolve SOCCER immediately. The player who drew it may use DEFENSE.</li>
+<li>After the forced draw is fully resolved, the <b>original active player continues the same turn</b>.</li>
+<li>The original active player must still make their own end-of-turn draw when they are finished playing actions.</li>
+</ol>
+</section>
+
+<section>
+<h3>TACKLE</h3>
+<ol>
+<li>Play TACKLE from your hand.</li>
+<li>Choose another active player who has at least 1 card in hand. You cannot target yourself.</li>
+<li>Steal exactly 1 random card from that player’s hand and add it to your own hand.</li>
+<li>TACKLE steals a hand card. It does <b>not</b> steal the SOCCER card in Casual Party Mode.</li>
+</ol>
+</section>
+
+<section>
+<h3>YELLOW — CANCEL BEFORE THE EFFECT RESOLVES</h3>
+<ol>
+<li>An Action Card is played.</li>
+<li>Before that Action/effect fully resolves, another player may play YELLOW to cancel it.</li>
+<li>A second YELLOW may cancel the first YELLOW.</li>
+<li>A third YELLOW may cancel the second YELLOW, and the chain can continue.</li>
+<li>Always resolve the chain from the newest YELLOW backward to determine whether the original Action happens.</li>
+</ol>
+<p><b>Example:</b> SHOOT → YELLOW cancels SHOOT → another YELLOW cancels that YELLOW, so SHOOT becomes active again.</p>
+</section>
+
+<section>
+<h3>FULL FIRST-TURN EXAMPLE</h3>
+<p><b>PLAYER 1 starts with 5 Action Cards.</b> PLAYER 1 does not draw at the start. PLAYER 1 may first play DRIBBLE PAST and look at the top 3 cards. PLAYER 1 may then play SHOOT and choose PLAYER 3. PLAYER 3 immediately draws the top card because of SHOOT. That forced draw resolves, but PLAYER 1’s turn is still active. PLAYER 1 may play another legal Action Card or stop playing actions. When PLAYER 1 is finished, PLAYER 1 draws exactly 1 card from the top of the Draw Pile. That personal draw is resolved, and then PLAYER 1’s turn ends. The next active player begins.</p>
+</section>
+
+<section>
+<h3>IF THE DRAW PILE RUNS OUT</h3>
+<p>Keep the top card of the Discard Pile separate. Shuffle the other discarded Action Cards into a new face-down Draw Pile, then continue playing.</p>
+</section>
+
+<button class="actionBtn blue" id="closeRulebook">CLOSE</button>
+</div></div></div>
 </div>
 <script src="casual-coach.js?v=20260906coach4" defer></script>
 <script src="casual-hand-sync.js?v=20260906hand2" defer></script>
