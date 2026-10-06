@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#f2731f">
+<title>Goal-Scoring Moment — Casual Party Mode Visual Rulebook</title>
+<style>
+:root{--orange:#f2731f;--orange2:#ff9b2f;--deep:#742a0f;--navy:#13283c;--gold:#fff36d;--paper:#fffaf4;--ink:#27384a;--muted:#6b7b89;--blue:#2d79b8;--green:#1b9659;--red:#d83e4e}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fff1df,#fffaf5 520px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}img{max-width:100%}a{color:inherit}
+.top{position:sticky;top:0;z-index:80;height:54px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 12px;background:linear-gradient(180deg,#8c3215,#67220d);border-bottom:3px solid #ffc64d;color:#fff}
+.brand{font-size:13px;line-height:.95;font-weight:1000}.brand span{color:var(--gold)}.brand small{display:block;margin-top:4px;font-size:7px;letter-spacing:.1em;color:#ffe5bc}.topBtns{display:flex;gap:5px}.topBtn{display:inline-flex;align-items:center;justify-content:center;padding:7px 9px;border-radius:8px;background:#a8421b;border:1px solid #d46a38;color:#fff;text-decoration:none;font-size:8px;font-weight:950}.topBtn.gold{background:#ffd85d;color:#6b3700;border-color:#fff0a8}
+.hero{position:relative;overflow:hidden;min-height:360px;background:radial-gradient(circle at 20% 20%,#ffcf62,#f2731f 48%,#a33b16 100%);color:#fff}.hero:after{content:"";position:absolute;inset:auto -8% -90px;height:190px;background:#fffaf5;border-radius:50% 50% 0 0/70% 70% 0 0}
+.heroInner{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:54px 390px 82px 22px}.kicker{font-size:9px;font-weight:1000;letter-spacing:.16em;color:#fff6bf}.hero h1{margin:8px 0 10px;font-size:62px;line-height:.88;font-weight:1000;letter-spacing:-.04em;text-shadow:0 4px 0 #9a3513}.hero h1 span{color:#fff36d}.hero p{max-width:590px;margin:0;font-size:12px;line-height:1.55;font-weight:800;color:#fff7e8}.heroBadges{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}.heroBadge{padding:6px 9px;border-radius:999px;background:#7d2a10aa;border:1px solid #ffd493;color:#fff;font-size:7px;font-weight:1000}.heroBadge.hot{background:#fff36d;color:#6b3900}
+.heroCards{position:absolute;right:24px;top:28px;width:350px;height:300px}.heroCards img{position:absolute;width:145px;height:205px;object-fit:contain;filter:drop-shadow(0 14px 14px #6e220b66)}.heroCards img:nth-child(1){left:8px;top:54px;transform:rotate(-10deg)}.heroCards img:nth-child(2){left:96px;top:12px;z-index:3}.heroCards img:nth-child(3){left:190px;top:54px;transform:rotate(10deg)}
+.wrap{position:relative;z-index:3;max-width:1100px;margin:-42px auto 0;padding:0 12px 40px}.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}.q{min-height:100px;padding:12px;border-radius:15px;background:#fff;border:1px solid #efc7aa;box-shadow:0 8px 20px #7c351019}.q .ico{display:block;font-size:23px}.q b{display:block;margin-top:5px;color:#a33d16;font-size:9px}.q span:last-child{display:block;margin-top:4px;font-size:8px;line-height:1.4;color:#5e6c77;font-weight:750}
+.toc{display:flex;gap:6px;overflow-x:auto;padding:7px 2px 9px;position:sticky;top:54px;z-index:60;background:#fffaf5ee;backdrop-filter:blur(8px)}.toc a{flex:0 0 auto;padding:7px 9px;border-radius:999px;background:#fff;border:1px solid #e4c4ad;text-decoration:none;font-size:7.5px;font-weight:950;color:#8e3817}
+.sec{margin:10px 0;padding:17px;border-radius:18px;background:#fff;border:1px solid #ecd7c8;box-shadow:0 8px 22px #7b3f1610}.sec h2{margin:0 0 12px;color:#8e3515;font-size:22px;line-height:1.05}.sec h3{margin:0;color:#9b3e1b;font-size:13px}.sec p,.sec li{font-size:10px;line-height:1.55}.visualTitle{display:flex;align-items:center;gap:8px;margin:4px 0 11px;font-size:8px;font-weight:1000;letter-spacing:.1em;color:#9a6044}.visualTitle:after{content:"";height:1px;background:#ecd3c2;flex:1}.rule,.warn,.note{margin-top:11px;padding:11px 12px;border-radius:12px;font-size:10px;line-height:1.5;font-weight:800}.rule{background:#fff3bf;border:1px solid #e7be37;color:#705100}.warn{background:#fff0f1;border:1px solid #eba0aa;color:#8d2734}.note{background:#eef7ff;border:1px solid #95c5e8;color:#204d72}
+.modeMeaning{display:grid;grid-template-columns:160px 1fr;gap:15px;align-items:center;padding:14px;border-radius:16px;background:#fff6dc;border:2px solid #f0ca55}.modeMeaning .big{font-size:56px;text-align:center}.meaningGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.meaningItem{padding:10px;border-radius:12px;background:#fff;border:1px solid #edd8bd}.meaningItem b{display:block;color:#a3421b;font-size:9px}.meaningItem span{display:block;margin-top:3px;font-size:8px;line-height:1.35;color:#667480;font-weight:700}
+.setupGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.setupStep{position:relative;padding:14px 13px 13px 52px;min-height:112px;border-radius:15px;background:#fffaf6;border:1px solid #ead4c4}.setupStep .n{position:absolute;left:12px;top:12px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#a53e18;color:#fff;font:1000 12px/1 Arial}.setupStep b{display:block;color:#9a3916;font-size:10px}.setupStep p{margin:5px 0 0;font-size:9.2px;line-height:1.48}.tableDemo{position:relative;min-height:270px;margin-top:12px;border-radius:20px;background:linear-gradient(180deg,#267347,#145333);border:5px solid #f5d3a2;box-shadow:inset 0 0 0 2px #0d3f27,0 8px 20px #6a351822;overflow:hidden}.tableDemo:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffffff66}.tableDemo:after{content:"";position:absolute;left:50%;top:50%;width:100px;height:100px;border:2px solid #ffffff66;border-radius:50%;transform:translate(-50%,-50%)}.pileVisual{position:absolute;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;z-index:3}.pileVisual.draw{left:38%}.pileVisual.discard{right:38%}.stack{position:relative;width:70px;height:98px}.stack:before,.stack:after{content:"";position:absolute;left:50%;top:50%;width:54px;height:76px;border-radius:8px;background:#eef4f7;border:2px solid #173b59;box-shadow:0 5px 8px #0005}.stack:before{transform:translate(-44%,-44%) rotate(4deg)}.stack:after{transform:translate(-56%,-55%) rotate(-4deg)}.stack img{position:absolute;z-index:3;left:50%;top:50%;width:54px;height:76px;object-fit:contain;transform:translate(-50%,-50%);border-radius:8px}.pileVisual b{margin-top:3px;padding:4px 7px;border-radius:999px;background:#071b31;color:#fff;font-size:7px}.playerDot{position:absolute;width:88px;padding:8px;border-radius:13px;background:#fff;color:#17324f;text-align:center;font-size:8px;font-weight:1000;z-index:3}.p1{left:3%;bottom:7%}.p2{left:3%;top:7%}.p3{right:3%;top:7%}.p4{right:3%;bottom:7%}.fiveCards{display:flex;justify-content:center;gap:3px;margin-top:4px}.fiveCards span{width:10px;height:14px;border-radius:2px;background:#173b59}
+.turnFlow{display:flex;align-items:stretch;gap:6px;overflow-x:auto;padding-bottom:6px}.turnBox{flex:0 0 180px;padding:12px;border-radius:14px;background:#fff8f1;border:1px solid #e8d0bd;text-align:center}.turnBox .n{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#f2731f;color:#fff;font-weight:1000}.turnBox b{display:block;margin-top:5px;color:#913818;font-size:9px}.turnBox span{display:block;margin-top:4px;font-size:8px;line-height:1.4;color:#60717f;font-weight:750}.turnArrow{flex:0 0 18px;display:grid;place-items:center;color:#f2731f;font-size:18px;font-weight:1000}.drawExplain{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;margin-top:12px;padding:13px;border-radius:15px;background:#eef8ff;border:2px solid #87bde2}.drawExplain .stack{margin:auto}.drawExplain b{display:block;color:#1f5d87;font-size:12px}.drawExplain p{margin:5px 0 0;font-size:9.5px;line-height:1.5}
+.strikeVisual{display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center}.strikeVisual>img{width:150px;height:210px;object-fit:contain;filter:drop-shadow(0 8px 10px #6f321833)}.strikeTrack{display:flex;align-items:center;gap:7px;flex-wrap:nowrap}.strikeStage{flex:1;min-width:80px;padding:10px 7px;border-radius:14px;background:#f6fafc;border:1px solid #cfdce5;text-align:center}.strikeStage .ball{width:38px;height:38px;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:#eaf2f8;border:2px solid #7ea5c3;color:#123a73;font-weight:1000}.strikeStage b{display:block;margin-top:5px;font-size:8px;color:#627687}.strikeStage.hit{background:#fff7d5;border-color:#e1bf4f}.strikeStage.hit .ball{background:#ffd75a;border-color:#c99c1b;color:#694700}.strikeStage.out{background:#fff0f2;border-color:#e99ca6}.strikeStage.out .ball{background:#dc3c4d;border-color:#a51f2e;color:#fff}.strikeStage.out b{color:#a82937}.strikeArrow{font-weight:1000;color:#8296a5}
+.cardGuide{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.cardItem{display:grid;grid-template-columns:105px 1fr;gap:11px;align-items:center;padding:12px;border-radius:16px;background:#fffaf6;border:1px solid #ead5c4}.cardItem img{width:98px;height:138px;object-fit:contain;filter:drop-shadow(0 7px 8px #40211025)}.cardItem h3{font-size:13px}.cardItem p{margin:5px 0 0;font-size:9px;line-height:1.48}.micro{display:inline-block;margin-top:7px;padding:4px 6px;border-radius:999px;background:#8f3717;color:#fff;font-size:6.5px;font-weight:1000}.micro.blue{background:#1f6fa8}.micro.red{background:#b83443}
+.yellowChain{display:flex;align-items:center;gap:7px;overflow-x:auto;padding:8px}.chainCard{flex:0 0 130px;padding:10px;border-radius:13px;background:#fff9dc;border:1px solid #e7ca64;text-align:center}.chainCard img{width:70px;height:100px;object-fit:contain}.chainCard b{display:block;font-size:8px;color:#7b5200}.chainArrow{font-weight:1000;color:#d29616}
+.example{padding:14px;border-radius:16px;background:#142b3e;color:#fff}.example h3{color:#fff36d}.exampleFlow{display:flex;align-items:stretch;gap:6px;overflow-x:auto}.exampleStep{flex:0 0 170px;padding:10px;border-radius:12px;background:#1e405b;border:1px solid #47718f;text-align:center}.exampleStep b{display:block;color:#fff36d;font-size:8px}.exampleStep span{display:block;margin-top:4px;font-size:7.8px;line-height:1.4;color:#e5f0f7}.exampleArrow{flex:0 0 18px;display:grid;place-items:center;color:#fff36d;font-weight:1000}
+.edgeGrid,.faqGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.edgeCard,.faq{padding:12px;border-radius:14px;background:#fffaf6;border:1px solid #ead4c4}.edgeCard b,.faq b{display:block;color:#9a3b18;font-size:9px}.edgeCard p,.faq span{display:block;margin:4px 0 0;font-size:8.7px;line-height:1.45;color:#60717f}.back{display:flex;justify-content:center;margin:18px auto 0;padding:11px 16px;width:max-content;border-radius:999px;background:#8e3516;color:#fff;text-decoration:none;font-size:9px;font-weight:1000}
+@media(max-width:850px){.heroInner{padding-right:300px}.heroCards{width:275px}.heroCards img{width:122px;height:178px}.quick{grid-template-columns:repeat(3,1fr)}.meaningGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.top{height:50px;padding:5px 7px}.brand{font-size:10px}.topBtn{font-size:7px;padding:6px 7px}.hero{min-height:auto}.heroInner{padding:26px 12px 245px}.hero h1{font-size:48px}.hero p{font-size:10.5px}.heroCards{right:50%;top:auto;bottom:8px;transform:translateX(50%);width:280px;height:225px}.heroCards img{width:112px;height:166px}.heroCards img:nth-child(1){left:8px;top:50px}.heroCards img:nth-child(2){left:82px;top:18px}.heroCards img:nth-child(3){left:158px;top:50px}.wrap{padding:8px;margin-top:-35px}.quick{grid-template-columns:1fr 1fr;gap:6px}.q{min-height:85px;padding:10px}.sec{padding:13px}.sec h2{font-size:17px}.modeMeaning{grid-template-columns:1fr}.modeMeaning .big{font-size:44px}.meaningGrid{grid-template-columns:1fr}.setupGrid{grid-template-columns:1fr}.tableDemo{min-height:230px}.pileVisual.draw{left:34%}.pileVisual.discard{right:34%}.playerDot{width:70px;font-size:6.8px;padding:6px}.cardGuide{display:flex;overflow-x:auto;gap:8px;scroll-snap-type:x mandatory;padding-bottom:7px}.cardItem{flex:0 0 270px;scroll-snap-align:start;grid-template-columns:90px 1fr}.cardItem img{width:85px;height:120px}.strikeVisual{grid-template-columns:95px 1fr}.strikeVisual>img{width:90px;height:125px}.strikeTrack{gap:4px}.strikeStage{min-width:0;padding:7px 4px}.strikeStage .ball{width:31px;height:31px}.strikeStage b{font-size:6.2px}.edgeGrid,.faqGrid{grid-template-columns:1fr}.sec p,.sec li{font-size:9.8px}}
+@media(max-width:360px){.hero h1{font-size:42px}.quick{grid-template-columns:1fr}.strikeVisual{grid-template-columns:1fr}.strikeVisual>img{margin:auto}.pileVisual.draw{left:32%}.pileVisual.discard{right:32%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand">GOAL-SCORING <span>MOMENT</span><small>CASUAL PARTY MODE · VISUAL RULEBOOK</small></div><div class="topBtns"><a class="topBtn" href="casual-game.html?v=20261006visualrulebook1">COACH TUTORIAL</a><a class="topBtn gold" href="index.html">MODES</a></div></header>
+
+<section class="hero"><div class="heroInner"><div class="kicker">CASUAL PARTY MODE · FIRST-TIME PLAYER GUIDE</div><h1>PLAY CARDS.<br><span>DRAW LAST.</span></h1><p>Start at Step 1 and follow the page in order. You begin with 5 Action Cards, may play actions first, and only draw from the Draw Pile when you are finished with your actions.</p><div class="heroBadges"><span class="heroBadge hot">2–8 PLAYERS</span><span class="heroBadge">5 CARDS EACH</span><span class="heroBadge">DRAW SOCCER TWICE = OUT</span><span class="heroBadge">NO SOCCER KNOWLEDGE NEEDED</span></div><div class="heroCards"><img src="images/yellow-card.webp" alt="Yellow"><img src="images/soccer-card.webp" alt="Soccer"><img src="images/shoot-card.webp" alt="Shoot"></div></div></section>
+
+<main class="wrap">
+<section class="quick">
+<div class="q"><span class="ico">🏆</span><b>WIN</b><span>Last active player wins.</span></div>
+<div class="q"><span class="ico">🃏</span><b>START WITH 5</b><span>Every player starts with exactly 5 Action Cards.</span></div>
+<div class="q"><span class="ico">⚽</span><b>SOCCER = DANGER</b><span>Second Soccer Strike eliminates you.</span></div>
+<div class="q"><span class="ico">🎴</span><b>PLAY FIRST</b><span>Play legal Action Cards before your own draw.</span></div>
+<div class="q"><span class="ico">⬇️</span><b>DRAW LAST</b><span>Your own final draw ends your turn.</span></div>
+</section>
+
+<nav class="toc"><a href="#meaning">CARD MEANINGS</a><a href="#setup">1 · SETUP</a><a href="#turn">2 · YOUR TURN</a><a href="#draw">3 · DRAW 1</a><a href="#soccer">4 · SOCCER</a><a href="#cards">5 · CARDS</a><a href="#yellow">6 · YELLOW</a><a href="#example">7 · EXAMPLE</a><a href="#end">8 · END</a></nav>
+
+<section class="sec" id="meaning">
+<h2>IMPORTANT — REMEMBER THE FUNCTION, NOT THE WORD</h2>
+<div class="modeMeaning"><div class="big">🧠🎴</div><div><h3>DON'T PLAY THESE CARDS LIKE REAL SOCCER</h3><p>In Casual Party Mode, the English words and soccer theme are only card names. <strong>Do not worry about what the word normally means.</strong> Only remember the function that Casual Party Mode gives that card.</p><div class="meaningGrid">
+<div class="meaningItem"><b>SOCCER</b><span>Danger card · second Strike = OUT.</span></div>
+<div class="meaningItem"><b>DEFENSE</b><span>Protect yourself when you draw SOCCER.</span></div>
+<div class="meaningItem"><b>DRIBBLE PAST</b><span>Look at the top 3 cards. Do not reorder.</span></div>
+<div class="meaningItem"><b>SHOOT</b><span>Make yourself or another active player draw 1.</span></div>
+<div class="meaningItem"><b>TACKLE</b><span>Steal 1 random card from another player's hand.</span></div>
+<div class="meaningItem"><b>YELLOW</b><span>Cancel the immediately previous Action/effect.</span></div>
+</div></div></div>
+<div class="rule"><b>REMEMBER:</b> The card name does not decide what it does. The Casual Party Mode rule on this page decides what it does.</div>
+</section>
+
+<section class="sec" id="setup">
+<h2>1 — SET UP THE GAME IN THIS EXACT ORDER</h2>
+<div class="setupGrid">
+<article class="setupStep"><span class="n">1</span><b>GET 2–8 PLAYERS</b><p>Casual Party Mode is free-for-all. There are no teams. The Goalkeeper has no special ability in this mode.</p></article>
+<article class="setupStep"><span class="n">2</span><b>TAKE SOCCER OUT FIRST</b><p>Keep the SOCCER card separate while you prepare starting hands. Do not deal SOCCER as one of the starting 5 cards.</p></article>
+<article class="setupStep"><span class="n">3</span><b>SHUFFLE THE ACTION CARDS</b><p>Shuffle DEFENSE, DRIBBLE PAST, SHOOT, TACKLE, and YELLOW together.</p></article>
+<article class="setupStep"><span class="n">4</span><b>DEAL 5 TO EVERY PLAYER</b><p>Each player starts with exactly 5 Action Cards. Keep your own hand hidden from the other players.</p></article>
+<article class="setupStep"><span class="n">5</span><b>MAKE THE DRAW PILE</b><p>Put all remaining Action Cards face-down in the middle. This stack is the Draw Pile.</p></article>
+<article class="setupStep"><span class="n">6</span><b>INSERT SOCCER</b><p>Put SOCCER somewhere below the top card of the Draw Pile. SOCCER may never be placed on top.</p></article>
+<article class="setupStep"><span class="n">7</span><b>MAKE THE DISCARD PILE</b><p>Leave a space beside the Draw Pile. Played Action Cards go here after their effect or reaction chain finishes.</p></article>
+<article class="setupStep"><span class="n">8</span><b>CHOOSE WHO STARTS</b><p>No special method is required. Choose a starting player and continue through the agreed player order. Skip eliminated players.</p></article>
+</div>
+<div class="tableDemo">
+<div class="playerDot p1">PLAYER 1<div class="fiveCards"><span></span><span></span><span></span><span></span><span></span></div></div>
+<div class="playerDot p2">PLAYER 2<div class="fiveCards"><span></span><span></span><span></span><span></span><span></span></div></div>
+<div class="playerDot p3">PLAYER 3<div class="fiveCards"><span></span><span></span><span></span><span></span><span></span></div></div>
+<div class="playerDot p4">PLAYER 4<div class="fiveCards"><span></span><span></span><span></span><span></span><span></span></div></div>
+<div class="pileVisual draw"><div class="stack"><img src="images/card-back.webp" alt="Draw Pile"></div><b>DRAW PILE</b></div>
+<div class="pileVisual discard"><div class="stack"><img src="images/yellow-card.webp" alt="Discard Pile"></div><b>DISCARD</b></div>
+</div>
+<div class="note"><b>BEFORE TURN 1:</b> everyone has 5 Action Cards, SOCCER is inside the Draw Pile but not on top, and the Draw Pile and Discard Pile are clearly separated.</div>
+</section>
+
+<section class="sec" id="turn">
+<h2>2 — YOUR TURN: FOLLOW THESE STEPS EVERY TIME</h2>
+<div class="turnFlow">
+<div class="turnBox"><span class="n">1</span><b>DO NOT DRAW YET</b><span>Look at the Action Cards already in your hand.</span></div><div class="turnArrow">→</div>
+<div class="turnBox"><span class="n">2</span><b>PLAY ACTIONS — OPTIONAL</b><span>Play any legal Action Cards you want, one at a time, or play none.</span></div><div class="turnArrow">→</div>
+<div class="turnBox"><span class="n">3</span><b>FINISH EACH EFFECT</b><span>Resolve the entire Action or YELLOW chain before starting another Action.</span></div><div class="turnArrow">→</div>
+<div class="turnBox"><span class="n">4</span><b>DRAW EXACTLY 1</b><span>When you are finished playing Actions, take the top card of the Draw Pile.</span></div><div class="turnArrow">→</div>
+<div class="turnBox"><span class="n">5</span><b>RESOLVE IT · TURN ENDS</b><span>Normal Action Card → hand. SOCCER → resolve immediately. Then the next active player begins.</span></div>
+</div>
+<div class="warn"><b>VERY IMPORTANT:</b> A draw caused by SHOOT is a forced draw. It does not end the original active player's turn. Only the active player's own final draw ends that turn.</div>
+</section>
+
+<section class="sec" id="draw">
+<h2>3 — WHAT DOES “DRAW 1” MEAN?</h2>
+<div class="drawExplain"><div class="stack"><img src="images/card-back.webp" alt="Top card of Draw Pile"></div><div><b>TAKE EXACTLY THE TOP CARD</b><p>Take 1 card from the top of the face-down Draw Pile. Do not choose from the middle. Do not take from the Discard Pile. If it is an Action Card, add it to your hand. If it is SOCCER, stop and resolve SOCCER immediately.</p></div></div>
+</section>
+
+<section class="sec" id="soccer">
+<h2>4 — SOCCER = DANGER</h2>
+<div class="strikeVisual"><img src="images/soccer-card.webp" alt="Soccer"><div><h3>DRAW SOCCER TWICE AND YOU'RE OUT</h3><p>Whenever you actually draw SOCCER — from your own final draw or because SHOOT forced you to draw — resolve it immediately.</p><div class="strikeTrack"><div class="strikeStage"><span class="ball">0</span><b>SAFE</b></div><span class="strikeArrow">→</span><div class="strikeStage hit"><span class="ball">1</span><b>1ST STRIKE · STILL IN</b></div><span class="strikeArrow">→</span><div class="strikeStage out"><span class="ball">2</span><b>2ND STRIKE · OUT</b></div></div></div></div>
+<div class="visualTitle">WHEN SOCCER IS DRAWN</div>
+<div class="setupGrid">
+<article class="setupStep"><span class="n">1</span><b>STOP AND RESOLVE SOCCER</b><p>Do not continue the current Action or turn until the SOCCER draw is resolved.</p></article>
+<article class="setupStep"><span class="n">2</span><b>THE DRAWER MAY USE DEFENSE</b><p>Only the player who actually drew SOCCER may use DEFENSE for that SOCCER.</p></article>
+<article class="setupStep"><span class="n">3</span><b>DEFENSE = NO NEW STRIKE</b><p>Discard DEFENSE, take no new Soccer Strike, then return SOCCER to position 2 or deeper in the Draw Pile.</p></article>
+<article class="setupStep"><span class="n">4</span><b>NO DEFENSE = +1 STRIKE</b><p>First Strike: stay in. Second Strike: OUT. After resolving, put SOCCER back below the top card.</p></article>
+</div>
+<div class="rule"><b>SOCCER MAY NEVER BE PUT BACK ON TOP.</b> Return it to position 2 or deeper so another card remains above it.</div>
+</section>
+
+<section class="sec" id="cards">
+<h2>5 — CARD FUNCTIONS</h2>
+<div class="visualTitle">LOOK AT THE CARD IMAGE · REMEMBER ONLY THIS FUNCTION</div>
+<div class="cardGuide">
+<article class="cardItem"><img src="images/defense-card.webp" alt="Defense"><div><h3>🛡️ DEFENSE</h3><p>Use DEFENSE when <strong>you</strong> draw SOCCER. It prevents that SOCCER from adding a new Strike. Discard DEFENSE, then return SOCCER below the top card.</p><span class="micro blue">PROTECTS THE SOCCER DRAWER</span></div></article>
+<article class="cardItem"><img src="images/dribble%20past-card.webp" alt="Dribble Past"><div><h3>👀 DRIBBLE PAST</h3><p>Look at the actual top 3 cards of the Draw Pile. Card #1 is the next card to be drawn. <strong>Do not move or reorder them.</strong> Return them in exactly the same order.</p><span class="micro">LOOK 3 · DON'T REORDER</span></div></article>
+<article class="cardItem"><img src="images/shoot-card.webp" alt="Shoot"><div><h3>🎯 SHOOT</h3><p>Choose yourself or any other active player. That player immediately draws exactly 1 card from the top of the Draw Pile. After that forced draw resolves, <strong>your turn continues</strong>.</p><span class="micro red">FORCED DRAW ≠ TURN END</span></div></article>
+<article class="cardItem"><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><div><h3>✋ TACKLE</h3><p>Choose another active player with at least 1 card in hand. Steal exactly 1 random card from that player's hand and add it to your own hand. TACKLE does not steal SOCCER in this mode.</p><span class="micro">STEAL 1 RANDOM HAND CARD</span></div></article>
+<article class="cardItem"><img src="images/yellow-card.webp" alt="Yellow"><div><h3>🚫 YELLOW</h3><p>Cancel the immediately previous Action/effect before it fully resolves. A YELLOW may cancel another YELLOW, so the chain may continue.</p><span class="micro red">YELLOW CAN CANCEL YELLOW</span></div></article>
+<article class="cardItem"><img src="images/soccer-card.webp" alt="Soccer"><div><h3>⚽ SOCCER</h3><p>This is the danger card. Draw it and either use DEFENSE or take a Soccer Strike. Your second Soccer Strike eliminates you.</p><span class="micro">2 STRIKES = OUT</span></div></article>
+</div>
+</section>
+
+<section class="sec" id="yellow">
+<h2>6 — YELLOW CHAIN</h2>
+<p>YELLOW cancels the immediately previous Action/effect before it finishes. Another YELLOW may cancel that YELLOW.</p>
+<div class="yellowChain">
+<div class="chainCard"><img src="images/shoot-card.webp" alt="Shoot"><b>SHOOT PLAYED</b></div><span class="chainArrow">→</span>
+<div class="chainCard"><img src="images/yellow-card.webp" alt="Yellow"><b>YELLOW CANCELS SHOOT</b></div><span class="chainArrow">→</span>
+<div class="chainCard"><img src="images/yellow-card.webp" alt="Yellow"><b>2ND YELLOW CANCELS 1ST YELLOW</b></div><span class="chainArrow">→</span>
+<div class="chainCard"><div style="font-size:48px">✅</div><b>SHOOT IS ACTIVE AGAIN</b></div>
+</div>
+<div class="note">Resolve the chain from the newest YELLOW backward to determine whether the original Action happens.</div>
+</section>
+
+<section class="sec" id="example">
+<h2>7 — FULL FIRST-TURN EXAMPLE</h2>
+<div class="example"><h3>PLAYER 1 STARTS WITH 5 ACTION CARDS</h3><div class="exampleFlow">
+<div class="exampleStep"><b>1 · NO DRAW YET</b><span>PLAYER 1 looks at the 5 cards already in hand.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>2 · PLAY DRIBBLE PAST</b><span>Look at the top 3 cards, then return them in the same order.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>3 · PLAY SHOOT</b><span>PLAYER 1 chooses PLAYER 3.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>4 · PLAYER 3 DRAWS 1</b><span>This is a forced draw caused by SHOOT.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>5 · PLAYER 1 STILL ACTS</b><span>The forced draw did not end PLAYER 1's turn.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>6 · PLAYER 1 DRAWS 1</b><span>When finished with Actions, PLAYER 1 takes the top card.</span></div><div class="exampleArrow">→</div>
+<div class="exampleStep"><b>7 · TURN ENDS</b><span>Resolve that personal draw, then the next active player begins.</span></div>
+</div></div>
+</section>
+
+<section class="sec" id="end">
+<h2>8 — ELIMINATION, WINNING & EMPTY DRAW PILE</h2>
+<div class="edgeGrid">
+<article class="edgeCard"><span style="font-size:27px">💥</span><b>IF YOU ARE ELIMINATED</b><p>At 2 Soccer Strikes, you are OUT immediately. Discard all Action Cards remaining in your hand. You take no more turns and cannot be chosen as a future active target.</p></article>
+<article class="edgeCard"><span style="font-size:27px">🏆</span><b>HOW TO WIN</b><p>Play continues with the remaining active players. The last active player remaining wins.</p></article>
+<article class="edgeCard"><span style="font-size:27px">🔄</span><b>DRAW PILE EMPTY</b><p>Keep the top card of the Discard Pile separate. Shuffle the other discarded Action Cards into a new face-down Draw Pile, then continue.</p></article>
+<article class="edgeCard"><span style="font-size:27px">⚠️</span><b>SOCCER RETURN RULE</b><p>Whenever SOCCER returns to the Draw Pile, place it at position 2 or deeper. Never put SOCCER on top.</p></article>
+</div>
+<div class="visualTitle" style="margin-top:14px">QUICK FAQ</div>
+<div class="faqGrid">
+<div class="faq"><b>DO I DRAW AT THE START OF MY TURN?</b><span>No. Play Actions first. Your own draw happens when you are finished with Actions.</span></div>
+<div class="faq"><b>CAN I PLAY ZERO ACTION CARDS?</b><span>Yes. You may play none, then make your own final draw.</span></div>
+<div class="faq"><b>DOES SHOOT'S FORCED DRAW END MY TURN?</b><span>No. The original active player continues after the forced draw resolves.</span></div>
+<div class="faq"><b>CAN YELLOW CANCEL YELLOW?</b><span>Yes. Each YELLOW cancels the immediately previous card/effect.</span></div>
+<div class="faq"><b>DOES TACKLE STEAL SOCCER?</b><span>No. In Casual Party Mode, TACKLE steals 1 random hand card.</span></div>
+<div class="faq"><b>DOES GOALKEEPER HAVE A SPECIAL POWER?</b><span>No. There is no Goalkeeper special ability in Casual Party Mode.</span></div>
+</div>
+</section>
+
+<a class="back" href="casual-game.html?v=20261006visualrulebook1">BACK TO CASUAL TUTORIAL</a>
+</main>
+<script src="analytics-config.js"></script><script src="analytics.js"></script>
+</body>
+</html>
