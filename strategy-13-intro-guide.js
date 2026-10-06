@@ -208,7 +208,7 @@
   function lessonTwoNext() {
     if (state.step === 0) { state.step=1; focus(['H1']); type('BLUE 2 is your teammate.'); const link=document.createElement('div');link.className='teamLink';link.textContent='YOU ← TEAMMATES → BLUE 2';$('pitch').appendChild(link);setTimeout(()=>link.remove(),1100); }
     else if (state.step === 1) { state.step=2; document.querySelector('.teamLink')?.remove();focus(['A0','A1']);type('GREEN 1 and GREEN 2 are your opponents.'); }
-    else if (state.step === 2) { state.step=3;focus(['H0','H1','A0','A1']);type('Teams are public.\nRoles can stay hidden.'); }
+    else if (state.step === 2) { state.step=3;focus(['H0','H1','A0','A1']);type('Teams are public.\nTeammates may know each other’s roles. Keep roles hidden from opponents.'); }
     else if (state.step === 3) { state.step=4;playerEls().forEach(el=>{el.classList.remove('guideFocus','guideDim');el.disabled=false});type('Quick check.\nTap your teammate.','',true); }
     else if (state.step === 5) completeIntroLesson();
   }
@@ -282,3 +282,4 @@
 
   window.StrategyIntroGuide = { start, stop, player: handleTeammate, state };
 })();
+

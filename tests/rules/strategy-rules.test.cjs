@@ -34,6 +34,13 @@ for(const wrapped of [false,true]){
   await h.lesson(5);h.run("handlePlayer('H1')");assert.equal(h.run('ballOwner'),'H1');assert.equal(h.run('handCards.length'),0);
   await h.lesson(9);await h.play('TACKLE');assert.equal(h.run('ballOwner'),'H0');
  });
+ test(`${label}: eliminated PLAYER hands possession to a living teammate without starting a turn`,async()=>{
+  const h=harness(wrapped);await h.lesson(7);await h.play('SHOOT');h.run("handlePlayer('A0')");await settle();
+  assert.equal(h.run('tokens.A0'),3);assert.equal(h.run('eliminated.A0'),true);
+  assert.equal(h.run('revealed.A0'),'PLAYER');assert.equal(h.run('ballOwner'),'A1');
+  assert.equal(h.run('!!eliminated[ballOwner]'),false);assert.equal(h.run('current'),6);
+  assert(h.events.some(e=>e.text==='SOCCER + REMAINING HAND → GREEN 2'));
+ });
  test(`${label}: second DEFENSE discards only when a card remains`,async()=>{
   for(const extra of [false,true]){
    const h=harness(wrapped);await h.lesson(11);
@@ -56,3 +63,4 @@ for(const wrapped of [false,true]){
   await h.play('SHOOT');h.run("handlePlayer('A1')");await settle();assert.equal(h.run('stage'),5);assert.equal(h.run('revealed.A1'),'GOALKEEPER');
  });
 }
+

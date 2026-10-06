@@ -259,7 +259,7 @@
     } else if (state.step === 2) {
       state.step = 3;
       focus(['H0', 'H1', 'A0', 'A1']);
-      type('Teams are public.\nRoles can stay hidden.');
+      type('Teams are public.\nTeammates may know each other’s roles. Keep roles hidden from opponents.');
     } else if (state.step === 3) {
       state.step = 4;
       playerEls().forEach(el => {
@@ -410,3 +410,4 @@
     state
   };
 })();
+

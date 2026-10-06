@@ -47,7 +47,7 @@
 
     if (mode === 'teammate') {
       if (id !== 'H1') return wrong('BLUE 2 is your teammate. GREEN players are opponents.');
-      complete('Correct. Team color is public; hidden role is separate from team.');
+      complete('Correct. Team color is public. Teammates may know each other’s roles; roles stay hidden from opponents.');
       return;
     }
 
@@ -101,15 +101,16 @@
 
     if (mode === 'tokens') {
       tokens.A0 = 3;
-      ballOwner = 'A0';
+      // The eliminated PLAYER immediately hands the ball to their living teammate.
+      ballOwner = 'A1';
       eliminated.A0 = true;
       revealed.A0 = 'PLAYER';
       renderPlayers();
       addResult('GREEN 1 → 3 TOKENS', 'warn');
       addResult('ELIMINATED · PLAYER REVEALED', 'good');
-      addResult('REMAINING HAND → TEAMMATE', 'good');
+      addResult('SOCCER + REMAINING HAND → GREEN 2', 'good');
       setPitchEvent('PLAYER ELIMINATED · ROLE REVEALED', 'good');
-      complete('At 3 Tokens the player is eliminated first, then the hidden role is revealed. If it is PLAYER, give the remaining Action Cards to a living teammate. The eliminated player may still advise the team, but cannot take turns or play cards.');
+      complete('At 3 Tokens the player is eliminated first, then the hidden role is revealed. If it is PLAYER, give the remaining Action Cards to a living teammate and immediately hand the Soccer Card to a living teammate of their choice. This handoff is allowed outside their turn and gives no extra turn. The eliminated player may still advise the team, but cannot take turns or play cards.');
       return;
     }
 
@@ -137,3 +138,4 @@
     }
   };
 })();
+
