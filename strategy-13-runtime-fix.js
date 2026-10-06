@@ -113,9 +113,9 @@
       if (id !== 'A1') {
         targetBusy = false;
         awaitingTarget = true;
-        setSelectable(['A0', 'A1']);
-        $('promptText').textContent = 'GREEN 1 is already known to be a Player. Choose the remaining hidden opponent.';
-        wrong('GREEN 1 is already known to be a Player. Try the remaining hidden opponent.');
+        setSelectable(['A1']);
+        $('promptText').textContent = 'GREEN 1 is already OUT. Choose the remaining living opponent, GREEN 2.';
+        wrong('GREEN 1 has already been eliminated. Choose GREEN 2.');
         return;
       }
 
@@ -124,11 +124,11 @@
       revealed.A1 = 'GOALKEEPER';
       renderPlayers();
       addResult('GREEN 2 → 3 TOKENS', 'warn');
-      addResult('GOALKEEPER REVEALED', 'bad');
+      addResult('ELIMINATED · ROLE REVEALED: GOALKEEPER', 'bad');
       addResult('GREEN TEAM LOSES', 'good');
       stage = 5;
-      setPitchEvent('GOALKEEPER FOUND · YOU WIN', 'good');
-      complete('You eliminated the hidden Goalkeeper. The game ends immediately — you win.');
+      setPitchEvent('3RD TOKEN · ELIMINATED · GOALKEEPER REVEALED', 'good');
+      complete('GREEN 2 received the 3rd Token and was eliminated. Only then is the Role Card revealed: GOALKEEPER. The game ends immediately — you win.');
     }
   };
 })();
