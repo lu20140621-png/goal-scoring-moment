@@ -178,7 +178,7 @@ function syncLesson(force=false){
   finalMode=p.isFinal;
   finalPhase=finalMode?'peek':'idle';
   handCards=[...(LESSON_HANDS[lessonNo]||START)];
-  otherCounts=[0,4,5,3];
+  otherCounts=lessonNo===1?[0,5,5,5]:[0,4,5,3];
   drawHandled=false;
   soccerDrawHandled=false;
   lessonOneOutHandled=false;
