@@ -5,6 +5,7 @@ const $ = id => document.getElementById(id);
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const A = {
   SOCCER: 'images/soccer-card.webp?v=20260904fix1',
+  DEFENSE: 'images/defense-card.webp',
   YELLOW: 'images/yellow-card.webp',
   SHOOT: 'images/shoot-card.webp',
   DRIBBLE: 'images/dribble%20past-card.webp',
@@ -155,16 +156,16 @@ function openShootTarget() {
   const title = $('targetTitle');
   const help = $('targetHelp');
   if (title) title.textContent = 'CHOOSE A SHOOT TARGET';
-  if (help) help.textContent = 'Pick who draws the top card. Choosing yourself is risky.';
-  document.querySelectorAll('#targetModal .targetBtn').forEach(b => b.hidden = false);
-  document.querySelectorAll('.player').forEach(p => {
-    p.classList.toggle('target', true);
-    p.classList.remove('dim');
+  if (help) help.textContent = 'PLAYER 2 has no DEFENSE. Choose PLAYER 2 to make them draw the Soccer.';
+  document.querySelectorAll('#targetModal .targetBtn').forEach(b => { b.hidden = Number(b.dataset.player) !== 1; });
+  document.querySelectorAll('.player').forEach((p,i) => {
+    p.classList.toggle('target', i === 1);
+    p.classList.toggle('dim', i !== 1);
   });
   $('targetModal')?.classList.add('show');
 }
 
-function startRound(message='You already have 1 Soccer. Check what’s coming before you end your turn.') {
+function startRound(message='You already have 1 Soccer Strike. Check what’s coming before you end your turn.') {
   if (!inFinal()) return;
   state.active = true;
   state.phase = 'peek';
@@ -180,16 +181,49 @@ function startRound(message='You already have 1 Soccer. Check what’s coming be
   renderDrawButton();
   setCoach(message);
   const status = $('lessonStatus');
-  if (status) status.textContent = 'Goal: dodge the Soccer, then draw to end your turn.';
+  if (status) status.textContent = 'Goal: survive the Soccer, then draw to end your turn.';
 }
 
 async function reinsertSoccer(fromEl) {
   await fly(fromEl || $('discardPile'), $('drawPile'), A.SOCCER);
-  chip('SOCCER → BACK INTO DECK • NOT ON TOP','good');
+  chip('SOCCER → DRAWER CHOOSES POSITION 2+ • NEVER TOP','good');
   fx('SOCCER REINSERTED','neutral',900);
 }
 
-async function failByDrawing(reason='You drew the second Soccer.') {
+async function faceSoccer(reason='You drew SOCCER.') {
+  if (state.locked) return;
+  state.locked = true;
+  state.phase = 'defend';
+  $('drawPile')?.classList.remove('active');
+  const actions = $('actions');
+  if (actions) actions.innerHTML = '';
+  await fly($('drawPile'), $('P0'), A.SOCCER);
+  flowCard('SOCCER','YOU DRAW');
+  chip('SECOND STRIKE THREAT','bad');
+  focus([0]);
+  fx('SOCCER • DEFEND NOW','bad',1500);
+  setCoach(`${reason} You still have DEFENSE. Play DEFENSE now — YELLOW cannot cancel DEFENSE.`);
+  state.locked = false;
+}
+
+async function useDefense() {
+  if (state.locked || state.phase !== 'defend') return;
+  state.locked = true;
+  await playFromHand('DEFENSE');
+  flowCard('DEFENSE','YOU PLAY DEFENSE');
+  chip('NO NEW STRIKE','good');
+  setStrikes(0,1,false);
+  fx('SAFE • DEFENSE WORKS','good',1400);
+  await wait(350);
+  await reinsertSoccer($('discardPile'));
+  state.phase = 'finish';
+  state.locked = false;
+  focus([0]);
+  renderDrawButton('DRAW 1 TO END TURN');
+  setCoach('Safe. You drew SOCCER, used DEFENSE, and now YOU choose where to reinsert SOCCER at position 2 or deeper. Your turn still ends with your own draw.');
+}
+
+async function failByDrawing(reason='You took your second Soccer Strike.') {
   if (state.locked) return;
   state.locked = true;
   state.phase = 'failed';
@@ -198,18 +232,17 @@ async function failByDrawing(reason='You drew the second Soccer.') {
   if (actions) actions.innerHTML = '';
   await fly($('drawPile'), $('P0'), A.SOCCER);
   flowCard('SOCCER','YOU DRAW');
-  chip('SOCCER 2 / 2','bad');
+  chip('SOCCER STRIKE 2 / 2','bad');
   setStrikes(0,2,true);
   focus([0]);
   fx('CHALLENGE FAILED • OUT','bad',1600);
-  setCoach(`${reason} The Soccer card goes back into the deck, then you retry.`);
+  setCoach(`${reason} You are OUT. You still reinsert SOCCER at position 2 or deeper; in a real game your turn ends immediately and the next active player goes.`);
   await wait(900);
   await reinsertSoccer($('P0'));
   await wait(850);
   fx('RESTARTING FINAL CHALLENGE','warn',1100);
-  startRound('Try again. First find out what’s on top before you end your turn.');
+  startRound('Try again. Remember: if you draw SOCCER and still have DEFENSE, you may defend it.');
 }
-
 async function useDribble() {
   if (state.locked || state.phase !== 'peek') return;
   state.locked = true;
@@ -229,36 +262,36 @@ async function useShoot() {
   flowCard('SHOOT','YOU PLAY SHOOT');
   state.phase = 'target';
   openShootTarget();
-  setCoach('Decide who should draw that Soccer card.');
+  chip('PLAYER 2 HAS NO DEFENSE','warn');
+  setCoach('PLAYER 2 has no DEFENSE. Make PLAYER 2 draw that Soccer card.');
   state.locked = false;
 }
 
 async function chooseShootTarget(i) {
   if (!state.active || state.phase !== 'target' || state.locked) return;
+  if (i !== 1) {
+    nudge('For this challenge, PLAYER 2 has no DEFENSE. Choose PLAYER 2.','CHOOSE PLAYER 2');
+    return;
+  }
   state.locked = true;
   resetTargetModal();
   focus([i]);
+  chip('PLAYER 2 HAS NO DEFENSE','warn');
   chip(`SHOOT TARGET → ${playerLabel(i)}`,'warn');
-  if (i === 0) {
-    fx('YOU TARGETED YOURSELF','bad',1000);
-    state.locked = false;
-    await failByDrawing('You used SHOOT on yourself and drew the Soccer.');
-    return;
-  }
   await fly($('drawPile'), $('P'+i), A.SOCCER);
   flowCard('SOCCER',`${playerLabel(i)} DRAWS`);
-  chip(`${playerLabel(i)} TAKES SOCCER 1 / 2`,'warn');
+  chip(`${playerLabel(i)} TAKES SOCCER STRIKE 1 / 2`,'warn');
   setStrikes(i,1,false);
-  fx(`${playerLabel(i)} TOOK THE SOCCER`,'good',1300);
+  fx('PLAYER 2 TAKES A STRIKE','good',1300);
   await wait(350);
+  chip('PLAYER 2 DREW IT → PLAYER 2 REINSERTS IT','neutral');
   await reinsertSoccer($('P'+i));
   state.phase = 'finish';
   state.locked = false;
   focus([0]);
   renderDrawButton('DRAW 1 TO END TURN');
-  setCoach('Good. You dodged the Soccer. Your turn still ends only when YOU draw 1 card.');
+  setCoach('Good. PLAYER 2 had no DEFENSE, so the Soccer became a Strike. PLAYER 2 chooses where to reinsert SOCCER. Your turn is still active until your own final draw.');
 }
-
 async function safeEndDraw() {
   if (state.locked || state.phase !== 'finish') return;
   state.locked = true;
@@ -314,9 +347,9 @@ function intercept(e) {
 
   if (draw && (state.phase === 'peek' || state.phase === 'decide')) {
     e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-    failByDrawing(state.phase === 'peek'
-      ? 'You ended your turn without checking the top card.'
-      : 'You saw the Soccer but still ended your turn with DRAW.');
+    faceSoccer(state.phase === 'peek'
+      ? 'You ended your turn without checking the top card and drew SOCCER.'
+      : 'You saw the Soccer and still chose DRAW, so you drew SOCCER.');
     return;
   }
 
@@ -329,6 +362,11 @@ function intercept(e) {
   if (card) {
     e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
     const name = card.dataset.card;
+    if (state.phase === 'defend') {
+      if (name === 'DEFENSE') useDefense();
+      else nudge('SOCCER is being resolved right now. Only DEFENSE can stop this Strike. YELLOW cannot cancel SOCCER or DEFENSE.','PLAY DEFENSE');
+      return;
+    }
     if (state.phase === 'peek') {
       if (name === 'DRIBBLE') useDribble();
       else nudge('Check the deck first. Use DRIBBLE PAST before you decide what to do.','CHECK THE DECK FIRST');
