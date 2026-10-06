@@ -233,7 +233,7 @@
         const role = player('A0')?.querySelector('.role strong');
         if (role) role.textContent = 'GOALKEEPER';
         setPitchEvent('GOALKEEPER FOUND', 'good');
-        type('If the eliminated player is the Goalkeeper, their team loses immediately.', 'GOT IT →');
+        type('Only after the player is eliminated do you reveal the Role Card. If the revealed role is Goalkeeper, that team loses immediately.', 'GOT IT →');
         await delay(650);
       });
     } else {
