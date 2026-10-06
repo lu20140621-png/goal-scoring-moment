@@ -7,6 +7,35 @@ document.title='Match Mode — Visual Rulebook V13';
 const topSmall=$('.topbar .brand small');
 if(topSmall) topSmall.textContent='VISUAL RULEBOOK · V13';
 
+const firstSec=$('.sec');
+if(firstSec&&!$('#matchBeginnerStart')){
+  const beginner=document.createElement('section');
+  beginner.className='sec matchBeginnerStart';
+  beginner.id='matchBeginnerStart';
+  beginner.innerHTML=`
+  <h2>START HERE — FIRST MATCH, EXACT ORDER</h2>
+  <div class="matchNoDraw"><b>IMPORTANT: DO NOT DRAW CARDS DURING THE 10-MINUTE MAIN MATCH.</b><span>Match Mode is different from Strategy and Casual. Your role receives its full hand during setup. There is no normal “draw 1” at the start or end of a turn.</span></div>
+  <div class="matchStartGrid">
+    <article><span class="n">1</span><b>MAKE TWO TEAMS</b><p>Split the human players between BLUE and GREEN as evenly as possible.</p></article>
+    <article><span class="n">2</span><b>CHOOSE THE SAME ROLE FORMATION</b><p>Both teams must use equal roles: <strong>2v2 = GK + D1</strong>, <strong>3v3 = GK + D1 + D2</strong>, or <strong>4v4 = GK + D1 + D2 + D3</strong>.</p></article>
+    <article><span class="n">3</span><b>ASSIGN HUMANS TO ROLES</b><p>A human may control more than one role when needed. Each role is still separate and must keep its own hand. Never merge two role hands.</p></article>
+    <article><span class="n">4</span><b>SHUFFLE THE 51 ACTION CARDS</b><p>SHOOT, DEFENSE, TACKLE, DRIBBLE PAST, and YELLOW make the Action deck. The Soccer Card is possession and is kept separate.</p></article>
+    <article><span class="n">5</span><b>SET ASIDE 3 ACTION CARDS FACE-DOWN</b><p>Do not look at them. They are out of play during the main match. That leaves exactly 48 Action Cards to deal.</p></article>
+    <article><span class="n">6</span><b>DEAL ALL 48 CARDS EQUALLY TO THE ROLES</b><p><strong>2v2:</strong> 12 per role. <strong>3v3:</strong> 8 per role. <strong>4v4:</strong> 6 per role. There is no Draw Pile for the main match.</p></article>
+    <article><span class="n">7</span><b>START THE 10:00 CLOCK</b><p>The clock starts immediately after the deal. Final setup and any legal 1-for-1 teammate trading happen while the clock is running.</p></article>
+    <article><span class="n">8</span><b>RPS FOR OPENING POSSESSION</b><p>Rock–Paper–Scissors decides the starting side. Repeat ties. The winner receives the Soccer Card.</p></article>
+    <article><span class="n">9</span><b>THE SOCCER HOLDER MAKES THE FIRST MOVE</b><p>The ballholder may <strong>PASS for free</strong> to a teammate or play <strong>SHOOT</strong> to attack. Do not draw a card first.</p></article>
+    <article><span class="n">10</span><b>FOLLOW THE DEFENSIVE LINES IN ORDER</b><p>2v2: D1 → GK. 3v3: D1 → D2 → GK. 4v4: D1 → D2 → D3 → GK. Finish the current line before moving to the next.</p></article>
+  </div>
+  <div class="matchFirstPlay"><b>FIRST 3v3 EXAMPLE</b><span>BLUE D1 has Soccer → BLUE may PASS to a teammate for free, or BLUE D1 plays SHOOT → GREEN D1 responds → if cleared, GREEN D2 responds → if cleared, attack reaches GREEN GK → GK has no DEFENSE = automatic GOAL; GK plays DEFENSE = resolve one official Goalkeeper Duel.</span></div>
+  <p class="ruling"><b>REMEMBER:</b> In Match Mode, cards leave hands when played. They are not normally replaced. No normal draw or recycle happens during the 10-minute main match.</p>`;
+  firstSec.insertAdjacentElement('beforebegin',beginner);
+  const toc=$('.toc');
+  if(toc&&!toc.querySelector('a[href="#matchBeginnerStart"]')){
+    const a=document.createElement('a');a.href='#matchBeginnerStart';a.textContent='START HERE';toc.insertBefore(a,toc.firstChild);
+  }
+}
+
 const cards=$('#cards');
 if(cards){
   for(const row of $$('.cardr',cards)){
@@ -102,4 +131,10 @@ style.textContent=`
 @media(max-width:760px){.gkChoiceHero{grid-template-columns:1fr}.gkChoiceArrow{transform:rotate(90deg);text-align:center;line-height:18px}.duelMethods,.penaltyDuelChoice{grid-template-columns:1fr}.gkChoiceCard,.gkChoiceResult{min-height:0}.rpsIcons span,.goalMouth span{min-height:58px}.duelMethod,.penaltyDuelChoice article{padding:12px}}
 `;
 document.head.appendChild(style);
+
+const beginnerStyle=document.createElement('style');
+beginnerStyle.textContent=`
+.matchBeginnerStart{border-color:#ffd83d!important;background:linear-gradient(180deg,#123822,#071f14)!important}.matchNoDraw{padding:13px 14px;margin-bottom:12px;border-radius:14px;background:#3b1a0e;border:2px solid #ffb21b}.matchNoDraw b{display:block;color:#ffd83d;font-size:12px}.matchNoDraw span{display:block;margin-top:5px;color:#ffe8ca;font-size:9.5px;line-height:1.5;font-weight:800}.matchStartGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.matchStartGrid article{position:relative;min-height:110px;padding:14px 13px 13px 52px;border-radius:15px;background:#082719;border:1px solid #4f9e68}.matchStartGrid .n{position:absolute;left:12px;top:12px;width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#dfff72;color:#082214;font-size:10px;font-weight:1000}.matchStartGrid b{display:block;color:#eaff9d;font-size:10px}.matchStartGrid p{margin:5px 0 0;font-size:9.2px;line-height:1.5;color:#e4f2e7}.matchFirstPlay{margin-top:12px;padding:13px;border-radius:14px;background:#071d2c;border:1px solid #4a91ce}.matchFirstPlay b{display:block;color:#8fd0ff;font-size:10px}.matchFirstPlay span{display:block;margin-top:5px;font-size:9.2px;line-height:1.55;color:#e5f3ff;font-weight:800}@media(max-width:760px){.matchStartGrid{grid-template-columns:1fr}.matchStartGrid article{min-height:0}.matchNoDraw b{font-size:11px}}
+`;
+document.head.appendChild(beginnerStyle);
 })();
