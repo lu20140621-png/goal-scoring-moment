@@ -16,19 +16,19 @@ if(firstSec&&!$('#matchBeginnerStart')){
   <h2>START HERE — FIRST MATCH, EXACT ORDER</h2>
   <div class="matchNoDraw"><b>IMPORTANT: DO NOT DRAW CARDS DURING THE 10-MINUTE MAIN MATCH.</b><span>Match Mode is different from Strategy and Casual. Your role receives its full hand during setup. There is no normal “draw 1” at the start or end of a turn.</span></div>
   <div class="matchStartGrid">
-    <article><span class="n">1</span><b>MAKE TWO TEAMS</b><p>Split the human players between BLUE and GREEN as evenly as possible.</p></article>
-    <article><span class="n">2</span><b>CHOOSE THE SAME ROLE FORMATION</b><p>Both teams must use equal roles: <strong>2v2 = GK + D1</strong>, <strong>3v3 = GK + D1 + D2</strong>, or <strong>4v4 = GK + D1 + D2 + D3</strong>.</p></article>
-    <article><span class="n">3</span><b>ASSIGN HUMANS TO ROLES</b><p>A human may control more than one role when needed. Each role is still separate and must keep its own hand. Never merge two role hands.</p></article>
-    <article><span class="n">4</span><b>SHUFFLE THE 51 ACTION CARDS</b><p>SHOOT, DEFENSE, TACKLE, DRIBBLE PAST, and YELLOW make the Action deck. The Soccer Card is possession and is kept separate.</p></article>
-    <article><span class="n">5</span><b>SET ASIDE 3 ACTION CARDS FACE-DOWN</b><p>Do not look at them. They are out of play during the main match. That leaves exactly 48 Action Cards to deal.</p></article>
-    <article><span class="n">6</span><b>DEAL ALL 48 CARDS EQUALLY TO THE ROLES</b><p><strong>2v2:</strong> 12 per role. <strong>3v3:</strong> 8 per role. <strong>4v4:</strong> 6 per role. There is no Draw Pile for the main match.</p></article>
-    <article><span class="n">7</span><b>START THE 10:00 CLOCK</b><p>The clock starts immediately after the deal. Final setup and any legal 1-for-1 teammate trading happen while the clock is running.</p></article>
-    <article><span class="n">8</span><b>RPS FOR OPENING POSSESSION</b><p>Rock–Paper–Scissors decides the starting side. Repeat ties. The winner receives the Soccer Card.</p></article>
-    <article><span class="n">9</span><b>THE SOCCER HOLDER MAKES THE FIRST MOVE</b><p>The ballholder may <strong>PASS for free</strong> to a teammate or play <strong>SHOOT</strong> to attack. Do not draw a card first.</p></article>
-    <article><span class="n">10</span><b>FOLLOW THE DEFENSIVE LINES IN ORDER</b><p>2v2: D1 → GK. 3v3: D1 → D2 → GK. 4v4: D1 → D2 → D3 → GK. Finish the current line before moving to the next.</p></article>
+    <article><span class="n">1</span><b>MAKE TWO TEAMS</b><p>Split the human players into BLUE and GREEN teams as evenly as possible.</p></article>
+    <article><span class="n">2</span><b>CHOOSE THE SAME ROLE FORMATION</b><p>Both teams must use the same number of roles: <strong>2v2 = GK + D1</strong>, <strong>3v3 = GK + D1 + D2</strong>, or <strong>4v4 = GK + D1 + D2 + D3</strong>.</p></article>
+    <article><span class="n">3</span><b>ASSIGN HUMANS TO ROLES</b><p>One person may control more than one role when needed. Each role remains separate and keeps its own hand. Never combine the hands of two roles.</p></article>
+    <article><span class="n">4</span><b>SHUFFLE THE 51 ACTION CARDS</b><p>SHOOT, DEFENSE, TACKLE, DRIBBLE PAST, and YELLOW make up the Action deck. Keep the Soccer Card separate; it represents possession.</p></article>
+    <article><span class="n">5</span><b>SET ASIDE 3 ACTION CARDS FACE-DOWN</b><p>Do not look at them. These 3 cards are out of play during the main match, leaving exactly 48 Action Cards to deal.</p></article>
+    <article><span class="n">6</span><b>DEAL ALL 48 CARDS EQUALLY TO THE ROLES</b><p><strong>2v2:</strong> 12 per role. <strong>3v3:</strong> 8 per role. <strong>4v4:</strong> 6 per role. There is no Draw Pile during the main match.</p></article>
+    <article><span class="n">7</span><b>START THE 10:00 CLOCK</b><p>The clock starts immediately after the deal. Final setup and any legal 1-for-1 trades between teammates happen while the clock is running.</p></article>
+    <article><span class="n">8</span><b>RPS FOR OPENING POSSESSION</b><p>Use Rock–Paper–Scissors to decide which team starts. Repeat any tie. The winning team receives the Soccer Card.</p></article>
+    <article><span class="n">9</span><b>THE SOCCER HOLDER MAKES THE FIRST MOVE</b><p>The player with the Soccer Card may <strong>PASS for free</strong> to a teammate or play <strong>SHOOT</strong> to attack. Do not draw a card first.</p></article>
+    <article><span class="n">10</span><b>FOLLOW THE DEFENSIVE LINES IN ORDER</b><p>2v2: D1 → GK. 3v3: D1 → D2 → GK. 4v4: D1 → D2 → D3 → GK. Fully resolve the current defensive line before moving to the next one.</p></article>
   </div>
-  <div class="matchFirstPlay"><b>FIRST 3v3 EXAMPLE</b><span>BLUE D1 has Soccer → BLUE may PASS to a teammate for free, or BLUE D1 plays SHOOT → GREEN D1 responds → if cleared, GREEN D2 responds → if cleared, attack reaches GREEN GK → GK has no DEFENSE = automatic GOAL; GK plays DEFENSE = resolve one official Goalkeeper Duel.</span></div>
-  <p class="ruling"><b>REMEMBER:</b> In Match Mode, cards leave hands when played. They are not normally replaced. No normal draw or recycle happens during the 10-minute main match.</p>`;
+  <div class="matchFirstPlay"><b>FIRST 3v3 EXAMPLE</b><span>BLUE D1 has the Soccer Card → BLUE D1 may PASS to a teammate for free or play SHOOT → GREEN D1 responds → if that line is cleared, GREEN D2 responds → if that line is cleared, the attack reaches GREEN GK → no GK DEFENSE = automatic GOAL; GK plays DEFENSE = resolve one official Goalkeeper Duel.</span></div>
+  <p class="ruling"><b>REMEMBER:</b> In Match Mode, played cards leave the hand and are not normally replaced. There is no normal drawing or recycling during the 10-minute main match.</p>`;
   firstSec.insertAdjacentElement('beforebegin',beginner);
   const toc=$('.toc');
   if(toc&&!toc.querySelector('a[href="#matchBeginnerStart"]')){
@@ -41,7 +41,7 @@ if(cards){
   for(const row of $$('.cardr',cards)){
     const name=$('b',row)?.textContent.trim();
     const text=$('span',row);
-    if(name==='DEFENSE'&&text) text.textContent='Field: stops this SHOOT only. Goalkeeper: starts one official Goalkeeper Duel — choose RPS or Left / Center / Right.';
+    if(name==='DEFENSE'&&text) text.textContent='Field player: stops the current SHOOT only. Goalkeeper: starts one official Goalkeeper Duel — choose RPS or Left / Center / Right.';
   }
 }
 
@@ -56,9 +56,9 @@ if(gk){
   gk.innerHTML=`
   <h2>10. NORMAL GOALKEEPER FLOW — TWO OFFICIAL DUELS</h2>
   <div class="gkChoiceHero">
-    <div class="gkChoiceCard"><img src="images/defense-card.webp" alt="Goalkeeper Defense"><div><b>GK PLAYS DEFENSE</b><span>The final save is not automatic. Resolve one Goalkeeper Duel using either official method below.</span></div></div>
+    <div class="gkChoiceCard"><img src="images/defense-card.webp" alt="Goalkeeper Defense"><div><b>GK PLAYS DEFENSE</b><span>Playing GK DEFENSE does not guarantee a save. Resolve one Goalkeeper Duel using either official method below.</span></div></div>
     <div class="gkChoiceArrow">→</div>
-    <div class="gkChoiceResult"><b>CHOOSE A DUEL</b><span>Both methods are official. Players agree which one to use before resolving that duel.</span></div>
+    <div class="gkChoiceResult"><b>CHOOSE A DUEL</b><span>Both methods are official. Agree on which method to use before resolving the duel.</span></div>
   </div>
   <div class="duelMethods">
     <article class="duelMethod rpsMethod">
@@ -69,20 +69,20 @@ if(gk){
     <article class="duelMethod directionMethod">
       <div class="methodTag">OPTION B</div><h3>🥅 LEFT · CENTER · RIGHT</h3>
       <div class="goalMouth"><span>←<small>LEFT</small></span><span>●<small>CENTER</small></span><span>→<small>RIGHT</small></span></div>
-      <p>Shooter and Goalkeeper choose and call <b>Left, Center, or Right at the same time.</b></p>
+      <p>The Shooter and Goalkeeper each choose <b>Left, Center, or Right</b> and call their choices at the same time.</p>
       <div class="methodRules"><b>SAME call → SAVE</b><b>DIFFERENT calls → GOAL</b></div>
     </article>
   </div>
   <ol>
-    <li>The Goalkeeper stage begins only after every active field defensive line has been cleared or chooses not to defend.</li>
+    <li>The Goalkeeper stage begins only after every active field defensive line has either been cleared or chosen not to defend.</li>
     <li>If the Goalkeeper has no DEFENSE, the attack scores automatically.</li>
     <li>If the Goalkeeper plays DEFENSE, choose either <b>Rock / Paper / Scissors</b> or <b>Left / Center / Right</b>.</li>
     <li>RPS: Shooter wins = GOAL. Goalkeeper wins = SAVE. Tie = repeat.</li>
     <li>Left / Center / Right: both sides call at the same time. Same call = SAVE. Different calls = GOAL.</li>
-    <li>After any Goalkeeper-stage result — SAVE, duel loss, or no-DEFENSE goal — Soccer ends in the defending Goalkeeper's hand.</li>
-    <li>The Goalkeeper becomes the new ballholder and may PASS or personally SHOOT if holding SHOOT.</li>
+    <li>After any Goalkeeper-stage result — SAVE, duel loss, or no-DEFENSE goal — the Soccer Card goes to the defending Goalkeeper.</li>
+    <li>The Goalkeeper becomes the new ballholder and may PASS or play SHOOT if they have a SHOOT card.</li>
   </ol>
-  <p class="ruling"><b>TWO OFFICIAL METHODS:</b> Neither duel method is a bonus rule. Both are valid Match Mode Goalkeeper resolutions. Agree on the method before resolving the duel.</p>
+  <p class="ruling"><b>TWO OFFICIAL METHODS:</b> Neither duel method is a bonus rule. Both are valid Match Mode Goalkeeper resolutions. Agree on the method before the duel begins.</p>
   <p class="important"><b>GK POSSESSION RULE:</b> After the Goalkeeper stage, Soccer goes to the defending Goalkeeper whether the result is a SAVE or a GOAL.</p>`;
 }
 
@@ -90,10 +90,10 @@ const penalty=$('#penalty');
 if(penalty){
   penalty.innerHTML=`
   <h2>14. PENALTY SHOOTOUT — BEST OF 5 · CHOOSE THE DUEL</h2>
-  <p>If the main match is tied, play a best-of-5 Penalty Shootout. Teams alternate one kick at a time. <b>No Action Card draw is used to decide the penalty.</b> Each penalty is resolved with one of the two official duel methods.</p>
+  <p>If the main match ends in a tie, play a best-of-5 Penalty Shootout. Teams alternate one kick at a time. <b>Do not draw Action Cards to resolve penalties.</b> Each penalty is resolved with one of the two official duel methods.</p>
   <div class="penaltyDuelChoice">
     <article><div class="methodTag">METHOD A</div><h3>✊ ✋ ✌️ RPS</h3><p>Shooter wins the RPS = <b>GOAL</b>.<br>Goalkeeper wins = <b>SAVE</b>.<br>Tie = repeat the same penalty duel.</p></article>
-    <article><div class="methodTag">METHOD B</div><h3>🥅 LEFT · CENTER · RIGHT</h3><div class="miniGoal"><span>LEFT</span><span>CENTER</span><span>RIGHT</span></div><p>Both sides call simultaneously.<br><b>SAME = SAVE</b><br><b>DIFFERENT = GOAL</b></p></article>
+    <article><div class="methodTag">METHOD B</div><h3>🥅 LEFT · CENTER · RIGHT</h3><div class="miniGoal"><span>LEFT</span><span>CENTER</span><span>RIGHT</span></div><p>Both sides call their choices at the same time.<br><b>SAME = SAVE</b><br><b>DIFFERENT = GOAL</b></p></article>
   </div>
   <div class="penaltyRounds">
     <div class="duel"><b>ROUND 1</b><br>GREEN D1 ↔ BLUE GK<br>BLUE D1 ↔ GREEN GK</div>
@@ -105,11 +105,11 @@ if(penalty){
   <ol>
     <li>GREEN takes the first penalty, then BLUE takes the matching penalty.</li>
     <li>Before each penalty duel is resolved, use either official method: <b>RPS</b> or <b>Left / Center / Right</b>.</li>
-    <li>Keep a running score. If one team becomes mathematically impossible to catch, the shootout ends early.</li>
+    <li>Keep a running score. If one team can no longer mathematically catch the other, the shootout ends early.</li>
     <li>If tied after five kicks each, continue to sudden death.</li>
-    <li>Sudden death is resolved in paired rounds: GREEN takes one kick, then BLUE takes one matching kick. A winner is declared only after both kicks in that sudden-death round are complete.</li>
+    <li>Sudden death is resolved in paired rounds: GREEN takes one kick, then BLUE takes one matching kick. Declare a winner only after both kicks in that sudden-death round are complete.</li>
   </ol>
-  <p class="ruling"><b>PENALTY CHOICE:</b> Both official Goalkeeper Duel methods remain available in the shootout. Use the one both sides agree to for that penalty.</p>`;
+  <p class="ruling"><b>PENALTY CHOICE:</b> Both official Goalkeeper Duel methods remain available in the shootout. Use whichever method both sides agree on for that penalty.</p>`;
 }
 
 const rulings=$('#rulings');
