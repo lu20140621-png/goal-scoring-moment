@@ -10,7 +10,7 @@ const lessons=[
 'GAME GOAL: Score as many goals as possible before the match ends. The team with more goals wins. If the score is tied, go to the Penalty Shootout.',
 'Match Mode uses Defender 1, Defender 2, and Goalkeeper on each team. All roles are public.',
 'Shuffle all 51 Action Cards. Deal exactly 8 to each of 6 players = 48 cards. Discard the remaining 3 face-down.',
-'Start the 10-minute clock immediately after dealing. Team trading already uses match time.',
+'Take out a phone, set a timer for 10:00, and start it immediately after dealing. Any teammate card trading happens while that timer is running, so trading time counts as part of the 10 minutes.',
 'Use Rock-Paper-Scissors for first possession. The winner receives Soccer.'
 ],action:'setup'},
 {title:'PASS & TACKLE',note:'PASS is free. D1 gets the first TACKLE window, then D2. No YELLOW during a normal PASS.',hand:['DRIBBLE','SHOOT','YELLOW'],lines:[
