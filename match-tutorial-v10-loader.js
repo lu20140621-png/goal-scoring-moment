@@ -1,6 +1,6 @@
 (async()=>{
 'use strict';
-const SOURCE='match-tutorial-v6.js?v=20261007shootdetail1';
+const SOURCE='match-tutorial-v6.js?v=20261007nopassive1';
 function fail(msg){
   console.error('[Match Tutorial V10 loader]',msg);
   const n=document.getElementById('note');
