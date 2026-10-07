@@ -13,11 +13,11 @@ const lessons=[
 'Take out a phone, set a timer for 10:00, and start it immediately after dealing. Any teammate card trading happens while that timer is running, so trading time counts as part of the 10 minutes.',
 'Use Rock-Paper-Scissors for first possession. The winner receives Soccer.'
 ],action:'setup'},
-{title:'PASS — FREE TEAM TRANSFER',note:'PASS is free and direct. No TACKLE, DRIBBLE, or YELLOW reaction chain happens during a normal PASS.',hand:['SHOOT','DRIBBLE','YELLOW'],lines:[
-'Only the player holding the Soccer Card may PASS.',
-'Choose a teammate and move the Soccer Card directly to that teammate. PASS costs no Action Card.',
-'A normal PASS has no D1, D2, or D3 TACKLE interception windows. DRIBBLE PAST and YELLOW are not needed.',
-'The receiving teammate immediately becomes the new ballholder. They may PASS again or, if holding SHOOT, start a new attack at the opponent’s D1.'
+{title:'PASS — TACKLE & YELLOW',note:'PASS is free, but an opponent may TACKLE during the pass. The passer needs YELLOW to cancel that TACKLE.',hand:['SHOOT','DRIBBLE','YELLOW'],lines:[
+'Only the player holding the Soccer Card may PASS. Choose a teammate; PASS costs no Action Card.',
+'While the pass is happening, an opponent may play TACKLE to try to steal Soccer.',
+'If the passer has YELLOW, they may play YELLOW to cancel that TACKLE. DRIBBLE PAST does not cancel a PASS TACKLE.',
+'YELLOW cancels TACKLE, so the pass completes. Without YELLOW, the TACKLE succeeds and the opponent takes Soccer.'
 ],action:'pass'},
 {title:'FULL SHOOT ORDER',note:'Every SHOOT resolves D1 → D2 → GK. If a defender plays nothing, no DRIBBLE is required.',hand:['SHOOT','DRIBBLE'],lines:[
 'Playing SHOOT starts one attack chain. SHOOT cannot be canceled by YELLOW.',
@@ -31,7 +31,7 @@ const lessons=[
 'DEFENSE does not win possession. Soccer remains with the same attacking ballholder.',
 'The holder may PASS or later SHOOT again. Every new SHOOT restarts at D1.'
 ],action:'defense'},
-{title:'TACKLE WINS SOCCER',note:'TACKLE is a defensive choice on the current field line during SHOOT. If it succeeds, possession changes.',hand:['SHOOT','DRIBBLE','YELLOW'],lines:[
+{title:'TACKLE WINS SOCCER',note:'TACKLE can intercept a PASS or defend the current field line during SHOOT. If it succeeds, possession changes.',hand:['SHOOT','DRIBBLE','YELLOW'],lines:[
 'During a SHOOT, the current field defender may choose TACKLE instead of DEFENSE.',
 'A successful TACKLE ends the current action and gives Soccer to the tackler.',
 'The attacker may use DRIBBLE PAST against TACKLE. During the SHOOT line, the attacker may also use YELLOW on that TACKLE.',
@@ -100,7 +100,7 @@ function complete(msg){cardPrompt=null;renderHand();clearActions();setActive([])
 
 function setupAction(kind){clearActions();cardPrompt=null;renderHand();$('coachNext').style.display='none';
 if(kind==='setup'){addFlow('6 × 8 = 48 DEALT','good');addFlow('3 EXTRAS DISCARDED','good');typeText('Choose any RPS option. This demo gives BLUE first Soccer.',false);btn('ROCK',opening);btn('PAPER',opening);btn('SCISSORS',opening)}
-if(kind==='pass'){setBall('B1');setActive(['B1']);btn('PASS → BLUE 2',()=>{setBall('B2');setActive(['B2']);addFlow('BLUE 1 PASS → BLUE 2','good');addFlow('NO DEFENSIVE PASS WINDOW','good');typeText('PASS is complete immediately. BLUE 2 now holds Soccer. No D1/D2 TACKLE, DRIBBLE, or YELLOW step happens during a normal PASS.',false);clearActions();btn('CONTINUE',()=>complete('PASS COMPLETE · BLUE 2 IS NEW BALLHOLDER'))})}
+if(kind==='pass'){setBall('B1');setActive(['B1']);btn('PASS → BLUE 2',()=>{addFlow('BLUE 1 DECLARES PASS → BLUE 2','good');setActive(['G1']);addFlow('GREEN PLAYS TACKLE ON PASS','bad');typeText('An opponent can TACKLE during the pass to steal Soccer. DRIBBLE does not stop this. You have YELLOW, so use it to cancel the TACKLE.',false);askCard('YELLOW','Tap YELLOW to cancel GREEN\'s TACKLE and save the pass.',()=>{addFlow('BLUE YELLOW → TACKLE CANCELED','good');setBall('B2');setActive(['B2']);typeText('Correct. YELLOW canceled the PASS TACKLE, so the pass completes and BLUE 2 becomes the new ballholder. Without YELLOW, GREEN would take Soccer.',false);clearActions();btn('CONTINUE',()=>complete('PASS COMPLETE · BLUE 2 HAS SOCCER'))},'BLUE PLAYS YELLOW')})}
 if(kind==='attack'){setBall('B1');setActive(['B1']);askCard('SHOOT','Tap SHOOT to start the attack.',()=>{setActive(['G1']);addFlow('D1 LETS ATTACK THROUGH','bad');typeText('D1 played no DEFENSE/TACKLE, so no DRIBBLE is needed. Move to D2.',false);clearActions();btn('MOVE TO D2',()=>{setActive(['G2']);addFlow('D2 LETS ATTACK THROUGH','bad');typeText('D2 also plays no DEFENSE/TACKLE. D2 did not defend. No DRIBBLE is required — go straight to GK.',false);clearActions();btn('GO STRAIGHT TO GK',()=>{setActive(['GKG']);complete('D1 → D2 → GK COMPLETE')})})})}
 if(kind==='defense'){setBall('B1');askCard('SHOOT','Tap SHOOT to attack D1.',()=>{setActive(['G1']);addFlow('GREEN D1 DEFENSE','bad');typeText('Let DEFENSE work. This SHOOT ends, but Soccer stays with BLUE 1.',false);clearActions();btn('LET DEFENSE SUCCEED',()=>{setBall('B1');addFlow('SHOOT ENDS · BLUE KEEPS SOCCER','good');complete('FIELD DEFENSE RESULT')})})}
 if(kind==='tackle'){setBall('B1');askCard('SHOOT','Tap SHOOT. GREEN D1 will answer with TACKLE.',()=>{setActive(['G1']);addFlow('GREEN D1 TACKLE','bad');typeText('Let TACKLE succeed this time. TACKLE, unlike DEFENSE, wins possession.',false);clearActions();btn('LET TACKLE WIN',()=>{setBall('G1');addFlow('GREEN D1 TAKES SOCCER','good');addFlow('NEW POSSESSION STARTS NOW','good');typeText('GREEN D1 is now the ballholder immediately. GREEN D1 may PASS for free or, if holding SHOOT, start a new attack right now. Any new SHOOT starts fresh at BLUE D1.',false);clearActions();btn('CONTINUE',()=>complete('NEW POSSESSION: GREEN D1'))})})}
