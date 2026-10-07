@@ -109,7 +109,7 @@ if(shoot){
 const yellow=$('#yellow');
 if(yellow){
   const can=$('.canBox ul',yellow);
-  if(can) can.innerHTML='<li>Cancel DRIBBLE on the current SHOOT line.</li><li>Cancel the current defender\'s TACKLE when played by the attacker.</li><li>Cancel another YELLOW in the same live chain.</li><li>Follow the current field line: D1, then D2, then D3 if that formation uses D3.</li>';
+  if(can) can.innerHTML='<li><b>PASS exception:</b> the passer may cancel an opponent\'s TACKLE played during the PASS.</li><li>Cancel DRIBBLE on the current SHOOT line.</li><li>Cancel the current defender\'s TACKLE when played by the attacker.</li><li>Cancel another YELLOW in the same live SHOOT chain.</li><li>Follow the current SHOOT field line: D1, then D2, then D3 if that formation uses D3.</li>';
   const d2=$$('.line',yellow).find(r=>$('.key',r)?.textContent.trim()==='D2 LINE');
   if(d2){
     const v=$('.val',d2); if(v) v.textContent='Once play moves to D2, D1’s window is closed. If your formation uses D3, D2 is followed by D3; otherwise the next stage is Goalkeeper.';
