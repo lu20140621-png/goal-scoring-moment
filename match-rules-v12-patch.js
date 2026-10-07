@@ -12,12 +12,12 @@ if(heroText) heroText.textContent='Complete Match Mode rules for 2–8 players, 
 
 const quick=$('.quick');
 if(quick) quick.innerHTML=`
-  <div class="q"><span class="qi">👥</span><b>2–8 HUMANS</b><br>The number of players and roles may differ.</div>
+  <div class="q"><span class="qi">👥</span><b>2–8 HUMANS</b><br>Split into BLUE and GREEN teams.</div>
   <div class="q"><span class="qi">🧩</span><b>2v2–4v4 ROLES</b><br>1 GK + 1–3 field Players on each team.</div>
-  <div class="q"><span class="qi">🃏</span><b>EQUAL ROLE HANDS</b><br>48 dealt · 3 set aside.</div>
+  <div class="q"><span class="qi">🃏</span><b>EQUAL ROLE HANDS</b><br>2v2 = 12 each · 3v3 = 8 · 4v4 = 6.</div>
   <div class="q"><span class="qi">⏱️</span><b>10:00 TOTAL</b><br>Trading time counts.</div>
-  <div class="q"><span class="qi">🛡️</span><b>DEFENSE ≠ TACKLE</b><br>Stop the shot vs. win possession.</div>
-  <div class="q"><span class="qi">🤖</span><b>VS AI = 3v3</b><br>The digital playtest uses 3 roles per team.</div>`;
+  <div class="q"><span class="qi">⚽</span><b>GAME GOAL</b><br>Score more goals than your opponent.</div>
+  <div class="q"><span class="qi">🥅</span><b>TIED SCORE</b><br>Use the Penalty Shootout.</div>`;
 
 const setup=$('#setup');
 if(setup){
