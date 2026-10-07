@@ -1,6 +1,6 @@
 (async()=>{
 'use strict';
-const SOURCE='match-ai-v4.js?v=20260907m15';
+const SOURCE='match-ai-v4.js?v=20261007passyellow1';
 function fail(msg){
   console.error('[Match V5 loader]',msg);
   const n=document.getElementById('notice');
