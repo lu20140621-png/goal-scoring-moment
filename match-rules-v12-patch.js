@@ -93,17 +93,36 @@ if(pass){
 
 const shoot=$('#shoot');
 if(shoot){
+  const h2=$('h2',shoot); if(h2) h2.textContent='5. COMPLETE SHOOT / ATTACK FLOW';
+  let title=$('.visualTitle',shoot);
+  if(!title){title=document.createElement('div');title.className='visualTitle';shoot.insertBefore(title,$('.visualFlow',shoot));}
+  title.textContent='FIELD PLAYERS GET 3 CHOICES · GOALKEEPER GETS 1 DEFENSE CHOICE';
+
   const vf=$('.visualFlow',shoot);
   if(vf) vf.innerHTML=`
-    <div class="flowStep"><span class="stepNo">1</span><img src="images/shoot-card.webp" alt="Shoot"><b>SHOOT</b><p>The player with the Soccer Card starts the attack.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">2</span><img src="images/defense-card.webp" alt="Defense"><b>DEFENDER 1</b><p>D1 may play DEFENSE, play TACKLE, or choose not to defend.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">3</span><img src="images/defense-card.webp" alt="Defense"><b>D2 IF USED</b><p>In 3v3 / 4v4, the attack continues to D2.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep window"><span class="stepNo">4</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>D3 IF USED</b><p>In 4v4, the attack then continues to D3.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep end"><span class="stepNo">5</span><img src="images/defense-card.webp" alt="Goalkeeper defense"><b>GOALKEEPER</b><p>GK DEFENSE starts a Goalkeeper Duel. No DEFENSE = automatic goal.</p></div>`;
+    <div class="flowStep"><span class="stepNo">1</span><img src="images/shoot-card.webp" alt="Shoot"><b>SHOOT</b><p>The Soccer holder plays SHOOT and starts one scoring attack.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">2</span><img src="images/defense-card.webp" alt="D1"><b>D1 CHOOSES</b><p><strong>DEFENSE</strong>, <strong>TACKLE</strong>, or <strong>NO DEFENSE</strong>. No card = this line is cleared.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">3</span><img src="images/tackle.webp?v=20260904tackle2" alt="D2 D3"><b>D2 / D3 — IF USED</b><p>Same 3 choices on every field line. No defense = move immediately to the next line.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep end"><span class="stepNo">4</span><img src="images/defense-card.webp" alt="Goalkeeper"><b>GOALKEEPER</b><p>Only DEFENSE may stop the shot here. DEFENSE → Goalkeeper Duel. No DEFENSE → automatic GOAL.</p></div>`;
+
+  const existing=[...shoot.querySelectorAll('.line')];
+  existing.forEach(x=>x.remove());
   const ol=$('ol',shoot);
-  if(ol) ol.innerHTML='<li>The ballholder plays SHOOT, and the SHOOT card is spent.</li><li>Resolve each active field defender in order: <b>D1 → D2 → D3</b>, skipping positions not used in your chosen formation.</li><li>Each active field defender may play DEFENSE, play TACKLE, or choose not to defend.</li><li>Resolve the current defender completely before moving to the next line.</li><li>If a defender chooses not to defend, that line is cleared and the attacker does not need DRIBBLE PAST for it.</li><li>After the final active field line is cleared, the attack reaches the Goalkeeper.</li>';
+  const detail=document.createElement('div');
+  detail.innerHTML=`
+    <div class="line"><div class="key">D1</div><div class="val"><b>3 choices:</b> play DEFENSE, play TACKLE, or choose NO DEFENSE. If D1 plays nothing, D1 is cleared immediately and no DRIBBLE PAST is needed.</div></div>
+    <div class="line"><div class="key">D2 / D3</div><div class="val">Every later field defender uses the <b>same 3 choices</b>. If they choose NO DEFENSE, the SHOOT continues immediately to the next active line.</div></div>
+    <div class="line"><div class="key">GOALKEEPER</div><div class="val">The GK is different: at the goal the only defensive card choice is <b>DEFENSE</b>. Play DEFENSE → start the official Goalkeeper Duel. Do not play DEFENSE / have no DEFENSE → <b>automatic GOAL +1</b>.</div></div>`;
+  if(ol) shoot.insertBefore(detail,ol);
+
+  if(ol) ol.innerHTML='<li>Ballholder plays SHOOT and spends the SHOOT card.</li><li>Start at D1.</li><li>Every field defender chooses DEFENSE, TACKLE, or NO DEFENSE.</li><li>NO DEFENSE clears that line immediately; no DRIBBLE is needed.</li><li>DEFENSE or TACKLE must fully resolve before play moves forward.</li><li>After the final active field line is cleared, go to the Goalkeeper.</li><li>GK plays DEFENSE → Goalkeeper Duel. GK does not play DEFENSE → automatic GOAL.</li>';
+
   const imp=$('.important',shoot);
-  if(imp) imp.innerHTML='<b>FORMATION RULE:</b> 2v2 attacks use D1 → GK. 3v3 uses D1 → D2 → GK. 4v4 uses D1 → D2 → D3 → GK.';
+  if(imp) imp.innerHTML='<b>FORMATION ORDER:</b> 2v2 = D1 → GK. 3v3 = D1 → D2 → GK. 4v4 = D1 → D2 → D3 → GK.';
+
+  let ruling=$('.ruling',shoot);
+  if(!ruling){ruling=document.createElement('p');ruling.className='ruling';shoot.appendChild(ruling);}
+  ruling.innerHTML='<b>FIELD vs GK:</b> D1 / D2 / D3 may DEFENSE, TACKLE, or decline to defend. The Goalkeeper cannot TACKLE at the goal — the GK either plays DEFENSE or concedes.';
 }
 
 const yellow=$('#yellow');
