@@ -47,7 +47,7 @@ const lessons=[
 'YELLOW is tied to the current defensive line, not to Defender 1 for the whole attack.',
 'At D1, only D1 may use defensive YELLOW after the opponent plays DRIBBLE or YELLOW against D1’s line.',
 'Once the SHOOT moves to D2, D1’s YELLOW window is over. Now D2 owns the defensive YELLOW window.',
-'Defensive YELLOW cannot cancel SHOOT, DEFENSE, a normal PASS, or an action on another line.',
+'YELLOW cannot cancel the PASS itself. PASS exception: if an opponent plays TACKLE during your PASS, the passer may use YELLOW to cancel that TACKLE.',
 'If the attacker uses YELLOW against the current defender’s TACKLE, that same defender may answer with YELLOW.'
 ],action:'yellow'},
 {title:'GOALKEEPER FLOW',note:'At GK, field-line YELLOW ends. GK DEFENSE triggers RPS; Soccer ends with the defending GK after every GK-stage result.',hand:['SHOOT','DEFENSE'],lines:[
