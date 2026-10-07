@@ -1,6 +1,6 @@
 (async()=>{
 'use strict';
-const SOURCE='match-ai-v5-loader.js?v=20260907m15';
+const SOURCE='match-ai-v5-loader.js?v=20261007passyellow1';
 function fail(msg){console.error('[Match V6 loader]',msg);const n=document.getElementById('notice');if(n){n.textContent='Match Mode failed to load the latest Goalkeeper Duel rules. Please refresh.';n.className='notice warn';}}
 try{
   const res=await fetch(SOURCE,{cache:'no-store'});
