@@ -6,7 +6,8 @@ const ALL=['B1','B2','BKG','G1','G2','GKG'];
 let lesson=0,step=0,typing=null,hand=[],flow=[],cardPrompt=null;
 
 const lessons=[
-{title:'SETUP & FIRST POSSESSION',note:'3v3 · public roles · 8 each · 3 extras discarded · trading counts inside 10:00.',hand:['SHOOT','DEFENSE','TACKLE','DRIBBLE','YELLOW'],lines:[
+{title:'SETUP & FIRST POSSESSION',note:'GAME GOAL: score more goals than your opponent · 3v3 · public roles · 8 each · 3 extras discarded · trading counts inside 10:00.',hand:['SHOOT','DEFENSE','TACKLE','DRIBBLE','YELLOW'],lines:[
+'GAME GOAL: Score as many goals as possible before the match ends. The team with more goals wins. If the score is tied, go to the Penalty Shootout.',
 'Match Mode uses Defender 1, Defender 2, and Goalkeeper on each team. All roles are public.',
 'Shuffle all 51 Action Cards. Deal exactly 8 to each of 6 players = 48 cards. Discard the remaining 3 face-down.',
 'Start the 10-minute clock immediately after dealing. Team trading already uses match time.',
