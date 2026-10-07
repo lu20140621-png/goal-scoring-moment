@@ -75,19 +75,20 @@ if(setup){
 
 const pass=$('#pass');
 if(pass){
-  const h2=$('h2',pass); if(h2) h2.textContent='4. PASS — FREE TEAM TRANSFER';
-  const title=$('.visualTitle',pass); if(title) title.textContent='PASS DOES NOT START A DEFENSIVE CHAIN';
+  const h2=$('h2',pass); if(h2) h2.textContent='4. PASS — TACKLE INTERCEPTION';
+  const title=$('.visualTitle',pass); if(title) title.textContent='PASS → TACKLE → YELLOW OR TURNOVER';
   const vf=$('.visualFlow',pass);
   if(vf) vf.innerHTML=`
-    <div class="flowStep"><span class="stepNo">1</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>SOCCER HOLDER</b><p>Choose a teammate.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep end"><span class="stepNo">2</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Pass"><b>PASS FOR FREE</b><p>Move Soccer directly to that teammate. No Action Card is spent.</p></div><div class="flowArrow">→</div>
-    <div class="flowStep"><span class="stepNo">3</span><img src="images/soccer-card.webp?v=20260904fix1" alt="New ballholder"><b>NEW BALLHOLDER</b><p>The receiver now controls Soccer and may PASS again or SHOOT.</p></div>`;
+    <div class="flowStep"><span class="stepNo">1</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Soccer"><b>DECLARE PASS</b><p>Choose a teammate. PASS costs no Action Card.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">2</span><img src="images/tackle.webp?v=20260904tackle2" alt="Tackle"><b>OPPONENT MAY TACKLE</b><p>An opponent may play TACKLE during the pass to steal Soccer.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep window"><span class="stepNo">3</span><img src="images/yellow-card.webp" alt="Yellow"><b>PASSER MAY YELLOW</b><p>YELLOW cancels that PASS TACKLE.</p></div><div class="flowArrow">→</div>
+    <div class="flowStep end"><span class="stepNo">4</span><img src="images/soccer-card.webp?v=20260904fix1" alt="Result"><b>RESOLVE</b><p>YELLOW → pass completes. No YELLOW → tackler wins Soccer.</p></div>`;
   const ol=$('ol',pass);
-  if(ol) ol.innerHTML='<li>Only the current Soccer holder may PASS.</li><li>PASS is free and transfers Soccer directly to a teammate.</li><li>Normal PASS has <b>no D1 / D2 / D3 TACKLE interception windows</b>.</li><li>DRIBBLE PAST is not needed for PASS.</li><li>YELLOW is not active during PASS.</li><li>If the receiver starts a SHOOT, that new attack starts at the opponent\'s D1.</li>';
+  if(ol) ol.innerHTML='<li>Only the Soccer holder may PASS.</li><li>PASS is free.</li><li>During PASS, an opponent may play TACKLE to steal Soccer.</li><li><b>Only YELLOW cancels a PASS TACKLE.</b> DRIBBLE PAST does not cancel it.</li><li>YELLOW cancels the TACKLE → PASS completes.</li><li>No YELLOW → TACKLE succeeds and the tackler immediately takes Soccer.</li><li>A SHOOT by the new ballholder starts fresh at the opponent\'s D1.</li>';
   const ex=$('.example',pass); if(ex) ex.remove();
   let ruling=$('.ruling',pass);
   if(!ruling){ruling=document.createElement('p');ruling.className='ruling';pass.appendChild(ruling)}
-  ruling.innerHTML='<b>KEY:</b> PASS changes the teammate holding Soccer. Defensive-line play begins only when a ballholder uses SHOOT.';
+  ruling.innerHTML='<b>KEY:</b> PASS is free, but an opponent may TACKLE it. YELLOW is the counter; DRIBBLE is not.';
 }
 
 const shoot=$('#shoot');
