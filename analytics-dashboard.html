@@ -1,78 +1,142 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Goal-Scoring Moment — Analytics</title>
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>Goal-Scoring Moment｜中文数据统计后台</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#071813;color:#f7fbf8;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#f4c54f;font-weight:900}.title{font-size:34px;font-weight:950;margin:4px 0}.sub{color:#9fb7ae;font-size:13px}.range{display:flex;gap:7px;flex-wrap:wrap}.range button,.login button{border:1px solid #2d6752;background:#0c2a20;color:#dcebe4;padding:8px 11px;border-radius:999px;font-weight:850;cursor:pointer}.range button.on,.login button{background:#f4c54f;color:#183222;border-color:#f4c54f}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:linear-gradient(180deg,#0d2b21,#0a211a);border:1px solid #24513f;border-radius:16px;padding:16px;box-shadow:0 14px 28px #0003}.k{font-size:11px;color:#a8c0b6;font-weight:800;text-transform:uppercase;letter-spacing:.06em}.v{font-size:31px;font-weight:950;margin-top:7px}.hint{font-size:11px;color:#6f9585;margin-top:4px}.section{margin-top:18px}.section h2{font-size:16px;margin:0 0 10px}.tableWrap{overflow:auto;border:1px solid #24513f;border-radius:14px;background:#0a211a}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #173c2f;font-size:12px}th{color:#f4c54f;background:#0c2b20;position:sticky;top:0}.bar{height:8px;border-radius:99px;background:#163c2e;overflow:hidden}.bar i{display:block;height:100%;background:#f4c54f}.empty{padding:24px;color:#9fb7ae}.notice{display:none;margin:16px 0;padding:14px;border-radius:12px;background:#40241f;border:1px solid #9e533f;color:#ffd8cb}.login{margin:70px auto;max-width:520px;background:#0d2b21;border:1px solid #24513f;border-radius:18px;padding:22px}.login h2{margin-top:0}.login input{width:100%;padding:12px;border-radius:10px;border:1px solid #2d6752;background:#071813;color:#fff;margin:8px 0 12px}.hidden{display:none!important}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}@media(max-width:500px){.wrap{padding:15px}.title{font-size:27px}.grid{grid-template-columns:1fr}}
-.login button.secondary{background:transparent;color:#a8c0b6;border-color:#2d6752;margin-left:7px}
+*{box-sizing:border-box}
+body{margin:0;background:#071813;color:#f7fbf8;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Arial,sans-serif}
+.wrap{max-width:1240px;margin:auto;padding:24px}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:20px}
+.eyebrow{font-size:12px;letter-spacing:.13em;color:#f4c54f;font-weight:900}
+.title{font-size:32px;font-weight:900;margin:5px 0 7px}
+.sub{color:#b2cabf;font-size:13px;line-height:1.6}
+.range{display:flex;gap:7px;flex-wrap:wrap}
+button{border:1px solid #2d6752;background:#0c2a20;color:#dcebe4;padding:9px 12px;border-radius:999px;font-weight:800;cursor:pointer}
+button.on,button:hover{background:#f4c54f;color:#183222;border-color:#f4c54f}
+button:disabled{opacity:.6;cursor:wait}
+a{color:#f4c54f;text-decoration:none}a:hover{text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.card{background:linear-gradient(180deg,#0d2b21,#0a211a);border:1px solid #24513f;border-radius:16px;padding:16px;box-shadow:0 14px 28px #0003}
+.k{font-size:12px;color:#b8d0c6;font-weight:800}
+.v{font-size:31px;font-weight:950;margin-top:7px;font-variant-numeric:tabular-nums}
+.hint{font-size:11px;color:#91afa0;margin-top:5px;line-height:1.5}
+.section{margin-top:23px}
+.section h2{font-size:19px;margin:0 0 7px}
+.section .info{color:#9fb7ae;font-size:12px;line-height:1.6;margin:0 0 11px}
+.tableWrap{overflow:auto;border:1px solid #24513f;border-radius:14px;background:#0a211a}
+table{width:100%;border-collapse:collapse;min-width:790px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #173c2f;font-size:12px;white-space:nowrap}
+th{color:#f4c54f;background:#0c2b20;position:sticky;top:0;z-index:1}
+td{color:#e8f5ec}
+.bar{height:7px;margin-top:6px;border-radius:99px;background:#163c2e;overflow:hidden;max-width:120px}
+.bar i{display:block;height:100%;background:#f4c54f}
+.empty{padding:24px;color:#9fb7ae}
+.notice{display:none;margin:16px 0;padding:14px;border-radius:12px;background:#40241f;border:1px solid #9e533f;color:#ffd8cb}
+.status{color:#bcd4c9;font-size:12px;margin:10px 0}
+.foot{font-size:12px;color:#92ad9e;line-height:1.7;margin:20px 0 10px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.wrap{padding:15px}.title{font-size:26px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:12px}.v{font-size:25px}.k{font-size:11px}.hint{font-size:10px}.range button{padding:8px 9px;font-size:12px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div id="login" class="login"><div class="eyebrow">GOAL-SCORING MOMENT</div><h2>Analytics Access</h2><div class="sub">Enter the dashboard access key.</div><input id="key" type="password" autocomplete="off" placeholder="Access key"><button id="loginBtn">OPEN DASHBOARD</button><button id="clearKey" class="secondary" type="button">CLEAR SAVED KEY</button><div id="loginMsg" class="sub" style="margin-top:10px" role="status"></div></div>
-  <div id="app" class="hidden">
-    <div class="top"><div><div class="eyebrow">GOAL-SCORING MOMENT</div><div class="title">Tutorial Analytics</div><div class="sub">Visitors, active time, tutorial starts, completions, mode usage, and recent sessions.</div></div><div class="range"><button data-days="1">24H</button><button data-days="7">7 DAYS</button><button data-days="30" class="on">30 DAYS</button><button data-days="365">1 YEAR</button><button id="refresh">REFRESH</button></div></div>
-    <div id="notice" class="notice"></div>
-    <div class="grid">
-      <div class="card"><div class="k">Unique Visitors</div><div class="v" id="visitors">—</div><div class="hint">Distinct browsers</div></div>
-      <div class="card"><div class="k">Sessions</div><div class="v" id="sessions">—</div><div class="hint">Website visits</div></div>
-      <div class="card"><div class="k">Avg. Active Time</div><div class="v" id="avgTime">—</div><div class="hint">Active time per session</div></div>
-      <div class="card"><div class="k">Tutorial Starts</div><div class="v" id="starts">—</div><div class="hint">Entered a tutorial</div></div>
-      <div class="card"><div class="k">Tutorial Completions</div><div class="v" id="completions">—</div><div class="hint">Reached a completion action</div></div>
-      <div class="card"><div class="k">Completion Rate</div><div class="v" id="rate">—</div><div class="hint">Completions ÷ starts</div></div>
-      <div class="card"><div class="k">Avg. Tutorial Time</div><div class="v" id="tutorialTime">—</div><div class="hint">Active time for tutorial sessions</div></div>
-      <div class="card"><div class="k">Mobile Share</div><div class="v" id="mobile">—</div><div class="hint">Sessions on mobile</div></div>
-    </div>
-    <div class="section"><h2>Mode usage</h2><div class="tableWrap"><table><thead><tr><th>Mode</th><th>Sessions</th><th>Share</th></tr></thead><tbody id="modes"></tbody></table></div></div>
-    <div class="section"><h2>Recent sessions</h2><div class="tableWrap"><table><thead><tr><th>Started</th><th>Device</th><th>Mode</th><th>Active time</th><th>Pages</th><th>Started tutorial</th><th>Completed</th><th>Max step</th></tr></thead><tbody id="recent"></tbody></table></div></div>
+  <div class="top">
+    <div><div class="eyebrow">GOAL-SCORING MOMENT</div><h1 class="title">网站访问与教程数据后台</h1><div class="sub">全部中文 · 无需密码 · 查看访问量、模式选择、说明书点击及教程使用情况<br>数据来自真实网站记录，刷新后更新。</div></div>
+    <div class="range" aria-label="统计时间范围"><button data-days="1">近24小时</button><button data-days="7">近7天</button><button data-days="30" class="on">近30天</button><button data-days="365">近1年</button><button id="refresh">刷新数据</button></div>
   </div>
+  <div id="notice" class="notice" role="alert"></div>
+  <div class="status" id="status" role="status">正在读取统计数据…</div>
+  <div class="grid">
+    <div class="card"><div class="k">独立访客数</div><div class="v" id="visitors">—</div><div class="hint">按浏览器标识去重</div></div>
+    <div class="card"><div class="k">访问会话数</div><div class="v" id="sessions">—</div><div class="hint">网站访问会话（非人数）</div></div>
+    <div class="card"><div class="k">平均活跃时长</div><div class="v" id="avgTime">—</div><div class="hint">每次会话的平均活跃时间</div></div>
+    <div class="card"><div class="k">手机访问占比</div><div class="v" id="mobile">—</div><div class="hint">手机设备会话占比</div></div>
+    <div class="card"><div class="k">首页模式点击</div><div class="v" id="modeClicks">—</div><div class="hint">从首页选择游戏模式的次数</div></div>
+    <div class="card"><div class="k">点击完整说明书</div><div class="v" id="rulebookClicks">—</div><div class="hint">点击规则说明书链接的次数</div></div>
+    <div class="card"><div class="k">说明书页面访问</div><div class="v" id="rulebookViews">—</div><div class="hint">实际打开完整说明书页面次数</div></div>
+    <div class="card"><div class="k">打开内嵌规则指南</div><div class="v" id="guideOpens">—</div><div class="hint">教程内点击规则弹窗或计分指南</div></div>
+    <div class="card"><div class="k">开始互动教程</div><div class="v" id="starts">—</div><div class="hint">有教程开始记录的会话数</div></div>
+    <div class="card"><div class="k">完成互动教程</div><div class="v" id="completions">—</div><div class="hint">有完成事件记录的会话数</div></div>
+    <div class="card"><div class="k">互动教程完成率</div><div class="v" id="rate">—</div><div class="hint">完成会话 ÷ 开始会话</div></div>
+    <div class="card"><div class="k">平均教程活跃时间</div><div class="v" id="tutorialTime">—</div><div class="hint">开始教程会话的平均活跃时间</div></div>
+  </div>
+  <section class="section"><h2>各游戏模式的点击与说明书数据</h2><p class="info">“首页选择次数”是用户在首页点进该模式的次数；“说明书点击次数”是用户点击规则说明书链接的次数；内嵌指南单独统计。</p>
+    <div class="tableWrap"><table><thead><tr><th>游戏模式</th><th>首页选择次数</th><th>模式页面浏览次数</th><th>说明书点击次数</th><th>说明书页面访问</th><th>内嵌规则指南打开</th></tr></thead><tbody id="modes"><tr><td colspan="6" class="empty">正在加载…</td></tr></tbody></table></div>
+  </section>
+  <section class="section"><h2>最近点击记录</h2><p class="info">记录用户何时选择了哪种模式、何时点击完整说明书或打开规则指南；按时间从新到旧，最多展示100条。时间显示为当前设备的本地时间。</p>
+    <div class="tableWrap"><table><thead><tr><th>点击时间</th><th>用户操作</th><th>对应游戏模式</th><th>来源页面</th></tr></thead><tbody id="actions"><tr><td colspan="4" class="empty">正在加载…</td></tr></tbody></table></div>
+  </section>
+  <section class="section"><h2>最近访问会话</h2><p class="info">帮助判断访客是否进入教程、停留多久及是否完成。为了避免公开暴露访客身份，不显示访客编号和会话编号。</p>
+    <div class="tableWrap"><table><thead><tr><th>访问开始时间</th><th>设备</th><th>最近教程模式</th><th>活跃时长</th><th>页面浏览</th><th>开始教程</th><th>完成教程</th><th>最高步骤</th></tr></thead><tbody id="recent"><tr><td colspan="8" class="empty">正在加载…</td></tr></tbody></table></div>
+  </section>
+  <p class="foot">说明：旧版网站曾将部分点击只记录为“普通交互”，后台会尽量从链接还原历史模式点击与说明书点击；没有安装埋点的旧页面无法补回历史数据。新版本开始将单独记录模式选择、规则说明书点击和内嵌指南点击。页面公开可访问，请勿在其中放置个人隐私信息。<a href="index.html">返回游戏主页 →</a></p>
 </div>
 <script>
+'use strict';
 const ENDPOINT='https://kenkpmxmridexfuguray.supabase.co/functions/v1/analytics-dashboard';
-const $=id=>document.getElementById(id);let days=30;let accessKey=localStorage.getItem('gsm_dashboard_key')||'';
-const fmt=s=>{s=Math.max(0,Math.round(Number(s)||0));const m=Math.floor(s/60),r=s%60;return m?`${m}m ${r}s`:`${r}s`};
+const $=id=>document.getElementById(id);
+const MODES=[['strategy','策略模式'],['casual','休闲派对模式'],['math','数字挑战模式'],['strategy2','策略模式2'],['match','比赛模式']];
+const LABEL={strategy:'策略模式',casual:'休闲派对模式',math:'数字挑战模式',strategy2:'策略模式2',match:'比赛模式',home:'游戏主页',other:'其他页面',none:'未进入模式'};
+let days=30;
+function fmt(s){s=Math.max(0,Math.round(Number(s)||0));let m=Math.floor(s/60),r=s%60;return m?m+'分'+r+'秒':r+'秒'}
+function num(n){return (Number(n)||0).toLocaleString('zh-CN')}
+function titleMode(k){return LABEL[k]||'其他页面'}
+function dateText(raw){if(!raw)return '—';const d=new Date(raw);return isNaN(d.getTime())?'—':d.toLocaleString('zh-CN',{hour12:false})}
+function addCell(tr,value){const td=document.createElement('td');td.textContent=String(value);tr.appendChild(td)}
+function emptyRow(body,cols,msg){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=cols;td.className='empty';td.textContent=msg;tr.appendChild(td);body.replaceChildren(tr)}
 function showNotice(msg){$('notice').style.display='block';$('notice').textContent=msg}
 function clearNotice(){$('notice').style.display='none'}
-function readableError(status,body){
-  if(status===401)return'The access key is incorrect. Please enter the current key.';
-  if([502,503,504].includes(status))return'The analytics service is waking up or temporarily unavailable. Wait about 30 seconds, then try again.';
-  if(status===404)return'The analytics service could not be found. Please contact the site administrator.';
-  let detail='';try{detail=JSON.parse(body).error||''}catch(_){detail=body}
-  return detail?`Analytics service error (${status}): ${detail}`:`Analytics service error (${status}). Please try again.`;
+function renderModes(d){
+  const body=$('modes');body.replaceChildren();
+  const c=d.mode_clicks_by_mode||{},visits=d.mode_page_views_by_mode||{},rules=d.rulebook_clicks_by_mode||{},views=d.rulebook_views_by_mode||{},guides=d.guide_opens_by_mode||{};
+  MODES.forEach(pair=>{
+    const [key,name]=pair,tr=document.createElement('tr');
+    addCell(tr,name);addCell(tr,num(c[key]));addCell(tr,num(visits[key]));addCell(tr,num(rules[key]));addCell(tr,num(views[key]));addCell(tr,num(guides[key]));body.appendChild(tr);
+  });
+}
+function renderActions(d){
+  const body=$('actions'),rows=d.recent_actions||[];
+  if(!rows.length){emptyRow(body,4,'所选时间范围内暂无可识别的模式或说明书点击记录');return}
+  body.replaceChildren();
+  const actions={mode_selected:'从首页选择游戏模式',rulebook_opened:'点击完整说明书',guide_opened:'打开内嵌规则指南',tutorial_selected:'点击互动教程'};
+  rows.forEach(x=>{const tr=document.createElement('tr');addCell(tr,dateText(x.at));addCell(tr,actions[x.type]||'其他操作');addCell(tr,titleMode(x.mode));addCell(tr,titleMode(x.source));body.appendChild(tr)});
+}
+function renderRecent(d){
+  const body=$('recent'),rows=d.recent||[];
+  if(!rows.length){emptyRow(body,8,'所选时间范围内暂无访问会话');return}
+  body.replaceChildren();
+  const device={mobile:'手机',tablet:'平板',desktop:'电脑',unknown:'未知'};
+  rows.forEach(x=>{
+    const tr=document.createElement('tr');
+    addCell(tr,dateText(x.started_at));addCell(tr,device[x.device_type]||'未知');addCell(tr,titleMode(x.tutorial_mode||'none'));
+    addCell(tr,fmt(x.active_seconds));addCell(tr,num(x.page_views));addCell(tr,x.tutorial_started?'是':'否');addCell(tr,x.tutorial_completed?'是':'否');addCell(tr,num(x.max_step));body.appendChild(tr);
+  });
 }
 async function fetchData(){
-  clearNotice();
+  clearNotice();$('status').textContent='正在更新统计数据…';$('refresh').disabled=true;
   try{
-    const r=await fetch(`${ENDPOINT}?days=${days}`,{headers:{'x-dashboard-key':accessKey}});
-    if(!r.ok){const body=await r.text();const error=new Error(readableError(r.status,body));error.status=r.status;throw error}
-    const d=await r.json(),s=d.summary||{};
-    $('visitors').textContent=s.unique_visitors??0;$('sessions').textContent=s.sessions??0;$('avgTime').textContent=fmt(s.avg_active_seconds);$('starts').textContent=s.tutorial_started??0;$('completions').textContent=s.tutorial_completed??0;$('rate').textContent=(s.completion_rate??0)+'%';$('tutorialTime').textContent=fmt(s.avg_tutorial_seconds);
-    const dev=d.by_device||{},total=Math.max(1,s.sessions||0);$('mobile').textContent=Math.round((dev.mobile||0)*100/total)+'%';
-    const modes=d.by_mode||{};const entries=Object.entries(modes).sort((a,b)=>b[1]-a[1]);$('modes').innerHTML=entries.length?entries.map(([m,n])=>{const p=Math.round(n*100/total);return `<tr><td><b>${m}</b></td><td>${n}</td><td><div>${p}%</div><div class="bar"><i style="width:${p}%"></i></div></td></tr>`}).join(''):'<tr><td colspan="3" class="empty">No data yet.</td></tr>';
-    const rows=d.recent||[];$('recent').innerHTML=rows.length?rows.map(x=>`<tr><td>${new Date(x.started_at).toLocaleString()}</td><td>${x.device_type||'—'}</td><td>${x.tutorial_mode||'—'}</td><td>${fmt(x.active_seconds)}</td><td>${x.page_views||0}</td><td>${x.tutorial_started?'Yes':'No'}</td><td>${x.tutorial_completed?'Yes':'No'}</td><td>${x.max_step||0}</td></tr>`).join(''):'<tr><td colspan="8" class="empty">No sessions yet.</td></tr>';
-    return{ok:true};
-  }catch(e){
-    const message=e instanceof TypeError?'Could not reach the analytics service. Check your connection and try again.':(e.message||String(e));
-    showNotice(message);return{ok:false,status:e.status||0,message};
-  }
+    const r=await fetch(ENDPOINT+'?days='+days,{cache:'no-store'});
+    if(!r.ok){let detail='';try{const j=await r.json();detail=j.error||''}catch(_){}
+      throw new Error('数据接口返回错误（'+r.status+'）'+(detail?'：'+detail:''))}
+    const d=await r.json(),s=d.summary||{},dev=d.by_device||{},total=Math.max(1,Number(s.sessions)||0);
+    $('visitors').textContent=num(s.unique_visitors);$('sessions').textContent=num(s.sessions);$('avgTime').textContent=fmt(s.avg_active_seconds);
+    $('mobile').textContent=Math.round((dev.mobile||0)*100/total)+'%';
+    $('modeClicks').textContent=num(s.mode_clicks);$('rulebookClicks').textContent=num(s.rulebook_clicks);
+    $('rulebookViews').textContent=num(s.rulebook_views);$('guideOpens').textContent=num(s.guide_opens);
+    $('starts').textContent=num(s.tutorial_started);$('completions').textContent=num(s.tutorial_completed);
+    $('rate').textContent=(Number(s.completion_rate)||0)+'%';$('tutorialTime').textContent=fmt(s.avg_tutorial_seconds);
+    renderModes(d);renderActions(d);renderRecent(d);
+    $('status').textContent='数据已更新 · 统计范围：近'+(days===1?'24小时':days+'天')+' · 更新于 '+dateText(new Date().toISOString());
+  }catch(e){showNotice('获取数据失败：'+(e.message||'请检查网络连接，稍后刷新。'));$('status').textContent='数据暂时无法更新'}
+  finally{$('refresh').disabled=false}
 }
-async function openDashboard(){
-  accessKey=$('key').value.trim()||accessKey;
-  if(!accessKey){$('loginMsg').textContent='Enter the access key.';return}
-  $('loginBtn').disabled=true;$('loginMsg').textContent='Connecting to analytics…';
-  const result=await fetchData();$('loginBtn').disabled=false;
-  if(!result.ok){
-    if(result.status===401){localStorage.removeItem('gsm_dashboard_key');accessKey='';$('key').select()}
-    $('loginMsg').textContent=result.message;return;
-  }
-  localStorage.setItem('gsm_dashboard_key',accessKey);$('loginMsg').textContent='';$('login').classList.add('hidden');$('app').classList.remove('hidden')
-}
-$('loginBtn').onclick=openDashboard;$('key').addEventListener('keydown',e=>{if(e.key==='Enter')openDashboard()});
-$('clearKey').onclick=()=>{localStorage.removeItem('gsm_dashboard_key');accessKey='';$('key').value='';$('loginMsg').textContent='Saved key cleared.';$('key').focus()};
-document.querySelectorAll('[data-days]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-days]').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=Number(b.dataset.days);fetchData()});$('refresh').onclick=fetchData;
-if(accessKey){$('key').value=accessKey;openDashboard()}
+document.querySelectorAll('[data-days]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-days]').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=Number(b.dataset.days);fetchData()}));
+$('refresh').addEventListener('click',fetchData);
+fetchData();
 </script>
 </body>
 </html>
