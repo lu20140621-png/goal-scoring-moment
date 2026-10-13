@@ -26,12 +26,12 @@
     if (filename.startsWith('match')) return 'match';
     return 'other';
   };
-  const isRulebookUrl = (raw) => /(?:rulebook|rules|instructions|game-guide|\\.pdf(?:[?#]|$))/i.test(String(raw || ''));
+  const isRulebookUrl = (raw) => /(?:rulebook|rules|instructions|game-guide|\.pdf(?:[?#]|$))/i.test(String(raw || ''));
   const mode = modeFromUrl(path);
   const filename = lower.split('/').pop() || '';
   const isTutorial = !['home','other'].includes(mode)
     && !isRulebookUrl(filename)
-    && !['match.html','casual.html'].includes(filename);
+    && !['match.html','match-ai.html','casual.html'].includes(filename);
   const deviceType = () => {
     const w = Math.min(screen.width || innerWidth || 0, screen.height || innerHeight || 0);
     return w <= 767 ? 'mobile' : w <= 1100 ? 'tablet' : 'desktop';
