@@ -70,8 +70,8 @@ td{color:#e8f5ec}
   <section class="section"><h2>最近点击记录</h2><p class="info">记录用户何时选择了哪种模式、何时点击完整说明书或打开规则指南；按时间从新到旧，最多展示100条。时间显示为当前设备的本地时间。</p>
     <div class="tableWrap"><table><thead><tr><th>点击时间</th><th>用户操作</th><th>对应游戏模式</th><th>来源页面</th></tr></thead><tbody id="actions"><tr><td colspan="4" class="empty">正在加载…</td></tr></tbody></table></div>
   </section>
-  <section class="section"><h2>最近访问会话</h2><p class="info">帮助判断访客是否进入教程、停留多久及是否完成。为了避免公开暴露访客身份，不显示访客编号和会话编号。</p>
-    <div class="tableWrap"><table><thead><tr><th>访问开始时间</th><th>设备</th><th>最近教程模式</th><th>活跃时长</th><th>页面浏览</th><th>开始教程</th><th>完成教程</th><th>最高步骤</th></tr></thead><tbody id="recent"><tr><td colspan="8" class="empty">正在加载…</td></tr></tbody></table></div>
+  <section class="section"><h2>最近访问会话</h2><p class="info">直接查看每次访问选择了哪种模式、是否点击说明书、是否打开规则指南、停留多久及是否完成。为了避免公开暴露访客身份，不显示访客编号和会话编号。</p>
+    <div class="tableWrap"><table><thead><tr><th>访问开始时间</th><th>设备</th><th>从首页选择的模式</th><th>点击说明书</th><th>访问说明书页</th><th>打开内嵌指南</th><th>最近教程模式</th><th>活跃时长</th><th>页面浏览</th><th>开始教程</th><th>完成教程</th><th>最高步骤</th></tr></thead><tbody id="recent"><tr><td colspan="12" class="empty">正在加载…</td></tr></tbody></table></div>
   </section>
   <p class="foot">说明：旧版网站曾将部分点击只记录为“普通交互”，后台会尽量从链接还原历史模式点击与说明书点击；没有安装埋点的旧页面无法补回历史数据。新版本开始将单独记录模式选择、规则说明书点击和内嵌指南点击。页面公开可访问，请勿在其中放置个人隐私信息。<a href="index.html">返回游戏主页 →</a></p>
 </div>
@@ -107,13 +107,18 @@ function renderActions(d){
 }
 function renderRecent(d){
   const body=$('recent'),rows=d.recent||[];
-  if(!rows.length){emptyRow(body,8,'所选时间范围内暂无访问会话');return}
+  if(!rows.length){emptyRow(body,12,'所选时间范围内暂无访问会话');return}
   body.replaceChildren();
   const device={mobile:'手机',tablet:'平板',desktop:'电脑',unknown:'未知'};
   rows.forEach(x=>{
     const tr=document.createElement('tr');
-    addCell(tr,dateText(x.started_at));addCell(tr,device[x.device_type]||'未知');addCell(tr,titleMode(x.tutorial_mode||'none'));
-    addCell(tr,fmt(x.active_seconds));addCell(tr,num(x.page_views));addCell(tr,x.tutorial_started?'是':'否');addCell(tr,x.tutorial_completed?'是':'否');addCell(tr,num(x.max_step));body.appendChild(tr);
+    const modes=(x.selected_modes||[]).map(titleMode).join('、')||'未选择';
+    const books=(x.rulebook_modes||[]).map(titleMode).join('、');
+    const bookViews=(x.rulebook_view_modes||[]).map(titleMode).join('、');
+    const guides=(x.guide_modes||[]).map(titleMode).join('、');
+    addCell(tr,dateText(x.started_at));addCell(tr,device[x.device_type]||'未知');
+    addCell(tr,modes);addCell(tr,books?'是（'+books+'）':'否');addCell(tr,bookViews?'是（'+bookViews+'）':'否');addCell(tr,guides?'是（'+guides+'）':'否');
+    addCell(tr,titleMode(x.tutorial_mode||'none'));addCell(tr,fmt(x.active_seconds));addCell(tr,num(x.page_views));addCell(tr,x.tutorial_started?'是':'否');addCell(tr,x.tutorial_completed?'是':'否');addCell(tr,num(x.max_step));body.appendChild(tr);
   });
 }
 async function fetchData(){
