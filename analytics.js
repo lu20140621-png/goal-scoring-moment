@@ -16,8 +16,22 @@
   const clean = (v, max=180) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, max);
   const path = location.pathname;
   const lower = path.toLowerCase();
-  const mode = lower.includes('strategy2') ? 'strategy2' : lower.includes('strategy') ? 'strategy' : lower.includes('casual') ? 'casual' : lower.includes('math') ? 'math' : (lower.endsWith('/') || lower.endsWith('/index.html')) ? 'home' : 'other';
-  const isTutorial = !['home','other'].includes(mode);
+  const modeFromUrl = (raw) => {
+    const filename = String(raw || '').split('?')[0].split('#')[0].toLowerCase().split('/').pop() || '';
+    if (!filename || filename === 'index.html') return 'home';
+    if (filename.startsWith('strategy2')) return 'strategy2';
+    if (filename.startsWith('strategy')) return 'strategy';
+    if (filename.startsWith('casual')) return 'casual';
+    if (filename.startsWith('math')) return 'math';
+    if (filename.startsWith('match')) return 'match';
+    return 'other';
+  };
+  const isRulebookUrl = (raw) => /(?:rulebook|rules|instructions|game-guide|\\.pdf(?:[?#]|$))/i.test(String(raw || ''));
+  const mode = modeFromUrl(path);
+  const filename = lower.split('/').pop() || '';
+  const isTutorial = !['home','other'].includes(mode)
+    && !isRulebookUrl(filename)
+    && !['match.html','casual.html'].includes(filename);
   const deviceType = () => {
     const w = Math.min(screen.width || innerWidth || 0, screen.height || innerHeight || 0);
     return w <= 767 ? 'mobile' : w <= 1100 ? 'tablet' : 'desktop';
@@ -121,12 +135,24 @@
     const href = clean(el.getAttribute?.('href') || '', 220);
     const s = `${label} ${href}`.toLowerCase();
     const stepMatch = s.match(/(?:step|round|stage)\s*(\d{1,2})/i);
+    const targetMode = modeFromUrl(href);
+    const controlId = String(el.id || '').toLowerCase();
+    const isModeSelection = mode === 'home' && href && !['home','other'].includes(targetMode);
+    const isBookLink = href && isRulebookUrl(href);
+    const isGuideButton = !href && (/(?:rulebook|rules|guide|instructions|说明书|规则)/i.test(label) || /^(?:rulebtn|guidebtn|openrulebook|openrules)$/.test(controlId));
+    const isTutorialLink = href && /(?:coach|tutorial|start tutorial|互动教程)/i.test(label)
+      && /(?:tutorial|game|cards|strategy-13|math-coach)/i.test(href);
+    let eventName = 'interaction';
+    if (isModeSelection) eventName = 'mode_selected';
+    else if (isBookLink) eventName = 'rulebook_opened';
+    else if (isGuideButton) eventName = 'guide_opened';
+    else if (isTutorialLink) eventName = 'tutorial_selected';
     if (stepMatch) {
       maxStep = Math.max(maxStep, Number(stepMatch[1]));
       sessionStorage.setItem('gsm_max_step_v2', String(maxStep));
-      postEvent('tutorial_step', { step:maxStep, metadata:{ label, href } });
+      postEvent('tutorial_step', { step:maxStep, metadata:{ label, href, target_mode:targetMode } });
     } else {
-      postEvent('interaction', { metadata:{ label, href } });
+      postEvent(eventName, { metadata:{ label, href, target_mode: isModeSelection || isBookLink || isTutorialLink ? targetMode : mode } });
     }
     if (/(finish|complete|completed|done|winner|you win|restart|play again)/i.test(s)) markCompleted(label);
   }, true);
