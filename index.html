@@ -281,6 +281,20 @@ body{overflow-x:hidden}
 .footer{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}
 .footer span{padding:6px 9px;border-radius:999px;background:#052817;border:1px solid #72d58f;color:#ccebd5;font-size:8px;font-weight:900;letter-spacing:.08em}
 
+.modeChoiceModal{position:fixed;inset:0;z-index:12000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(1,16,8,.82);backdrop-filter:blur(7px)}
+.modeChoiceModal.show{display:flex}
+.modeChoiceBox{width:min(520px,94vw);padding:24px;border-radius:24px;background:linear-gradient(180deg,#0b4726,#062f1a);border:3px solid #dfff72;box-shadow:0 22px 60px #0009;text-align:center}
+.modeChoiceKicker{font-size:9px;font-weight:1000;letter-spacing:.16em;color:#dfff72}
+.modeChoiceBox h2{margin:7px 0 7px;font:900 28px/1.05 "Arial Black",Arial,sans-serif;color:#fff}
+.modeChoiceBox p{margin:0 0 17px;color:#d8ecdd;font-size:12px;line-height:1.5;font-weight:750}
+.modeChoiceBtns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modeChoiceBtn{display:flex;flex-direction:column;justify-content:center;min-height:92px;padding:14px 12px;border-radius:15px;text-decoration:none;border:2px solid #fff;font-size:13px;font-weight:1000;box-shadow:0 5px 0 #00180b}
+.modeChoiceBtn small{display:block;margin-top:4px;font-size:9px;font-weight:800;opacity:.82}
+.modeChoiceBtn.tutorial{background:#dfff72;color:#102100}
+.modeChoiceBtn.rulebook{background:#fff;color:#12351e}
+.modeChoiceClose{margin-top:14px;border:0;background:transparent;color:#cbe3d1;font-size:10px;font-weight:900;text-decoration:underline;cursor:pointer}
+@media(max-width:520px){.modeChoiceBox{padding:20px 16px}.modeChoiceBtns{grid-template-columns:1fr}.modeChoiceBtn{min-height:72px}.modeChoiceBox h2{font-size:24px}}
+
 @media(hover:hover) and (pointer:fine){
   .modeCard{
     transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .3s ease,box-shadow .3s ease;
@@ -444,7 +458,7 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
     </header>
 
     <section class="modeGrid" aria-label="Game modes">
-      <a class="modeCard strategy" href="strategy-cards.html?v=20260905yellowload1">
+      <a class="modeCard strategy modePicker" href="strategy-cards.html?v=20260905yellowload1" data-mode-title="STRATEGY MODE" data-tutorial="strategy-cards.html?v=20261007goal2" data-rulebook="strategy-rulebook.html?v=20261007goal2">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 01</span><span class="modeBadge">★ ORIGINAL GAME · START HERE</span></div>
           <h2>STRATEGY<br>MODE</h2>
@@ -459,7 +473,7 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         <div class="enter">PLAY STRATEGY <span class="enterArrow">→</span></div>
       </a>
 
-      <a class="modeCard casual" href="casual.html?v=20260904cardstyle1">
+      <a class="modeCard casual modePicker" href="casual-game.html?v=20261006casualrules7" data-mode-title="CASUAL PARTY MODE" data-tutorial="casual-game.html?v=20261006casualrules7" data-rulebook="casual-rulebook.html?v=20261006casualrules7">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 02</span><span class="modeBadge">FAST PARTY GAME</span></div>
           <h2>CASUAL<br>PARTY</h2>
@@ -473,7 +487,7 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         <div class="enter">PLAY CASUAL <span class="enterArrow">→</span></div>
       </a>
 
-      <a class="modeCard math" href="math-coach-20260907.html?v=20261007drawreject1">
+      <a class="modeCard math modePicker" href="math-coach-20260907.html?v=20261007drawreject1" data-mode-title="MATH CHALLENGE MODE" data-tutorial="math-coach-20260907.html?v=20261007drawreject1" data-rulebook="math-rules.html?v=20261007drawreject2">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 03</span><span class="modeBadge">PAIR & SCORE</span></div>
           <h2>MATH<br>CHALLENGE</h2>
@@ -487,7 +501,7 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         <div class="enter">PLAY CHALLENGE <span class="enterArrow">→</span></div>
       </a>
 
-      <a class="modeCard strategy2" href="strategy2.html">
+      <a class="modeCard strategy2 modePicker" href="strategy2.html" data-mode-title="STRATEGY MODE 2" data-tutorial="strategy2.html?v=20261012modepicker1" data-rulebook="strategy2.html?open=rulebook&v=20261012modepicker1">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 04</span><span class="modeBadge">BLUFF & DEDUCE</span></div>
           <h2>STRATEGY<br>MODE 2</h2>
@@ -516,6 +530,19 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
       </a>
     </section>
 
+    <div class="modeChoiceModal" id="modeChoiceModal" aria-hidden="true">
+      <div class="modeChoiceBox" role="dialog" aria-modal="true" aria-labelledby="modeChoiceTitle">
+        <div class="modeChoiceKicker">CHOOSE HOW TO START</div>
+        <h2 id="modeChoiceTitle">GAME MODE</h2>
+        <p>Learn by playing, or open the complete rules first.</p>
+        <div class="modeChoiceBtns">
+          <a class="modeChoiceBtn tutorial" id="modeTutorialBtn" href="#"><span>INTERACTIVE TUTORIAL</span><small>Learn step by step</small></a>
+          <a class="modeChoiceBtn rulebook" id="modeRulebookBtn" href="#"><span>RULEBOOK</span><small>Open the complete rules</small></a>
+        </div>
+        <button class="modeChoiceClose" id="modeChoiceClose" type="button">BACK TO MODES</button>
+      </div>
+    </div>
+
     <footer class="footer">
       <span>SAME PHYSICAL GAME</span>
       <span>MORE MODES COMING</span>
@@ -524,6 +551,37 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
     </footer>
   </main>
 </div>
+<script>
+(() => {
+  const modal=document.getElementById('modeChoiceModal');
+  const title=document.getElementById('modeChoiceTitle');
+  const tutorial=document.getElementById('modeTutorialBtn');
+  const rulebook=document.getElementById('modeRulebookBtn');
+  const close=document.getElementById('modeChoiceClose');
+  const open=(card)=>{
+    title.textContent=card.dataset.modeTitle||'GAME MODE';
+    tutorial.href=card.dataset.tutorial||card.href;
+    rulebook.href=card.dataset.rulebook||card.href;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  };
+  const shut=()=>{
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  };
+  document.querySelectorAll('.modePicker').forEach(card=>{
+    card.addEventListener('click',e=>{
+      e.preventDefault();
+      open(card);
+    });
+  });
+  close.addEventListener('click',shut);
+  modal.addEventListener('click',e=>{if(e.target===modal)shut()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))shut()});
+})();
+</script>
 <script>
 (() => {
   const loader=document.getElementById('homeLoader');
