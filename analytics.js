@@ -302,7 +302,7 @@
   if (!actions || actions.querySelector('[data-math-rulebook-link]')) return;
   const link = document.createElement('a');
   link.className = 'navBtn';
-  link.href = 'math-rules.html?v=20261007drawreject2';
+  link.href = 'math-rules.html?v=20261025combo1';
   link.textContent = 'RULEBOOK';
   link.dataset.mathRulebookLink = '1';
   const modes = [...actions.querySelectorAll('a')].find(a => /MODES/i.test(a.textContent || ''));
