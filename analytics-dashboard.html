@@ -79,8 +79,8 @@ td{color:#e8f5ec}
 'use strict';
 const ENDPOINT='https://kenkpmxmridexfuguray.supabase.co/functions/v1/analytics-dashboard';
 const $=id=>document.getElementById(id);
-const MODES=[['strategy','策略模式'],['casual','休闲派对模式'],['math','数字挑战模式'],['strategy2','策略模式2'],['match','比赛模式']];
-const LABEL={strategy:'策略模式',casual:'休闲派对模式',math:'数字挑战模式',strategy2:'策略模式2',match:'比赛模式',home:'游戏主页',other:'其他页面',none:'未进入模式'};
+const MODES=[['strategy','策略模式'],['casual','休闲派对模式'],['math','连击挑战模式'],['strategy2','策略模式2'],['match','比赛模式']];
+const LABEL={strategy:'策略模式',casual:'休闲派对模式',math:'连击挑战模式',strategy2:'策略模式2',match:'比赛模式',home:'游戏主页',other:'其他页面',none:'未进入模式'};
 let days=30;
 function fmt(s){s=Math.max(0,Math.round(Number(s)||0));let m=Math.floor(s/60),r=s%60;return m?m+'分'+r+'秒':r+'秒'}
 function num(n){return (Number(n)||0).toLocaleString('zh-CN')}
