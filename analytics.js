@@ -294,7 +294,7 @@
   });
 })();
 
-/* Math Challenge: expose the full rulebook from both tutorial pages. */
+/* Combo Challenge Mode: expose the full rulebook from both tutorial pages. */
 (() => {
   const path = location.pathname.toLowerCase();
   if (!path.endsWith('/math.html') && !path.endsWith('math.html') && !path.includes('math-coach-')) return;
