@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="theme-color" content="#061522">
-<title>Goal-Scoring Moment — Math Challenge Tutorial</title>
+<title>Goal-Scoring Moment — Combo Challenge Mode Tutorial</title>
 <link rel="preload" as="image" href="images/coach-guide.webp">
 <link rel="preload" as="image" href="images/card-back.webp">
 <link rel="preload" as="image" href="images/player-card.webp">
@@ -70,7 +70,7 @@
 <tr><td><div class="guideCombo"><div class="guideFour"><img src="images/shoot-card.webp" alt="Shoot"><img src="images/shoot-card.webp" alt="Shoot"><img src="images/shoot-card.webp" alt="Shoot"><img src="images/shoot-card.webp" alt="Shoot"></div> 4 MATCHING CARDS BONUS</div></td><td>Both columns + 5</td></tr>
 <tr><td><div class="guideCombo"><img src="images/yellow-card.webp" alt="Yellow Card"> UNMATCHED YELLOW CARD</div></td><td>-3</td></tr>
 <tr><td><div class="guideCombo"><img src="images/card-back.webp" alt="Unmatched card"> OTHER UNMATCHED SINGLE</div></td><td>0</td></tr></table><button class="actionBtn blue" id="guideCloseBtn" style="margin-top:12px">CLOSE</button></div></div>
-<div class="overlay" id="finishModal"><div class="modal"><h2>YOU’RE READY TO PLAY!</h2><p>You finished the coach-guided Math Challenge tutorial and the Final Challenge.</p><div class="courseGrid" id="finishChoices"></div><a class="actionBtn red" href="index.html" style="display:block;margin-top:12px;text-decoration:none">BACK TO MODES</a></div></div>
+<div class="overlay" id="finishModal"><div class="modal"><h2>YOU’RE READY TO PLAY!</h2><p>You finished the coach-guided Combo Challenge Mode tutorial and the Final Challenge.</p><div class="courseGrid" id="finishChoices"></div><a class="actionBtn red" href="index.html" style="display:block;margin-top:12px;text-decoration:none">BACK TO MODES</a></div></div>
 <script>
 const lessons=[
 {title:'Set Up Your Grid',intro:'We’ll build this one step at a time. Start with eight cards face-down in a 2 × 4 grid.'},
@@ -98,7 +98,7 @@ function clearSelectable(){document.querySelectorAll('.slot').forEach(el=>{el.cl
 function enableSlots(indices){clearSelectable();indices.forEach(i=>{const el=document.querySelector(`.slot[data-idx="${i}"]`);if(el){el.classList.add('good');el.onclick=()=>slotClick(i)}})}
 function setPiles(activeDraw=false,activeDiscard=false,discardName='DEFENSE'){$('drawPile').classList.toggle('active',activeDraw);$('discardPile').classList.toggle('active',activeDiscard);$('discardPile').innerHTML=`<img src="${cardImg[discardName]}" alt="${discardName}"><span class="pileLabel">DISCARD</span>`}
 function setActions(buttons=[]){const wrap=$('actions');wrap.innerHTML='';buttons.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='actionBtn '+(x.kind||'')+(i===0?' highlight':'');b.textContent=x.text;b.onclick=x.onClick;wrap.appendChild(b)});setActionsEnabled(!coachNext)}
-function finishLesson(text){clearSelectable();setPiles(false,false);showFx(current===lessons.length-1?'FINAL ANSWER CORRECT':'CORRECT','good');setActions([]);coachSay(text,()=>{if(current===lessons.length-1){coachSay('Nice work. You can now play Math Challenge without the tutorial.',()=>showFinish())}else{current++;startLesson()}})}
+function finishLesson(text){clearSelectable();setPiles(false,false);showFx(current===lessons.length-1?'FINAL ANSWER CORRECT':'CORRECT','good');setActions([]);coachSay(text,()=>{if(current===lessons.length-1){coachSay('Nice work. You can now play Combo Challenge Mode without the tutorial.',()=>showFinish())}else{current++;startLesson()}})}
 function startLesson(){phase=0;chosenCard='';updateHeader();clearSelectable();showPairInfo([]);setActions([]);setPiles(false,false);$('roundTag').textContent=current===7?'FINAL TURN':current===8?'FINAL CHALLENGE':'2 × 4 GRID';setupScene();const instruction=$('actionHint').dataset.instruction||'';coachSay(lessons[current].intro,()=>{coachSay(instruction);setActionsEnabled(true)})}
 function setupScene(){let instruction='';switch(current){
 case 0:setGrid(Array.from({length:8},()=>makeCard('CARD BACK',true)));instruction='Build the 2 × 4 grid. Tap the button below.';setActions([{text:'BUILD THE GRID',kind:'green',onClick:()=>finishLesson('Good. Eight face-down cards make your starting 2 × 4 grid.')}]);break;
