@@ -429,6 +429,27 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
 .homeLoadBar{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#bfff1f,#ffe45a);transition:width .18s ease}
 .homeLoadPct{margin-top:8px;font-size:9px;font-weight:950;color:#dff4e4}
 @keyframes homeBallPulse{from{transform:scale(.96) rotate(-3deg)}to{transform:scale(1.04) rotate(3deg)}}
+
+/* One separate video entry above each mode; tutorial links remain independent. */
+.modeEntry{display:flex;flex-direction:column;gap:20px;min-width:0}
+.modeEntry-strategy,.modeEntry-match{grid-column:1/-1}
+.modeEntry>.modeCard{display:block;width:100%;flex:1}
+.modeVideoButton{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:142px;width:100%;padding:18px 14px;border:2px solid #83c79b;border-radius:20px;background:radial-gradient(ellipse at top,#1b6842,#05291a);color:#fff;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px #0003;transition:background .2s,border-color .2s}
+.modeVideoButton:hover{background:#104d2d;border-color:#dfff72}
+.modeVideoButton:focus-visible,.modeVideoClose:focus-visible{outline:3px solid #ffd323;outline-offset:4px}
+.modeVideoPlay{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;padding-left:3px;background:#dfff72;color:#102100;font-size:22px}
+.modeVideoLabel{font-size:15px;font-weight:900;letter-spacing:.06em}
+.modeVideoName{font-size:12px;line-height:1.4;color:#d4e8d8}
+.modeVideoDialog{width:min(440px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:28px 22px;border:2px solid #dfff72;border-radius:24px;background:#07351f;color:#fff;text-align:center;box-shadow:0 24px 70px #0008}
+.modeVideoDialog::backdrop{background:#001109d9;backdrop-filter:blur(5px)}
+.modeVideoDialog .modeVideoPlay{margin:0 auto 16px}
+.modeVideoDialog h2{margin:10px 0;font-size:24px;line-height:1.4}
+.modeVideoDialog p{font-size:16px;line-height:1.6;color:#d4e8d8}
+.modeVideoDialog .modeVideoName{font-size:13px}
+.modeVideoClose{margin-top:8px;padding:12px 24px;min-height:44px;border:0;border-radius:12px;background:#dfff72;color:#102100;font:900 15px Arial,sans-serif;cursor:pointer}
+@media(max-width:1080px){.modeEntry-strategy2{grid-column:1/-1}}
+@media(max-width:760px){.modeEntry{grid-column:auto;gap:16px}.modeEntry>.modeCard{display:flex}.modeVideoButton{min-height:130px}}
+
 </style>
 </head>
 <body>
@@ -460,7 +481,13 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
     </header>
 
     <section class="modeGrid" aria-label="Game modes">
-      <a class="modeCard strategy modePicker" href="strategy-cards.html?v=20260905yellowload1" data-mode-title="STRATEGY MODE" data-tutorial="strategy-cards.html?v=20261007goal2" data-rulebook="strategy-rulebook.html?v=20261007goal2">
+      <div class="modeEntry modeEntry-strategy">
+        <button class="modeVideoButton" type="button" data-video-mode="STRATEGY MODE" aria-haspopup="dialog" aria-controls="modeVideoDialog" aria-label="Watch STRATEGY MODE video">
+          <span class="modeVideoPlay" aria-hidden="true">▶</span>
+          <span class="modeVideoLabel">VIDEO TUTORIAL</span>
+          <span class="modeVideoName">STRATEGY MODE</span>
+        </button>
+        <a class="modeCard strategy modePicker" href="strategy-cards.html?v=20260905yellowload1" data-mode-title="STRATEGY MODE" data-tutorial="strategy-cards.html?v=20261007goal2" data-rulebook="strategy-rulebook.html?v=20261007goal2">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 01</span><span class="modeBadge">★ ORIGINAL GAME · START HERE</span></div>
           <h2>STRATEGY<br>MODE</h2>
@@ -474,8 +501,15 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         </div>
         <div class="enter">PLAY STRATEGY <span class="enterArrow">→</span></div>
       </a>
+      </div>
 
-      <a class="modeCard casual modePicker" href="casual-game.html?v=20261006casualrules7" data-mode-title="CASUAL PARTY MODE" data-tutorial="casual-game.html?v=20261006casualrules7" data-rulebook="casual-rulebook.html?v=20261006casualrules7">
+      <div class="modeEntry modeEntry-casual">
+        <button class="modeVideoButton" type="button" data-video-mode="CASUAL PARTY MODE" aria-haspopup="dialog" aria-controls="modeVideoDialog" aria-label="Watch CASUAL PARTY MODE video">
+          <span class="modeVideoPlay" aria-hidden="true">▶</span>
+          <span class="modeVideoLabel">VIDEO TUTORIAL</span>
+          <span class="modeVideoName">CASUAL PARTY MODE</span>
+        </button>
+        <a class="modeCard casual modePicker" href="casual-game.html?v=20261006casualrules7" data-mode-title="CASUAL PARTY MODE" data-tutorial="casual-game.html?v=20261006casualrules7" data-rulebook="casual-rulebook.html?v=20261006casualrules7">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 02</span><span class="modeBadge">FAST PARTY GAME</span></div>
           <h2>CASUAL<br>PARTY</h2>
@@ -488,8 +522,15 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         </div>
         <div class="enter">PLAY CASUAL <span class="enterArrow">→</span></div>
       </a>
+      </div>
 
-      <a class="modeCard math modePicker" href="math-coach-20260907.html?v=20261025combo1" data-mode-title="COMBO CHALLENGE MODE" data-tutorial="math-coach-20260907.html?v=20261025combo1" data-rulebook="math-rules.html?v=20261025combo1">
+      <div class="modeEntry modeEntry-math">
+        <button class="modeVideoButton" type="button" data-video-mode="COMBO CHALLENGE MODE" aria-haspopup="dialog" aria-controls="modeVideoDialog" aria-label="Watch COMBO CHALLENGE MODE video">
+          <span class="modeVideoPlay" aria-hidden="true">▶</span>
+          <span class="modeVideoLabel">VIDEO TUTORIAL</span>
+          <span class="modeVideoName">COMBO CHALLENGE MODE</span>
+        </button>
+        <a class="modeCard math modePicker" href="math-coach-20260907.html?v=20261025combo1" data-mode-title="COMBO CHALLENGE MODE" data-tutorial="math-coach-20260907.html?v=20261025combo1" data-rulebook="math-rules.html?v=20261025combo1">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 03</span><span class="modeBadge">PAIR & SCORE</span></div>
           <h2>COMBO<br>CHALLENGE<br>MODE</h2>
@@ -502,8 +543,15 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         </div>
         <div class="enter">PLAY COMBO CHALLENGE MODE <span class="enterArrow">→</span></div>
       </a>
+      </div>
 
-      <a class="modeCard strategy2 modePicker" href="strategy2.html" data-mode-title="STRATEGY MODE 2" data-tutorial="strategy2.html?v=20261012modepicker1" data-rulebook="strategy2.html?open=rulebook&v=20261012modepicker1">
+      <div class="modeEntry modeEntry-strategy2">
+        <button class="modeVideoButton" type="button" data-video-mode="STRATEGY MODE 2" aria-haspopup="dialog" aria-controls="modeVideoDialog" aria-label="Watch STRATEGY MODE 2 video">
+          <span class="modeVideoPlay" aria-hidden="true">▶</span>
+          <span class="modeVideoLabel">VIDEO TUTORIAL</span>
+          <span class="modeVideoName">STRATEGY MODE 2</span>
+        </button>
+        <a class="modeCard strategy2 modePicker" href="strategy2.html" data-mode-title="STRATEGY MODE 2" data-tutorial="strategy2.html?v=20261012modepicker1" data-rulebook="strategy2.html?open=rulebook&v=20261012modepicker1">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 04</span><span class="modeBadge">BLUFF & DEDUCE</span></div>
           <h2>STRATEGY<br>MODE 2</h2>
@@ -516,8 +564,15 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         </div>
         <div class="enter">PLAY MODE 2 <span class="enterArrow">→</span></div>
       </a>
+      </div>
 
-      <a class="modeCard" href="match.html?v=20260907m1" style="grid-column:1/-1;--accent:#e7ff5a;--surface1:#123f79;--surface2:#0b6f48;--ray:rgba(231,255,90,.55);--title:#fff;--stroke:#06170b;--titleShadow:#042a16;--copy:#f4fff6;min-height:410px">
+      <div class="modeEntry modeEntry-match">
+        <button class="modeVideoButton" type="button" data-video-mode="MATCH MODE" aria-haspopup="dialog" aria-controls="modeVideoDialog" aria-label="Watch MATCH MODE video">
+          <span class="modeVideoPlay" aria-hidden="true">▶</span>
+          <span class="modeVideoLabel">VIDEO TUTORIAL</span>
+          <span class="modeVideoName">MATCH MODE</span>
+        </button>
+        <a class="modeCard" href="match.html?v=20260907m1" style="grid-column:1/-1;--accent:#e7ff5a;--surface1:#123f79;--surface2:#0b6f48;--ray:rgba(231,255,90,.55);--title:#fff;--stroke:#06170b;--titleShadow:#042a16;--copy:#f4fff6;min-height:410px">
         <div class="modeCopy">
           <div class="modeTop"><span class="modeNo">MODE 05</span><span class="modeBadge">NEW · 10-MINUTE MATCH</span></div>
           <h2>MATCH<br>MODE</h2>
@@ -530,6 +585,7 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         </div>
         <div class="enter">TEST MATCH MODE <span class="enterArrow">→</span></div>
       </a>
+      </div>
     </section>
 
     <div class="modeChoiceModal" id="modeChoiceModal" aria-hidden="true">
@@ -544,6 +600,15 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
         <button class="modeChoiceClose" id="modeChoiceClose" type="button">BACK TO MODES</button>
       </div>
     </div>
+
+
+    <dialog class="modeVideoDialog" id="modeVideoDialog" aria-labelledby="modeVideoTitle" aria-describedby="modeVideoMessage">
+      <span class="modeVideoPlay" aria-hidden="true">▶</span>
+      <p class="modeVideoName" id="modeVideoName"></p>
+      <h2 id="modeVideoTitle">Video in production!</h2>
+      <p id="modeVideoMessage">We’re making this video. Please check back soon!</p>
+      <form method="dialog"><button class="modeVideoClose" id="modeVideoClose" type="submit" autofocus>BACK TO MODES</button></form>
+    </dialog>
 
     <footer class="footer">
       <span>SAME PHYSICAL GAME</span>
@@ -611,6 +676,44 @@ body.homeReady>.page{opacity:1;visibility:visible;transition:opacity .3s ease}
       loader.classList.add('done');
       setTimeout(()=>loader.remove(),380);
     }));
+  });
+})();
+</script>
+<script>
+
+(() => {
+  const dialog = document.getElementById('modeVideoDialog');
+  const name = document.getElementById('modeVideoName');
+  const title = document.getElementById('modeVideoTitle');
+  const message = document.getElementById('modeVideoMessage');
+  const close = document.getElementById('modeVideoClose');
+  const chinese = /^zh\b/i.test(navigator.language || '');
+  if (chinese) {
+    dialog.lang = 'zh';
+    title.textContent = '视频还在制作中！';
+    message.textContent = '视频制作完成后会在这里上线，敬请期待。';
+    close.textContent = '返回模式';
+  }
+  let opener = null;
+  let previousOverflow = '';
+  document.querySelectorAll('.modeVideoButton').forEach(button => {
+    button.addEventListener('click', () => {
+      opener = button;
+      name.textContent = button.dataset.videoMode;
+      previousOverflow = document.body.style.overflow;
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  dialog.addEventListener('click', event => {
+    if (event.target !== dialog) return;
+    const box = dialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right ||
+        event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+  });
+  dialog.addEventListener('close', () => {
+    document.body.style.overflow = previousOverflow;
+    if (opener) opener.focus();
   });
 })();
 </script>
