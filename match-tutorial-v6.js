@@ -24,7 +24,7 @@ const lessons=[
 {title:'FULL SHOOT ORDER',note:'Field defenders each choose DEFENSE, TACKLE, or NO DEFENSE. At the goal, the GK only chooses whether to play DEFENSE.',hand:['SHOOT','DRIBBLE'],lines:[
 'Playing SHOOT starts one scoring attack. Start at the opponent’s D1.',
 'D1 has 3 choices: play DEFENSE, play TACKLE, or play nothing. If D1 plays nothing, D1 is cleared immediately and no DRIBBLE is needed.',
-'D2 — and D3 in 4v4 — use the exact same 3 choices. Fully resolve any DEFENSE/TACKLE before moving to the next line.',
+'In 3v3, D2 has the same three choices. In 2v2, there is no D2—the next stage is the Goalkeeper.',
 'The Goalkeeper is simpler: the GK may play DEFENSE to start the Goalkeeper Duel. If the GK has no DEFENSE or chooses not to play it, the shot is an automatic GOAL.'
 ],action:'attack'},
 {title:'FIELD DEFENSE RESULT',note:'Field DEFENSE stops only this SHOOT. Soccer stays with the attacker.',hand:['SHOOT','SHOOT','DRIBBLE'],lines:[
