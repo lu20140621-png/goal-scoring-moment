@@ -41,89 +41,117 @@ if(cards){
   for(const row of $$('.cardr',cards)){
     const name=$('b',row)?.textContent.trim();
     const text=$('span',row);
-    if(name==='DEFENSE'&&text) text.textContent='Field player: stops the current SHOOT only. Goalkeeper: starts one official Goalkeeper Duel — choose RPS or Left / Center / Right.';
+    if(name==='DEFENSE'&&text) text.textContent='Field player: stops the current SHOOT only. Goalkeeper: starts the Left / Center / Right Goalkeeper Duel.';
   }
 }
 
 const shoot=$('#shoot');
 if(shoot){
   const gkStep=$$('.flowStep',shoot).find(x=>$('b',x)?.textContent.trim()==='GOALKEEPER');
-  if(gkStep){const p=$('p',gkStep);if(p)p.textContent='GK DEFENSE starts a chosen duel: RPS or Left / Center / Right. No DEFENSE = automatic goal.';}
+  if(gkStep){const p=$('p',gkStep);if(p)p.textContent='GK DEFENSE starts the Left / Center / Right duel. No DEFENSE = automatic goal.';}
 }
 
 const gk=$('#gk');
 if(gk){
   gk.innerHTML=`
-  <h2>10. NORMAL GOALKEEPER FLOW — TWO OFFICIAL DUELS</h2>
+  <h2>10. GOALKEEPER DUEL — LEFT / CENTER / RIGHT</h2>
+  <p class="mindGameSlogan"><strong>The ultimate mind game. Shooter picks a direction, Goalkeeper picks a direction.</strong></p>
   <div class="gkChoiceHero">
-    <div class="gkChoiceCard"><img src="images/defense-card.webp" alt="Goalkeeper Defense"><div><b>GK PLAYS DEFENSE</b><span>Playing GK DEFENSE does not guarantee a save. Resolve one Goalkeeper Duel using either official method below.</span></div></div>
+    <div class="gkChoiceCard"><img src="images/defense-card.webp" alt="Goalkeeper Defense"><div><b>GK PLAYS DEFENSE</b><span>Goalkeeper DEFENSE starts the direction duel. Playing DEFENSE does not guarantee a save.</span></div></div>
     <div class="gkChoiceArrow">→</div>
-    <div class="gkChoiceResult"><b>CHOOSE A DUEL</b><span>Both methods are official. Agree on which method to use before resolving the duel.</span></div>
+    <div class="gkChoiceResult"><b>ONE OFFICIAL METHOD</b><span>Left / Center / Right. Both sides reveal their chosen direction at the same time.</span></div>
   </div>
-  <div class="duelMethods">
-    <article class="duelMethod rpsMethod">
-      <div class="methodTag">OPTION A</div><h3>✊ ✋ ✌️ ROCK · PAPER · SCISSORS</h3>
-      <div class="rpsIcons"><span>✊<small>ROCK</small></span><span>✋<small>PAPER</small></span><span>✌️<small>SCISSORS</small></span></div>
-      <div class="methodRules"><b>Shooter wins → GOAL</b><b>Goalkeeper wins → SAVE</b><b>Tie → repeat</b></div>
-    </article>
+  <div class="duelMethods single">
     <article class="duelMethod directionMethod">
-      <div class="methodTag">OPTION B</div><h3>🥅 LEFT · CENTER · RIGHT</h3>
+      <div class="methodTag">THE GOALKEEPER DUEL</div><h3>🥅 LEFT · CENTER · RIGHT</h3>
       <div class="goalMouth"><span>←<small>LEFT</small></span><span>●<small>CENTER</small></span><span>→<small>RIGHT</small></span></div>
-      <p>The Shooter and Goalkeeper each choose <b>Left, Center, or Right</b> and call their choices at the same time.</p>
-      <div class="methodRules"><b>SAME call → SAVE</b><b>DIFFERENT calls → GOAL</b></div>
+      <p>The Shooter and Goalkeeper each secretly choose <b>Left, Center, or Right</b>, then call out their choices at the same time.</p>
+      <div class="methodRules"><b>SAME direction → SAVE</b><b>DIFFERENT directions → GOAL</b></div>
     </article>
   </div>
   <ol>
-    <li>The Goalkeeper stage begins only after every active field defensive line has either been cleared or chosen not to defend.</li>
-    <li>If the Goalkeeper has no DEFENSE, the attack scores automatically.</li>
-    <li>If the Goalkeeper plays DEFENSE, choose either <b>Rock / Paper / Scissors</b> or <b>Left / Center / Right</b>.</li>
-    <li>RPS: Shooter wins = GOAL. Goalkeeper wins = SAVE. Tie = repeat.</li>
-    <li>Left / Center / Right: both sides call at the same time. Same call = SAVE. Different calls = GOAL.</li>
-    <li>After any Goalkeeper-stage result — SAVE, duel loss, or no-DEFENSE goal — the Soccer Card goes to the defending Goalkeeper.</li>
-    <li>The Goalkeeper becomes the new ballholder and may PASS or play SHOOT if they have a SHOOT card.</li>
+    <li>The Goalkeeper stage begins after every active field defensive line has been cleared or chosen not to defend.</li>
+    <li>If the Goalkeeper does not play DEFENSE, the attacking team automatically scores one goal.</li>
+    <li>If the Goalkeeper plays DEFENSE, the Shooter and Goalkeeper each secretly choose Left, Center, or Right and reveal their choices simultaneously.</li>
+    <li>Same direction = SAVE. Different directions = GOAL +1.</li>
+    <li>After either result, the Soccer Card goes to the defending Goalkeeper.</li>
+    <li>The Goalkeeper becomes the new ballholder and may PASS, or play SHOOT if they have a SHOOT card.</li>
   </ol>
-  <p class="ruling"><b>TWO OFFICIAL METHODS:</b> Neither duel method is a bonus rule. Both are valid Match Mode Goalkeeper resolutions. Agree on the method before the duel begins.</p>
+  <p class="ruling"><b>ONE OFFICIAL GOALKEEPER DUEL:</b> Left / Center / Right is used for both normal Goalkeeper saves and penalty shootouts.</p>
   <p class="important"><b>GK POSSESSION RULE:</b> After the Goalkeeper stage, Soccer goes to the defending Goalkeeper whether the result is a SAVE or a GOAL.</p>`;
 }
 
 const penalty=$('#penalty');
 if(penalty){
   penalty.innerHTML=`
-  <h2>14. PENALTY SHOOTOUT — BEST OF 5 · CHOOSE THE DUEL</h2>
-  <p>If the main match ends in a tie, play a best-of-5 Penalty Shootout. Teams alternate one kick at a time. <b>Do not draw Action Cards to resolve penalties.</b> Each penalty is resolved with one of the two official duel methods.</p>
-  <div class="penaltyDuelChoice">
-    <article><div class="methodTag">METHOD A</div><h3>✊ ✋ ✌️ RPS</h3><p>Shooter wins the RPS = <b>GOAL</b>.<br>Goalkeeper wins = <b>SAVE</b>.<br>Tie = repeat the same penalty duel.</p></article>
-    <article><div class="methodTag">METHOD B</div><h3>🥅 LEFT · CENTER · RIGHT</h3><div class="miniGoal"><span>LEFT</span><span>CENTER</span><span>RIGHT</span></div><p>Both sides call their choices at the same time.<br><b>SAME = SAVE</b><br><b>DIFFERENT = GOAL</b></p></article>
+  <h2>14. PENALTY SHOOTOUT — FIVE KICKS PER TEAM</h2>
+  <p>If the 10-minute main match ends tied, take a five-kick penalty shootout. Teams alternate kicks: <b>GREEN first, then BLUE</b>. Players rotate as in real soccer rather than assigning every kick to the same player. <b>No Action Cards are drawn or spent for penalties.</b></p>
+  <p class="mindGameSlogan"><strong>The ultimate mind game. Shooter picks a direction, Goalkeeper picks a direction.</strong></p>
+  <div class="penaltyDuelChoice single">
+    <article><div class="methodTag">PENALTY DUEL</div><h3>🥅 LEFT · CENTER · RIGHT</h3>
+      <div class="miniGoal"><span>LEFT</span><span>CENTER</span><span>RIGHT</span></div>
+      <p>The Shooter and defending Goalkeeper secretly select a direction, then reveal it simultaneously.<br><b>SAME = SAVE</b><br><b>DIFFERENT = GOAL</b></p>
+    </article>
   </div>
+  <h3>ROTATE THE KICKERS — EACH ROLE TAKES A TURN</h3>
+  <p>Use every eligible role on your team once before repeating the rotation. A person controlling multiple roles follows the separate order for those roles. The opposing Goalkeeper defends each kick.</p>
   <div class="penaltyRounds">
-    <div class="duel"><b>ROUND 1</b><br>GREEN D1 ↔ BLUE GK<br>BLUE D1 ↔ GREEN GK</div>
-    <div class="duel"><b>ROUND 2</b><br>GREEN D2 ↔ BLUE GK<br>BLUE D2 ↔ GREEN GK</div>
-    <div class="duel"><b>ROUND 3</b><br>GREEN D1 ↔ BLUE GK<br>BLUE D1 ↔ GREEN GK</div>
-    <div class="duel"><b>ROUND 4</b><br>GREEN D2 ↔ BLUE GK<br>BLUE D2 ↔ GREEN GK</div>
-    <div class="duel"><b>ROUND 5</b><br>GREEN D1 ↔ BLUE GK<br>BLUE D1 ↔ GREEN GK</div>
+    <div class="duel"><b>4 PLAYERS · 2v2</b><br>D1 → GK → D1 → GK → D1</div>
+    <div class="duel"><b>6 PLAYERS · 3v3</b><br>D1 → D2 → GK → D1 → D2</div>
+    <div class="duel"><b>8 PLAYERS · 4v4</b><br>D1 → D2 → D3 → GK → D1</div>
   </div>
   <ol>
-    <li>GREEN takes the first penalty, then BLUE takes the matching penalty.</li>
-    <li>Before each penalty duel is resolved, use either official method: <b>RPS</b> or <b>Left / Center / Right</b>.</li>
-    <li>Keep a running score. If one team can no longer mathematically catch the other, the shootout ends early.</li>
-    <li>If tied after five kicks each, continue to sudden death.</li>
-    <li>Sudden death is resolved in paired rounds: GREEN takes one kick, then BLUE takes one matching kick. Declare a winner only after both kicks in that sudden-death round are complete.</li>
+    <li>GREEN takes one kick, then BLUE takes its matching kick. Continue alternating for up to five kicks per team.</li>
+    <li>Rotate through the team's eligible roles in order before letting a role kick again. Both teams use their chosen role formation.</li>
+    <li>For each kick, the Shooter and defending Goalkeeper simultaneously reveal Left, Center, or Right. Same direction = SAVE; different directions = GOAL.</li>
+    <li>Track the score. End early if the trailing team can no longer catch up with the kicks remaining.</li>
+    <li>If the teams are tied after five kicks each, continue in sudden death. Both teams must complete their kick in each paired round before a winner is declared.</li>
   </ol>
-  <p class="ruling"><b>PENALTY CHOICE:</b> Both official Goalkeeper Duel methods remain available in the shootout. Use whichever method both sides agree on for that penalty.</p>`;
+  <p class="ruling"><b>PENALTY RULE:</b> The same Left / Center / Right duel decides every penalty. No card draw, SHOOT card, or GK DEFENSE card is needed.</p>`;
 }
 
+// Keep all visible rulebook sections consistent with the one official direction duel.
+const cardGuide=$$('.cardGuideItem').find(item=>$('b',item)?.textContent.trim()==='DEFENSE');
+if(cardGuide){const cardText=$('p',cardGuide);if(cardText)cardText.textContent='Field: stop this SHOOT only. GK: start the Left / Center / Right save duel.';}
+const gkAttack=$('#gkattack');
+if(gkAttack){
+  for(const li of $$('li',gkAttack)){
+    if(li.textContent.includes('start RPS'))li.innerHTML=li.innerHTML.replace('start RPS','start the Left / Center / Right duel');
+  }
+}
+const recommendedPanel=document.createElement('div');
+recommendedPanel.className='recommendedLineups';
+recommendedPanel.id='recommendedLineups';
+recommendedPanel.innerHTML='<strong>RECOMMENDED PLAYER COUNTS: 4 OR 6</strong><span><b>4 players (2v2)</b> for a quick, competitive team match · <b>6 players (3v3)</b> for extra teamwork and tactics. Other 2–8 player setups remain playable.</span>';
+const quick=$('.quick');
+if(quick&&!$('#recommendedLineups'))quick.insertAdjacentElement('beforebegin',recommendedPanel);
+const playerCards=$$('#setup .controlGrid article');
+for(const card of playerCards){
+  const label=$('b',card)?.textContent.trim();
+  if(label==='4 PLAYERS'||label==='6 PLAYERS'){
+    card.classList.add('isRecommended');
+    const marker=document.createElement('div');
+    marker.className='recommendTag';
+    marker.textContent='★ RECOMMENDED';
+    card.appendChild(marker);
+  }
+}
+const formations=$$('#setup .formationGrid article');
+for(const form of formations){
+  if(form.classList.contains('f2')||form.classList.contains('f3'))form.classList.add('isRecommended');
+}
 const rulings=$('#rulings');
 if(rulings){
   const first=$('.line',rulings);
   if(first){
-    const a=document.createElement('div');a.className='line';a.innerHTML='<div class="key">GK DUEL METHODS</div><div class="val">After GK plays DEFENSE, use either RPS or Left / Center / Right. Both are official.</div>';
-    const b=document.createElement('div');b.className='line';b.innerHTML='<div class="key">LEFT / CENTER / RIGHT</div><div class="val">Both sides call at the same time. Same call = SAVE. Different calls = GOAL.</div>';
+    const a=document.createElement('div');a.className='line';a.innerHTML='<div class="key">GOALKEEPER DUEL</div><div class="val">Left / Center / Right only. The Shooter and GK reveal simultaneously: same direction = SAVE; different directions = GOAL.</div>';
+    const b=document.createElement('div');b.className='line';b.innerHTML='<div class="key">PENALTY KICK ORDER</div><div class="val">Teams alternate kicks. Each eligible role kicks once before that team repeats its rotation; use Left / Center / Right for every kick.</div>';
     first.insertAdjacentElement('beforebegin',b);first.insertAdjacentElement('beforebegin',a);
   }
 }
 
 const version=$('.version');
-if(version) version.textContent='MATCH MODE · VISUAL PLAYTEST RULEBOOK V13 · DUAL GOALKEEPER DUELS · 2026-09-09';
+if(version) version.textContent='MATCH MODE · VISUAL RULEBOOK V13 · LEFT / CENTER / RIGHT · 2026-11-15';
 
 const style=document.createElement('style');
 style.textContent=`
@@ -131,6 +159,22 @@ style.textContent=`
 @media(max-width:760px){.gkChoiceHero{grid-template-columns:1fr}.gkChoiceArrow{transform:rotate(90deg);text-align:center;line-height:18px}.duelMethods,.penaltyDuelChoice{grid-template-columns:1fr}.gkChoiceCard,.gkChoiceResult{min-height:0}.rpsIcons span,.goalMouth span{min-height:58px}.duelMethod,.penaltyDuelChoice article{padding:12px}}
 `;
 document.head.appendChild(style);
+
+const updateStyle=document.createElement('style');
+updateStyle.textContent=`
+.mindGameSlogan{margin:14px 0!important;padding:16px 18px!important;background:linear-gradient(110deg,#174b2b,#0b3020)!important;border:2px solid #e0f878!important;border-radius:14px!important;color:#fff8cf!important;text-align:center!important;font-size:clamp(15px,2vw,20px)!important;line-height:1.42!important;box-shadow:0 4px 16px #0004}
+.mindGameSlogan strong{font-weight:1000!important}
+.duelMethods.single,.penaltyDuelChoice.single{grid-template-columns:minmax(0,1fr);max-width:780px;margin-left:auto;margin-right:auto}
+.duelMethods.single .duelMethod,.penaltyDuelChoice.single article{padding:18px}
+.recommendedLineups{margin:0 0 15px;padding:14px 18px;background:linear-gradient(120deg,#193f29,#0b291d);border:2px solid #ffd83d;border-radius:16px;box-shadow:0 6px 22px #0004}
+.recommendedLineups strong{display:block;color:#ffd83d;font-size:14px;margin-bottom:7px;font-weight:1000}
+.recommendedLineups span{display:block;color:#e9f7ea;font-size:12px;line-height:1.55}
+.recommendedLineups span b{color:#fff}
+.controlGrid article.isRecommended,.formationGrid article.isRecommended{border:2px solid #ffd83d!important;background:#143a21!important}
+.recommendTag{position:static!important;display:inline-block;margin-top:8px;padding:5px 8px!important;border-radius:99px;background:#ffd83d;color:#241a08;font-size:8px!important;font-weight:1000!important}
+@media(max-width:760px){.recommendedLineups{padding:13px}.recommendedLineups strong{font-size:12px}.recommendedLineups span{font-size:10px}.mindGameSlogan{font-size:15px!important;padding:13px 12px!important}}
+`;
+document.head.appendChild(updateStyle);
 
 const beginnerStyle=document.createElement('style');
 beginnerStyle.textContent=`
