@@ -16,16 +16,7 @@ try{
     const replacement=[
       "function goalkeeperDuel(gk){",
       "  if(!state.attack)return;",
-      "  showModal('CHOOSE GOALKEEPER DUEL','<b>Two official methods are available.</b><br>Choose Rock / Paper / Scissors or Left / Center / Right for this final save duel.',[['✊ ✋ ✌️ RPS','rps'],['🥅 LEFT · CENTER · RIGHT','direction']],method=>{if(method==='rps')goalkeeperDuelRPS(gk);else goalkeeperDuelDirection(gk)})",
-      "}",
-      "function goalkeeperDuelRPS(gk){",
-      "  if(!state.attack)return;",
-      "  if(teamOf(gk)==='blue')showRPS('GOALKEEPER DUEL · RPS',res=>res==='win'?goalkeeperSave(gk):scoreGoalAndGiveGK(gk,'SHOOTER WINS RPS'));",
-      "  else showRPS('GOALKEEPER DUEL · RPS',res=>res==='win'?scoreGoalAndGiveGK(gk,'SHOOTER WINS RPS'):goalkeeperSave(gk));",
-      "}",
-      "function goalkeeperDuelDirection(gk){",
-      "  if(!state.attack)return;",
-      "  showModal('GOALKEEPER DUEL · LEFT / CENTER / RIGHT','Shooter and Goalkeeper choose at the same time. <b>SAME call = SAVE.</b> <b>DIFFERENT calls = GOAL.</b>',[['← LEFT','left'],['● CENTER','center'],['RIGHT →','right']],choice=>{",
+      "  showModal('GOALKEEPER DUEL · LEFT / CENTER / RIGHT','The ultimate mind game. Shooter picks a direction, Goalkeeper picks a direction. <b>SAME = SAVE.</b> <b>DIFFERENT = GOAL.</b>',[['← LEFT','left'],['● CENTER','center'],['RIGHT →','right']],choice=>{",
       "    const ai=['left','center','right'][Math.floor(Math.random()*3)],same=choice===ai;",
       "    const humanRole=teamOf(gk)==='blue'?'GOALKEEPER':'SHOOTER',aiRole=teamOf(gk)==='blue'?'SHOOTER':'GOALKEEPER';",
       "    log('DIRECTION DUEL: YOU '+humanRole+' '+choice.toUpperCase()+' · AI '+aiRole+' '+ai.toUpperCase()+' · '+(same?'SAVE':'GOAL'));",
@@ -35,8 +26,8 @@ try{
       "}"
     ].join('\\n');
     src=src.slice(0,duelStart)+replacement+src.slice(duelEnd);
-    src=src.replace(/GK DEFENSE starts Rock-Paper-Scissors\\./g,'GK DEFENSE starts a Goalkeeper Duel. Choose RPS or Left / Center / Right.');
-    src=src.replace(/still need a separate DEFENSE card to start RPS/g,'still need a separate DEFENSE card to start the chosen Goalkeeper Duel');
+    src=src.replace(/GK DEFENSE starts Rock-Paper-Scissors\\./g,'GK DEFENSE starts the Left / Center / Right duel.');
+    src=src.replace(/still need a separate DEFENSE card to start RPS/g,'still need a separate DEFENSE card for the Left / Center / Right duel');
   }
 `;
   loader=loader.replace(marker,inject+marker);
