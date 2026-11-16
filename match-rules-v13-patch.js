@@ -16,16 +16,16 @@ if(firstSec&&!$('#matchBeginnerStart')){
   <h2>START HERE — FIRST MATCH, EXACT ORDER</h2>
   <div class="matchNoDraw"><b>IMPORTANT: DO NOT DRAW CARDS DURING THE 10-MINUTE MAIN MATCH.</b><span>Match Mode is different from Strategy and Casual. Your role receives its full hand during setup. There is no normal “draw 1” at the start or end of a turn.</span></div>
   <div class="matchStartGrid">
-    <article><span class="n">1</span><b>MAKE TWO TEAMS</b><p>Split the human players into BLUE and GREEN teams as evenly as possible.</p></article>
-    <article><span class="n">2</span><b>CHOOSE THE SAME ROLE FORMATION</b><p>Both teams must use the same number of roles: <strong>2v2 = GK + D1</strong>, <strong>3v3 = GK + D1 + D2</strong>, or <strong>4v4 = GK + D1 + D2 + D3</strong>.</p></article>
-    <article><span class="n">3</span><b>ASSIGN HUMANS TO ROLES</b><p>One person may control more than one role when needed. Each role remains separate and keeps its own hand. Never combine the hands of two roles.</p></article>
+    <article><span class="n">1</span><b>MAKE TWO TEAMS</b><p>Choose 4 players for 2v2 or 6 players for 3v3, then split evenly into BLUE and GREEN.</p></article>
+    <article><span class="n">2</span><b>CHOOSE 2v2 OR 3v3</b><p>The only formations are <strong>2v2 = GK + D1 (4 players)</strong> and <strong>3v3 = GK + D1 + D2 (6 players)</strong>.</p></article>
+    <article><span class="n">3</span><b>ASSIGN HUMANS TO ROLES</b><p>Each person controls exactly one public role and keeps its own separate hand.</p></article>
     <article><span class="n">4</span><b>SHUFFLE THE 51 ACTION CARDS</b><p>SHOOT, DEFENSE, TACKLE, DRIBBLE PAST, and YELLOW make up the Action deck. Keep the Soccer Card separate; it represents possession.</p></article>
     <article><span class="n">5</span><b>SET ASIDE 3 ACTION CARDS FACE-DOWN</b><p>Do not look at them. These 3 cards are out of play during the main match, leaving exactly 48 Action Cards to deal.</p></article>
-    <article><span class="n">6</span><b>DEAL ALL 48 CARDS EQUALLY TO THE ROLES</b><p><strong>2v2:</strong> 12 per role. <strong>3v3:</strong> 8 per role. <strong>4v4:</strong> 6 per role. There is no Draw Pile during the main match.</p></article>
+    <article><span class="n">6</span><b>DEAL ALL 48 CARDS EQUALLY TO THE ROLES</b><p><strong>2v2:</strong> 12 per player. <strong>3v3:</strong> 8 per player. There is no Draw Pile during the main match.</p></article>
     <article><span class="n">7</span><b>TAKE OUT YOUR PHONE · SET 10:00</b><p>After the 48 Action Cards are dealt, open the timer on a phone, set it to <strong>10:00</strong>, and start it immediately. Any final setup and any legal 1-for-1 card exchanges between teammates happen <strong>inside those 10 minutes</strong>. Do not wait until trading is finished to start the timer.</p></article>
     <article><span class="n">8</span><b>RPS FOR OPENING POSSESSION</b><p>Use Rock–Paper–Scissors to decide which team starts. Repeat any tie. The winning team receives the Soccer Card.</p></article>
     <article><span class="n">9</span><b>THE SOCCER HOLDER MAKES THE FIRST MOVE</b><p>The player with the Soccer Card may <strong>PASS for free</strong> to a teammate or play <strong>SHOOT</strong> to attack. Do not draw a card first.</p></article>
-    <article><span class="n">10</span><b>FOLLOW THE DEFENSIVE LINES IN ORDER</b><p>2v2: D1 → GK. 3v3: D1 → D2 → GK. 4v4: D1 → D2 → D3 → GK. Fully resolve the current defensive line before moving to the next one.</p></article>
+    <article><span class="n">10</span><b>FOLLOW THE DEFENSIVE LINES IN ORDER</b><p>2v2: D1 → GK. 3v3: D1 → D2 → GK. Fully resolve the current defensive line before moving to the next one.</p></article>
   </div>
   <div class="matchFirstPlay"><b>FIRST 3v3 EXAMPLE</b><span>BLUE D1 has the Soccer Card → BLUE D1 may PASS to a teammate for free or play SHOOT → GREEN D1 responds → if that line is cleared, GREEN D2 responds → if that line is cleared, the attack reaches GREEN GK → no GK DEFENSE = automatic GOAL; GK plays DEFENSE = resolve one official Goalkeeper Duel.</span></div>
   <p class="ruling"><b>REMEMBER:</b> In Match Mode, played cards leave the hand and are not normally replaced. There is no normal drawing or recycling during the 10-minute main match.</p>`;
@@ -98,7 +98,6 @@ if(penalty){
   <div class="penaltyRounds">
     <div class="duel"><b>4 PLAYERS · 2v2</b><br>D1 → GK → D1 → GK → D1</div>
     <div class="duel"><b>6 PLAYERS · 3v3</b><br>D1 → D2 → GK → D1 → D2</div>
-    <div class="duel"><b>8 PLAYERS · 4v4</b><br>D1 → D2 → D3 → GK → D1</div>
   </div>
   <ol>
     <li>GREEN takes one kick, then BLUE takes its matching kick. Continue alternating for up to five kicks per team.</li>
@@ -122,17 +121,17 @@ if(gkAttack){
 const recommendedPanel=document.createElement('div');
 recommendedPanel.className='recommendedLineups';
 recommendedPanel.id='recommendedLineups';
-recommendedPanel.innerHTML='<strong>RECOMMENDED PLAYER COUNTS: 4 OR 6</strong><span><b>4 players (2v2)</b> for a quick, competitive team match · <b>6 players (3v3)</b> for extra teamwork and tactics. Other 2–8 player setups remain playable.</span>';
+recommendedPanel.innerHTML='<strong>MATCH MODE: 4 OR 6 PLAYERS ONLY</strong><span><b>4 players (2v2)</b> for a quick, competitive team match · <b>6 players (3v3)</b> for extra teamwork and tactics. No other team sizes are used in Match Mode.</span>';
 const quick=$('.quick');
 if(quick&&!$('#recommendedLineups'))quick.insertAdjacentElement('beforebegin',recommendedPanel);
 const playerCards=$$('#setup .controlGrid article');
 for(const card of playerCards){
   const label=$('b',card)?.textContent.trim();
-  if(label==='4 PLAYERS'||label==='6 PLAYERS'){
+  if(label?.includes('4 PLAYERS')||label?.includes('6 PLAYERS')){
     card.classList.add('isRecommended');
     const marker=document.createElement('div');
     marker.className='recommendTag';
-    marker.textContent='★ RECOMMENDED';
+    marker.textContent='✓ OFFICIAL FORMATION';
     card.appendChild(marker);
   }
 }
